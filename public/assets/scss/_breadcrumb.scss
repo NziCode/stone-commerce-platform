@@ -1,0 +1,39 @@
+/*----------------------------------------*/
+/*  17. Breadcrumb
+/*----------------------------------------*/
+.breadcrumb{
+    &-height{
+        min-height: 460px;
+        display: flex;
+        align-items: center;
+    }
+    &-sub-title {
+        font-family: $rajdhani;
+        font-size: 24px;
+        line-height: 30px;
+        display: block;
+        position: relative;
+        padding-left: 100px;
+        &:before{
+            background-color: $primary;
+            width: 80px;
+            height: 1px;
+            position: absolute;
+            content: "";
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+    }
+    &-title{
+        padding-top: 15px;
+        font-size: 88px;
+        line-height: 85px;
+        @include media-breakpoint-down(sm){
+            font-size: 50px;
+        }
+    }
+    &-desc{
+        max-width: 380px;
+    }
+}
