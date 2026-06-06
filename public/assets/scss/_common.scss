@@ -1,0 +1,991 @@
+/*----------------------------------------*/
+/*  01. Template default CSS
+/*----------------------------------------*/
+
+@mixin placeholder {
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+/*-- Google Font --*/
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Yantramanav:wght@300;400;500;700;900&display=swap');
+
+/*-- Common Style --*/
+html {
+	scroll-behavior: smooth;
+}
+html,
+body {
+    height: 100%;
+}
+body{
+    color: $secondary;
+}
+a{
+    color: $secondary;
+    text-decoration: none;
+    &:hover {
+        color: $primary;
+    }
+}
+a, 
+button, 
+.btn,
+img, 
+input {
+    transition: $baseTransition;
+}
+a,
+a:hover,
+a:focus,
+a:active,
+button,
+button:focus,
+.btn,
+.btn:focus,
+.btn.active,
+input,
+input:focus,
+select,
+textarea,
+.swiper-pagination-bullet,
+.swiper-slide,
+.append-button,
+.swiper-button-next,
+.swiper-button-prev{
+	text-decoration: none;
+    outline: 0;
+    box-shadow: none !important;
+}
+.btn:focus{
+    color: $white;
+}
+.project-button-next,
+.project-button-prev,
+.custom-button-next,
+.custom-button-prev,
+.accordion-button{
+    &:focus{
+        outline: 0;
+    }
+}
+h1, h2, h3, h4, h5, h6{
+    color: $secondary;
+}
+p{
+    font-size: 18px;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+img {
+	max-width: 100%;
+}
+.img-full {
+	width: 100%;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center center;
+}
+::selection{
+    background-color: $primary;
+    color: $white;
+}
+
+/* ---Custom Container--- */
+@include media-breakpoint-up(xxl){
+    .container{
+        max-width: 1200px;
+    }
+}
+
+/* ---Section Space--- */
+
+/* --Padding Top-- */
+.pt-140{
+    padding-top: 140px;
+    @include media-breakpoint-down(xl){
+        padding-top: 120px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 100px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 80px;
+    }
+}
+.pt-135{
+    padding-top: 135px;
+    @include media-breakpoint-down(xl){
+        padding-top: 115px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 95px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 75px;
+    }
+}
+.pt-130{
+    padding-top: 130px;
+    @include media-breakpoint-down(xl){
+        padding-top: 110px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 90px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 70px;
+    }
+}
+.pt-125{
+    padding-top: 125px;
+    @include media-breakpoint-down(xl){
+        padding-top: 105px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 85px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 65px;
+    }
+}
+.pt-120{
+    padding-top: 120px;
+    @include media-breakpoint-down(xl){
+        padding-top: 100px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 80px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 60px;
+    }
+}
+.pt-115{
+    padding-top: 115px;
+    @include media-breakpoint-down(xl){
+        padding-top: 95px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-top: 75px;
+    }
+    @include media-breakpoint-down(md){
+        padding-top: 55px;
+    }
+}
+/* --End Here-- */
+
+/* --Padding Bottom-- */
+.pb-140{
+    padding-bottom: 140px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 120px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 100px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 80px;
+    }
+}
+.pb-135{
+    padding-bottom: 135px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 115px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 95px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 75px;
+    }
+}
+.pb-130{
+    padding-bottom: 130px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 110px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 90px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 70px;
+    }
+}
+.pb-125{
+    padding-bottom: 125px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 105px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 85px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 65px;
+    }
+}
+.pb-120{
+    padding-bottom: 120px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 100px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 80px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 60px;
+    }
+}
+.pb-115{
+    padding-bottom: 115px;
+    @include media-breakpoint-down(xl){
+        padding-bottom: 95px;
+    }
+    @include media-breakpoint-down(lg){
+        padding-bottom: 75px;
+    }
+    @include media-breakpoint-down(md){
+        padding-bottom: 55px;
+    }
+}
+/* --End Here-- */
+
+/* --Padding Y Axis-- */
+.py-140{
+    padding: 140px 0;
+    @include media-breakpoint-down(xl){
+        padding: 120px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 100px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 80px 0;
+    }
+}
+.py-135{
+    padding: 135px 0;
+    @include media-breakpoint-down(xl){
+        padding: 115px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 95px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 75px 0;
+    }
+}
+.py-130{
+    padding: 130px 0;
+    @include media-breakpoint-down(xl){
+        padding: 110px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 90px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 70px 0;
+    }
+}
+.py-125{
+    padding: 125px 0;
+    @include media-breakpoint-down(xl){
+        padding: 105px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 85px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 65px 0;
+    }
+}
+.py-120{
+    padding: 120px 0;
+    @include media-breakpoint-down(xl){
+        padding: 100px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 80px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 60px 0;
+    }
+}
+.py-115{
+    padding: 115px 0;
+    @include media-breakpoint-down(xl){
+        padding: 95px 0;
+    }
+    @include media-breakpoint-down(lg){
+        padding: 75px 0;
+    }
+    @include media-breakpoint-down(md){
+        padding: 55px 0;
+    }
+}
+/* --End Here-- */
+
+/* --------------------------------------
+    Additional Space for specific section
+----------------------------------------- */
+/* ---Padding Top--- */
+.pt-100{
+    padding-top: 100px;
+}
+/* ---Padding Bottom--- */
+.pb-80{
+    padding-bottom: 80px;
+}
+.pb-70{
+    padding-bottom: 70px;
+}
+/* ---Padding Left--- */
+.pl{
+    &-xl{
+        &-80{
+            @include media-breakpoint-up(xl){
+                padding-left: 80px;
+            }
+        }
+    }
+}
+.pl-60{
+    padding-left: 60px;
+}
+.pl-90{
+    padding-left: 90px;
+}
+
+.pb-xs-0{
+    @media (max-width: 575px){
+        padding-bottom: 0 !important;
+    }
+}
+// End Here
+
+/* ---Data Background Image--- */
+[data-bg-image]:not(.bg-pattern) {
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+    background-color: $white;
+}
+
+/* ---Text Color--- */
+.text-white{
+    *{
+        color: $white;
+    }
+}
+.text-primary{
+    *{
+        color: $primary;
+    }
+}
+.text-secondary{
+    *{
+        color: $secondary;
+    }
+}
+.text-hawkes-blue{
+    *{
+        color: #cfe1ff;
+    }
+}
+
+/* ---Section Title--- */
+.section{
+    &-title-area{
+        @include media-breakpoint-up(lg){
+            display: flex;
+            justify-content: space-between;
+        }
+        &.style-01{
+            justify-content: center;
+        }
+    }
+    &-title-wrap{
+        @include media-breakpoint-up(lg){
+            display: flex;
+            align-items: center;
+        }
+        &.style{
+            &-02{
+                flex-direction: column;
+                justify-content: flex-end;
+                width: 100%;
+                @media (max-width: 479px){
+                    padding-top: 25px;
+                    text-align: center;
+                }
+                .section{
+                    &-title{
+                        transform: rotate(-90deg);
+                        @media (max-width: 479px){
+                            transform: rotate(0);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &-title{
+        position: relative;
+        &.with-border{
+            @include media-breakpoint-up(lg){
+                padding-right: 30px;
+                margin-right: 30px;
+                &:before{
+                    background-color: #d3d2d2;
+                    height: 100px;
+                    width: 1px;
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                }
+                &.border-with-bg{
+                    &:before{
+                        background-color: #9ba9be;
+                    }
+                }
+            }
+        }
+        span{
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            font-weight: 700;
+            color: $primary;
+            display: block;
+            font-size: 20px;
+        }
+        h2{
+            font-size: 60px;
+            line-height: 60px;
+            max-width: 425px;
+            @include media-breakpoint-down(sm){
+                font-size: 40px;
+                line-height: 40px;
+            }
+        }
+        &.different-width{
+            h2{
+                max-width: 280px;
+            }
+        }
+        &.different-width-2{
+            h2{
+                max-width: 360px;
+            }
+        }
+    }
+    &-desc{
+        font-family: $body-font;
+        max-width: 440px;
+        @include media-breakpoint-down(lg){
+            padding-top: 15px;
+        }
+    }
+    &-banner{
+        width: calc(100% - 480px);
+        @include media-breakpoint-down(lg){
+            width: 100%;
+        }
+        &[data-bg-image]{
+            background-position: right;
+        }
+        .info{
+            font-weight: 400;
+            font-size: 28px;
+            span{
+                margin-left: 5px;
+                color: $primary;
+                font-weight: 700;
+                font-size: 36px;
+                vertical-align: middle;
+                @include media-breakpoint-down(sm){
+                    font-size: 22px;
+                }
+            }
+        }
+    }
+}
+
+/* ---Custom Font Size--- */
+.font-size{
+    &-60{
+        font-size: 60px;
+        @media (max-width: 479px) {
+            font-size: 45px;
+        }
+    }
+    &-50{
+        font-size: 50px;
+        @include media-breakpoint-down(sm){
+            font-size: 40px;
+        }
+    }
+    &-20{
+        font-size: 20px;
+    }
+    &-25{
+        font-size: 25px;
+        line-height: 25px;
+    }
+    &-16{
+        font-size: 16px;
+    }
+}
+
+/* ---Social Link--- */
+.social-link{
+    display: flex;
+    li{
+        &:not(:last-child){
+            padding-right: 25px;
+        }
+    }
+}
+
+/* ---OxyBuild Button--- */
+.btn{
+    &-custom{
+        border-radius: 0;
+        width: 170px;
+        height: 60px;
+        line-height: 60px;
+        padding: 0;
+        font-size: 20px;
+        position: relative;
+        @media (max-width: 479px) {
+            width: 130px;
+            height: 40px;
+            line-height: 37px;
+            font-size: 18px;
+        }
+        &.md-size{
+            width: 125px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+    &-primary{
+        color: $white;
+    }
+    &-primary-hover{
+        &.btn:hover{
+            background-color: $primary;
+            border-color: $primary;
+            color: $white;
+        }
+    }
+    &-secondary-hover{
+        &.btn:hover{
+            background-color: $secondary;
+            border-color: $secondary;
+            color: $white;
+        }
+    }
+    &-project{
+        position: relative;
+        font-size: 25px;
+        color: $white;
+        padding: 50px;
+        z-index: 1;
+        @media (max-width: 479px) {
+            width: 100%;
+        }
+        &:before{
+            background-color: $primary;
+            opacity: 0.77;
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        span{
+            position: relative;
+            &:before{
+                background-color: $white;
+                width: 0;
+                height: 1px;
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                transition: $baseTransition;
+                opacity: 0;
+            }
+        }
+        &:hover{
+            color: $white;
+            span{
+                &:before{
+                    opacity: 1;
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &-link{
+        &.with-underline{
+            text-decoration: underline;
+        }
+    }
+    &-white-hover{
+        &.btn:hover {
+            background-color: $light;
+            border-color: $light;
+            color: $secondary;
+        }
+    }
+    &-dark-hover{
+        &.btn:hover{
+            background-color: $secondary;
+            border-color: $secondary;
+            color: $white;
+        }
+    }
+}
+/* ---Button Position--- */
+.button-position{
+    &-center{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* ---Pagination--- */
+.pagination{
+    &-custom{
+        li{
+            &:not(:last-child){
+                margin-right: 15px;
+            }
+            &:first-child,
+            &:last-child{
+                .page-link{
+                    background-color: #f7f4fb;
+                    border: 1px solid #f7f4fb;
+                    border-radius: 100%;
+                }
+            }
+            .page-link{
+                background-color: #f7f4fb;
+                border: 1px solid #f7f4fb;
+                color: inherit;
+                padding: 0;
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+                text-align: center;
+                border-radius: 100%;
+                &:focus{
+                    border-color: none;
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+            &:hover{
+                .page-link{
+                    background-color: $primary;
+                    border-color: $primary;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+/* ---Blockquote--- */
+blockquote{
+    border: 0;
+    border-left: 5px solid $primary;
+    background-color: #f1f2f3;
+    padding: 35px;
+    text-align: left;
+    p{
+        font-family: $rajdhani;
+        width: 635px;
+        font-size: 20px;
+        margin-right: auto;
+        @include media-breakpoint-down(md){
+            width: 100%;
+        }
+    }
+    .user-name{
+        position: relative;
+        font-size: 14px;
+        line-height: 14px;
+        font-weight: 500;
+        &:before{
+            border-top: 1px solid;
+            width: 30px;
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        &:after{
+            border-top: 1px solid;
+            width: 30px;
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+    }
+}
+
+/* ---Global Overlay--- */
+.global-overlay {
+	background-color: rgba(0,0,0,.5);
+	transition: $baseTransition;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 99;
+	visibility: hidden;
+	&.overlay-open {
+		visibility: visible;
+		cursor: pointer;
+	}
+}
+
+/* ---Range Slider--- */
+.price-filter {
+	.ui-widget-content {
+		background-color: $border-color;
+		border: none;
+		border-radius: 0;
+		box-shadow: none;
+		cursor: pointer;
+		height: 5px;
+		margin: 0 0 25px;
+		width: 100%;
+		border-top-left-radius: 25px;
+		border-top-right-radius: 25px;
+		border-bottom-left-radius: 25px;
+		border-bottom-right-radius: 25px;
+	}
+	.ui-slider-range {
+		background-color: $secondary;
+		border: none;
+		box-shadow: none;
+        height: 5px;
+        transition: $baseTransition;
+	}
+	.ui-slider-handle {
+		box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+		background: $white;
+		display: block;
+		outline: none;
+		width: 20px;
+		height: 20px;
+		line-height: 15px;
+		text-align: center;
+		top: 50%;
+		left: 0;
+		border-radius: 100%;
+		transform: translateY(-50%);
+		cursor: e-resize;
+		transition: $baseTransition;
+		&:last-child {
+			transform: translateY(-50%);
+		}
+		&:focus{
+			box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+			outline-color: $white;
+			border-color: $white;
+		}
+	}
+	.price-slider-amount {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.label-input {
+			label {
+				font-size: 14px;
+				margin: 0;
+				text-transform: capitalize;
+			}
+			input {
+				background: transparent none repeat scroll 0 0;
+				border: medium none;
+				box-shadow: none;
+				font-size: 14px;
+				height: inherit;
+				padding-left: 5px;
+				width: 99px;
+			}
+		}
+	}
+}
+
+/* ---Quantity--- */
+.quantity {
+	.cart-plus-minus {
+		position: relative;
+		width: 76px;
+		text-align: left;
+		.cart-plus-minus-box {
+			border: 1px solid $border-color;
+			height: 46px;
+			text-align: center;
+			width: 48px;
+            background: $secondary;
+            color: $white;
+		}
+		.qtybutton {
+			border-bottom: 1px solid $border-color;
+			border-right: 1px solid $border-color;
+            border-top: 1px solid $border-color;
+            background-color: $primary;
+            color: $white;
+			cursor: pointer;
+			position: absolute;
+			text-align: center;
+			transition: $baseTransition;
+			width: 28px;
+			height: 23px;
+			line-height: 28px;
+			font-size: 10px;
+			&.dec {
+				bottom: 0;
+				right: 0;
+			}
+			&.inc {
+				border-bottom: none;
+				top: 0;
+				right: 0;
+			}
+		}
+	}
+}
+
+/* ---Skudmart Custom Input Checkbox--- */
+input[type="checkbox"] {
+	display: none;
+}
+input[type="checkbox"] + label {
+	position: relative;
+	padding-left: 30px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: 400;
+	margin: 0;
+	&:before {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 20px;
+		height: 20px;
+		display: block;
+		border: 2px solid $border-color;
+		content: "";
+		transition: $baseTransition;
+	}
+	&:after {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+		content: "\f122";
+		font-family: "Ionicons";
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 20px;
+		opacity: 0;
+		width: 20px;
+		text-align: center;
+		transition: $baseTransition;
+		color: #13aff0;
+	}
+}
+input[type="checkbox"]:checked + label {
+	&:before {
+		border: 2px solid $border-color;
+	}
+	&:after {
+		opacity: 1;
+	}
+}
+/* -End Here- */
+
+/* ---Price Box--- */
+.price-box{
+    span{
+        font-size: 20px;
+        &.old-price{
+            margin-left: 5px;
+            color: #8d8f92;
+            text-decoration: line-through;
+        }
+    }
+}
+
+/* ---Rating Box--- */
+.rating-box{
+    ul{
+        display: flex;
+        li{
+            &:not(:last-child){
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+/*-- Scroll To Top --*/
+.scroll-to-top{
+    background-color: $secondary;
+    color: $white;
+    position: fixed;
+    right: 50px;
+    bottom: 90px;
+    z-index: 999;
+    overflow: hidden;
+    display: block;
+	text-align: center;
+	opacity: 0;
+	visibility: hidden;
+	animation:  fadeOutDown 1s normal;
+    @include transition(all 300ms ease);
+    &:hover{
+        background-color: $primary;
+    }
+	&.show{
+		opacity: 1;
+		visibility: visible;
+		animation: fadeInUp 1s normal;
+	}
+	i{
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+		transition: $baseTransition;
+		color: $white;
+		display: inline-block;
+	}
+}

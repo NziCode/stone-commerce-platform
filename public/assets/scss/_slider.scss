@@ -1,0 +1,84 @@
+/*----------------------------------------*/
+/*  03. Slider
+/*----------------------------------------*/
+/* ---Main Slider--- */
+.slide {
+    &-inner {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &.bg-height {
+            min-height: 785px;
+            @include media-breakpoint-down(xxl) {
+                min-height: 610px;
+            }
+        }
+        &.style-02 {
+            .slide {
+                &-content {
+                    text-align: left;
+                    .heading {
+                        font-size: 70px;
+                        line-height: 1;
+                        span {
+                            color: $primary;
+                        }
+                    }
+                    .short-desc {
+                        font-size: 22px;
+                    }
+                }
+            }
+        }
+    }
+    &-content {
+        .sub-title {
+            font-family: $rajdhani;
+            font-size: 24px;
+            line-height: 30px;
+            display: block;
+            color: $primary;
+            position: relative;
+            padding-left: 100px;
+            &:before {
+                background-color: $primary;
+                width: 80px;
+                height: 1px;
+                position: absolute;
+                content: '';
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+        .title {
+            font-size: 88px;
+            line-height: 85px;
+            font-weight: 700;
+            max-width: 57%;
+            @include media-breakpoint-down(xxl) {
+                max-width: 85%;
+            }
+            @include media-breakpoint-down(md) {
+                font-size: 50px;
+                line-height: 1;
+            }
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
+            span {
+                color: $primary;
+            }
+        }
+        .short-desc-2 {
+            max-width: 520px;
+            @include media-breakpoint-down(sm) {
+                max-width: 100%;
+            }
+        }
+        .btn {
+            font-family: $rajdhani;
+            font-weight: 600;
+        }
+    }
+}
