@@ -13,17 +13,18 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
         $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\HandleRedirects::class,
             \App\Http\Middleware\TrackVisitor::class,
         ]);
 
         $middleware->alias([
-            'active'           => \App\Http\Middleware\RedirectIfNotActive::class,
-            'set.locale'       => \App\Http\Middleware\SetLocale::class,
-            'localize'         => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+            'active'                => \App\Http\Middleware\RedirectIfNotActive::class,
+            'set.locale'            => \App\Http\Middleware\SetLocale::class,
+            'localize'              => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
             'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
-            'localeViewPath'   => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-            'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+            'localeViewPath'        => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+            'localizationRedirect'  => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

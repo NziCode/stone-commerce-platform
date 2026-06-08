@@ -58,7 +58,7 @@
                                 @if(\App\Models\Setting::get('site_logo'))
                                     <img src="{{ asset(\App\Models\Setting::get('site_logo')) }}" alt="{{ $siteName }}">
                                 @else
-                                    <img src="{{ asset('assets/images/logo/white.png') }}" alt="{{ $siteName }}">
+                                    <img src="{{ asset('assets/images/logo/white.svg') }}" alt="{{ $siteName }}">
                                 @endif
                             </a>
                         </div>

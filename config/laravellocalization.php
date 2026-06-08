@@ -39,8 +39,8 @@ return [
         ],
     ],
 
-    'useAcceptLanguageHeader'    => true,
-    'hideDefaultLocaleInURL'     => true,  // fa در URL نشون داده نمیشه
+    'useAcceptLanguageHeader'    => false,
+    'hideDefaultLocaleInURL'     => false,  // fa در URL نشون داده نمیشه
     'defaultLocale'              => 'fa',
     'localesOrder'               => [],
     'localesMapping'             => [],

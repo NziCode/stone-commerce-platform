@@ -16,10 +16,10 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\SearchController;
+use App\Models\Language;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
 
 // ── Sitemap و Robots ────────────────────────────────────────
 Route::get('/sitemap.xml', function () {
@@ -39,11 +39,46 @@ Route::get('/robots.txt', function () {
     return response($content, 200)->header('Content-Type', 'text/plain');
 })->name('robots');
 
+// ── تغییر زبان — خارج از localization group ─────────────────
+Route::get('/set-locale/{locale}', function ($locale) {
+    try {
+        $validLocales = Language::allActive()->pluck('code')->toArray();
+    } catch (\Exception $e) {
+        $validLocales = ['fa', 'en', 'hi', 'it', 'ar'];
+    }
+
+    if (in_array($locale, $validLocales)) {
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+    }
+
+    // ساخت URL صحیح با locale جدید
+    $previousUrl = url()->previous();
+    $baseUrl = url('/');
+    $path = str_replace($baseUrl, '', $previousUrl);
+
+    // حذف locale قبلی از path
+    foreach ($validLocales as $l) {
+        $path = preg_replace('#^/' . $l . '(/|$)#', '/', $path);
+    }
+
+    $path = '/' . ltrim($path, '/');
+
+    if ($locale === 'fa') {
+        return redirect($baseUrl . $path);
+    }
+
+    return redirect($baseUrl . '/' . $locale . $path);
+})->name('set.locale');
+
 // ── Localization Group ──────────────────────────────────────
 Route::group([
     'prefix'     => LaravelLocalization::setLocale(),
     'middleware' => ['localize', 'localeSessionRedirect', 'localeViewPath'],
 ], function () {
+
+    // ── Auth ────────────────────────────────────────────────
+    require __DIR__ . '/auth.php';
 
     // ── صفحه اصلی ──────────────────────────────────────────
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -92,26 +127,20 @@ Route::group([
         Route::post('/coupon', [CartController::class, 'applyCoupon'])->name('coupon');
     });
 
-    // ── Auth (Breeze) ───────────────────────────────────────
-    require __DIR__ . '/auth.php';
-
     // ── نیاز به لاگین ──────────────────────────────────────
     Route::middleware(['auth'])->group(function () {
 
-        // تسویه حساب
         Route::prefix('checkout')->name('checkout.')->group(function () {
             Route::get('/', [CheckoutController::class, 'index'])->name('index');
             Route::post('/', [CheckoutController::class, 'store'])->name('store');
         });
 
-        // سفارشات
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/', [OrderController::class, 'index'])->name('index');
             Route::get('/{order}', [OrderController::class, 'show'])->name('show');
             Route::post('/{order}/cancel', [OrderController::class, 'cancel'])->name('cancel');
         });
 
-        // پرداخت
         Route::prefix('payment')->name('payment.')->group(function () {
             Route::get('/{order}', [PaymentController::class, 'index'])->name('index');
             Route::post('/{order}/online', [PaymentController::class, 'payOnline'])->name('online');
@@ -119,16 +148,13 @@ Route::group([
             Route::get('/callback/{gateway}', [PaymentController::class, 'callback'])->name('callback');
         });
 
-        // علاقه‌مندی‌ها
         Route::prefix('wishlist')->name('wishlist.')->group(function () {
             Route::get('/', [WishlistController::class, 'index'])->name('index');
             Route::post('/toggle/{product}', [WishlistController::class, 'toggle'])->name('toggle');
         });
 
-        // نظرات
         Route::post('/reviews/{product}', [ReviewController::class, 'store'])->name('reviews.store');
 
-        // پروفایل
         Route::prefix('profile')->name('profile.')->group(function () {
             Route::get('/', [ProfileController::class, 'index'])->name('index');
             Route::put('/', [ProfileController::class, 'update'])->name('update');
