@@ -2,30 +2,29 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Language;
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
+use App\Models\Language;
 
 class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
-        $locale = Session::get('locale');
+        $segment = $request->segment(1);
 
-        if (!$locale) {
-            $locale = Language::getDefault()?->code ?? 'fa';
+        try {
+            $validLocales = Language::allActive()->pluck('code')->toArray();
+        } catch (\Exception $e) {
+            $validLocales = ['fa', 'en', 'hi', 'it', 'ar'];
         }
 
-        // چک کن زبان فعال باشه
-        $validLocale = Language::allActive()->firstWhere('code', $locale);
-        if (!$validLocale) {
-            $locale = Language::getDefault()?->code ?? 'fa';
+        if (in_array($segment, $validLocales)) {
+            app()->setLocale($segment);
+            session(['locale' => $segment]);
+        } else {
+            $locale = session('locale', 'fa');
+            app()->setLocale($locale);
         }
-
-        App::setLocale($locale);
-        Session::put('locale', $locale);
 
         return $next($request);
     }

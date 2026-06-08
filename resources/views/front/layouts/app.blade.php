@@ -13,41 +13,28 @@
     <title>@yield('title', \App\Models\Setting::get('site_name', config('app.name')))</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}" />
-
-    {{-- Vendor CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/ionicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}" />
-
-    {{-- Plugin CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery-ui.min.css') }}">
 
     @stack('styles')
 
-    {{-- Style CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
-    {{-- Vazirmatn Font برای فارسی --}}
     @if(in_array(app()->getLocale(), ['fa', 'ar']))
-        <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <style>
-            body, * { font-family: 'Vazirmatn', sans-serif !important; }
-            .main-header_area, .footer-area, .blog-content, .service-item,
-            .project-content, .counter-item, .team-content, .testimonial-content {
-                direction: rtl;
-                text-align: right;
-            }
-        </style>
+        <link rel="stylesheet" href="{{ asset('assets/css/rtl.css') }}">
+    @else
+        <link rel="stylesheet" href="{{ asset('assets/css/ltr.css') }}">
     @endif
+
+    @stack('head_scripts')
 </head>
 
 <body>
 <div class="main-wrapper">
 
-    {{-- Header --}}
     @include('front.layouts.header')
 
-    {{-- Flash Messages --}}
     @if(session('success') || session('error') || session('info'))
         <div class="container pt-3">
             @if(session('success'))
@@ -71,34 +58,27 @@
         </div>
     @endif
 
-    {{-- Main Content --}}
     @yield('content')
 
-    {{-- Footer --}}
     @include('front.layouts.footer')
 
-    {{-- Scroll To Top --}}
     <a class="scroll-to-top" href="#">
         <i class="ion-android-arrow-up"></i>
     </a>
 
 </div>
 
-{{-- Vendor JS --}}
 <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery.waypoints.js') }}"></script>
-
-{{-- Plugins JS --}}
 <script src="{{ asset('assets/js/plugins/wow.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/tippy.min.js') }}"></script>
 
 @stack('scripts')
 
-{{-- Main JS --}}
 <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 </html>

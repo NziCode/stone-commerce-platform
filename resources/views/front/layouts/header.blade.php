@@ -7,6 +7,8 @@
     $siteLogo = \App\Models\Setting::get('site_logo');
     $sitePhone = \App\Models\Setting::get('site_phone');
     $siteWorkingHours = \App\Models\Setting::get('site_working_hours');
+    $languages = \App\Models\Language::allActive();
+    $isRtl = in_array(app()->getLocale(), ['fa', 'ar']);
 @endphp
 
 <header class="main-header_area position-relative">
@@ -14,49 +16,59 @@
     {{-- Header Top --}}
     <div class="header-top py-6 py-lg-3" data-bg-color="#ff5e13">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="offset-xl-2 offset-lg-3 col-xl-4 col-lg-5 d-none d-lg-block">
-                    <div class="header-top-left ml-8">
+            <div class="row align-items-center {{ $isRtl ? 'flex-row-reverse' : '' }}">
+
+                {{-- اطلاعات تماس --}}
+                <div class="{{ $isRtl ? 'offset-xl-2 col-xl-4 col-lg-5' : 'offset-xl-2 offset-lg-3 col-xl-4 col-lg-5' }} d-none d-lg-block">
+                    <div class="header-top-left ml-8 {{ $isRtl ? 'flex-row-reverse' : ''}}">
                         @if($sitePhone)
                             <div class="contact-number">
-                                <img src="{{ asset('assets/images/header/icon/phone.png') }}" alt="Phone Icon">
+                                <img src="{{ asset('assets/images/header/icon/phone.png') }}" alt="Phone">
                                 <a href="tel:{{ $sitePhone }}">{{ $sitePhone }}</a>
+                            </div>
+                        @else
+                            <div class="contact-number">
+                                <img src="{{ asset('assets/images/header/icon/phone.png') }}" alt="Phone">
+                                <a href="tel:02433467247">02433467247</a>
                             </div>
                         @endif
                         @if($siteWorkingHours)
                             <div class="time-schedule">
-                                <img src="{{ asset('assets/images/header/icon/clock.png') }}" alt="Clock Icon">
+                                <img src="{{ asset('assets/images/header/icon/clock.png') }}" alt="Clock">
                                 <span>{{ $siteWorkingHours }}</span>
+                            </div>
+                        @else
+                            <div class="time-schedule">
+                                <img src="{{ asset('assets/images/header/icon/clock.png') }}" alt="Clock">
+                                <span>9.00 am - 11.00 pm</span>
                             </div>
                         @endif
                     </div>
                 </div>
 
+                {{-- موبایل لوگو --}}
                 <div class="col-sm-6 d-block d-lg-none">
                     <div class="header-logo d-flex">
                         <a href="{{ route('home') }}">
                             @if($siteLogo)
-                                <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}">
+                                <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}" style="max-height:45px">
                             @else
-                                <img class="d-block d-lg-none" src="{{ asset('assets/images/logo/light.png') }}" alt="{{ $siteName }}">
+                                <img src="{{ asset('assets/images/logo/light.svg') }}" alt="{{ $siteName }}" style="max-height:45px">
                             @endif
                         </a>
                     </div>
                 </div>
 
+                {{-- سمت راست هدر --}}
                 <div class="col-xl-6 col-lg-4 col-sm-6">
                     <div class="header-top-right">
-                        <ul class="hassub-item">
+                        <ul class="hassub-item"
+                            style="display:flex;align-items:center;justify-content:flex-end;
+                                   list-style:none;margin:0;padding:0;gap:20px;direction:{{ $isRtl ? 'rtl' : 'ltr' }}"">
 
-                            {{-- Auth --}}
                             @auth
                                 <li class="login-info">
-                                    <a href="{{ route('profile.index') }}">
-                                        {{ auth()->user()->name }}
-                                        @if(auth()->user()->isAdmin())
-                                            <span>/ Admin</span>
-                                        @endif
-                                    </a>
+                                    <a href="{{ route('profile.index') }}">{{ auth()->user()->name }}</a>
                                 </li>
                             @else
                                 <li class="login-info">
@@ -66,52 +78,44 @@
                                 </li>
                             @endauth
 
-                            {{-- Cart --}}
                             <li class="minicart-wrap">
                                 <a href="#miniCart" class="minicart-btn toolbar-btn">
                                     <div class="minicart-count">
-                                        <img src="{{ asset('assets/images/header/icon/cart.png') }}" alt="Cart Icon">
+                                        <img src="{{ asset('assets/images/header/icon/cart.png') }}" alt="Cart">
                                         <span class="quantity">{{ $cartCount }}</span>
                                     </div>
                                 </a>
                             </li>
 
-                            {{-- Language Switcher --}}
-                            <li class="search-wrap hassub">
-                                <a href="#" class="search-btn">
-                                    <i class="fa fa-globe"></i>
+                            <li style="position:relative;list-style:none;padding-left: 0px !important;">
+                                <a href="#"
+                                   id="langBtn"
+                                   onclick="toggleLangDropdown(event)"
+                                   style="color:white;font-size:14px;font-weight:600;cursor:pointer;
+                                          text-decoration:none;display:flex;align-items:center;gap:5px;
+                                          font-family:Arial,sans-serif">
+                                    <i class="fa fa-globe" style="font-size:15px"></i>
+                                    <span style="font-family:Arial,sans-serif">{{ strtoupper(app()->getLocale()) }}</span>
+                                    <i class="fa fa-caret-down" style="font-size:11px"></i>
                                 </a>
-                                <ul class="hassub-body search-body" style="min-width:120px">
-                                    @foreach(\App\Models\Language::allActive() as $lang)
-                                        <li>
-                                            <a href="{{ LaravelLocalization::getLocalizedURL($lang->code) }}"
-                                               class="{{ app()->getLocale() === $lang->code ? 'text-primary fw-bold' : '' }}">
-                                                {{ $lang->flag }} {{ $lang->native_name }}
+                                <ul id="langDropdown"
+                                    style="display:none;position:absolute;top:38px;right:0;
+                                           min-width:200px;padding:6px 0;z-index:999999;
+                                           list-style:none;margin:0;border-radius:8px;
+                                           background:white;box-shadow:0 8px 25px rgba(0,0,0,0.15);
+                                           border:1px solid #eee">
+                                    @foreach($languages as $lang)
+                                        <li style="padding:0;margin:0">
+                                            <a href="{{ route('set.locale', $lang->code) }}"
+                                               class="{{ app()->getLocale() === $lang->code ? 'active-lang' : '' }}">
+                                                <span style="font-size:18px;line-height:1;flex-shrink:0">{{ $lang->flag }}</span>
+                                                <span>{{ $lang->name }}</span>
+                                                @if(app()->getLocale() === $lang->code)
+                                                    <i class="fa fa-check" style="margin-right:auto;font-size:11px;color:#ff5e13"></i>
+                                                @endif
                                             </a>
                                         </li>
                                     @endforeach
-                                </ul>
-                            </li>
-
-                            {{-- Search Mobile --}}
-                            <li class="search-wrap hassub d-block d-lg-none">
-                                <a href="#" class="search-btn">
-                                    <i class="fa fa-search"></i>
-                                </a>
-                                <ul class="hassub-body search-body">
-                                    <li>
-                                        <form class="search-form" action="{{ route('search') }}" method="GET">
-                                            <div class="form-field">
-                                                <input class="input-field" type="search" name="q"
-                                                       placeholder="{{ __('messages.search') }}">
-                                            </div>
-                                            <div class="form-btn_wrap">
-                                                <button type="submit" class="btn btn-secondary btn-primary-hover rounded-0">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </li>
                                 </ul>
                             </li>
 
@@ -120,6 +124,7 @@
                                     <i class="fa fa-navicon"></i>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -133,7 +138,7 @@
             <div class="main-header_nav">
                 <div class="row align-items-center">
                     <div class="offset-xl-2 col-xl-10 d-none d-lg-block">
-                        <div class="main-menu text-center">
+                        <div class="main-menu">
                             <nav class="main-nav">
                                 <ul>
                                     @if($menu)
@@ -157,7 +162,6 @@
                                         @endforeach
                                     @endif
 
-                                    {{-- Search Desktop --}}
                                     <li class="hassub-item-wrap d-none d-lg-inline-flex">
                                         <ul class="hassub-item">
                                             <li class="search-wrap hassub">
@@ -195,9 +199,9 @@
                 <div class="header-fixed-logo">
                     <a href="{{ route('home') }}">
                         @if($siteLogo)
-                            <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}">
+                            <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}" style="max-height:55px">
                         @else
-                            <img src="{{ asset('assets/images/logo/dark.png') }}" alt="{{ $siteName }}">
+                            <img src="{{ asset('assets/images/logo/dark.svg') }}" alt="{{ $siteName }}" style="max-height:55px">
                         @endif
                     </a>
                 </div>
@@ -240,6 +244,23 @@
                                     </li>
                                 @endforeach
                             @endif
+
+                            <li class="menu-item-has-children">
+                                <a href="#">
+                                    <span class="mm-text">Language / زبان <i class="ion-ios-arrow-down"></i></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    @foreach($languages as $lang)
+                                        <li>
+                                            <a href="{{ route('set.locale', $lang->code) }}">
+                                                <span class="mm-text" style="font-family:Arial,sans-serif">
+                                                    {{ $lang->flag }} {{ $lang->name }}
+                                                </span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
 
                             @auth
                                 <li>
@@ -308,10 +329,13 @@
                                              alt="{{ $item->product->getTranslation('name', app()->getLocale()) }}">
                                     </div>
                                     <div class="product-item_content">
-                                        <a class="product-item_title" href="{{ route('products.show', $item->product->getTranslation('slug', app()->getLocale())) }}">
+                                        <a class="product-item_title"
+                                           href="{{ route('products.show', $item->product->getTranslation('slug', app()->getLocale())) }}">
                                             {{ $item->product->getTranslation('name', app()->getLocale()) }}
                                         </a>
-                                        <span class="product-item_quantity">{{ number_format($item->price) }} {{ $item->currency }}</span>
+                                        <span class="product-item_quantity">
+                                            {{ number_format($item->price) }} {{ $item->currency }}
+                                        </span>
                                     </div>
                                 </li>
                             @endforeach
@@ -342,3 +366,20 @@
 
     <div class="global-overlay"></div>
 </header>
+
+<script>
+    function toggleLangDropdown(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var dropdown = document.getElementById('langDropdown');
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', function(e) {
+        var dropdown = document.getElementById('langDropdown');
+        var btn = document.getElementById('langBtn');
+        if (dropdown && btn && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
+</script>

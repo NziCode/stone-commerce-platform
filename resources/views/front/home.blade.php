@@ -9,60 +9,90 @@
 @section('content')
 
     {{-- ═══ Slider ═══ --}}
-    @if($sliders->count())
-        <div class="slider-area">
-            <div class="swiper-container main-slider swiper-arrow with-bg_white">
-                <div class="swiper-wrapper">
-                    @foreach($sliders as $slide)
-                        <div class="swiper-slide animation-style-01">
-                            <div class="slide-inner bg-height"
-                                 @if($slide->type === 'image' && $slide->getFirstMediaUrl('image'))
-                                     data-bg-image="{{ $slide->getFirstMediaUrl('image', 'optimized') }}"
-                                 @elseif($slide->image)
-                                     data-bg-image="{{ asset($slide->image) }}"
-                                 @else
-                                     data-bg-image="{{ asset('assets/images/slider/bg/1-1.jpg') }}"
-                                @endif
-                            >
-                                @if($slide->type === 'video' && $slide->getFirstMediaUrl('video'))
-                                    <video class="w-100 h-100" style="object-fit:cover;position:absolute;top:0;left:0;"
-                                           autoplay muted loop playsinline>
-                                        <source src="{{ $slide->getFirstMediaUrl('video') }}" type="video/mp4">
-                                    </video>
-                                @endif
-                                <div class="container">
-                                    <div class="slide-content {{ in_array(app()->getLocale(), ['fa','ar']) ? '' : 'text-white' }}">
-                                        @if($slide->getTranslation('subtitle', app()->getLocale()))
-                                            <span class="sub-title mb-1">
+    <div class="slider-area">
+        <div class="swiper-container main-slider swiper-arrow with-bg_white">
+            <div class="swiper-wrapper">
+                @forelse($sliders as $slide)
+                    <div class="swiper-slide animation-style-01">
+                        <div class="slide-inner bg-height"
+                             data-bg-image="{{ $slide->getFirstMediaUrl('image') ?: asset('assets/images/slider/bg/1-1.jpg') }}">
+                            <div class="container">
+                                <div class="slide-content">
+                                    @if($slide->getTranslation('subtitle', app()->getLocale()))
+                                        <span class="sub-title mb-1">
                                         {{ $slide->getTranslation('subtitle', app()->getLocale()) }}
                                     </span>
-                                        @endif
-                                        @if($slide->getTranslation('title', app()->getLocale()))
-                                            <h2 class="title mb-3">
-                                                {!! $slide->getTranslation('title', app()->getLocale()) !!}
-                                            </h2>
-                                        @endif
-                                        @if($slide->button_link && $slide->getTranslation('button_text', app()->getLocale()))
-                                            <div class="button-wrap">
-                                                <a class="btn btn-custom btn-primary btn-white-hover"
-                                                   href="{{ $slide->button_link }}"
-                                                   target="{{ $slide->button_target }}">
-                                                    {{ $slide->getTranslation('button_text', app()->getLocale()) }}
-                                                </a>
-                                            </div>
-                                        @endif
+                                    @endif
+                                    @if($slide->getTranslation('title', app()->getLocale()))
+                                        <h2 class="title mb-3">
+                                            {!! $slide->getTranslation('title', app()->getLocale()) !!}
+                                        </h2>
+                                    @endif
+                                    @if($slide->button_link && $slide->getTranslation('button_text', app()->getLocale()))
+                                        <div class="button-wrap">
+                                            <a class="btn btn-custom btn-secondary btn-white-hover me-3"
+                                               href="{{ $slide->button_link }}">
+                                                {{ $slide->getTranslation('button_text', app()->getLocale()) }}
+                                            </a>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    {{-- اسلاید پیش‌فرض تا زمانی که اسلاید اضافه بشه --}}
+                    <div class="swiper-slide animation-style-01">
+                        <div class="slide-inner bg-height"
+                             data-bg-image="{{ asset('assets/images/slider/bg/1-1.jpg') }}">
+                            <div class="container">
+                                <div class="slide-content">
+                                    <span class="sub-title mb-1">سنگ‌های طبیعی ایران</span>
+                                    <h2 class="title mb-3">
+                                        بهترین سنگ‌های <br> <span>معدنی ایران</span>
+                                    </h2>
+                                    <p class="short-desc-2 font-size-20 mb-7">
+                                        تراورتن، مرمریت، گرانیت و سنگ‌های طبیعی با کیفیت برتر
+                                    </p>
+                                    <div class="button-wrap">
+                                        <a class="btn btn-custom btn-secondary btn-white-hover me-3"
+                                           href="{{ route('products.index') }}">مشاهده محصولات</a>
+                                        <a class="btn btn-custom btn-primary btn-white-hover"
+                                           href="{{ route('contact') }}">تماس با ما</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                </div>
-                <div class="swiper-pagination with-bg d-md-none"></div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                    </div>
+                    <div class="swiper-slide animation-style-01">
+                        <div class="slide-inner bg-height"
+                             data-bg-image="{{ asset('assets/images/slider/bg/1-2.jpg') }}">
+                            <div class="container">
+                                <div class="slide-content text-white">
+                                    <span class="sub-title mb-1">صادرات به سراسر جهان</span>
+                                    <h2 class="title mb-3">
+                                        صادرات سنگ <br> به <span>۵ قاره دنیا</span>
+                                    </h2>
+                                    <p class="short-desc-2 font-size-20 mb-7">
+                                        با تجربه بیش از ۲۵ سال در صادرات سنگ‌های طبیعی ایران
+                                    </p>
+                                    <div class="button-wrap">
+                                        <a class="btn btn-custom btn-secondary btn-white-hover me-3"
+                                           href="{{ route('products.index') }}">مشاهده محصولات</a>
+                                        <a class="btn btn-custom btn-primary btn-white-hover"
+                                           href="{{ route('contact') }}">تماس با ما</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
+            <div class="swiper-pagination with-bg d-md-none"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
-    @endif
+    </div>
 
     {{-- ═══ Banner (دسته‌بندی‌های اصلی) ═══ --}}
     @if($rootCategories->count())

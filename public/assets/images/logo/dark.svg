@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" width="220" height="60">
+  <defs>
+    <style>
+      .logo-en { font-family: Georgia, 'Times New Roman', serif; font-weight: 900; }
+      .logo-trading { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+      .logo-group { font-family: Arial, sans-serif; font-weight: 400; letter-spacing: 4px; }
+    </style>
+  </defs>
+  <!-- Circle Icon -->
+  <circle cx="28" cy="30" r="24" fill="none" stroke="#00225a" stroke-width="2.5"/>
+  <text x="28" y="37" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="900" fill="#00225a">EN</text>
+  <!-- Brand Name -->
+  <text x="62" y="36" class="logo-en" font-size="28" fill="#00225a">EN</text>
+  <text x="97" y="36" class="logo-trading" font-size="28" fill="#c8832a">Trading</text>
+  <text x="62" y="52" class="logo-group" font-size="9" fill="#666">GROUP</text>
+</svg>
