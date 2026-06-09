@@ -432,6 +432,69 @@ class SettingSeeder extends Seeder
                 'type'      => 'string',
                 'is_public' => false,
             ],
+
+            // بنر صفحه اصلی
+            [
+                'group' => 'home',
+                'key' => 'banner_1_title',
+                'value' => json_encode(['fa' => 'صادرات جهانی',    'en' => 'Global Export',     'ar' => 'تصدير عالمي',    'hi' => 'वैश्विक निर्यात', 'it' => 'Export Globale'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'banner_1_desc',
+                'value' => json_encode(['fa' => 'صادرات سنگ‌های طبیعی ایران به بیش از ۵۰ کشور جهان', 'en' => 'Exporting Iran natural stones to over 50 countries', 'ar' => 'تصدير الأحجار الطبيعية الإيرانية إلى أكثر من 50 دولة', 'hi' => 'ईरान के प्राकृतिक पत्थर 50 से अधिक देशों में निर्यात', 'it' => 'Esportazione di pietre naturali iraniane in oltre 50 paesi'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'banner_2_title',
+                'value' => json_encode(['fa' => 'کیفیت برتر',      'en' => 'Premium Quality',   'ar' => 'جودة متميزة',    'hi' => 'प्रीमियम गुणवत्ता', 'it' => 'Qualità Premium'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'banner_2_desc',
+                'value' => json_encode(['fa' => 'سنگ‌های طبیعی با بالاترین استاندارد کیفی از معادن ایران', 'en' => 'Natural stones with highest quality standards from Iranian mines', 'ar' => 'أحجار طبيعية بأعلى معايير الجودة من مناجم إيران', 'hi' => 'ईरान की खदानों से उच्चतम गुणवत्ता मानकों वाले प्राकृतिक पत्थर', 'it' => 'Pietre naturali con i più alti standard di qualità dalle miniere iraniane'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'banner_3_title',
+                'value' => json_encode(['fa' => 'تنوع محصول',      'en' => 'Product Variety',   'ar' => 'تنوع المنتجات',  'hi' => 'उत्पाद विविधता', 'it' => 'Varietà di Prodotti'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'banner_3_desc',
+                'value' => json_encode(['fa' => 'تراورتن، مرمریت، گرانیت و انواع سنگ‌های طبیعی ایران', 'en' => 'Travertine, Marble, Granite and all types of Iranian natural stones', 'ar' => 'تراڤرتين، رخام، جرانيت وجميع أنواع الأحجار الطبيعية الإيرانية', 'hi' => 'ट्रैवर्टाइन, मार्बल, ग्रेनाइट और सभी प्रकार के ईरानी प्राकृतिक पत्थर', 'it' => 'Travertino, Marmo, Granito e tutti i tipi di pietre naturali iraniane'])
+            ],
+            // بخش درباره ما
+            [
+                'group' => 'home',
+                'key' => 'about_years',
+                'value' => '25'
+            ],
+            [
+                'group' => 'home',
+                'key' => 'about_title',
+                'value' => json_encode(['fa' => 'بهترین سنگ‌های طبیعی ایران را از ما بخواهید', 'en' => 'Get the Best Natural Stones of Iran from Us', 'ar' => 'احصل على أفضل الأحجار الطبيعية الإيرانية منا', 'hi' => 'हमसे ईरान के सर्वश्रेष्ठ प्राकृतिक पत्थर प्राप्त करें', 'it' => 'Ottieni le Migliori Pietre Naturali dell\'Iran da Noi'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'about_desc',
+                'value' => json_encode(['fa' => 'گروه EN Trading با بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران، از جمله تراورتن، مرمریت و گرانیت، یکی از معتبرترین تأمین‌کنندگان سنگ در منطقه است.', 'en' => 'EN Trading Group, with over 25 years of experience in extracting, processing and exporting Iranian natural stones including travertine, marble and granite, is one of the most reputable stone suppliers in the region.', 'ar' => 'مجموعة EN Trading، بخبرة تزيد عن 25 عامًا في استخراج ومعالجة وتصدير الأحجار الطبيعية الإيرانية بما في ذلك التراڤرتين والرخام والجرانيت.', 'hi' => 'EN Trading Group, 25 से अधिक वर्षों के अनुभव के साथ ईरानी प्राकृतिक पत्थरों के निष्कर्षण, प्रसंस्करण और निर्यात में।', 'it' => 'EN Trading Group, con oltre 25 anni di esperienza nell\'estrazione, lavorazione ed esportazione di pietre naturali iraniane.'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'about_feature_1',
+                'value' => json_encode(['fa' => 'استخراج مستقیم از معادن اختصاصی در ایران', 'en' => 'Direct extraction from dedicated mines in Iran', 'ar' => 'استخراج مباشر من المناجم المخصصة في إيران', 'hi' => 'ईरान में समर्पित खदानों से प्रत्यक्ष निष्कर्षण', 'it' => 'Estrazione diretta da miniere dedicate in Iran'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'about_feature_2',
+                'value' => json_encode(['fa' => 'صادرات به بیش از ۵۰ کشور در ۵ قاره جهان', 'en' => 'Export to more than 50 countries across 5 continents', 'ar' => 'تصدير إلى أكثر من 50 دولة عبر 5 قارات', 'hi' => '5 महाद्वीपों में 50 से अधिक देशों में निर्यात', 'it' => 'Esportazione in oltre 50 paesi in 5 continenti'])
+            ],
+            [
+                'group' => 'home',
+                'key' => 'about_feature_3',
+                'value' => json_encode(['fa' => 'کنترل کیفیت دقیق در تمام مراحل تولید و ارسال', 'en' => 'Strict quality control at all stages of production and shipping', 'ar' => 'رقابة صارمة على الجودة في جميع مراحل الإنتاج والشحن', 'hi' => 'उत्पादन और शिपिंग के सभी चरणों में सख्त गुणवत्ता नियंत्रण', 'it' => 'Controllo qualità rigoroso in tutte le fasi di produzione e spedizione'])
+            ],
         ];
 
         foreach ($settings as $setting) {

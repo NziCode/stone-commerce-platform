@@ -73,33 +73,115 @@
         </div>
     </div>
 
-    {{-- ═══ Banner (دسته‌بندی‌های اصلی) ═══ --}}
-    @if($rootCategories->count())
-        <div class="banner pt-140">
-            <div class="container">
-                <div class="row g-lg-9">
-                    @foreach($rootCategories->take(3) as $category)
-                        <div class="col-lg-4 col-md-6 {{ !$loop->first ? 'pt-6 pt-md-0' : '' }}">
-                            <a href="{{ route('categories.show', $category->getTranslation('slug', app()->getLocale())) }}"
-                               class="banner-item text-white d-block"
-                               data-bg-image="{{ $category->getFirstMediaUrl('image') ?: asset('assets/images/banner/inner-bg/1-' . ($loop->index + 1) . '.png') }}">
-                                <div class="banner-content">
-                                    <h3 class="title mb-3">
-                                        {{ $category->getTranslation('name', app()->getLocale()) }}
-                                    </h3>
-                                    @if($category->getTranslation('excerpt', app()->getLocale()))
-                                        <p class="short-desc mb-0">
-                                            {{ $category->getTranslation('excerpt', app()->getLocale()) }}
-                                        </p>
-                                    @endif
-                                </div>
-                            </a>
+    {{-- ═══ Banner ═══ --}}
+    @php
+        $locale = app()->getLocale();
+        $banners = [];
+        for ($i = 1; $i <= 3; $i++) {
+            $title = json_decode(\App\Models\Setting::get("banner_{$i}_title"), true);
+            $desc  = json_decode(\App\Models\Setting::get("banner_{$i}_desc"), true);
+            $banners[] = [
+                'title' => $title[$locale] ?? $title['en'] ?? '',
+                'desc'  => $desc[$locale]  ?? $desc['en']  ?? '',
+                'image' => asset("assets/images/banner/inner-bg/1-{$i}.png"),
+            ];
+        }
+    @endphp
+    <div class="banner pt-140">
+        <div class="container">
+            <div class="row g-lg-9">
+                @foreach($banners as $index => $banner)
+                    <div class="col-lg-4 col-md-6 {{ $index > 0 ? 'pt-6 pt-md-0' : '' }}">
+                        <div class="banner-item text-white d-block"
+                             data-bg-image="{{ $banner['image'] }}">
+                            <div class="banner-content">
+                                <h3 class="title mb-3">{{ $banner['title'] }}</h3>
+                                @if($banner['desc'])
+                                    <p class="short-desc mb-0">{{ $banner['desc'] }}</p>
+                                @endif
+                            </div>
                         </div>
-                    @endforeach
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    {{-- ═══ About ═══ --}}
+    @php
+        $locale = app()->getLocale();
+        $aboutYears   = \App\Models\Setting::get('about_years', '25');
+        $aboutTitle   = json_decode(\App\Models\Setting::get('about_title'), true);
+        $aboutDesc    = json_decode(\App\Models\Setting::get('about_desc'), true);
+        $aboutFeat1   = json_decode(\App\Models\Setting::get('about_feature_1'), true);
+        $aboutFeat2   = json_decode(\App\Models\Setting::get('about_feature_2'), true);
+        $aboutFeat3   = json_decode(\App\Models\Setting::get('about_feature_3'), true);
+    @endphp
+    <div class="about-area about-style-2 py-130">
+        <div class="container">
+            <div class="section-title-area style-01 pb-70">
+                <div class="section-title-wrap">
+                    <div class="section-title with-border text-lg-end">
+                        <span>{{ __('messages.about') }}</span>
+                        <h2 class="mb-0">{{ $aboutTitle[$locale] ?? $aboutTitle['en'] ?? '' }}</h2>
+                    </div>
+                    <div class="section-desc">
+                        <p class="font-size-20 mb-0">{{ $aboutDesc[$locale] ?? $aboutDesc['en'] ?? '' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-img-wrap">
+                        <div class="about-pattern">
+                            <img src="{{ asset('assets/images/about/pattern.png') }}" alt="Pattern">
+                        </div>
+                        <div class="about-img">
+                            <img class="img-full"
+                                 src="{{ \App\Models\Setting::get('about_image') ?: asset('assets/images/about/1-1.jpg') }}"
+                                 alt="{{ $aboutTitle[$locale] ?? '' }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 align-self-center">
+                    <div class="about-content">
+                        <div class="experience style-2 text-primary">
+                            <div class="experience-content">
+                                <span class="year">{{ $aboutYears }}</span>
+                                <h2 class="our-progress">
+                                    @if($locale === 'fa') سال تجربه
+                                    @elseif($locale === 'ar') سنوات من الخبرة
+                                    @elseif($locale === 'hi') वर्षों का अनुभव
+                                    @elseif($locale === 'it') Anni di Esperienza
+                                    @else Years of <span>Experience</span>
+                                    @endif
+                                </h2>
+                            </div>
+                            <div class="experience-img">
+                                <img src="{{ asset('assets/images/about/avatar.png') }}" alt="Avatar">
+                            </div>
+                        </div>
+                        <h3 class="sub-title mb-4">{{ $aboutTitle[$locale] ?? $aboutTitle['en'] ?? '' }}</h3>
+                        <p class="short-desc mb-7">{{ $aboutDesc[$locale] ?? $aboutDesc['en'] ?? '' }}</p>
+                        <ul class="list-item">
+                            @foreach([$aboutFeat1, $aboutFeat2, $aboutFeat3] as $feat)
+                                @if($feat)
+                                    <li>
+                                        <div class="list-icon">
+                                            <i class="fa fa-check"></i>
+                                        </div>
+                                        <div class="list-text">
+                                            <span>{{ $feat[$locale] ?? $feat['en'] ?? '' }}</span>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 
     {{-- ═══ Featured Products ═══ --}}
     @if($featuredProducts->count())
