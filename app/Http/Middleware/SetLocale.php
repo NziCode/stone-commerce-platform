@@ -10,6 +10,10 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next)
     {
+        if ($request->is('admin*')) {
+            return $next($request);
+        }
+
         $segment = $request->segment(1);
 
         try {

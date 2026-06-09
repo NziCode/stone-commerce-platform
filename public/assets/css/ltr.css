@@ -6,12 +6,10 @@
 .header-logo-wrap {
     left: -10px !important;
     right: auto !important;
-    background: white !important;
-    background-image: none !important;
 }
 .header-fixed-logo {
     background: white !important;
-    margin: auto 90px auto auto !important;
+    margin: auto auto auto auto !important;
 }
 
 /* --- Main Navigation LTR - وسط‌چین مثل قالب اصلی --- */
@@ -94,4 +92,24 @@
         right: auto !important;
     }
 
+}
+
+/* --- Header Top Left - no wrap --- */
+.header-top-left {
+    flex-wrap: nowrap !important;
+    white-space: nowrap !important;
+}
+.header-top-left .contact-number,
+.header-top-left .time-schedule {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+}
+
+
+@media (min-width: 991.98px) {
+    /* --- Header Top row fix --- */
+    .header-top .row {
+        margin-left: 10px !important;
+        margin-right: 0 !important;
+    }
 }

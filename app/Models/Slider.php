@@ -20,7 +20,7 @@ class Slider extends Model implements HasMedia
         'is_active', 'sort_order',
     ];
 
-    public array $translatable = ['title', 'subtitle', 'button_text'];
+    public array $translatable = ['title', 'subtitle', 'description', 'button_text'];
 
     protected $casts = [
         'is_active'       => 'boolean',

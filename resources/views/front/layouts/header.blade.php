@@ -100,7 +100,7 @@
                                 </a>
                                 <ul id="langDropdown"
                                     style="display:none;position:absolute;top:38px;right:0;
-                                           min-width:200px;padding:6px 0;z-index:999999;
+                                           min-width:150px;padding:6px 0;z-index:999999;
                                            list-style:none;margin:0;border-radius:8px;
                                            background:white;box-shadow:0 8px 25px rgba(0,0,0,0.15);
                                            border:1px solid #eee">
@@ -108,7 +108,7 @@
                                         <li style="padding:0;margin:0">
                                             <a href="{{ route('set.locale', $lang->code) }}"
                                                class="{{ app()->getLocale() === $lang->code ? 'active-lang' : '' }}">
-                                                <span style="font-size:18px;line-height:1;flex-shrink:0">{{ $lang->flag }}</span>
+                                                <span style="font-size:12px;line-height:1;flex-shrink:0">{{ $lang->flag }}</span>
                                                 <span>{{ $lang->name }}</span>
                                                 @if(app()->getLocale() === $lang->code)
                                                     <i class="fa fa-check" style="margin-right:auto;font-size:11px;color:#ff5e13"></i>
@@ -137,7 +137,7 @@
         <div class="container">
             <div class="main-header_nav">
                 <div class="row align-items-center">
-                    <div class="offset-xl-2 col-xl-10 d-none d-lg-block">
+                    <div class="offset-xl-1 col-xl-10 d-none d-lg-block">
                         <div class="main-menu">
                             <nav class="main-nav">
                                 <ul>

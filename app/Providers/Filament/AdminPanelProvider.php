@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -29,61 +28,40 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->emailVerification(false)
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#ff5e13'),
+                'gray'    => Color::Slate,
             ])
-            ->spa()
+            ->brandName('EN Trading Group')
             ->maxContentWidth(MaxWidth::Full)
+            ->authGuard('web')
             ->renderHook(
                 'panels::head.end',
                 fn () => '
+                <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap" rel="stylesheet">
                 <style>
-                    @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap");
-
                     *, html, body {
                         font-family: "Vazirmatn", sans-serif !important;
                         direction: rtl !important;
                     }
-
                     .fi-sidebar {
                         right: 0 !important;
                         left: auto !important;
                     }
-
-                    .fi-sidebar-nav {
-                        direction: rtl !important;
-                    }
-
-                    .fi-topbar {
-                        direction: rtl !important;
-                    }
-
-                    .fi-header {
-                        direction: rtl !important;
-                        text-align: right !important;
-                    }
-
-                    .fi-main {
-                        direction: rtl !important;
-                    }
-
-                    .fi-ta-cell {
-                        text-align: right !important;
-                    }
-
+                    .fi-sidebar-nav,
+                    .fi-topbar,
+                    .fi-header,
+                    .fi-main,
+                    .fi-breadcrumbs,
                     .fi-fo-field-wrp {
                         direction: rtl !important;
                         text-align: right !important;
                     }
-
+                    .fi-ta-cell,
                     .fi-fo-label {
                         text-align: right !important;
                     }
-
-                    .fi-breadcrumbs {
-                        direction: rtl !important;
-                    }
-
                     .fi-badge {
                         font-family: "Vazirmatn", sans-serif !important;
                     }
@@ -116,7 +94,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])
-            ->plugin(FilamentShieldPlugin::make());
+            ]);
     }
 }

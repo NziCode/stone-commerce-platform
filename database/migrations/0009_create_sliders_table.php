@@ -14,6 +14,7 @@ return new class extends Migration
             $table->json('subtitle')->nullable();
             $table->json('button_text')->nullable();
             $table->string('button_link')->nullable();
+            $table->json('description')->nullable();
             $table->string('button_target', 10)->default('_self');
             $table->string('image')->nullable();
             $table->string('mobile_image')->nullable();
