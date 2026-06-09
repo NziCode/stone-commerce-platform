@@ -10,10 +10,13 @@ class TrackVisitor
 {
     public function handle(Request $request, Closure $next)
     {
+        if ($request->is('admin*')) {
+            return $next($request);
+        }
+
         $response = $next($request);
 
-        // آپدیت آخرین لاگین
-        if (Auth::check() && !$request->is('admin/*')) {
+        if (Auth::check()) {
             $user = Auth::user();
             if (!$user->last_login_at || $user->last_login_at->diffInMinutes(now()) > 30) {
                 $user->recordLogin($request->ip());

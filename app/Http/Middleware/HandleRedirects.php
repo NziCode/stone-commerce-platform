@@ -10,7 +10,7 @@ class HandleRedirects
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($request->isMethod('GET') && !$request->is('admin/*')) {
+        if ($request->isMethod('GET') && !$request->is('admin*')) {
             $path     = '/' . ltrim($request->path(), '/');
             $redirect = Redirect::active()
                 ->where('from_url', $path)
