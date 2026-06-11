@@ -4,155 +4,142 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Models\Category;
+use App\Services\LanguageService;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Forms\Components\Repeater;
+use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
     protected static ?string $navigationIcon = 'heroicon-o-tag';
-    protected static ?string $navigationGroup = 'فروشگاه';
-    protected static ?string $modelLabel = 'دسته‌بندی';
-    protected static ?string $pluralModelLabel = 'دسته‌بندی‌ها';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.categories');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('admin.products');
+    }
 
     public static function form(Form $form): Form
     {
-        $locales = ['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية'];
+        $locales = LanguageService::getLocales();
 
         return $form->schema([
-            Forms\Components\Tabs::make()->tabs([
 
-                Forms\Components\Tabs\Tab::make('اطلاعات اصلی')->schema([
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\Select::make('parent_id')
-                            ->label('دسته والد')
-                            ->relationship('parent', 'name')
-                            ->getOptionLabelFromRecordUsing(fn($record) => $record->getTranslation('name', 'fa'))
-                            ->searchable()
-                            ->nullable()
-                            ->columnSpanFull(),
-                    ]),
+            Forms\Components\Section::make('Basic Info')
+                ->schema([
+                    Forms\Components\Select::make('parent_id')
+                        ->label('Parent Category')
+                        ->options(
+                            Category::whereNull('parent_id')
+                                ->get()
+                                ->mapWithKeys(fn ($c) => [
+                                    $c->id => $c->getTranslation('name', app()->getLocale(), false)
+                                        ?: $c->getTranslation('name', 'en', false)
+                                            ?: '—'
+                                ])
+                        )
+                        ->nullable()
+                        ->searchable()
+                        ->placeholder('No parent (root category)'),
 
-                    Forms\Components\Tabs::make('translations')->tabs(
-                        collect($locales)->map(fn($label, $code) =>
-                        Forms\Components\Tabs\Tab::make($label)->schema([
-                            Forms\Components\TextInput::make("name.{$code}")
-                                ->label('نام دسته')
-                                ->required($code === 'fa'),
+                    Forms\Components\TextInput::make('sort_order')
+                        ->label('Sort Order')
+                        ->numeric()
+                        ->default(0),
 
-                            Forms\Components\TextInput::make("slug.{$code}")
-                                ->label('Slug'),
+                    Forms\Components\Toggle::make('is_active')
+                        ->label('Active')
+                        ->default(true),
+                ])->columns(3),
 
-                            Forms\Components\Textarea::make("description.{$code}")
-                                ->label('توضیحات')
-                                ->rows(3),
-                        ])
-                        )->toArray()
-                    )->columnSpanFull(),
+            // ── نام و slug برای هر زبان ──────────────────────
+            Forms\Components\Section::make('Name & Slug')
+                ->schema(
+                    collect($locales)->flatMap(function ($locale) {
+                        return [
+                            Forms\Components\TextInput::make("name.{$locale}")
+                                ->label("Name ({$locale})")
+                                ->required($locale === 'fa')
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function (Set $set, ?string $state) use ($locale) {
+                                    $set("slug.{$locale}", Str::slug($state ?? ''));
+                                }),
 
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\TextInput::make('sort_order')
-                            ->label('ترتیب نمایش')
-                            ->numeric()
-                            ->default(0),
+                            Forms\Components\TextInput::make("slug.{$locale}")
+                                ->label("Slug ({$locale})")
+                                ->required($locale === 'fa'),
+                        ];
+                    })->toArray()
+                )->columns(2),
 
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('فعال')
-                            ->default(true),
-                    ]),
-                ]),
+            // ── توضیحات ───────────────────────────────────────
+            Forms\Components\Section::make('Description')
+                ->schema(
+                    collect($locales)->map(fn ($locale) =>
+                    Forms\Components\Textarea::make("description.{$locale}")
+                        ->label("Description ({$locale})")
+                        ->rows(3)
+                    )->toArray()
+                )->columns(2)->collapsed(),
 
-                Forms\Components\Tabs\Tab::make('ویژگی‌های دینامیک')->schema([
-                    Repeater::make('attribute_schema')
-                        ->label('ویژگی‌های این دسته‌بندی')
+            // ── SEO ───────────────────────────────────────────
+            Forms\Components\Section::make('SEO')
+                ->schema(
+                    collect($locales)->flatMap(fn ($locale) => [
+                        Forms\Components\TextInput::make("meta_title.{$locale}")
+                            ->label("Meta Title ({$locale})"),
+                        Forms\Components\Textarea::make("meta_description.{$locale}")
+                            ->label("Meta Description ({$locale})")
+                            ->rows(2),
+                    ])->toArray()
+                )->columns(2)->collapsed(),
+
+            // ── ویژگی‌های دینامیک دسته ────────────────────────
+            Forms\Components\Section::make('Dynamic Attribute Schema')
+                ->helperText('Define attributes that products in this category can have.')
+                ->schema([
+                    Forms\Components\Repeater::make('attribute_schema')
+                        ->label('')
                         ->schema([
-                            Forms\Components\Grid::make(3)->schema([
-                                Forms\Components\TextInput::make('key')
-                                    ->label('کلید')
-                                    ->required()
-                                    ->helperText('مثال: color'),
+                            Forms\Components\TextInput::make('key')
+                                ->label('Key (internal)')
+                                ->required()
+                                ->placeholder('color'),
 
-                                Forms\Components\TextInput::make('label.fa')
-                                    ->label('برچسب فارسی')
-                                    ->required(),
+                            Forms\Components\Select::make('type')
+                                ->label('Type')
+                                ->options([
+                                    'text'   => 'Text',
+                                    'select' => 'Select (dropdown)',
+                                    'number' => 'Number',
+                                    'bool'   => 'Yes/No',
+                                ])
+                                ->required()
+                                ->default('text'),
 
-                                Forms\Components\TextInput::make('label.en')
-                                    ->label('برچسب انگلیسی'),
-
-                                Forms\Components\Select::make('type')
-                                    ->label('نوع')
-                                    ->options([
-                                        'text'   => 'متن',
-                                        'select' => 'انتخابی',
-                                        'number' => 'عدد',
-                                        'color'  => 'رنگ',
-                                    ])
-                                    ->required()
-                                    ->default('text'),
-
-                                Forms\Components\TextInput::make('unit')
-                                    ->label('واحد')
-                                    ->helperText('مثال: cm, kg'),
-
-                                Forms\Components\Toggle::make('filterable')
-                                    ->label('قابل فیلتر')
-                                    ->default(false),
-                            ]),
+                            Forms\Components\KeyValue::make('label')
+                                ->label('Label per language')
+                                ->keyLabel('Locale')
+                                ->valueLabel('Label'),
 
                             Forms\Components\TagsInput::make('options')
-                                ->label('گزینه‌ها (برای نوع انتخابی)')
-                                ->helperText('Enter بزنید تا اضافه شود'),
+                                ->label('Options (for select type)')
+                                ->placeholder('Add option'),
                         ])
-                        ->addActionLabel('افزودن ویژگی')
-                        ->collapsible()
-                        ->columnSpanFull(),
-                ]),
-
-                Forms\Components\Tabs\Tab::make('تصاویر')->schema([
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')
-                        ->label('تصویر دسته‌بندی')
-                        ->collection('image')
-                        ->image()
-                        ->imageResizeMode('cover')
-                        ->imageCropAspectRatio('4:3')
-                        ->columnSpanFull(),
-
-                    Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')
-                        ->label('گالری')
-                        ->collection('gallery')
-                        ->image()
-                        ->multiple()
-                        ->reorderable()
-                        ->columnSpanFull(),
-                ]),
-
-                Forms\Components\Tabs\Tab::make('سئو')->schema([
-                    Forms\Components\Tabs::make('seo_translations')->tabs(
-                        collect($locales)->map(fn($label, $code) =>
-                        Forms\Components\Tabs\Tab::make($label)->schema([
-                            Forms\Components\TextInput::make("meta_title.{$code}")
-                                ->label('عنوان متا'),
-                            Forms\Components\Textarea::make("meta_description.{$code}")
-                                ->label('توضیحات متا')
-                                ->rows(2),
-                            Forms\Components\TextInput::make("meta_keywords.{$code}")
-                                ->label('کلمات کلیدی'),
-                        ])
-                        )->toArray()
-                    )->columnSpanFull(),
-
-                    Forms\Components\FileUpload::make('og_image')
-                        ->label('تصویر OG')
-                        ->image()
-                        ->columnSpanFull(),
-                ]),
-
-            ])->columnSpanFull(),
+                        ->columns(2)
+                        ->addActionLabel('Add Attribute')
+                        ->collapsible(),
+                ])->collapsed(),
         ]);
     }
 
@@ -160,45 +147,43 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
-                    ->label('')
-                    ->collection('image')
-                    ->conversion('thumb')
-                    ->width(60)
-                    ->height(45),
-
                 Tables\Columns\TextColumn::make('name')
-                    ->label('نام')
-                    ->getStateUsing(fn($record) => $record->getTranslation('name', 'fa'))
+                    ->label('Name')
+                    ->getStateUsing(fn ($record) =>
+                    $record->getTranslation('name', app()->getLocale(), false)
+                        ?: $record->getTranslation('name', 'en', false)
+                        ?: '—'
+                    )
                     ->searchable()
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('parent.name')
-                    ->label('دسته والد')
-                    ->getStateUsing(fn($record) => $record->parent?->getTranslation('name', 'fa') ?? '—')
-                    ->sortable(),
+                    ->label('Parent')
+                    ->getStateUsing(fn ($record) =>
+                    $record->parent
+                        ? ($record->parent->getTranslation('name', app()->getLocale(), false)
+                        ?: $record->parent->getTranslation('name', 'en', false))
+                        : '—'
+                    )
+                    ->badge()
+                    ->color('gray'),
 
                 Tables\Columns\TextColumn::make('products_count')
-                    ->label('محصولات')
+                    ->label('Products')
                     ->counts('products')
                     ->badge()
                     ->color('info'),
 
-                Tables\Columns\TextColumn::make('depth')
-                    ->label('سطح')
-                    ->badge(),
-
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('فعال')
-                    ->boolean(),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Active'),
 
                 Tables\Columns\TextColumn::make('sort_order')
-                    ->label('ترتیب')
+                    ->label('Order')
                     ->sortable(),
             ])
-            ->defaultSort('_lft')
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_active')->label('وضعیت'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Active'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -208,7 +193,9 @@ class CategoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->reorderable('sort_order')
+            ->defaultSort('sort_order');
     }
 
     public static function getPages(): array

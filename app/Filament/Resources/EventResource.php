@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class EventResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.events');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.content');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.events');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.events');
+    }
+
     protected static ?string $model = Event::class;
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
     protected static ?string $navigationGroup = 'محتوا';

@@ -7,4 +7,5 @@ return [
     App\Providers\SeoServiceProvider::class,
     App\Providers\TelescopeServiceProvider::class,
     App\Providers\VoltServiceProvider::class,
+    App\Providers\TranslationServiceProvider::class,
 ];

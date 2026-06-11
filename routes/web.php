@@ -17,11 +17,13 @@ use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\SearchController;
 use App\Models\Language;
+use App\Services\LanguageService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-// ── Sitemap و Robots ────────────────────────────────────────
+// ── Sitemap ─────────────────────────────────────────────────
 Route::get('/sitemap.xml', function () {
     if (!file_exists(public_path('sitemap.xml'))) {
         Artisan::call('sitemap:generate');
@@ -31,6 +33,7 @@ Route::get('/sitemap.xml', function () {
     ]);
 })->name('sitemap');
 
+// ── Robots.txt ──────────────────────────────────────────────
 Route::get('/robots.txt', function () {
     $content = \App\Models\Setting::get(
         'robots_txt',
@@ -39,39 +42,49 @@ Route::get('/robots.txt', function () {
     return response($content, 200)->header('Content-Type', 'text/plain');
 })->name('robots');
 
-// ── تغییر زبان — خارج از localization group ─────────────────
-Route::get('/set-locale/{locale}', function ($locale) {
-    try {
-        $validLocales = Language::allActive()->pluck('code')->toArray();
-    } catch (\Exception $e) {
-        $validLocales = ['fa', 'en', 'hi', 'it', 'ar'];
-    }
+// ── تغییر زبان سایت اصلی ────────────────────────────────────
+Route::get('/set-locale/{locale}', function (string $locale) {
+    $validLocales = LanguageService::getLocales();
 
     if (in_array($locale, $validLocales)) {
         session(['locale' => $locale]);
         app()->setLocale($locale);
     }
 
-    // ساخت URL صحیح با locale جدید
     $previousUrl = url()->previous();
-    $baseUrl = url('/');
-    $path = str_replace($baseUrl, '', $previousUrl);
+    $baseUrl     = url('/');
+    $path        = str_replace($baseUrl, '', $previousUrl);
 
-    // حذف locale قبلی از path
     foreach ($validLocales as $l) {
         $path = preg_replace('#^/' . $l . '(/|$)#', '/', $path);
     }
 
     $path = '/' . ltrim($path, '/');
 
-    if ($locale === 'fa') {
+    if ($locale === LanguageService::getDefault()?->code) {
         return redirect($baseUrl . $path);
     }
 
     return redirect($baseUrl . '/' . $locale . $path);
 })->name('set.locale');
 
-// ── Localization Group ──────────────────────────────────────
+// ── تغییر زبان پنل ادمین ────────────────────────────────────
+Route::post('/admin/set-locale', function (Request $request) {
+    $locale  = $request->input('locale');
+    $allowed = LanguageService::getLocales();
+
+    if (in_array($locale, $allowed)) {
+        session(['admin_locale' => $locale]);
+
+        if (auth()->check()) {
+            auth()->user()->update(['preferred_admin_locale' => $locale]);
+        }
+    }
+
+    return back();
+})->middleware(['web', 'auth'])->name('admin.set-locale');
+
+// ── Localization Group ───────────────────────────────────────
 Route::group([
     'prefix'     => LaravelLocalization::setLocale(),
     'middleware' => ['localize', 'localeSessionRedirect', 'localeViewPath'],
@@ -115,8 +128,10 @@ Route::group([
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
     // ── خبرنامه ────────────────────────────────────────────
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
-    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+        ->name('newsletter.subscribe');
+    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])
+        ->name('newsletter.unsubscribe');
 
     // ── سبد خرید ───────────────────────────────────────────
     Route::prefix('cart')->name('cart.')->group(function () {
@@ -130,6 +145,7 @@ Route::group([
     // ── نیاز به لاگین ──────────────────────────────────────
     Route::middleware(['auth'])->group(function () {
 
+        // سفارشات
         Route::prefix('checkout')->name('checkout.')->group(function () {
             Route::get('/', [CheckoutController::class, 'index'])->name('index');
             Route::post('/', [CheckoutController::class, 'store'])->name('store');
@@ -141,6 +157,7 @@ Route::group([
             Route::post('/{order}/cancel', [OrderController::class, 'cancel'])->name('cancel');
         });
 
+        // پرداخت
         Route::prefix('payment')->name('payment.')->group(function () {
             Route::get('/{order}', [PaymentController::class, 'index'])->name('index');
             Route::post('/{order}/online', [PaymentController::class, 'payOnline'])->name('online');
@@ -148,13 +165,17 @@ Route::group([
             Route::get('/callback/{gateway}', [PaymentController::class, 'callback'])->name('callback');
         });
 
+        // wishlist
         Route::prefix('wishlist')->name('wishlist.')->group(function () {
             Route::get('/', [WishlistController::class, 'index'])->name('index');
             Route::post('/toggle/{product}', [WishlistController::class, 'toggle'])->name('toggle');
         });
 
-        Route::post('/reviews/{product}', [ReviewController::class, 'store'])->name('reviews.store');
+        // نظرات
+        Route::post('/reviews/{product}', [ReviewController::class, 'store'])
+            ->name('reviews.store');
 
+        // پروفایل
         Route::prefix('profile')->name('profile.')->group(function () {
             Route::get('/', [ProfileController::class, 'index'])->name('index');
             Route::put('/', [ProfileController::class, 'update'])->name('update');

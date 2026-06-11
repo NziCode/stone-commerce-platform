@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class OrderResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.orders');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.orders');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.orders');
+    }
+
     protected static ?string $model = Order::class;
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
     protected static ?string $navigationGroup = 'فروش';

@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class PaymentResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.payments');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.orders');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.payments');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.payments');
+    }
+
     protected static ?string $model = Payment::class;
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
     protected static ?string $navigationGroup = 'فروش';

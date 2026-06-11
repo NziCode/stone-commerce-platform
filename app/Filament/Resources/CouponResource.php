@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class CouponResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.coupons');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.store');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.coupons');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.coupons');
+    }
+
     protected static ?string $model = Coupon::class;
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
     protected static ?string $navigationGroup = 'فروش';

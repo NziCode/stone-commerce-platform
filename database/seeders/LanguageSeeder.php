@@ -16,7 +16,7 @@ class LanguageSeeder extends Seeder
                 'code'        => 'fa',
                 'locale'      => 'fa_IR',
                 'direction'   => 'rtl',
-                'flag'        => 'FA',
+                'flag'        => '🇮🇷',
                 'is_default'  => true,
                 'is_active'   => true,
                 'sort_order'  => 0,
@@ -27,7 +27,7 @@ class LanguageSeeder extends Seeder
                 'code'        => 'en',
                 'locale'      => 'en_US',
                 'direction'   => 'ltr',
-                'flag'        => 'EN',
+                'flag'        => '🇬🇧',
                 'is_default'  => false,
                 'is_active'   => true,
                 'sort_order'  => 1,
@@ -38,7 +38,7 @@ class LanguageSeeder extends Seeder
                 'code'        => 'hi',
                 'locale'      => 'hi_IN',
                 'direction'   => 'ltr',
-                'flag'        => 'HI',
+                'flag'        => '🇮🇳',
                 'is_default'  => false,
                 'is_active'   => true,
                 'sort_order'  => 2,
@@ -49,7 +49,7 @@ class LanguageSeeder extends Seeder
                 'code'        => 'it',
                 'locale'      => 'it_IT',
                 'direction'   => 'ltr',
-                'flag'        => 'IT',
+                'flag'        => '🇮🇹',
                 'is_default'  => false,
                 'is_active'   => true,
                 'sort_order'  => 3,
@@ -60,7 +60,7 @@ class LanguageSeeder extends Seeder
                 'code'        => 'ar',
                 'locale'      => 'ar_SA',
                 'direction'   => 'rtl',
-                'flag'        => 'AR',
+                'flag'        => '🇸🇦',
                 'is_default'  => false,
                 'is_active'   => true,
                 'sort_order'  => 4,
@@ -68,10 +68,12 @@ class LanguageSeeder extends Seeder
         ];
 
         foreach ($languages as $language) {
-            Language::firstOrCreate(
+            Language::updateOrCreate(
                 ['code' => $language['code']],
                 $language
             );
         }
+
+        $this->command->info(count($languages) . ' languages seeded.');
     }
 }

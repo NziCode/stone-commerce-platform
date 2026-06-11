@@ -13,6 +13,27 @@ use Filament\Forms\Components\Repeater;
 
 class ProductResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.products');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.products');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.products');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.products');
+    }
+
     protected static ?string $model = Product::class;
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?string $navigationGroup = 'فروشگاه';
