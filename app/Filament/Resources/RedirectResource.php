@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class RedirectResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.redirects');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.settings');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.redirects');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.redirects');
+    }
+
     protected static ?string $model = Redirect::class;
     protected static ?string $navigationIcon = 'heroicon-o-arrow-uturn-right';
     protected static ?string $navigationGroup = 'تنظیمات';

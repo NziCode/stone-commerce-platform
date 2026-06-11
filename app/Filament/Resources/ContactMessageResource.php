@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class ContactMessageResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.contact_messages');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.management');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.contact_messages');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.contact_messages');
+    }
+
     protected static ?string $model = ContactMessage::class;
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
     protected static ?string $navigationGroup = 'مدیریت';

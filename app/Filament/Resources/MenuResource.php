@@ -14,6 +14,27 @@ use Filament\Forms\Components\Repeater;
 
 class MenuResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.menus');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.appearance');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.menus');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.menus');
+    }
+
     protected static ?string $model = Menu::class;
     protected static ?string $navigationIcon = 'heroicon-o-bars-3';
     protected static ?string $navigationGroup = 'ظاهر سایت';

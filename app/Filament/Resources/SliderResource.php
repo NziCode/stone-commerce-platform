@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class SliderResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.sliders');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.appearance');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.sliders');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.sliders');
+    }
+
     protected static ?string $model = Slider::class;
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     protected static ?string $navigationGroup = 'ظاهر سایت';

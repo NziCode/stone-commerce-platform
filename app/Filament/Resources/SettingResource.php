@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class SettingResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.settings');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.settings');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.settings');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.settings');
+    }
+
     protected static ?string $model = Setting::class;
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
     protected static ?string $navigationGroup = 'تنظیمات';

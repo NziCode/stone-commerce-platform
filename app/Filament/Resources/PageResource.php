@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class PageResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.pages');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.content');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.pages');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.pages');
+    }
+
     protected static ?string $model = Page::class;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'محتوا';

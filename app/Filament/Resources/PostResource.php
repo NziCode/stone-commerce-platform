@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class PostResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.posts');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.content');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.posts');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.posts');
+    }
+
     protected static ?string $model = Post::class;
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $navigationGroup = 'محتوا';

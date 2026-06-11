@@ -14,6 +14,27 @@ use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.users');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.users');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.users');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.users');
+    }
+
     protected static ?string $model = User::class;
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationGroup = 'مدیریت';

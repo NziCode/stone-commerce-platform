@@ -12,6 +12,27 @@ use Filament\Tables\Table;
 
 class NewsletterResource extends Resource
 {
+
+    public static function getNavigationLabel(): string
+    {
+        return __('admin.newsletters');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('admin.management');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('admin.newsletters');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('admin.newsletters');
+    }
+
     protected static ?string $model = Newsletter::class;
     protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
     protected static ?string $navigationGroup = 'مدیریت';

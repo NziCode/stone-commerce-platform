@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\LanguageResource\Pages;
 
 use App\Filament\Resources\LanguageResource;
+use App\Services\LanguageService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -15,5 +16,10 @@ class EditLanguage extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+
+    protected function afterSave(): void
+    {
+        LanguageService::clearCache();
     }
 }
