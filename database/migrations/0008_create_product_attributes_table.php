@@ -10,20 +10,26 @@ return new class extends Migration
     {
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('product_id')
                 ->constrained('products')
                 ->cascadeOnDelete();
-            $table->json('key');    // {"fa":"رنگ","en":"Color","hi":"...","it":"...","ar":"..."}
-            $table->json('value');  // {"fa":"عسلی","en":"Honey","hi":"...","it":"...","ar":"..."}
-            $table->string('unit', 30)->nullable();  // kg, cm, m2 و...
-            $table->boolean('is_filterable')->default(false); // قابل فیلتر در لیست
+
+            $table->foreignId('attribute_id')
+                ->constrained('attributes')
+                ->cascadeOnDelete();
+
+            // Value: for text/select -> {"fa":"عسلی","en":"Honey",...}
+            // for number/bool -> plain JSON scalar, e.g. 2.5 or true
+            $table->json('value');
+
             $table->unsignedSmallInteger('sort_order')->default(0);
             $table->timestamps();
 
+            $table->unique(['product_id', 'attribute_id']);
             $table->index('product_id');
+            $table->index('attribute_id');
             $table->index('sort_order');
-            $table->index('is_filterable');
-            $table->index(['product_id', 'sort_order']);
         });
     }
 

@@ -222,6 +222,7 @@ class CategoryResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('admin.edit')),
+
                 Tables\Actions\DeleteAction::make()
                     ->label(__('admin.delete')),
             ])

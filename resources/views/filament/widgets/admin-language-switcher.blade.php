@@ -10,7 +10,7 @@
         @php $current = $languages->firstWhere('code', $currentLocale); @endphp
         <span class="text-base leading-none">{{ $current?->flag }}</span>
         <span class="hidden sm:inline">{{ $current?->native_name }}</span>
-        <x-heroicon-m-chevron-down class="w-4 h-4 transition-transform" ::class="{ 'rotate-180': open }"/>
+        <x-heroicon-m-chevron-down class="w-4 h-4 transition-transform" ::class="{'rotate-180':open}"/>
     </button>
 
     <div

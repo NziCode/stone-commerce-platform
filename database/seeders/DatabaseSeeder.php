@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             MenuSeeder::class,
             SliderSeeder::class,
+            AttributeSeeder::class,
+            TranslationSeeder::class,
         ]);
     }
 }
