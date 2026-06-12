@@ -85,13 +85,16 @@ class Product extends Model implements HasMedia
 
     public function attributes(): HasMany
     {
-        return $this->hasMany(ProductAttribute::class)->orderBy('sort_order');
+        return $this->hasMany(ProductAttribute::class)
+            ->with('attribute')
+            ->orderBy('sort_order');
     }
 
     public function filterableAttributes(): HasMany
     {
         return $this->hasMany(ProductAttribute::class)
-            ->where('is_filterable', true)
+            ->whereHas('attribute', fn ($q) => $q->where('is_filterable', true))
+            ->with('attribute')
             ->orderBy('sort_order');
     }
 

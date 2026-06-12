@@ -185,6 +185,30 @@ class TranslationSeeder extends Seeder
 
             // ── UI Loading State ───────────────────────────────────
             'processing_action'     => ['fa' => 'در حال پردازش...', 'en' => 'Processing...', 'ar' => 'جارٍ المعالجة...', 'hi' => 'प्रसंस्करण हो रहा है...', 'it' => 'Elaborazione...'],
+            // ── Attributes (Product) ───────────────────────────────
+            'attributes'              => ['fa' => 'ویژگی‌ها',         'en' => 'Attributes',          'ar' => 'السمات',             'hi' => 'विशेषताएं',        'it' => 'Attributi'],
+            'attribute_key_helper'    => ['fa' => 'کلید انگلیسی یکتا برای این ویژگی (مثل color)', 'en' => 'Unique English key for this attribute (e.g. color)', 'ar' => 'مفتاح إنجليزي فريد لهذه السمة', 'hi' => 'इस विशेषता के लिए अद्वितीय कुंजी', 'it' => 'Chiave univoca per questo attributo'],
+            'unit'                    => ['fa' => 'واحد',             'en' => 'Unit',                 'ar' => 'الوحدة',             'hi' => 'इकाई',              'it' => 'Unità'],
+            'is_filterable'           => ['fa' => 'قابل فیلتر',       'en' => 'Filterable',           'ar' => 'قابل للتصفية',       'hi' => 'फ़िल्टर करने योग्य','it' => 'Filtrabile'],
+            'yes'                     => ['fa' => 'بله',              'en' => 'Yes',                  'ar' => 'نعم',                'hi' => 'हाँ',               'it' => 'Sì'],
+            'no'                      => ['fa' => 'خیر',              'en' => 'No',                   'ar' => 'لا',                 'hi' => 'नहीं',              'it' => 'No'],
+            'min_value'               => ['fa' => 'حداقل مقدار',     'en' => 'Min Value',           'ar' => 'القيمة الدنيا',      'hi' => 'न्यूनतम मान',      'it' => 'Valore Min'],
+            'max_value'               => ['fa' => 'حداکثر مقدار',     'en' => 'Max Value',           'ar' => 'القيمة القصوى',      'hi' => 'अधिकतम मान',       'it' => 'Valore Max'],
+            'step_value'              => ['fa' => 'گام افزایش',       'en' => 'Step',                'ar' => 'الخطوة',             'hi' => 'चरण',              'it' => 'Passo'],
+            'default_value'           => ['fa' => 'مقدار پیش‌فرض',   'en' => 'Default Value',       'ar' => 'القيمة الافتراضية',  'hi' => 'डिफ़ॉल्ट मान',     'it' => 'Valore Predefinito'],
+            'show_in_product_page'    => ['fa' => 'نمایش در صفحه محصول','en' => 'Show on Product Page','ar' => 'عرض في صفحة المنتج', 'hi' => 'उत्पाद पेज पर दिखाएं','it' => 'Mostra nella Pagina Prodotto'],
+            'attribute_group'         => ['fa' => 'گروه ویژگی',       'en' => 'Attribute Group',     'ar' => 'مجموعة السمات',      'hi' => 'विशेषता समूह',      'it' => 'Gruppo Attributo'],
+            'attribute_group_desc'    => ['fa' => 'ویژگی‌ها را برای نمایش بهتر در فرم محصول گروه‌بندی کنید (اختیاری)', 'en' => 'Group attributes for better display in the product form (optional)', 'ar' => 'تجميع السمات لعرض أفضل في نموذج المنتج (اختياري)', 'hi' => 'उत्पाद फ़ॉर्म में बेहतर प्रदर्शन के लिए विशेषताओं को समूहित करें (वैकल्पिक)', 'it' => 'Raggruppa gli attributi per una migliore visualizzazione nel modulo prodotto (opzionale)'],
+            'attribute_group_placeholder' => ['fa' => 'مثال: ابعاد و وزن', 'en' => 'e.g. Dimensions & Weight', 'ar' => 'مثال: الأبعاد والوزن', 'hi' => 'उदा: आयाम और वजन', 'it' => 'es. Dimensioni e Peso'],
+            'field_preview'           => ['fa' => 'پیش‌نمایش فیلد',   'en' => 'Field Preview',       'ar' => 'معاينة الحقل',       'hi' => 'फ़ील्ड पूर्वावलोकन', 'it' => 'Anteprima Campo'],
+            'usage_count'             => ['fa' => 'تعداد استفاده',     'en' => 'Usage Count',         'ar' => 'عدد الاستخدامات',    'hi' => 'उपयोग गणना',       'it' => 'Conteggio Utilizzo'],
+            'translation_complete'    => ['fa' => 'ترجمه کامل است',    'en' => 'Translation complete','ar' => 'الترجمة مكتملة',     'hi' => 'अनुवाद पूर्ण',      'it' => 'Traduzione completa'],
+            'translation_incomplete'  => ['fa' => 'ترجمه ناقص است',    'en' => 'Translation incomplete','ar' => 'الترجمة غير مكتملة','hi' => 'अनुवाद अधूरा',     'it' => 'Traduzione incompleta'],
+            'duplicate'               => ['fa' => 'کپی',               'en' => 'Duplicate',           'ar' => 'تكرار',              'hi' => 'डुप्लिकेट',         'it' => 'Duplica'],
+            'activate'                => ['fa' => 'فعال‌سازی',         'en' => 'Activate',            'ar' => 'تفعيل',              'hi' => 'सक्रिय करें',       'it' => 'Attiva'],
+            'deactivate'              => ['fa' => 'غیرفعال‌سازی',      'en' => 'Deactivate',          'ar' => 'إلغاء التفعيل',      'hi' => 'निष्क्रिय करें',    'it' => 'Disattiva'],
+            'attribute_delete_warning'=> ['fa' => 'این ویژگی در :count محصول استفاده شده. حذف آن مقادیر مربوطه را نیز حذف می‌کند.', 'en' => 'This attribute is used in :count product(s). Deleting it will also remove related values.', 'ar' => 'هذه السمة مستخدمة في :count منتج. حذفها سيؤدي أيضاً إلى حذف القيم المرتبطة.', 'hi' => 'यह विशेषता :count उत्पाद(ओं) में उपयोग की जाती है। इसे हटाने से संबंधित मान भी हट जाएंगे।', 'it' => 'Questo attributo è usato in :count prodotti. La sua eliminazione rimuoverà anche i valori correlati.'],
+            'options_desc' => ['fa' => 'برای هر گزینه، معادل آن را در همه زبان‌ها وارد کنید', 'en' => 'For each option, enter its translation in all languages', 'ar' => 'لكل خيار، أدخل ترجمته بجميع اللغات', 'hi' => 'प्रत्येक विकल्प के लिए, सभी भाषाओं में इसका अनुवाद दर्ज करें', 'it' => 'Per ogni opzione, inserisci la traduzione in tutte le lingue'],
         ],
 
         // ── Frontend Messages ─────────────────────────────────────
