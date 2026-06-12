@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/messages
-// Generated at: 2026-06-11 11:44:05
+// Generated at: 2026-06-12 08:53:18
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [

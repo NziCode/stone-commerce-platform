@@ -9,12 +9,12 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        // پاک کردن دسته‌بندی‌های قبلی
+        // Remove previous categories
         Category::query()->forceDelete();
 
         $categories = [
 
-            // ── ۱. تراورتن ────────────────────────────────────
+            // ── 1. Travertine ──────────────────────────────────
             [
                 'name' => [
                     'fa' => 'تراورتن',
@@ -37,11 +37,6 @@ class CategorySeeder extends Seeder
                     'it' => 'Il travertino è una delle pietre da costruzione più utilizzate in Iran.',
                     'ar' => 'التراڤرتين هو أحد أكثر أحجار البناء استخداماً في إيران.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'color',   'label' => ['fa' => 'رنگ',    'en' => 'Color'],   'type' => 'select', 'options' => ['سفید', 'عسلی', 'کرم', 'خاکستری', 'قرمز'], 'filterable' => true],
-                    ['key' => 'finish',  'label' => ['fa' => 'نوع پرداخت', 'en' => 'Finish'], 'type' => 'select', 'options' => ['پولیش', 'چکشی', 'مات', 'آنتیک'], 'filterable' => true],
-                    ['key' => 'origin',  'label' => ['fa' => 'معدن',   'en' => 'Mine Origin'], 'type' => 'text', 'filterable' => true],
-                ],
                 'sort_order' => 1,
                 'children' => [
                     ['fa' => 'تراورتن عباس‌آباد',  'en' => 'Abbasabad Travertine',  'slug_fa' => 'travertan-abbasabad',  'slug_en' => 'abbasabad-travertine',  'sort' => 1],
@@ -54,7 +49,7 @@ class CategorySeeder extends Seeder
                 ],
             ],
 
-            // ── ۲. مرمریت ────────────────────────────────────
+            // ── 2. Marble ──────────────────────────────────────
             [
                 'name' => [
                     'fa' => 'مرمریت',
@@ -77,11 +72,6 @@ class CategorySeeder extends Seeder
                     'it' => 'Il marmo è una pietra di bellezza senza pari per applicazioni di lusso.',
                     'ar' => 'الرخام حجر ذو جمال لا مثيل له للتطبيقات الفاخرة.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'color',   'label' => ['fa' => 'رنگ',    'en' => 'Color'],   'type' => 'select', 'options' => ['سفید', 'کرم', 'مشکی', 'صورتی', 'طلایی', 'سبز'], 'filterable' => true],
-                    ['key' => 'finish',  'label' => ['fa' => 'نوع پرداخت', 'en' => 'Finish'], 'type' => 'select', 'options' => ['پولیش', 'مات', 'براق'], 'filterable' => true],
-                    ['key' => 'origin',  'label' => ['fa' => 'معدن',   'en' => 'Mine Origin'], 'type' => 'text', 'filterable' => true],
-                ],
                 'sort_order' => 2,
                 'children' => [
                     ['fa' => 'مرمریت سفید',    'en' => 'White Marble',  'slug_fa' => 'marmorit-sefid',   'slug_en' => 'white-marble',  'sort' => 1],
@@ -92,7 +82,7 @@ class CategorySeeder extends Seeder
                 ],
             ],
 
-            // ── ۳. گرانیت ────────────────────────────────────
+            // ── 3. Granite ─────────────────────────────────────
             [
                 'name' => [
                     'fa' => 'گرانیت',
@@ -115,11 +105,6 @@ class CategorySeeder extends Seeder
                     'it' => 'Il granito è la pietra da costruzione più dura con alta resistenza.',
                     'ar' => 'الجرانيت هو أصلب حجر بناء مع مقاومة عالية.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'color',   'label' => ['fa' => 'رنگ',    'en' => 'Color'],   'type' => 'select', 'options' => ['مشکی', 'صورتی', 'طوسی', 'قرمز', 'سبز', 'آبی'], 'filterable' => true],
-                    ['key' => 'finish',  'label' => ['fa' => 'نوع پرداخت', 'en' => 'Finish'], 'type' => 'select', 'options' => ['پولیش', 'فلیم', 'بوشهمر'], 'filterable' => true],
-                    ['key' => 'origin',  'label' => ['fa' => 'کشور استخراج', 'en' => 'Country of Origin'], 'type' => 'text', 'filterable' => true],
-                ],
                 'sort_order' => 3,
                 'children' => [
                     ['fa' => 'گرانیت مشکی',   'en' => 'Black Granite',  'slug_fa' => 'granite-meshki',  'slug_en' => 'black-granite',  'sort' => 1],
@@ -129,7 +114,7 @@ class CategorySeeder extends Seeder
                 ],
             ],
 
-            // ── ۴. آنتیک ─────────────────────────────────────
+            // ── 4. Antique Stone ───────────────────────────────
             [
                 'name' => [
                     'fa' => 'سنگ آنتیک',
@@ -152,10 +137,6 @@ class CategorySeeder extends Seeder
                     'it' => 'Pietre antiche con texture invecchiata, adatte per design classici e rustici.',
                     'ar' => 'الأحجار الأنتيكية ذات الملمس القديم، مناسبة للتصاميم الكلاسيكية.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'style',  'label' => ['fa' => 'سبک',  'en' => 'Style'],  'type' => 'select', 'options' => ['روستیک', 'قلوه‌ای', 'کوبیده', 'لاشه'], 'filterable' => true],
-                    ['key' => 'color',  'label' => ['fa' => 'رنگ',  'en' => 'Color'],  'type' => 'select', 'options' => ['کرم', 'خاکستری', 'قهوه‌ای', 'مشکی'], 'filterable' => true],
-                ],
                 'sort_order' => 4,
                 'children' => [
                     ['fa' => 'آنتیک روستیک',   'en' => 'Rustic Antique',  'slug_fa' => 'antique-rustic',   'slug_en' => 'rustic-antique',  'sort' => 1],
@@ -164,7 +145,7 @@ class CategorySeeder extends Seeder
                 ],
             ],
 
-            // ── ۵. سنگ آهک ───────────────────────────────────
+            // ── 5. Limestone ───────────────────────────────────
             [
                 'name' => [
                     'fa' => 'سنگ آهک',
@@ -187,10 +168,6 @@ class CategorySeeder extends Seeder
                     'it' => 'Il calcare è una pietra leggera e pratica per facciate e spazi esterni.',
                     'ar' => 'الحجر الجيري حجر خفيف وعملي للواجهات والمساحات الخارجية.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'color',  'label' => ['fa' => 'رنگ',  'en' => 'Color'],  'type' => 'select', 'options' => ['سفید', 'کرم', 'خاکستری'], 'filterable' => true],
-                    ['key' => 'finish', 'label' => ['fa' => 'نوع پرداخت', 'en' => 'Finish'], 'type' => 'select', 'options' => ['صاف', 'خشن', 'مات'], 'filterable' => true],
-                ],
                 'sort_order' => 5,
                 'children' => [
                     ['fa' => 'سنگ آهک سفید',  'en' => 'White Limestone', 'slug_fa' => 'ahak-sefid', 'slug_en' => 'white-limestone', 'sort' => 1],
@@ -198,7 +175,7 @@ class CategorySeeder extends Seeder
                 ],
             ],
 
-            // ── ۶. اسلیت ─────────────────────────────────────
+            // ── 6. Slate ───────────────────────────────────────
             [
                 'name' => [
                     'fa' => 'اسلیت',
@@ -221,9 +198,6 @@ class CategorySeeder extends Seeder
                     'it' => 'L\'ardesia è una pietra a strati naturali, adatta per pavimenti e rivestimenti esterni.',
                     'ar' => 'الأردواز حجر طبيعي متعدد الطبقات، مناسب للأرضيات والواجهات الخارجية.',
                 ],
-                'attribute_schema' => [
-                    ['key' => 'color',  'label' => ['fa' => 'رنگ',  'en' => 'Color'],  'type' => 'select', 'options' => ['مشکی', 'سبز', 'قرمز', 'طوسی'], 'filterable' => true],
-                ],
                 'sort_order' => 6,
                 'children' => [
                     ['fa' => 'اسلیت مشکی', 'en' => 'Black Slate', 'slug_fa' => 'slate-meshki', 'slug_en' => 'black-slate', 'sort' => 1],
@@ -239,38 +213,37 @@ class CategorySeeder extends Seeder
             unset($catData['children']);
 
             $parent = Category::create([
-                'name'             => $catData['name'],
-                'slug'             => $catData['slug'],
-                'description'      => $catData['description'],
-                'attribute_schema' => $catData['attribute_schema'] ?? null,
-                'is_active'        => true,
-                'sort_order'       => $catData['sort_order'],
+                'name'        => $catData['name'],
+                'slug'        => $catData['slug'],
+                'description' => $catData['description'],
+                'is_active'   => true,
+                'sort_order'  => $catData['sort_order'],
             ]);
 
             foreach ($children as $child) {
                 Category::create([
-                    'parent_id'   => $parent->id,
-                    'name'        => [
+                    'parent_id'  => $parent->id,
+                    'name'       => [
                         'fa' => $child['fa'],
                         'en' => $child['en'],
                         'hi' => $child['en'],
                         'it' => $child['en'],
                         'ar' => $child['en'],
                     ],
-                    'slug'        => [
+                    'slug'       => [
                         'fa' => $child['slug_fa'],
                         'en' => $child['slug_en'],
                         'hi' => $child['slug_en'],
                         'it' => $child['slug_en'],
                         'ar' => $child['slug_en'],
                     ],
-                    'is_active'   => true,
-                    'sort_order'  => $child['sort'],
+                    'is_active'  => true,
+                    'sort_order' => $child['sort'],
                 ]);
             }
         }
 
-        // بازسازی Nested Set
+        // Rebuild nested set tree
         Category::fixTree();
     }
 }

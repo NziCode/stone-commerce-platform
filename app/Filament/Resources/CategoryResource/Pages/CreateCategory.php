@@ -26,6 +26,8 @@ class CreateCategory extends CreateRecord
     protected function afterCreate(): void
     {
         $this->reorderSiblings($this->record);
+
+        Category::fixTree();
     }
 
     protected function reorderSiblings(Category $category): void

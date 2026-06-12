@@ -24,10 +24,6 @@ return new class extends Migration
             $table->json('description')->nullable();
             $table->json('excerpt')->nullable();
 
-            // ویژگی‌های دینامیک این دسته‌بندی
-            // مثال: [{"key":"color","label":{"fa":"رنگ","en":"Color"},"type":"select","options":["عسلی","کرم","سفید"],"unit":null,"filterable":true}]
-            $table->json('attribute_schema')->nullable();
-
             $table->json('meta_title')->nullable();
             $table->json('meta_description')->nullable();
             $table->json('meta_keywords')->nullable();

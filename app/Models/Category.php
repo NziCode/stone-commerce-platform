@@ -22,7 +22,6 @@ class Category extends Model implements HasMedia
         'slug',
         'description',
         'excerpt',
-        'attribute_schema',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -37,8 +36,7 @@ class Category extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'attribute_schema' => 'array',
-        'is_active'        => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     // ── Media ──────────────────────────────────────────
