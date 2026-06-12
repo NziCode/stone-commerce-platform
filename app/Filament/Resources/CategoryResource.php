@@ -56,13 +56,13 @@ class CategoryResource extends Resource
 
     private static function buildPositionOptions(\Illuminate\Support\Collection $siblings): array
     {
-        $options = [0 => '⬆ First (before all)'];
+        $options = [0 => __('admin.first_before_all')];
 
         foreach ($siblings as $sibling) {
             $name = $sibling->getTranslation('name', app()->getLocale(), false)
                 ?: $sibling->getTranslation('name', 'en', false)
                     ?: '—';
-            $options[$sibling->sort_order] = "After: {$name}";
+            $options[$sibling->sort_order] = __('admin.after') . ': ' . $name;
         }
 
         return $options;
@@ -74,10 +74,10 @@ class CategoryResource extends Resource
         return $form->schema([
 
             // ── Basic Info ────────────────────────────────────
-            Forms\Components\Section::make('Basic Info')
+            Forms\Components\Section::make(__('admin.basic_info'))
                 ->schema([
                     Forms\Components\Select::make('parent_id')
-                        ->label('Parent Category')
+                        ->label(__('admin.parent_category'))
                         ->options(function () {
                             return Category::whereNull('parent_id')
                                 ->orderBy('sort_order')
@@ -91,11 +91,10 @@ class CategoryResource extends Resource
                         ->nullable()
                         ->searchable()
                         ->live()
-                        ->placeholder('No parent (root category)')
-                        ->afterStateUpdated(fn (Set $set) => $set('sort_order', 0)),
+                        ->placeholder(__('admin.no_parent')),
 
                     Forms\Components\Select::make('sort_order')
-                        ->label('Position')
+                        ->label(__('admin.position'))
                         ->options(function (Get $get, $record) {
                             $parentId  = $get('parent_id') ? (int) $get('parent_id') : null;
                             $excludeId = $record?->id;
@@ -108,16 +107,16 @@ class CategoryResource extends Resource
                             $parentId  = $get('parent_id') ? (int) $get('parent_id') : null;
                             $excludeId = $record?->id;
                             $count     = self::getSiblings($parentId, $excludeId)->count();
-                            return "Total siblings: {$count}";
+                            return __('admin.total_siblings') . ': ' . $count;
                         }),
 
                     Forms\Components\Toggle::make('is_active')
-                        ->label('Active')
+                        ->label(__('admin.is_active'))
                         ->default(true),
                 ])->columns(3),
 
             // ── Translations (Tabs) ───────────────────────────
-            Forms\Components\Section::make('Content')
+            Forms\Components\Section::make(__('admin.content'))
                 ->schema([
                     Forms\Components\Tabs::make('Translations')
                         ->tabs(
@@ -126,7 +125,7 @@ class CategoryResource extends Resource
                                     ->schema([
 
                                         Forms\Components\TextInput::make("name.{$lang->code}")
-                                            ->label('Name')
+                                            ->label(__('admin.name'))
                                             ->required($lang->code === 'fa')
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(function (Set $set, ?string $state) use ($lang) {
@@ -134,63 +133,26 @@ class CategoryResource extends Resource
                                             }),
 
                                         Forms\Components\TextInput::make("slug.{$lang->code}")
-                                            ->label('Slug')
+                                            ->label(__('admin.slug'))
                                             ->required($lang->code === 'fa')
-                                            ->helperText('Auto-generated from name'),
+                                            ->helperText(__('admin.slug_helper')),
 
                                         Forms\Components\Textarea::make("description.{$lang->code}")
-                                            ->label('Description')
+                                            ->label(__('admin.description'))
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         Forms\Components\TextInput::make("meta_title.{$lang->code}")
-                                            ->label('Meta Title'),
+                                            ->label(__('admin.meta_title')),
 
                                         Forms\Components\Textarea::make("meta_description.{$lang->code}")
-                                            ->label('Meta Description')
+                                            ->label(__('admin.meta_description'))
                                             ->rows(2),
                                     ])->columns(2);
                             })->toArray()
                         )
                         ->columnSpanFull(),
                 ]),
-
-            // ── Dynamic Attribute Schema ──────────────────────
-            Forms\Components\Section::make('Dynamic Attribute Schema')
-                ->description('Define attributes that products in this category can have.')
-                ->schema([
-                    Forms\Components\Repeater::make('attribute_schema')
-                        ->label('')
-                        ->schema([
-                            Forms\Components\TextInput::make('key')
-                                ->label('Key (internal)')
-                                ->required()
-                                ->placeholder('color'),
-
-                            Forms\Components\Select::make('type')
-                                ->label('Type')
-                                ->options([
-                                    'text'   => 'Text',
-                                    'select' => 'Select (dropdown)',
-                                    'number' => 'Number',
-                                    'bool'   => 'Yes/No',
-                                ])
-                                ->required()
-                                ->default('text'),
-
-                            Forms\Components\KeyValue::make('label')
-                                ->label('Label per language')
-                                ->keyLabel('Locale')
-                                ->valueLabel('Label'),
-
-                            Forms\Components\TagsInput::make('options')
-                                ->label('Options (for select type)')
-                                ->placeholder('Add option'),
-                        ])
-                        ->columns(2)
-                        ->addActionLabel('Add Attribute')
-                        ->collapsible(),
-                ])->collapsed(),
         ]);
     }
 
@@ -200,7 +162,7 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('admin.name'))
                     ->getStateUsing(fn ($record) =>
                     $record->getTranslation('name', app()->getLocale(), false)
                         ?: $record->getTranslation('name', 'en', false)
@@ -219,7 +181,7 @@ class CategoryResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('parent.name')
-                    ->label('Parent')
+                    ->label(__('admin.parent_category'))
                     ->getStateUsing(fn ($record) =>
                     $record->parent
                         ? ($record->parent->getTranslation('name', app()->getLocale(), false)
@@ -230,51 +192,55 @@ class CategoryResource extends Resource
                     ->color(fn ($record) => $record->parent_id ? 'warning' : 'gray'),
 
                 Tables\Columns\TextColumn::make('children_count')
-                    ->label('Sub-categories')
+                    ->label(__('admin.sub_categories'))
                     ->counts('children')
                     ->badge()
                     ->color('warning'),
 
                 Tables\Columns\TextColumn::make('products_count')
-                    ->label('Products')
+                    ->label(__('admin.products'))
                     ->counts('products')
                     ->badge()
                     ->color('info'),
 
                 Tables\Columns\ToggleColumn::make('is_active')
-                    ->label('Active'),
+                    ->label(__('admin.is_active')),
 
                 Tables\Columns\TextColumn::make('sort_order')
-                    ->label('Order')
+                    ->label(__('admin.sort_order'))
                     ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label(__('admin.is_active')),
 
                 Tables\Filters\Filter::make('root_only')
-                    ->label('Root categories only')
+                    ->label(__('admin.root_only'))
                     ->query(fn ($query) => $query->whereNull('parent_id'))
                     ->toggle(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label(__('admin.edit')),
+                Tables\Actions\DeleteAction::make()
+                    ->label(__('admin.delete')),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->label(__('admin.delete')),
                 ]),
             ])
             ->defaultSort('sort_order')
             ->groups([
                 Tables\Grouping\Group::make('parent_id')
-                    ->label('Parent Category')
+                    ->label(__('admin.parent_category'))
                     ->getTitleFromRecordUsing(fn ($record) =>
                     $record->parent
-                        ? ($record->parent->getTranslation('name', app()->getLocale(), false)
-                        ?: $record->parent->getTranslation('name', 'en', false))
-                        : 'Root Categories'
+                        ? (__('admin.parent_category') . ': ' .
+                        ($record->parent->getTranslation('name', app()->getLocale(), false)
+                            ?: $record->parent->getTranslation('name', 'en', false)))
+                        : __('admin.root_categories')
                     )
                     ->collapsible(),
             ])
