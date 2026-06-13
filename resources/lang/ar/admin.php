@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-12 10:57:49
+// Generated at: 2026-06-13 21:08:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -79,6 +79,7 @@ return [
     'is_active' => 'نشط',
     'is_featured' => 'مميز',
     'is_filterable' => 'قابل للتصفية',
+    'is_new' => 'جديد',
     'key' => 'المفتاح',
     'label' => 'تسمية',
     'label_per_language' => 'تسمية لكل لغة',
@@ -123,6 +124,7 @@ return [
     'position' => 'الموضع',
     'posts' => 'الأخبار',
     'price' => 'السعر',
+    'price_on_request' => 'السعر عند الطلب',
     'print' => 'طباعة',
     'processing' => 'قيد المعالجة',
     'processing_action' => 'جارٍ المعالجة...',

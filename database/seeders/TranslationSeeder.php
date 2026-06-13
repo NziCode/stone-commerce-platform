@@ -209,6 +209,10 @@ class TranslationSeeder extends Seeder
             'deactivate'              => ['fa' => 'غیرفعال‌سازی',      'en' => 'Deactivate',          'ar' => 'إلغاء التفعيل',      'hi' => 'निष्क्रिय करें',    'it' => 'Disattiva'],
             'attribute_delete_warning'=> ['fa' => 'این ویژگی در :count محصول استفاده شده. حذف آن مقادیر مربوطه را نیز حذف می‌کند.', 'en' => 'This attribute is used in :count product(s). Deleting it will also remove related values.', 'ar' => 'هذه السمة مستخدمة في :count منتج. حذفها سيؤدي أيضاً إلى حذف القيم المرتبطة.', 'hi' => 'यह विशेषता :count उत्पाद(ओं) में उपयोग की जाती है। इसे हटाने से संबंधित मान भी हट जाएंगे।', 'it' => 'Questo attributo è usato in :count prodotti. La sua eliminazione rimuoverà anche i valori correlati.'],
             'options_desc' => ['fa' => 'برای هر گزینه، معادل آن را در همه زبان‌ها وارد کنید', 'en' => 'For each option, enter its translation in all languages', 'ar' => 'لكل خيار، أدخل ترجمته بجميع اللغات', 'hi' => 'प्रत्येक विकल्प के लिए, सभी भाषाओं में इसका अनुवाद दर्ज करें', 'it' => 'Per ogni opzione, inserisci la traduzione in tutte le lingue'],
+
+            // ── Product Form ────────────────────────────────────
+            'price_on_request' => ['fa' => 'قیمت با تماس', 'en' => 'Price on Request', 'ar' => 'السعر عند الطلب', 'hi' => 'मांग पर मूल्य', 'it' => 'Prezzo su Richiesta'],
+            'is_new'           => ['fa' => 'جدید',          'en' => 'New',              'ar' => 'جديد',            'hi' => 'नया',           'it' => 'Nuovo'],
         ],
 
         // ── Frontend Messages ─────────────────────────────────────
