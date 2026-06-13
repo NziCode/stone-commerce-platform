@@ -2,8 +2,115 @@
 
 @section('title', \App\Models\Setting::get('site_name'))
 
+@php
+    $sitePhone = \App\Models\Setting::get('site_phone');
+@endphp
+
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
+    <style>
+        /* Featured Products section redesign */
+        .featured-products-area {
+            background-color: #0a2756;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 1600px;
+        }
+        @media (min-width: 1600px) {
+            .featured-products-area {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+        }
+        .featured-products-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+        .featured-products-header .sub-title {
+            display: block;
+            color: #ff5e13;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .featured-products-header h2 {
+            color: #fff;
+            font-size: 28px;
+            margin: 0;
+        }
+        .featured-products-arrows {
+            display: flex;
+            gap: 10px;
+        }
+        .featured-products-arrows > div {
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .featured-products-arrows > div:hover {
+            background-color: #ff5e13;
+            border-color: #ff5e13;
+        }
+        .featured-products-area .project-slider {
+            overflow: hidden;
+        }
+        .featured-products-area .project-slider .swiper-slide {
+            width: 320px;
+            flex-shrink: 0;
+        }
+        .featured-products-area .project-item,
+        .featured-products-area .project-img {
+            display: block;
+            width: 100%;
+            height: 320px;
+            position: relative;
+        }
+        .featured-products-area .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        .featured-products-area .project-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: auto;
+            background-color: rgba(255,255,255,0.95);
+            padding: 14px 20px;
+            text-align: start;
+            opacity: 1;
+            visibility: visible;
+            box-shadow: none;
+        }
+        .featured-products-area .project-content .sub-title {
+            color: #ff5e13;
+            font-size: 12px;
+            display: block;
+            margin-bottom: 2px;
+        }
+        .featured-products-area .project-content h3 {
+            font-size: 16px;
+            margin: 0;
+        }
+        .featured-products-area .project-content h3 a {
+            color: #00225a;
+        }
+        [dir="rtl"] .featured-products-arrows {
+            flex-direction: row-reverse;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -16,7 +123,6 @@
                     <div class="swiper-slide animation-style-01">
                         <div class="slide-inner bg-height"
                              data-bg-image="{{ $slide->image_url }}">
-                            {{-- Overlay --}}
                             @if($slide->overlay_opacity > 0)
                                 <div style="position:absolute;top:0;left:0;width:100%;height:100%;
                                             background:{{ $slide->overlay_color ?? '#000000' }};
@@ -37,7 +143,7 @@
                                     @endif
                                     @if($slide->getTranslation('description', app()->getLocale()))
                                         <p class="short-desc-2 font-size-20 mb-7">
-                                            {{ $slide->getTranslation('subtitle', app()->getLocale()) }}
+                                            {{ $slide->getTranslation('description', app()->getLocale()) }}
                                         </p>
                                     @endif
                                     @if($slide->button_link && $slide->getTranslation('button_text', app()->getLocale()))
@@ -148,14 +254,7 @@
                         <div class="experience style-2 text-primary">
                             <div class="experience-content">
                                 <span class="year">{{ $aboutYears }}</span>
-                                <h2 class="our-progress">
-                                    @if($locale === 'fa') سال تجربه
-                                    @elseif($locale === 'ar') سنوات من الخبرة
-                                    @elseif($locale === 'hi') वर्षों का अनुभव
-                                    @elseif($locale === 'it') Anni di Esperienza
-                                    @else Years of <span>Experience</span>
-                                    @endif
-                                </h2>
+                                <h2 class="our-progress">{{ __('messages.years_experience') }}</h2>
                             </div>
                             <div class="experience-img">
                                 <img src="{{ asset('assets/images/about/avatar.png') }}" alt="Avatar">
@@ -185,69 +284,47 @@
 
     {{-- ═══ Featured Products ═══ --}}
     @if($featuredProducts->count())
-        <div class="project-area">
-            <div class="project-inner" data-bg-image="{{ asset('assets/images/project/bg/1-1.png') }}">
-                <div class="button-wrap text-end">
-                    <a class="btn btn-project" href="{{ route('products.index') }}">
-                        <span>{{ __('messages.products') }}</span>
-                    </a>
+        <div class="featured-products-area py-3 px-3 mt-5">
+            <div class="featured-products-header">
+                <div>
+                    <span class="sub-title">{{ __('messages.products') }}</span>
+                    <h2>{{ __('messages.featured_products') }}</h2>
                 </div>
-                <div class="container-fluid p-0">
-                    <div class="project-with-title">
-                        <div class="section-title-area text-white h-100">
-                            <div class="title-with-arrow">
-                                <div class="section-title-wrap style-02">
-                                    <div class="section-title">
-                                        <span>{{ __('messages.products') }}</span>
-                                        <h2 class="mb-0">
-                                            @if(app()->getLocale() === 'fa') جدیدترین <br> سنگ‌های ما
-                                            @elseif(app()->getLocale() === 'ar') أحدث <br> أحجارنا
-                                            @elseif(app()->getLocale() === 'hi') हमारे नवीनतम <br> पत्थर
-                                            @elseif(app()->getLocale() === 'it') Le Nostre <br> Ultime Pietre
-                                            @else Our Latest <br> Stones
-                                            @endif
-                                        </h2>
-                                    </div>
-                                </div>
-                                <div class="project-button-wrap">
-                                    <div class="project-button-prev">
-                                        <i class="ion-chevron-left"></i>
-                                    </div>
-                                    <div class="project-button-next">
-                                        <i class="ion-chevron-right"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-container project-slider">
-                            <div class="swiper-wrapper">
-                                @foreach($featuredProducts as $product)
-                                    <div class="swiper-slide">
-                                        <div class="project-item">
-                                            <a class="project-img"
-                                               href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
-                                                <img src="{{ $product->medium_image_url }}"
-                                                     alt="{{ $product->getTranslation('name', app()->getLocale()) }}">
-                                            </a>
-                                            <div class="project-content">
-                                                <span class="sub-title">
-                                                    {{ $product->primaryCategory()?->getTranslation('name', app()->getLocale()) ?? '' }}
-                                                </span>
-                                                <h3 class="title mb-0">
-                                                    <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
-                                                        {{ $product->getTranslation('name', app()->getLocale()) }}
-                                                    </a>
-                                                </h3>
-                                                <span class="{{ $product->status === 'available' ? 'text-success' : 'text-warning' }}">
-                                                    {{ $product->status_label }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+                <div class="featured-products-arrows">
+                    <div class="project-button-prev">
+                        <i class="ion-chevron-left"></i>
                     </div>
+                    <div class="project-button-next">
+                        <i class="ion-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-container project-slider">
+                <div class="swiper-wrapper">
+                    @foreach($featuredProducts as $product)
+                        <div class="swiper-slide">
+                            <div class="project-item">
+                                <a class="project-img"
+                                   href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
+                                    <img src="{{ $product->medium_image_url }}"
+                                         alt="{{ $product->getTranslation('name', app()->getLocale()) }}">
+                                </a>
+                                <div class="project-content">
+                                    <span class="sub-title">
+                                        {{ $product->primaryCategory()?->getTranslation('name', app()->getLocale()) ?? '' }}
+                                    </span>
+                                    <h3 class="mb-0">
+                                        <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
+                                            {{ $product->getTranslation('name', app()->getLocale()) }}
+                                        </a>
+                                    </h3>
+                                    <span class="{{ $product->status === 'available' ? 'text-success' : 'text-warning' }}" style="font-size:12px">
+                                        {{ $product->status_label }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -260,25 +337,17 @@
                 <div class="section-title-area pb-70">
                     <div class="section-title with-border pb-5 pb-lg-0">
                         <span>{{ __('messages.products') }}</span>
-                        <h2 class="mb-0 font-size-50">
-                            @if(app()->getLocale() === 'fa') جدیدترین <br> سنگ‌های موجود
-                            @elseif(app()->getLocale() === 'ar') أحدث <br> الأحجار المتاحة
-                            @elseif(app()->getLocale() === 'hi') नवीनतम <br> उपलब्ध पत्थर
-                            @elseif(app()->getLocale() === 'it') Le Ultime <br> Pietre Disponibili
-                            @else Latest <br> Available Stones
-                            @endif
-                        </h2>
+                        <h2 class="mb-0 font-size-50">{!! __('messages.latest_stones') !!}</h2>
                     </div>
                     <div class="section-banner text-white align-self-center p-7"
                          data-bg-image="{{ asset('assets/images/service/bg/1-1.png') }}">
                         <h2 class="info mb-0">
-                            @if(app()->getLocale() === 'fa') سوال دارید؟
-                            @elseif(app()->getLocale() === 'ar') هل لديك سؤال؟
-                            @elseif(app()->getLocale() === 'hi') कोई प्रश्न?
-                            @elseif(app()->getLocale() === 'it') Hai domande?
-                            @else Any Questions?
+                            {{ __('messages.any_questions') }}
+                            @if($sitePhone)
+                                <span>{{ $sitePhone }}</span>
+                            @else
+                                <span>02433467247</span>
                             @endif
-                            <span>{{ \App\Models\Setting::get('site_phone') }}</span>
                         </h2>
                     </div>
                 </div>
@@ -343,10 +412,10 @@
             <div class="row">
                 @php
                     $stats = [
-                        ['count' => \App\Models\Product::count(), 'label' => __('messages.products')],
+                        ['count' => \App\Models\Product::count(),                        'label' => __('messages.products')],
                         ['count' => \App\Models\Product::where('status','sold')->count(), 'label' => __('messages.product_sold')],
-                        ['count' => \App\Models\Category::count(), 'label' => __('messages.categories')],
-                        ['count' => \App\Models\User::role('customer')->count(), 'label' => app()->getLocale() === 'fa' ? 'مشتریان' : (app()->getLocale() === 'ar' ? 'العملاء' : (app()->getLocale() === 'it' ? 'Clienti' : (app()->getLocale() === 'hi' ? 'ग्राहक' : 'Customers')))],
+                        ['count' => \App\Models\Category::count(),                       'label' => __('messages.categories')],
+                        ['count' => \App\Models\User::role('customer')->count(),          'label' => __('messages.customers')],
                     ];
                 @endphp
                 @foreach($stats as $stat)
@@ -370,24 +439,10 @@
                     <div class="section-title-wrap">
                         <div class="section-title with-border different-width text-start text-lg-end">
                             <span>{{ __('messages.news') }}</span>
-                            <h2 class="mb-0">
-                                @if(app()->getLocale() === 'fa') آخرین اخبار
-                                @elseif(app()->getLocale() === 'ar') آخر الأخبار
-                                @elseif(app()->getLocale() === 'hi') नवीनतम समाचार
-                                @elseif(app()->getLocale() === 'it') Ultime Notizie
-                                @else Latest News
-                                @endif
-                            </h2>
+                            <h2 class="mb-0">{{ __('messages.latest_news') }}</h2>
                         </div>
                         <div class="section-desc">
-                            <p class="font-size-20 mb-0">
-                                @if(app()->getLocale() === 'fa') آخرین اخبار و رویدادهای صنعت سنگ
-                                @elseif(app()->getLocale() === 'ar') آخر أخبار وأحداث صناعة الحجر
-                                @elseif(app()->getLocale() === 'hi') पत्थर उद्योग की नवीनतम खबरें
-                                @elseif(app()->getLocale() === 'it') Ultime notizie del settore lapideo
-                                @else Latest news and events in the stone industry
-                                @endif
-                            </p>
+                            <p class="font-size-20 mb-0">{{ __('messages.latest_news_desc') }}</p>
                         </div>
                     </div>
                 </div>
@@ -421,12 +476,7 @@
                                                     <li>
                                                         <a class="btn btn-link p-0"
                                                            href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}">
-                                                            @if(app()->getLocale() === 'fa') ادامه مطلب
-                                                            @elseif(app()->getLocale() === 'ar') اقرأ المزيد
-                                                            @elseif(app()->getLocale() === 'hi') और पढ़ें
-                                                            @elseif(app()->getLocale() === 'it') Leggi di più
-                                                            @else Read More
-                                                            @endif
+                                                            {{ __('messages.read_more') }}
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -486,12 +536,7 @@
                                 <div class="button-wrap">
                                     <a class="btn btn-custom btn-primary btn-white-hover"
                                        href="{{ route('events.show', $upcomingEvents->first()->getTranslation('slug', app()->getLocale())) }}">
-                                        @if(app()->getLocale() === 'fa') اطلاعات بیشتر
-                                        @elseif(app()->getLocale() === 'ar') معلومات أكثر
-                                        @elseif(app()->getLocale() === 'hi') अधिक जानकारी
-                                        @elseif(app()->getLocale() === 'it') Maggiori Informazioni
-                                        @else More Information
-                                        @endif
+                                        {{ __('messages.more_information') }}
                                     </a>
                                 </div>
                             </div>
