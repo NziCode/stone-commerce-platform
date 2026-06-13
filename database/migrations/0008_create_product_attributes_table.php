@@ -19,8 +19,8 @@ return new class extends Migration
                 ->constrained('attributes')
                 ->cascadeOnDelete();
 
-            // Value: for text/select -> {"fa":"عسلی","en":"Honey",...}
-            // for number/bool -> plain JSON scalar, e.g. 2.5 or true
+            // Value: for text -> {"fa":"...","en":"...",...}
+            // for number/select/bool -> {"value": ...}
             $table->json('value');
 
             $table->unsignedSmallInteger('sort_order')->default(0);

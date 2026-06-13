@@ -18,10 +18,9 @@ class Product extends Model implements HasMedia
 
     protected $fillable = [
         'name', 'slug', 'description', 'short_description',
-        'sku', 'mine_code', 'origin_country',
+        'sku',
         'price', 'price_usd', 'price_eur', 'price_on_request',
         'status',
-        'length_cm', 'width_cm', 'height_cm', 'weight_kg', 'area_m2',
         'is_featured', 'is_active', 'is_new', 'sort_order', 'views_count',
         'meta_title', 'meta_description', 'meta_keywords', 'og_image',
     ];
@@ -32,19 +31,14 @@ class Product extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'price'           => 'decimal:2',
-        'price_usd'       => 'decimal:2',
-        'price_eur'       => 'decimal:2',
-        'length_cm'       => 'decimal:2',
-        'width_cm'        => 'decimal:2',
-        'height_cm'       => 'decimal:2',
-        'weight_kg'       => 'decimal:2',
-        'area_m2'         => 'decimal:4',
-        'price_on_request'=> 'boolean',
-        'is_featured'     => 'boolean',
-        'is_active'       => 'boolean',
-        'is_new'          => 'boolean',
-        'views_count'     => 'integer',
+        'price'            => 'decimal:2',
+        'price_usd'        => 'decimal:2',
+        'price_eur'        => 'decimal:2',
+        'price_on_request' => 'boolean',
+        'is_featured'      => 'boolean',
+        'is_active'        => 'boolean',
+        'is_new'           => 'boolean',
+        'views_count'      => 'integer',
     ];
 
     // ── Media ──────────────────────────────────────────
@@ -175,8 +169,7 @@ class Product extends Model implements HasMedia
     {
         return $q->where(function ($query) use ($term) {
             $query->whereRaw("JSON_SEARCH(LOWER(name), 'one', ?) IS NOT NULL", ["%{$term}%"])
-                ->orWhere('sku', 'like', "%{$term}%")
-                ->orWhere('mine_code', 'like', "%{$term}%");
+                ->orWhere('sku', 'like', "%{$term}%");
         });
     }
 
@@ -223,16 +216,6 @@ class Product extends Model implements HasMedia
         return '$' . number_format($this->price_usd, 2);
     }
 
-    public function getDimensionsAttribute(): string
-    {
-        $parts = array_filter([
-            $this->length_cm ? "{$this->length_cm}" : null,
-            $this->width_cm  ? "{$this->width_cm}"  : null,
-            $this->height_cm ? "{$this->height_cm}" : null,
-        ]);
-        return implode(' × ', $parts) . (count($parts) ? ' cm' : '');
-    }
-
     public function getAverageRatingAttribute(): float
     {
         return $this->approvedReviews()->avg('rating') ?? 0;
@@ -241,10 +224,10 @@ class Product extends Model implements HasMedia
     public function getStatusLabelAttribute(): string
     {
         return match($this->status) {
-            'available'   => 'موجود',
-            'unavailable' => 'ناموجود',
-            'reserved'    => 'رزرو شده',
-            'sold'        => 'فروخته شده',
+            'available'   => __('admin.available'),
+            'unavailable' => __('admin.unavailable'),
+            'reserved'    => __('admin.reserved'),
+            'sold'        => __('admin.sold'),
             default       => $this->status,
         };
     }

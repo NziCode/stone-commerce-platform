@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-12 10:57:49
+// Generated at: 2026-06-13 21:08:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -79,6 +79,7 @@ return [
     'is_active' => 'فعال',
     'is_featured' => 'ویژه',
     'is_filterable' => 'قابل فیلتر',
+    'is_new' => 'جدید',
     'key' => 'کلید',
     'label' => 'برچسب',
     'label_per_language' => 'برچسب برای هر زبان',
@@ -123,6 +124,7 @@ return [
     'position' => 'موقعیت',
     'posts' => 'اخبار',
     'price' => 'قیمت',
+    'price_on_request' => 'قیمت با تماس',
     'print' => 'چاپ',
     'processing' => 'در حال بررسی',
     'processing_action' => 'در حال پردازش...',

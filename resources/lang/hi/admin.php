@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-12 10:57:49
+// Generated at: 2026-06-13 21:08:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -79,6 +79,7 @@ return [
     'is_active' => 'सक्रिय',
     'is_featured' => 'विशेष',
     'is_filterable' => 'फ़िल्टर करने योग्य',
+    'is_new' => 'नया',
     'key' => 'कुंजी',
     'label' => 'लेबल',
     'label_per_language' => 'प्रति भाषा लेबल',
@@ -123,6 +124,7 @@ return [
     'position' => 'स्थान',
     'posts' => 'समाचार',
     'price' => 'मूल्य',
+    'price_on_request' => 'मांग पर मूल्य',
     'print' => 'प्रिंट',
     'processing' => 'प्रसंस्करण',
     'processing_action' => 'प्रसंस्करण हो रहा है...',

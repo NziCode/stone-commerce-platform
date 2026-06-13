@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-12 10:57:49
+// Generated at: 2026-06-13 21:08:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -79,6 +79,7 @@ return [
     'is_active' => 'Active',
     'is_featured' => 'Featured',
     'is_filterable' => 'Filterable',
+    'is_new' => 'New',
     'key' => 'Key',
     'label' => 'Label',
     'label_per_language' => 'Label per language',
@@ -123,6 +124,7 @@ return [
     'position' => 'Position',
     'posts' => 'News',
     'price' => 'Price',
+    'price_on_request' => 'Price on Request',
     'print' => 'Print',
     'processing' => 'Processing',
     'processing_action' => 'Processing...',
