@@ -16,33 +16,30 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\SearchController;
-use App\Models\Language;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
-// ── Sitemap ─────────────────────────────────────────────────
+// ── Sitemap ──────────────────────────────────────────────────────────────────
 Route::get('/sitemap.xml', function () {
     if (!file_exists(public_path('sitemap.xml'))) {
         Artisan::call('sitemap:generate');
     }
-    return response()->file(public_path('sitemap.xml'), [
-        'Content-Type' => 'application/xml',
-    ]);
+    return response()->file(public_path('sitemap.xml'), ['Content-Type' => 'application/xml']);
 })->name('sitemap');
 
-// ── Robots.txt ──────────────────────────────────────────────
+// ── Robots.txt ───────────────────────────────────────────────────────────────
 Route::get('/robots.txt', function () {
     $content = \App\Models\Setting::get(
         'robots_txt',
         "User-agent: *\nAllow: /\nSitemap: " . url('/sitemap.xml')
     );
-    return response($content, 200)->header('Content-Type', 'text/plain');
+    return response($content)->header('Content-Type', 'text/plain');
 })->name('robots');
 
-// ── تغییر زبان سایت اصلی ────────────────────────────────────
+// ── Frontend locale switcher ──────────────────────────────────────────────────
 Route::get('/set-locale/{locale}', function (string $locale) {
     $validLocales = LanguageService::getLocales();
 
@@ -61,14 +58,12 @@ Route::get('/set-locale/{locale}', function (string $locale) {
 
     $path = '/' . ltrim($path, '/');
 
-    if ($locale === LanguageService::getDefault()?->code) {
-        return redirect($baseUrl . $path);
-    }
-
-    return redirect($baseUrl . '/' . $locale . $path);
+    return $locale === LanguageService::getDefault()?->code
+        ? redirect($baseUrl . $path)
+        : redirect($baseUrl . '/' . $locale . $path);
 })->name('set.locale');
 
-// ── تغییر زبان پنل ادمین ────────────────────────────────────
+// ── Admin locale switcher ─────────────────────────────────────────────────────
 Route::post('/admin/set-locale', function (Request $request) {
     $locale  = $request->input('locale');
     $allowed = LanguageService::getLocales();
@@ -84,56 +79,54 @@ Route::post('/admin/set-locale', function (Request $request) {
     return back();
 })->middleware(['web', 'auth'])->name('admin.set-locale');
 
-// ── Localization Group ───────────────────────────────────────
+// ── Localized routes ──────────────────────────────────────────────────────────
 Route::group([
     'prefix'     => LaravelLocalization::setLocale(),
     'middleware' => ['localize', 'localeSessionRedirect', 'localeViewPath'],
 ], function () {
 
-    // ── Auth ────────────────────────────────────────────────
+    // Auth
     require __DIR__ . '/auth.php';
 
-    // ── صفحه اصلی ──────────────────────────────────────────
+    // Home
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    // ── جستجو ──────────────────────────────────────────────
+    // Search
     Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-    // ── محصولات ────────────────────────────────────────────
+    // Products
     Route::prefix('products')->name('products.')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('index');
         Route::get('/{slug}', [ProductController::class, 'show'])->name('show');
     });
 
-    // ── دسته‌بندی‌ها ────────────────────────────────────────
+    // Categories — show reuses the products index view with $category injected
     Route::prefix('categories')->name('categories.')->group(function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');
         Route::get('/{slug}', [CategoryController::class, 'show'])->name('show');
     });
 
-    // ── اخبار ──────────────────────────────────────────────
+    // News / Posts
     Route::prefix('news')->name('posts.')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::get('/{slug}', [PostController::class, 'show'])->name('show');
     });
 
-    // ── نمایشگاه‌ها ─────────────────────────────────────────
+    // Exhibitions / Events
     Route::prefix('events')->name('events.')->group(function () {
         Route::get('/', [EventController::class, 'index'])->name('index');
         Route::get('/{slug}', [EventController::class, 'show'])->name('show');
     });
 
-    // ── تماس با ما ─────────────────────────────────────────
+    // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
     Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-    // ── خبرنامه ────────────────────────────────────────────
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
-        ->name('newsletter.subscribe');
-    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])
-        ->name('newsletter.unsubscribe');
+    // Newsletter
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
-    // ── سبد خرید ───────────────────────────────────────────
+    // Cart
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', [CartController::class, 'index'])->name('index');
         Route::post('/add/{product}', [CartController::class, 'add'])->name('add');
@@ -142,40 +135,40 @@ Route::group([
         Route::post('/coupon', [CartController::class, 'applyCoupon'])->name('coupon');
     });
 
-    // ── نیاز به لاگین ──────────────────────────────────────
+    // Authenticated routes
     Route::middleware(['auth'])->group(function () {
 
-        // سفارشات
+        // Checkout
         Route::prefix('checkout')->name('checkout.')->group(function () {
             Route::get('/', [CheckoutController::class, 'index'])->name('index');
             Route::post('/', [CheckoutController::class, 'store'])->name('store');
         });
 
+        // Orders
         Route::prefix('orders')->name('orders.')->group(function () {
             Route::get('/', [OrderController::class, 'index'])->name('index');
             Route::get('/{order}', [OrderController::class, 'show'])->name('show');
             Route::post('/{order}/cancel', [OrderController::class, 'cancel'])->name('cancel');
         });
 
-        // پرداخت
+        // Payments
         Route::prefix('payment')->name('payment.')->group(function () {
+            Route::get('/callback/{gateway}', [PaymentController::class, 'callback'])->name('callback');
             Route::get('/{order}', [PaymentController::class, 'index'])->name('index');
             Route::post('/{order}/online', [PaymentController::class, 'payOnline'])->name('online');
             Route::post('/{order}/receipt', [PaymentController::class, 'uploadReceipt'])->name('receipt');
-            Route::get('/callback/{gateway}', [PaymentController::class, 'callback'])->name('callback');
         });
 
-        // wishlist
+        // Wishlist
         Route::prefix('wishlist')->name('wishlist.')->group(function () {
             Route::get('/', [WishlistController::class, 'index'])->name('index');
             Route::post('/toggle/{product}', [WishlistController::class, 'toggle'])->name('toggle');
         });
 
-        // نظرات
-        Route::post('/reviews/{product}', [ReviewController::class, 'store'])
-            ->name('reviews.store');
+        // Reviews
+        Route::post('/reviews/{product}', [ReviewController::class, 'store'])->name('reviews.store');
 
-        // پروفایل
+        // Profile
         Route::prefix('profile')->name('profile.')->group(function () {
             Route::get('/', [ProfileController::class, 'index'])->name('index');
             Route::put('/', [ProfileController::class, 'update'])->name('update');
@@ -183,6 +176,6 @@ Route::group([
         });
     });
 
-    // ── صفحات CMS — باید آخر باشه ──────────────────────────
+    // CMS pages — must be last to avoid catching other routes
     Route::get('/{slug}', [PageController::class, 'show'])->name('pages.show');
 });

@@ -310,3 +310,5 @@ html[dir="rtl"],
 [dir="rtl"] .contact-form textarea,
 [dir="rtl"] .contact-form select                 { text-align: right; }
 [dir="rtl"] .login-register-form                 { text-align: right; }
+[dir='rtl'] .breadcrumb-area .breadcrumb         {direction: rtl;}
+[dir='rtl'] .breadcrumb-area .breadcrumb-item + .breadcrumb-item::before {float: none;margin: 0 8px;}
