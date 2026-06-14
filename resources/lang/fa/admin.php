@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-14 01:46:47
+// Generated at: 2026-06-14 21:30:20
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [

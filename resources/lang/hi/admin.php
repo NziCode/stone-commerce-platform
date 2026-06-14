@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-14 01:46:47
+// Generated at: 2026-06-14 21:30:20
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -105,7 +105,7 @@ return [
     'options_desc' => 'प्रत्येक विकल्प का अनुवाद सभी भाषाओं में दर्ज करें',
     'options_for_select' => 'विकल्प (ड्रॉपडाउन के लिए)',
     'order_number' => 'ऑर्डर नंबर',
-    'orders' => 'ऑर्डر',
+    'orders' => 'ऑर्डर',
     'orders_today' => 'आज के ऑर्डर',
     'pages' => 'पृष्ठ',
     'paid' => 'भुगतान हुआ',

@@ -18,23 +18,21 @@ class ProductController extends Controller
             ->with(['media', 'categories', 'attributes'])
             ->ordered();
 
-        // فیلتر وضعیت
+        // Status filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
-        } else {
-            $query->available();
         }
 
-        // فیلتر دسته‌بندی
+        // Category filter
         if ($request->filled('category')) {
-            $category = Category::where('id', $request->category)->first();
+            $category = Category::find($request->category);
             if ($category) {
                 $categoryIds = $category->descendants()->pluck('id')->push($category->id);
                 $query->whereHas('categories', fn($q) => $q->whereIn('categories.id', $categoryIds));
             }
         }
 
-        // فیلتر قیمت
+        // Price filter
         if ($request->filled('min_price')) {
             $query->where('price', '>=', $request->min_price);
         }
@@ -42,29 +40,63 @@ class ProductController extends Controller
             $query->where('price', '<=', $request->max_price);
         }
 
-        // فیلتر کشور استخراج
-        if ($request->filled('origin')) {
-            $query->where('origin_country', $request->origin);
+        // Search — blade uses 'search' param
+        if ($request->filled('search')) {
+            $query->search($request->search);
         }
 
-        // جستجو
-        if ($request->filled('q')) {
-            $query->search($request->q);
-        }
-
-        // مرتب‌سازی
-        match($request->sort) {
+        // Sort
+        match($request->get('sort', 'latest')) {
             'price_asc'  => $query->orderBy('price', 'asc'),
             'price_desc' => $query->orderBy('price', 'desc'),
-            'newest'     => $query->orderBy('created_at', 'desc'),
-            'views'      => $query->orderBy('views_count', 'desc'),
-            default      => $query->ordered(),
+            'featured'   => $query->orderBy('is_featured', 'desc')->orderBy('sort_order'),
+            'name_asc'   => $query->orderByTranslation('name', 'asc'),
+            default      => $query->orderBy('created_at', 'desc'),
         };
 
-        $products   = $query->paginate(12)->withQueryString();
-        $categories = Category::active()->roots()->with('children')->ordered()->get();
+        $products          = $query->paginate(12)->withQueryString();
+        $sidebarCategories = Category::active()->roots()->with('children')->ordered()->get();
 
-        return view('front.products.index', compact('products', 'categories'));
+        return view('front.products.index', compact('products', 'sidebarCategories'));
+    }
+
+    public function category(Request $request, string $slug)
+    {
+        $locale   = app()->getLocale();
+        $category = Category::active()
+            ->whereJsonContains("slug->{$locale}", $slug)
+            ->firstOrFail();
+
+        $query = Product::active()
+            ->with(['media', 'categories', 'attributes'])
+            ->whereHas('categories', function ($q) use ($category) {
+                $ids = $category->descendants()->pluck('id')->push($category->id);
+                $q->whereIn('categories.id', $ids);
+            });
+
+        // Status filter
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Search
+        if ($request->filled('search')) {
+            $query->search($request->search);
+        }
+
+        // Sort
+        match($request->get('sort', 'latest')) {
+            'price_asc'  => $query->orderBy('price', 'asc'),
+            'price_desc' => $query->orderBy('price', 'desc'),
+            'featured'   => $query->orderBy('is_featured', 'desc')->orderBy('sort_order'),
+            'name_asc'   => $query->orderByTranslation('name', 'asc'),
+            default      => $query->orderBy('created_at', 'desc'),
+        };
+
+        $products          = $query->paginate(12)->withQueryString();
+        $sidebarCategories = Category::active()->roots()->with('children')->ordered()->get();
+
+        return view('front.products.index', compact('products', 'sidebarCategories', 'category'));
     }
 
     public function show(string $slug)
@@ -76,7 +108,7 @@ class ProductController extends Controller
             ->firstOrFail();
 
         $product->incrementViews();
-        $this->setProductSeo($product); // ← اضافه کن
+        $this->setProductSeo($product);
 
         $relatedProducts = Product::active()
             ->available()

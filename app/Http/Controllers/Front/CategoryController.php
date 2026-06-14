@@ -6,66 +6,55 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Traits\HasSeo;
 
 class CategoryController extends Controller
 {
-    use HasSeo;
-
     public function index()
     {
-        $categories = Category::active()
-            ->roots()
-            ->with(['media', 'children' => fn($q) => $q->active()->with('media')])
-            ->ordered()
-            ->get();
-
+        $categories = Category::active()->roots()->with('children')->ordered()->get();
         return view('front.categories.index', compact('categories'));
     }
 
-    public function show(string $slug, Request $request)
+    public function show(Request $request, string $slug)
     {
         $locale   = app()->getLocale();
         $category = Category::active()
             ->whereJsonContains("slug->{$locale}", $slug)
-            ->with(['media', 'children'])
+            ->with('parent', 'children')
             ->firstOrFail();
 
-        $this->setCategorySeo($category); // ← اضافه کن
-
-        // همه زیردسته‌ها
+        // Include self + all descendants
         $categoryIds = $category->descendants()->pluck('id')->push($category->id);
 
         $query = Product::active()
-            ->whereHas('categories', fn($q) => $q->whereIn('categories.id', $categoryIds))
-            ->with(['media', 'attributes'])
-            ->ordered();
+            ->with(['media', 'categories'])
+            ->whereHas('categories', fn($q) => $q->whereIn('categories.id', $categoryIds));
 
-        // فیلتر وضعیت
+        // Status filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
-        } else {
-            $query->available();
         }
 
-        // فیلتر قیمت
-        if ($request->filled('min_price')) {
-            $query->where('price', '>=', $request->min_price);
-        }
-        if ($request->filled('max_price')) {
-            $query->where('price', '<=', $request->max_price);
+        // Search
+        if ($request->filled('search')) {
+            $query->search($request->search);
         }
 
-        // مرتب‌سازی
-        match($request->sort) {
+        // Sort
+        match($request->get('sort', 'latest')) {
             'price_asc'  => $query->orderBy('price', 'asc'),
             'price_desc' => $query->orderBy('price', 'desc'),
-            'newest'     => $query->orderBy('created_at', 'desc'),
-            default      => $query->ordered(),
+            'featured'   => $query->orderBy('is_featured', 'desc')->orderBy('sort_order'),
+            'name_asc'   => $query->orderByTranslation('name', 'asc'),
+            default      => $query->orderBy('created_at', 'desc'),
         };
 
-        $products = $query->paginate(12)->withQueryString();
+        $products          = $query->paginate(12)->withQueryString();
+        $sidebarCategories = Category::active()->roots()
+            ->with('children')
+            ->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])
+            ->ordered()->get();
 
-        return view('front.categories.show', compact('category', 'products'));
+        return view('front.products.index', compact('products', 'sidebarCategories', 'category'));
     }
 }
