@@ -34,10 +34,18 @@ class Event extends Model implements HasMedia
         'views_count' => 'integer',
     ];
 
+    // ── Media Collections ──────────────────────────────
     public function registerMediaCollections(): void
     {
+        // Main cover image — shown in lists and as the detail-page hero
         $this->addMediaCollection('cover')->singleFile();
+
+        // Photo gallery from the exhibition (booth, products on display, visitors, etc.)
         $this->addMediaCollection('gallery');
+
+        // Video(s) recorded at the exhibition (booth walkthrough, interviews, highlight reel)
+        $this->addMediaCollection('videos')
+            ->acceptsMimeTypes(['video/mp4', 'video/webm', 'video/quicktime']);
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -48,7 +56,12 @@ class Event extends Model implements HasMedia
 
         $this->addMediaConversion('medium')
             ->width(1200)->height(800)
-            ->performOnCollections('cover');
+            ->performOnCollections('cover', 'gallery');
+
+        // Poster/thumbnail frame for video previews
+        $this->addMediaConversion('poster')
+            ->width(800)->height(450)
+            ->performOnCollections('videos');
     }
 
     // ── Relations ──────────────────────────────────────
@@ -108,6 +121,12 @@ class Event extends Model implements HasMedia
     public function getIsUpcomingAttribute(): bool { return $this->status === 'upcoming'; }
     public function getIsOngoingAttribute(): bool  { return $this->status === 'ongoing'; }
     public function getIsFinishedAttribute(): bool { return $this->status === 'finished'; }
+
+    /** Whether this event has any video uploaded */
+    public function getHasVideosAttribute(): bool
+    {
+        return $this->getMedia('videos')->isNotEmpty();
+    }
 
     public function incrementViews(): void
     {

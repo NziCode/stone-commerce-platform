@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/admin
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -30,9 +30,11 @@ return [
     'available_products' => 'Prodotti Disponibili',
     'back' => 'Indietro',
     'basic_info' => 'Info Base',
+    'booth_number' => 'Stand',
     'cancel' => 'Annulla',
     'cancelled' => 'Annullato',
     'categories' => 'Categorie',
+    'city' => 'Città',
     'company' => 'Azienda',
     'confirm' => 'Conferma',
     'confirmed' => 'Confermato',
@@ -57,6 +59,8 @@ return [
     'duplicate' => 'Duplica',
     'edit' => 'Modifica',
     'email' => 'Email',
+    'end_date' => 'Data Fine',
+    'event_website' => 'Sito dell\'Evento',
     'events' => 'Fiere',
     'export' => 'Esporta',
     'failed' => 'Fallito',
@@ -69,6 +73,7 @@ return [
     'gateway' => 'Gateway',
     'generate_lang_files' => 'Genera File Lang',
     'group' => 'Gruppo',
+    'hall_number' => 'Padiglione',
     'image' => 'Immagine',
     'import' => 'Importa',
     'inactive' => 'Inattivo',
@@ -154,6 +159,7 @@ return [
     'sold' => 'Venduto',
     'sold_products' => 'Prodotti Venduti',
     'sort_order' => 'Ordine di Visualizzazione',
+    'start_date' => 'Data Inizio',
     'status' => 'Stato',
     'step_value' => 'Passo',
     'store' => 'Negozio',

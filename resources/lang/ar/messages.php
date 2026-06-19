@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/messages
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -25,6 +25,9 @@ return [
     'customers' => 'عملاؤنا',
     'email' => 'البريد الإلكتروني',
     'error' => 'حدث خطأ',
+    'event_end_date' => 'تاريخ الانتهاء',
+    'event_start_date' => 'تاريخ البدء',
+    'event_website' => 'موقع الفعالية',
     'events' => 'المعارض',
     'featured' => 'مميز',
     'featured_products' => 'المنتجات المميزة',

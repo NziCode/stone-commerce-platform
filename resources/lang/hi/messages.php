@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/messages
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -25,6 +25,9 @@ return [
     'customers' => 'ग्राहक',
     'email' => 'ईमेल',
     'error' => 'कुछ गलत हुआ',
+    'event_end_date' => 'समाप्ति तिथि',
+    'event_start_date' => 'प्रारंभ तिथि',
+    'event_website' => 'इवेंट वेबसाइट',
     'events' => 'प्रदर्शनी',
     'featured' => 'विशेष',
     'featured_products' => 'विशेष उत्पाद',

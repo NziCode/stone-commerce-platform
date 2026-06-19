@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -30,9 +30,11 @@ return [
     'available_products' => 'المنتجات المتاحة',
     'back' => 'رجوع',
     'basic_info' => 'المعلومات الأساسية',
+    'booth_number' => 'رقم الجناح',
     'cancel' => 'إلغاء',
     'cancelled' => 'ملغى',
     'categories' => 'الفئات',
+    'city' => 'المدينة',
     'company' => 'الشركة',
     'confirm' => 'تأكيد',
     'confirmed' => 'مؤكد',
@@ -57,6 +59,8 @@ return [
     'duplicate' => 'تكرار',
     'edit' => 'تعديل',
     'email' => 'البريد الإلكتروني',
+    'end_date' => 'تاريخ الانتهاء',
+    'event_website' => 'موقع الفعالية',
     'events' => 'المعارض',
     'export' => 'تصدير',
     'failed' => 'فشل',
@@ -69,6 +73,7 @@ return [
     'gateway' => 'بوابة الدفع',
     'generate_lang_files' => 'إنشاء ملفات اللغة',
     'group' => 'المجموعة',
+    'hall_number' => 'رقم القاعة',
     'image' => 'الصورة',
     'import' => 'استيراد',
     'inactive' => 'غير نشط',
@@ -154,6 +159,7 @@ return [
     'sold' => 'مباع',
     'sold_products' => 'المنتجات المباعة',
     'sort_order' => 'ترتيب العرض',
+    'start_date' => 'تاريخ البدء',
     'status' => 'الحالة',
     'step_value' => 'الخطوة',
     'store' => 'المتجر',

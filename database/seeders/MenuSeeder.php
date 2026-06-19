@@ -64,8 +64,9 @@ class MenuSeeder extends Seeder
             ]);
         }
 
-        // نمایشگاه‌ها (والد)
-        $exhibitions = MenuItem::create([
+        // نمایشگاه‌ها — لینک مستقیم بدون زیرمنو
+        // (آرشیو حضور شرکت در نمایشگاه‌های گذشته و در‌حال‌برگزاری؛ نیازی به تفکیک آینده/گذشته نیست)
+        MenuItem::create([
             'menu_id'    => $header->id,
             'parent_id'  => null,
             'label'      => ['fa' => 'نمایشگاه‌ها', 'en' => 'Exhibitions', 'hi' => 'प्रदर्शनी', 'it' => 'Fiere', 'ar' => 'المعارض'],
@@ -73,23 +74,6 @@ class MenuSeeder extends Seeder
             'sort_order' => 3,
             'is_active'  => true,
         ]);
-
-        // زیرمنوی نمایشگاه‌ها
-        $exhibitionChildren = [
-            ['fa' => 'نمایشگاه‌های آینده',    'en' => 'Upcoming Exhibitions', 'hi' => 'आगामी प्रदर्शनी',   'it' => 'Prossime Fiere',   'ar' => 'المعارض القادمة',  'route' => 'events.index', 'sort' => 1],
-            ['fa' => 'نمایشگاه‌های گذشته',    'en' => 'Past Exhibitions',     'hi' => 'पिछली प्रदर्शनी',   'it' => 'Fiere Passate',    'ar' => 'المعارض السابقة',  'route' => 'events.index', 'sort' => 2],
-        ];
-
-        foreach ($exhibitionChildren as $child) {
-            MenuItem::create([
-                'menu_id'    => $header->id,
-                'parent_id'  => $exhibitions->id,
-                'label'      => ['fa' => $child['fa'], 'en' => $child['en'], 'hi' => $child['hi'], 'it' => $child['it'], 'ar' => $child['ar']],
-                'route_name' => $child['route'],
-                'sort_order' => $child['sort'],
-                'is_active'  => true,
-            ]);
-        }
 
         // اخبار
         MenuItem::create([

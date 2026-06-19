@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -30,9 +30,11 @@ return [
     'available_products' => 'محصولات موجود',
     'back' => 'بازگشت',
     'basic_info' => 'اطلاعات اصلی',
+    'booth_number' => 'شماره غرفه',
     'cancel' => 'انصراف',
     'cancelled' => 'لغو شده',
     'categories' => 'دسته‌بندی‌ها',
+    'city' => 'شهر',
     'company' => 'شرکت',
     'confirm' => 'تأیید',
     'confirmed' => 'تأیید شده',
@@ -57,6 +59,8 @@ return [
     'duplicate' => 'کپی',
     'edit' => 'ویرایش',
     'email' => 'ایمیل',
+    'end_date' => 'تاریخ پایان',
+    'event_website' => 'وب‌سایت رویداد',
     'events' => 'نمایشگاه‌ها',
     'export' => 'خروجی بگیر',
     'failed' => 'ناموفق',
@@ -69,6 +73,7 @@ return [
     'gateway' => 'درگاه پرداخت',
     'generate_lang_files' => 'ساخت فایل‌های زبان',
     'group' => 'گروه',
+    'hall_number' => 'شماره سالن',
     'image' => 'تصویر',
     'import' => 'وارد کن',
     'inactive' => 'غیرفعال',
@@ -154,6 +159,7 @@ return [
     'sold' => 'فروخته شده',
     'sold_products' => 'محصولات فروخته شده',
     'sort_order' => 'ترتیب نمایش',
+    'start_date' => 'تاریخ شروع',
     'status' => 'وضعیت',
     'step_value' => 'گام (بازه تغییر)',
     'store' => 'فروشگاه',

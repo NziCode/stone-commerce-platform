@@ -109,7 +109,7 @@ class EventResource extends Resource
                     ]),
                 ]),
 
-                Forms\Components\Tabs\Tab::make('تصاویر')->schema([
+                Forms\Components\Tabs\Tab::make('رسانه‌ها')->schema([
                     Forms\Components\SpatieMediaLibraryFileUpload::make('cover')
                         ->label('تصویر کاور')
                         ->collection('cover')
@@ -117,11 +117,21 @@ class EventResource extends Resource
                         ->columnSpanFull(),
 
                     Forms\Components\SpatieMediaLibraryFileUpload::make('gallery')
-                        ->label('گالری')
+                        ->label('گالری تصاویر')
                         ->collection('gallery')
                         ->image()
                         ->multiple()
                         ->reorderable()
+                        ->columnSpanFull(),
+
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('videos')
+                        ->label('ویدیوها')
+                        ->collection('videos')
+                        ->acceptedFileTypes(['video/mp4', 'video/webm', 'video/quicktime'])
+                        ->multiple()
+                        ->reorderable()
+                        ->maxSize(102400)
+                        ->helperText('فرمت‌های مجاز: MP4، WebM، MOV — حداکثر حجم هر فایل ۱۰۰ مگابایت')
                         ->columnSpanFull(),
                 ]),
 
@@ -170,6 +180,11 @@ class EventResource extends Resource
                 Tables\Columns\TextColumn::make('country')
                     ->label('کشور')
                     ->badge(),
+
+                Tables\Columns\IconColumn::make('has_videos')
+                    ->label('ویدیو')
+                    ->boolean()
+                    ->getStateUsing(fn($record) => $record->getMedia('videos')->isNotEmpty()),
 
                 Tables\Columns\TextColumn::make('starts_at')
                     ->label('شروع')

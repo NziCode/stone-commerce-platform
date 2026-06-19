@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/messages
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -25,6 +25,9 @@ return [
     'customers' => 'مشتریان',
     'email' => 'ایمیل',
     'error' => 'یه مشکلی پیش اومد',
+    'event_end_date' => 'تاریخ پایان',
+    'event_start_date' => 'تاریخ شروع',
+    'event_website' => 'وب‌سایت رویداد',
     'events' => 'نمایشگاه‌ها',
     'featured' => 'ویژه',
     'featured_products' => 'محصولات ویژه',

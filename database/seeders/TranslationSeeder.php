@@ -210,6 +210,14 @@ class TranslationSeeder extends Seeder
             // Product form
             'price_on_request' => ['fa' => 'قیمت با استعلام', 'en' => 'Price on Request', 'ar' => 'السعر عند الطلب', 'hi' => 'मांग पर मूल्य', 'it' => 'Prezzo su Richiesta'],
             'is_new'           => ['fa' => 'محصول جدید',       'en' => 'New Arrival',      'ar' => 'وصل حديثاً',      'hi' => 'नया आगमन',       'it' => 'Nuovo Arrivo'],
+
+            // Event fields
+            'start_date'    => ['fa' => 'تاریخ شروع',        'en' => 'Start Date',     'ar' => 'تاريخ البدء',     'hi' => 'प्रारंभ तिथि',    'it' => 'Data Inizio'],
+            'end_date'      => ['fa' => 'تاریخ پایان',       'en' => 'End Date',       'ar' => 'تاريخ الانتهاء',  'hi' => 'समाप्ति तिथि',    'it' => 'Data Fine'],
+            'city'          => ['fa' => 'شهر',                'en' => 'City',           'ar' => 'المدينة',         'hi' => 'शहर',             'it' => 'Città'],
+            'hall_number'   => ['fa' => 'شماره سالن',         'en' => 'Hall',           'ar' => 'رقم القاعة',      'hi' => 'हॉल नंबर',        'it' => 'Padiglione'],
+            'booth_number'  => ['fa' => 'شماره غرفه',         'en' => 'Booth',          'ar' => 'رقم الجناح',      'hi' => 'बूथ नंबर',        'it' => 'Stand'],
+            'event_website' => ['fa' => 'وب‌سایت رویداد',    'en' => 'Event Website',  'ar' => 'موقع الفعالية',   'hi' => 'इवेंट वेबसाइट',   'it' => 'Sito dell\'Evento'],
         ],
 
         // ══════════════════════════════════════════════════════════
@@ -313,6 +321,11 @@ class TranslationSeeder extends Seeder
             'featured'           => ['fa' => 'ویژه',                            'en' => 'Featured',                   'ar' => 'مميز',                          'hi' => 'विशेष',                'it' => 'In Evidenza'],
             'currency_rial'      => ['fa' => 'ریال',                            'en' => 'IRR',                        'ar' => 'ريال',                          'hi' => 'रियाल',                'it' => 'IRR'],
             'status'             => ['fa' => 'وضعیت',                           'en' => 'Status',                     'ar' => 'الحالة',                        'hi' => 'स्थिति',               'it' => 'Stato'],
+
+            // Events page
+            'event_start_date'   => ['fa' => 'تاریخ شروع',         'en' => 'Start Date',        'ar' => 'تاريخ البدء',      'hi' => 'प्रारंभ तिथि',  'it' => 'Data Inizio'],
+            'event_end_date'     => ['fa' => 'تاریخ پایان',        'en' => 'End Date',          'ar' => 'تاريخ الانتهاء',   'hi' => 'समाप्ति तिथि',  'it' => 'Data Fine'],
+            'event_website'      => ['fa' => 'وب‌سایت رویداد',    'en' => 'Event Website',     'ar' => 'موقع الفعالية',    'hi' => 'इवेंट वेबसाइट', 'it' => 'Sito dell\'Evento'],
         ],
     ];
 

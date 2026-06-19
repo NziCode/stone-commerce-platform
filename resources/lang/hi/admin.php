@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -30,9 +30,11 @@ return [
     'available_products' => 'उपलब्ध उत्पाद',
     'back' => 'वापस',
     'basic_info' => 'मूल जानकारी',
+    'booth_number' => 'बूथ नंबर',
     'cancel' => 'रद्द करें',
     'cancelled' => 'रद्द हुआ',
     'categories' => 'श्रेणियाँ',
+    'city' => 'शहर',
     'company' => 'कंपनी',
     'confirm' => 'पुष्टि करें',
     'confirmed' => 'पुष्टि हुई',
@@ -57,6 +59,8 @@ return [
     'duplicate' => 'डुप्लिकेट',
     'edit' => 'संपादित',
     'email' => 'ईमेल',
+    'end_date' => 'समाप्ति तिथि',
+    'event_website' => 'इवेंट वेबसाइट',
     'events' => 'प्रदर्शनी',
     'export' => 'निर्यात',
     'failed' => 'विफल',
@@ -69,6 +73,7 @@ return [
     'gateway' => 'गेटवे',
     'generate_lang_files' => 'फ़ाइलें बनाएं',
     'group' => 'समूह',
+    'hall_number' => 'हॉल नंबर',
     'image' => 'छवि',
     'import' => 'आयात',
     'inactive' => 'निष्क्रिय',
@@ -154,6 +159,7 @@ return [
     'sold' => 'बिक गया',
     'sold_products' => 'बेचे उत्पाद',
     'sort_order' => 'प्रदर्शन क्रम',
+    'start_date' => 'प्रारंभ तिथि',
     'status' => 'स्थिति',
     'step_value' => 'चरण',
     'store' => 'स्टोर',
