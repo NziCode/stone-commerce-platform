@@ -41,10 +41,23 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        $upcomingEvents = Event::upcoming()
+        // This site shows our own exhibition participation history rather than
+        // a forward-looking events calendar, so prefer an ongoing exhibition
+        // if one is currently running, otherwise fall back to the most
+        // recently finished one.
+        $upcomingEvents = Event::ongoing()
             ->with('media')
+            ->orderBy('starts_at', 'desc')
             ->limit(3)
             ->get();
+
+        if ($upcomingEvents->isEmpty()) {
+            $upcomingEvents = Event::finished()
+                ->with('media')
+                ->orderBy('ends_at', 'desc')
+                ->limit(3)
+                ->get();
+        }
 
         return view('front.home', compact(
             'sliders',
