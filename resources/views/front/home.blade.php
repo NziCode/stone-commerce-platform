@@ -284,7 +284,7 @@
 
     {{-- ═══ Featured Products ═══ --}}
     @if($featuredProducts->count())
-        <div class="featured-products-area py-3 px-3 mt-5">
+        <div class="featured-products-area py-3 px-3 mt-5 mx-auto">
             <div class="featured-products-header">
                 <div>
                     <span class="sub-title">{{ __('messages.products') }}</span>

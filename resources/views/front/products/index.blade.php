@@ -61,24 +61,29 @@
 
         /* ── Add action overlay ─────────────────────── */
         .product-img .add-action {
-            position: absolute;
-            bottom: -80px;
-            left: 0;
-            width: 100%;
+            position: absolute !important;
+            bottom: -80px !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            transform: none !important;
+            -webkit-transform: none !important;
             background: rgba(0,34,90,0.92);
             padding: 10px;
-            display: flex;
+            display: flex !important;
             align-items: stretch;
+            flex-direction: row;
             gap: 6px;
             transition: bottom 0.3s ease;
             z-index: 3;
             box-sizing: border-box;
         }
-        .product-item:hover .product-img .add-action { bottom: 0; }
+        .product-item:hover .product-img .add-action { bottom: 0 !important; }
 
         .product-img .add-action .btn-inquiry,
         .product-img .add-action .btn-detail {
-            display: block;
+            flex: 1 1 0 !important;
+            display: block !important;
             text-align: center;
             padding: 8px 6px;
             font-size: 12px;
@@ -88,7 +93,6 @@
             line-height: 1.4;
         }
         .product-img .add-action .btn-inquiry {
-            flex: 1;
             background: #ff5e13;
             color: #fff;
             border: none;
@@ -96,7 +100,6 @@
         }
         .product-img .add-action .btn-inquiry:hover { background: #e04d00; color: #fff; }
         .product-img .add-action .btn-detail {
-            flex: 1;
             background: rgba(255,255,255,0.15);
             color: #fff;
             border: 1px solid rgba(255,255,255,0.4);
@@ -118,11 +121,10 @@
             padding: 3px 8px;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.3px;
         }
         .badge-new      { background: #00225a; color: #fff; }
         .badge-featured { background: #ff5e13; color: #fff; }
-        .badge-sold     { background: #888; color: #fff; }
+        .badge-sold     { background: #888;    color: #fff; }
         .badge-reserved { background: #e8a000; color: #fff; }
 
         /* ── Product content ────────────────────────── */
@@ -144,12 +146,10 @@
         .status-available   { color: #2d8a4e; }
         .status-unavailable { color: #cc3333; }
         .status-reserved    { color: #e8a000; }
-        .status-sold        { color: #888; }
+        .status-sold        { color: #888;    }
 
         /* ── List View ──────────────────────────────── */
         .product-col-list { display: none; }
-        .products-list-view .product-col { display: none !important; }
-        .products-list-view .product-col-list { display: block; }
         .product-card-list {
             display: flex;
             gap: 20px;
@@ -159,28 +159,20 @@
             transition: box-shadow 0.3s;
         }
         .product-card-list:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .product-card-list .list-img {
-            width: 200px; flex-shrink: 0;
-        }
-        .product-card-list .list-img img {
-            width: 100%; height: 180px; object-fit: cover; display: block;
-        }
+        .product-card-list .list-img { width: 200px; flex-shrink: 0; }
+        .product-card-list .list-img img { width: 100%; height: 180px; object-fit: cover; display: block; }
         .product-card-list .list-body { flex: 1; padding: 4px 0; }
-        .product-card-list .list-body .desc {
-            font-size: 14px; color: #666; margin: 8px 0 12px; line-height: 1.6;
-        }
+        .product-card-list .list-body .desc { font-size: 14px; color: #666; margin: 8px 0 12px; line-height: 1.6; }
         .product-card-list .list-body .list-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
 
-        /* ── Sidebar ────────────────────────────────── */
+        /* ── Sidebar misc ───────────────────────────── */
         .active-filter-tag {
             display: inline-flex; align-items: center; gap: 6px;
             background: #00225a; color: #fff;
             padding: 4px 10px; font-size: 12px; margin-bottom: 6px;
         }
         .active-filter-tag a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; }
-        .sidebar-cta {
-            background: #00225a; padding: 24px 20px; text-align: center;
-        }
+        .sidebar-cta { background: #00225a; padding: 24px 20px; text-align: center; }
         .sidebar-cta i { font-size: 30px; color: #ff5e13; display: block; margin-bottom: 10px; }
         .sidebar-cta h4 { color: #fff; font-size: 15px; margin-bottom: 8px; }
         .sidebar-cta a.phone-link {
@@ -188,39 +180,91 @@
             display: block; margin-bottom: 14px; text-decoration: none;
         }
 
+        /* ── Category collapsible tree ──────────────── */
+        .category-tree { list-style: none; padding: 0; margin: 0; }
+        .category-tree > li { border-bottom: 1px solid #f0f0f0; }
+        .category-tree > li:last-child { border-bottom: none; }
+        .cat-row { display: flex; align-items: center; justify-content: space-between; }
+        .cat-toggle {
+            background: none; border: 1px solid #dee2e6;
+            width: 24px; height: 24px; font-size: 16px; line-height: 1;
+            cursor: pointer; color: #666; flex-shrink: 0;
+            margin-inline-start: 6px; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* LTR: toggle after link (right side) — default */
+        /* RTL: toggle before link (right side) */
+        [dir="rtl"] .cat-toggle { order: -1; margin-inline-start: 0; margin-inline-end: 6px; }
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        font-size: 15px;
+        color: #444;
+        text-decoration: none;
+        transition: color 0.2s;
+        }
+        .cat-row > a:hover,
+        .cat-row > a.active { color: #ff5e13; font-weight: 600; }
+        .cat-row > a span {
+            background: #f0f0f0; color: #666;
+            border-radius: 20px; padding: 1px 8px;
+            font-size: 12px; min-width: 28px; text-align: center;
+            font-weight: 400; margin-inline-start: 6px; flex-shrink: 0;
+        }
+        .cat-row > a.active span { background: #ff5e13; color: #fff; }
+        .cat-toggle {
+            background: none; border: 1px solid #dee2e6;
+            width: 24px; height: 24px; font-size: 16px; line-height: 1;
+            cursor: pointer; color: #666; flex-shrink: 0;
+            margin-inline-start: 6px; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            order: -1;
+        }
+        .cat-toggle.open { background: #ff5e13; border-color: #ff5e13; color: #fff; }
+        .cat-children {
+            list-style: none; padding: 0 0 6px 16px; margin: 0; display: none;
+        }
+        .cat-children.show { display: block; }
+        [dir="rtl"] .cat-children { padding: 0 16px 6px 0; }
+        .cat-children li a {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 7px 0; font-size: 13px; color: #555;
+            text-decoration: none; transition: color 0.2s;
+        }
+        .cat-children li a:hover,
+        .cat-children li a.active { color: #ff5e13; font-weight: 600; }
+        .cat-children li a span {
+            background: #f0f0f0; color: #666; border-radius: 20px;
+            padding: 1px 6px; font-size: 11px; min-width: 22px;
+            text-align: center; margin-inline-start: 6px; flex-shrink: 0;
+        }
+        .cat-children li a.active span { background: #ff5e13; color: #fff; }
+
         /* ── No results ─────────────────────────────── */
         .no-products-found { text-align: center; padding: 60px 20px; color: #888; }
         .no-products-found i { font-size: 48px; color: #dee2e6; display: block; margin-bottom: 16px; }
         .no-products-found h4 { color: #555; margin-bottom: 8px; }
 
         /* ── RTL ────────────────────────────────────── */
-        [dir="rtl"] .shop-toolbar        { flex-direction: row-reverse; }
-        [dir="rtl"] .shop-toolbar-right  { flex-direction: row-reverse; }
-        [dir="rtl"] .product-card-list   { flex-direction: row-reverse; }
-        [dir="rtl"] .sidebar-form .searchbox-input {
-            padding-right: 20px; padding-left: 55px; text-align: right;
-        }
-        [dir="rtl"] .sidebar-form .searchbox-btn { right: auto; left: 10px; }
-        [dir="rtl"] .sidebar-blog-categories ul li a { flex-direction: row; }
-
-        /* hover در RTL — هر دو دکمه کنار هم، بدون row-reverse */
-        [dir="rtl"] .product-img .add-action { flex-direction: row; }
+        [dir="rtl"] .shop-toolbar       { flex-direction: row-reverse; }
+        [dir="rtl"] .shop-toolbar-right { flex-direction: row-reverse; }
+        [dir="rtl"] .product-card-list  { flex-direction: row-reverse; }
+        [dir="rtl"] .sidebar-form .searchbox-input { padding-right: 20px; padding-left: 55px; text-align: right; }
+        [dir="rtl"] .sidebar-form .searchbox-btn   { right: auto; left: 10px; }
 
         /* ── Breadcrumb ─────────────────────────────── */
         .breadcrumb-area .breadcrumb-content .breadcrumb {
             background: none; padding: 0; margin: 10px 0 0;
             display: flex; align-items: center; justify-content: center;
             flex-wrap: wrap; gap: 0; list-style: none;
+            direction: ltr;
         }
         .breadcrumb-area .breadcrumb-item a { color: rgba(255,255,255,0.7); }
         .breadcrumb-area .breadcrumb-item.active { color: #ff5e13; }
         .breadcrumb-area .breadcrumb-item + .breadcrumb-item::before {
             content: '/'; color: rgba(255,255,255,0.4); padding: 0 8px;
-        }
-        /* در RTL ترتیب آیتم‌ها خودشان برعکسه — separator نباید تغییر کنه */
-        [dir="rtl"] .breadcrumb-area .breadcrumb { flex-direction: row; }
-        [dir="rtl"] .breadcrumb-area .breadcrumb-item + .breadcrumb-item::before {
-            content: '/';
         }
     </style>
 @endpush
@@ -232,8 +276,8 @@
          data-bg-image="{{ asset('assets/images/breadcrumb/bg/1.jpg') }}">
         <div class="container">
             <div class="breadcrumb-content">
-                <span class="breadcrumb-sub-title text-white">{{ __('messages.products') }}</span>
-                <h1 class="breadcrumb-title mb-1 text-white">
+                <span class="breadcrumb-sub-title">{{ __('messages.products') }}</span>
+                <h1 class="breadcrumb-title mb-1">
                     {{ isset($category)
                         ? $category->getTranslation('name', app()->getLocale())
                         : __('messages.all_products') }}
@@ -308,37 +352,54 @@
                             </form>
                         </div>
 
-                        {{-- Categories --}}
-                        <div class="sidebar-widget sidebar-blog-categories sidebar-common mb-8" data-bg-color="#f4f8ff">
+                        {{-- Categories (collapsible) --}}
+                        <div class="sidebar-widget sidebar-common mb-8" data-bg-color="#f4f8ff">
                             <h3 class="sidebar-title mb-5">{{ __('messages.categories') }}</h3>
-                            <ul>
+                            <ul class="category-tree">
+                                {{-- All products --}}
                                 <li>
-                                    <a href="{{ route('products.index') }}"
-                                       class="{{ !isset($category) ? 'active' : '' }}">
-                                        {{ __('messages.all_products') }}
-                                        <span>{{ \App\Models\Product::where('is_active', true)->count() }}</span>
-                                    </a>
-                                </li>
-                                @foreach($sidebarCategories as $cat)
-                                    <li>
-                                        <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}"
-                                           class="{{ isset($category) && $category->id === $cat->id ? 'active' : '' }}">
-                                            {{ $cat->getTranslation('name', app()->getLocale()) }}
-                                            <span>{{ $cat->active_products_count ?? 0 }}</span>
+                                    <div class="cat-row">
+                                        <a href="{{ route('products.index') }}"
+                                           class="{{ !isset($category) ? 'active' : '' }}">
+                                            {{ __('messages.all_products') }}
+                                            <span>{{ \App\Models\Product::where('is_active', true)->count() }}</span>
                                         </a>
+                                    </div>
+                                </li>
+                                {{-- Root categories --}}
+                                @foreach($sidebarCategories as $cat)
+                                    @php
+                                        $isActive   = isset($category) && $category->id === $cat->id;
+                                        $isParent   = isset($category) && $category->parent_id === $cat->id;
+                                        $hasKids    = $cat->children->count() > 0;
+                                        $isExpanded = $isActive || $isParent;
+                                    @endphp
+                                    <li>
+                                        <div class="cat-row">
+                                            <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}"
+                                               class="{{ $isActive ? 'active' : '' }}">
+                                                {{ $cat->getTranslation('name', app()->getLocale()) }}
+                                                <span>{{ $cat->active_products_count ?? 0 }}</span>
+                                            </a>
+                                            @if($hasKids)
+                                                <button class="cat-toggle {{ $isExpanded ? 'open' : '' }}"
+                                                        type="button">{{ $isExpanded ? '−' : '+' }}</button>
+                                            @endif
+                                        </div>
+                                        @if($hasKids)
+                                            <ul class="cat-children {{ $isExpanded ? 'show' : '' }}">
+                                                @foreach($cat->children as $child)
+                                                    <li>
+                                                        <a href="{{ route('categories.show', $child->getTranslation('slug', app()->getLocale())) }}"
+                                                           class="{{ isset($category) && $category->id === $child->id ? 'active' : '' }}">
+                                                            {{ $child->getTranslation('name', app()->getLocale()) }}
+                                                            <span>{{ $child->active_products_count ?? 0 }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </li>
-                                    @if($cat->children->count() && isset($category) && ($category->id === $cat->id || $category->parent_id === $cat->id))
-                                        @foreach($cat->children as $child)
-                                            <li style="padding-inline-start:16px">
-                                                <a href="{{ route('categories.show', $child->getTranslation('slug', app()->getLocale())) }}"
-                                                   class="{{ isset($category) && $category->id === $child->id ? 'active' : '' }}"
-                                                   style="font-size:14px">
-                                                    {{ $child->getTranslation('name', app()->getLocale()) }}
-                                                    <span>{{ $child->active_products_count ?? 0 }}</span>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    @endif
                                 @endforeach
                             </ul>
                         </div>
@@ -346,20 +407,21 @@
                         {{-- Status filter --}}
                         <div class="sidebar-widget sidebar-common mb-8" data-bg-color="#f4f8ff">
                             <h3 class="sidebar-title mb-5">{{ __('messages.status') }}</h3>
-                            <ul>
+                            <ul class="category-tree">
                                 @foreach(['available' => 'product_available', 'reserved' => 'product_reserved', 'unavailable' => 'product_unavailable'] as $val => $key)
                                     <li>
-                                        <a href="{{ request()->fullUrlWithQuery(['status' => $val]) }}"
-                                           class="{{ request('status') === $val ? 'active' : '' }}"
-                                           style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:15px;color:#444;border-bottom:1px solid #f0f0f0">
-                                            {{ __('messages.' . $key) }}
-                                        </a>
+                                        <div class="cat-row">
+                                            <a href="{{ request()->fullUrlWithQuery(['status' => $val]) }}"
+                                               class="{{ request('status') === $val ? 'active' : '' }}">
+                                                {{ __('messages.' . $key) }}
+                                            </a>
+                                        </div>
                                     </li>
                                 @endforeach
                                 @if(request('status'))
-                                    <li style="padding-top:8px">
+                                    <li style="padding:8px 0">
                                         <a href="{{ request()->fullUrlWithoutQuery('status') }}"
-                                           style="font-size:13px;color:#ff5e13">
+                                           style="font-size:13px;color:#ff5e13;text-decoration:none">
                                             × {{ __('messages.clear_filter') }}
                                         </a>
                                     </li>
@@ -410,11 +472,11 @@
                                 @endif
                                 <select class="sort-select" name="sort"
                                         onchange="document.getElementById('sort-form').submit()">
-                                    <option value="latest"     {{ request('sort','latest') === 'latest'     ? 'selected' : '' }}>{{ __('messages.sort_latest') }}</option>
-                                    <option value="featured"   {{ request('sort') === 'featured'   ? 'selected' : '' }}>{{ __('messages.sort_featured') }}</option>
-                                    <option value="price_asc"  {{ request('sort') === 'price_asc'  ? 'selected' : '' }}>{{ __('messages.sort_price_asc') }}</option>
-                                    <option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>{{ __('messages.sort_price_desc') }}</option>
-                                    <option value="name_asc"   {{ request('sort') === 'name_asc'   ? 'selected' : '' }}>{{ __('messages.sort_name_asc') }}</option>
+                                    <option value="latest"     {{ request('sort','latest') === 'latest'     ? 'selected':'' }}>{{ __('messages.sort_latest') }}</option>
+                                    <option value="featured"   {{ request('sort') === 'featured'   ? 'selected':'' }}>{{ __('messages.sort_featured') }}</option>
+                                    <option value="price_asc"  {{ request('sort') === 'price_asc'  ? 'selected':'' }}>{{ __('messages.sort_price_asc') }}</option>
+                                    <option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected':'' }}>{{ __('messages.sort_price_desc') }}</option>
+                                    <option value="name_asc"   {{ request('sort') === 'name_asc'   ? 'selected':'' }}>{{ __('messages.sort_name_asc') }}</option>
                                 </select>
                             </form>
                             <div class="view-btns">
@@ -557,7 +619,9 @@
                             <h4>{{ __('messages.no_products') }}</h4>
                             <p>{{ __('messages.no_products_desc') }}</p>
                             @if(request()->hasAny(['search','status']))
-                                <a href="{{ isset($category) ? route('categories.show', $category->getTranslation('slug', app()->getLocale())) : route('products.index') }}"
+                                <a href="{{ isset($category)
+                                       ? route('categories.show', $category->getTranslation('slug', app()->getLocale()))
+                                       : route('products.index') }}"
                                    class="btn btn-custom btn-primary btn-secondary-hover mt-4">
                                     {{ __('messages.clear_filter') }}
                                 </a>
@@ -574,6 +638,19 @@
 
 @push('scripts')
     <script>
+        // Category tree toggle
+        document.querySelectorAll('.cat-toggle').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent   = btn.closest('li');
+                const children = parent.querySelector('.cat-children');
+                const isOpen   = children.classList.contains('show');
+                children.classList.toggle('show');
+                btn.classList.toggle('open');
+                btn.textContent = isOpen ? '+' : '−';
+            });
+        });
+
+        // Grid / List view toggle
         const gridCols  = document.querySelectorAll('.product-col');
         const listCols  = document.querySelectorAll('.product-col-list');
         const btnGrid   = document.querySelector('.view-grid');
@@ -583,7 +660,6 @@
         btnGrid?.addEventListener('click', () => {
             gridCols.forEach(el => el.style.display = '');
             listCols.forEach(el => el.style.display = 'none');
-            container.classList.remove('products-list-view');
             btnGrid.classList.add('active');
             btnList.classList.remove('active');
         });
@@ -591,7 +667,6 @@
         btnList?.addEventListener('click', () => {
             gridCols.forEach(el => el.style.display = 'none');
             listCols.forEach(el => el.style.display = '');
-            container.classList.add('products-list-view');
             btnList.classList.add('active');
             btnGrid.classList.remove('active');
         });

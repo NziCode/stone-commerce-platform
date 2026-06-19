@@ -55,7 +55,15 @@ class ProductController extends Controller
         };
 
         $products          = $query->paginate(12)->withQueryString();
-        $sidebarCategories = Category::active()->roots()->with('children')->ordered()->get();
+        $sidebarCategories = Category::active()->roots()
+            ->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])
+            ->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])
+            ->ordered()->get()
+            ->each(function ($cat) {
+                // Add children counts to parent so sidebar shows total
+                $childSum = $cat->children->sum('active_products_count');
+                $cat->active_products_count = ($cat->active_products_count ?? 0) + $childSum;
+            });
 
         return view('front.products.index', compact('products', 'sidebarCategories'));
     }
@@ -94,7 +102,15 @@ class ProductController extends Controller
         };
 
         $products          = $query->paginate(12)->withQueryString();
-        $sidebarCategories = Category::active()->roots()->with('children')->ordered()->get();
+        $sidebarCategories = Category::active()->roots()
+            ->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])
+            ->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])
+            ->ordered()->get()
+            ->each(function ($cat) {
+                // Add children counts to parent so sidebar shows total
+                $childSum = $cat->children->sum('active_products_count');
+                $cat->active_products_count = ($cat->active_products_count ?? 0) + $childSum;
+            });
 
         return view('front.products.index', compact('products', 'sidebarCategories', 'category'));
     }
@@ -104,7 +120,7 @@ class ProductController extends Controller
         $locale  = app()->getLocale();
         $product = Product::active()
             ->whereJsonContains("slug->{$locale}", $slug)
-            ->with(['media', 'categories', 'attributes', 'approvedReviews'])
+            ->with(['media', 'categories', 'attributes' => fn($q) => $q->orderBy('sort_order'), 'attributes.attribute', 'approvedReviews'])
             ->firstOrFail();
 
         $product->incrementViews();

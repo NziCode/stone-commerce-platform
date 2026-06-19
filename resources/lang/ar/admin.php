@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-14 21:30:20
+// Generated at: 2026-06-18 19:32:41
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
