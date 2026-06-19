@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::active()->roots()->with('children')->ordered()->get();
+        $categories = Category::active()->roots()->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])->ordered()->get();
         return view('front.categories.index', compact('categories'));
     }
 
@@ -51,9 +51,13 @@ class CategoryController extends Controller
 
         $products          = $query->paginate(12)->withQueryString();
         $sidebarCategories = Category::active()->roots()
-            ->with('children')
+            ->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])
             ->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])
-            ->ordered()->get();
+            ->ordered()->get()
+            ->each(function ($cat) {
+                $childSum = $cat->children->sum('active_products_count');
+                $cat->active_products_count = ($cat->active_products_count ?? 0) + $childSum;
+            });
 
         return view('front.products.index', compact('products', 'sidebarCategories', 'category'));
     }

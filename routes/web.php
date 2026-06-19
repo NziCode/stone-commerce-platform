@@ -42,10 +42,10 @@ Route::get('/robots.txt', function () {
 // ── Frontend locale switcher ──────────────────────────────────────────────────
 Route::get('/set-locale/{locale}', function (string $locale) {
     $validLocales = LanguageService::getLocales();
+    $oldLocale    = app()->getLocale();
 
     if (in_array($locale, $validLocales)) {
         session(['locale' => $locale]);
-        app()->setLocale($locale);
     }
 
     $previousUrl = url()->previous();
@@ -55,8 +55,36 @@ Route::get('/set-locale/{locale}', function (string $locale) {
     foreach ($validLocales as $l) {
         $path = preg_replace('#^/' . $l . '(/|$)#', '/', $path);
     }
-
     $path = '/' . ltrim($path, '/');
+
+    // ── Translate the slug segment for known resource routes ──────────────
+    $segments = array_values(array_filter(explode('/', $path)));
+
+    $resourceMap = [
+        'products'   => \App\Models\Product::class,
+        'categories' => \App\Models\Category::class,
+        'news'       => \App\Models\Post::class,
+        'events'     => \App\Models\Event::class,
+    ];
+
+    if (count($segments) === 2 && isset($resourceMap[$segments[0]])) {
+        [$resource, $oldSlug] = $segments;
+        $modelClass = $resourceMap[$resource];
+
+        $record = $modelClass::query()
+            ->whereJsonContains("slug->{$oldLocale}", $oldSlug)
+            ->first();
+
+        if ($record) {
+            $newSlug = $record->getTranslation('slug', $locale)
+                ?: $record->getTranslation('slug', 'en')
+                    ?: $oldSlug;
+
+            $path = "/{$resource}/{$newSlug}";
+        }
+    }
+
+    app()->setLocale($locale);
 
     return $locale === LanguageService::getDefault()?->code
         ? redirect($baseUrl . $path)

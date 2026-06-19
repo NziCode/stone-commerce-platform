@@ -58,3 +58,7 @@
     .mobile-menu_wrapper .offcanvas-body      { right: auto !important; left: -350px !important; transition: all 500ms ease !important; }
     .mobile-menu_wrapper.open .offcanvas-body { left: 0 !important; right: auto !important; }
 }
+/* ── Breadcrumb global fixes ────────────────── */
+.breadcrumb-area .breadcrumb-title     { color: #fff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+.breadcrumb-area .breadcrumb-sub-title { color: #ff5e13 !important; }
+.breadcrumb-area .breadcrumb .breadcrumb-item + .breadcrumb-item::before { display: none; }
