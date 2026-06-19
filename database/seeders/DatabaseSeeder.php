@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AttributeSeeder::class,
             TranslationSeeder::class,
             ProductSeeder::class,
+            EventSeeder::class,
         ]);
     }
 }

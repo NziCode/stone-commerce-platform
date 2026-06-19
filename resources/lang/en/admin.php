@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -30,9 +30,11 @@ return [
     'available_products' => 'Available Products',
     'back' => 'Back',
     'basic_info' => 'Basic Info',
+    'booth_number' => 'Booth',
     'cancel' => 'Cancel',
     'cancelled' => 'Cancelled',
     'categories' => 'Categories',
+    'city' => 'City',
     'company' => 'Company',
     'confirm' => 'Confirm',
     'confirmed' => 'Confirmed',
@@ -57,6 +59,8 @@ return [
     'duplicate' => 'Duplicate',
     'edit' => 'Edit',
     'email' => 'Email',
+    'end_date' => 'End Date',
+    'event_website' => 'Event Website',
     'events' => 'Exhibitions',
     'export' => 'Export',
     'failed' => 'Failed',
@@ -69,6 +73,7 @@ return [
     'gateway' => 'Payment Gateway',
     'generate_lang_files' => 'Generate Lang Files',
     'group' => 'Group',
+    'hall_number' => 'Hall',
     'image' => 'Image',
     'import' => 'Import',
     'inactive' => 'Inactive',
@@ -154,6 +159,7 @@ return [
     'sold' => 'Sold',
     'sold_products' => 'Sold Products',
     'sort_order' => 'Display Order',
+    'start_date' => 'Start Date',
     'status' => 'Status',
     'step_value' => 'Step',
     'store' => 'Store',

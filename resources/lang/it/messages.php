@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/messages
-// Generated at: 2026-06-18 19:32:41
+// Generated at: 2026-06-19 22:50:16
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -25,6 +25,9 @@ return [
     'customers' => 'Clienti',
     'email' => 'Email',
     'error' => 'Qualcosa è andato storto',
+    'event_end_date' => 'Data Fine',
+    'event_start_date' => 'Data Inizio',
+    'event_website' => 'Sito dell\'Evento',
     'events' => 'Fiere',
     'featured' => 'In Evidenza',
     'featured_products' => 'Prodotti in Evidenza',
