@@ -345,6 +345,10 @@ class TranslationSeeder extends Seeder
             'booth'                => ['fa' => 'غرفه',                            'en' => 'Booth',                         'ar' => 'جناح',                           'hi' => 'बूथ',                     'it' => 'Stand'],
             'hall'                 => ['fa' => 'سالن',                            'en' => 'Hall',                          'ar' => 'قاعة',                           'hi' => 'हॉल',                     'it' => 'Sala'],
             'empty_cart'           => ['fa' => 'سبد خرید شما خالی است',          'en' => 'Your cart is empty',            'ar' => 'سلة التسوق فارغة',                'hi' => 'आपकी कार्ट खाली है',      'it' => 'Il tuo carrello è vuoto'],
+            'gallery'              => ['fa' => 'گالری تصاویر',                   'en' => 'Gallery',                       'ar' => 'معرض الصور',                     'hi' => 'गैलरी',                   'it' => 'Galleria'],
+            'share'                => ['fa' => 'اشتراک‌گذاری',                   'en' => 'Share',                         'ar' => 'مشاركة',                         'hi' => 'साझा करें',               'it' => 'Condividi'],
+            'related'              => ['fa' => 'مطالب مرتبط',                    'en' => 'Related',                       'ar' => 'ذات صلة',                        'hi' => 'संबंधित',                 'it' => 'Correlati'],
+            'countries'            => ['fa' => 'کشور صادراتی',                   'en' => 'Export Countries',              'ar' => 'دول التصدير',                    'hi' => 'निर्यात देश',             'it' => 'Paesi di Esportazione'],
         ],
     ];
 
