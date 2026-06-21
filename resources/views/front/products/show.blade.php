@@ -75,36 +75,15 @@
 
 @section('content')
 
-    {{-- Breadcrumb --}}
-    <div class="breadcrumb-area breadcrumb-height"
-         data-bg-image="{{ asset('assets/images/breadcrumb/bg/1.jpg') }}">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <span class="breadcrumb-sub-title">{{ __('messages.products') }}</span>
-                <h1 class="breadcrumb-title mb-1" style="color:#fff;text-shadow:0 2px 8px rgba(0,0,0,0.5)">
-                    {{ $product->getTranslation('name', app()->getLocale()) }}
-                </h1>
-                <ul class="breadcrumb" style="background:none;padding:0;margin:10px 0 0;display:flex;align-items:center;justify-content:center;list-style:none;direction:ltr;gap:0">
-                    <li><a href="{{ route('home') }}" style="color:rgba(255,255,255,0.75)">{{ __('messages.home') }}</a></li>
-                    <li style="color:rgba(255,255,255,0.4);padding:0 8px">/</li>
-                    <li><a href="{{ route('products.index') }}" style="color:rgba(255,255,255,0.75)">{{ __('messages.products') }}</a></li>
-                    @if($product->primaryCategory())
-                        <li style="color:rgba(255,255,255,0.4);padding:0 8px">/</li>
-                        <li>
-                            <a href="{{ route('categories.show', $product->primaryCategory()->getTranslation('slug', app()->getLocale())) }}"
-                               style="color:rgba(255,255,255,0.75)">
-                                {{ $product->primaryCategory()->getTranslation('name', app()->getLocale()) }}
-                            </a>
-                        </li>
-                    @endif
-                    <li style="color:rgba(255,255,255,0.4);padding:0 8px">/</li>
-                    <li style="color:#ff5e13;font-weight:600">
-                        {{ Str::limit($product->getTranslation('name', app()->getLocale()), 40) }}
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('front.components.breadcrumb', [
+        'subtitle' => __('messages.products'),
+        'title'    => $product->getTranslation('name', app()->getLocale()),
+        'crumbs'   => array_filter([
+            ['label' => __('messages.products'), 'url' => route('products.index')],
+            $product->primaryCategory() ? ['label' => $product->primaryCategory()->getTranslation('name', app()->getLocale()), 'url' => route('categories.show', $product->primaryCategory()->getTranslation('slug', app()->getLocale()))] : null,
+            ['label' => Str::limit($product->getTranslation('name', app()->getLocale()), 40)],
+        ]),
+    ])
 
     {{-- Product Detail --}}
     <div class="product-detail-area py-140">

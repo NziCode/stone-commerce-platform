@@ -32,12 +32,23 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->emailVerification(false)
             ->colors([
-                'primary' => Color::hex('#ff5e13'),
+                'primary' => Color::hex('#ff5a1f'),
+                'danger'  => Color::hex('#e0473a'),
+                'success' => Color::hex('#1f9d55'),
+                'warning' => Color::hex('#e0a400'),
+                'info'    => Color::hex('#123a7a'),
                 'gray'    => Color::Slate,
             ])
             ->brandName('EN Trading Group')
+            ->brandLogoHeight('2.25rem')
+            ->brandLogo(fn () => \App\Models\Setting::get('site_logo')
+                ? asset(\App\Models\Setting::get('site_logo'))
+                : null)
+            ->favicon(asset('assets/images/favicon.ico'))
             ->maxContentWidth(MaxWidth::Full)
             ->authGuard('web')
+            ->darkMode(false)
+            ->sidebarCollapsibleOnDesktop()
 
             // ── Set <html dir/lang> as early as possible ─────────
             ->renderHook(
@@ -82,6 +93,7 @@ class AdminPanelProvider extends PanelProvider
 
                     return new \Illuminate\Support\HtmlString('
                         <link href="' . $fontUrl . '" rel="stylesheet">
+                        <link href="' . asset('assets/css/admin-modern.css') . '" rel="stylesheet">
                         <style>
                             *, html, body { font-family: ' . $fontFamily . ' !important; }
                             ' . $rtlCss . '

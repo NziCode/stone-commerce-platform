@@ -1,0 +1,152 @@
+/* ==========================================================================
+   EN TRADING GROUP — Admin Panel modern theme
+   Loaded via a Filament render hook (panels::head.end), which fires AFTER
+   Filament's own compiled CSS (@filamentStyles) — so these rules win without
+   needing a custom Vite build. Verified against Filament v3.x component
+   source. Brand: orange #ff5a1f / navy #0b2147 — same family as the storefront.
+   ========================================================================== */
+
+:root{
+  --brand: #ff5a1f;
+  --brand-2: #ff8a3d;
+  --ink: #0b2147;
+  --ink-2: #123a7a;
+  --ink-3: #1c4f9c;
+  --stone-50: #f6f3ee;
+  --radius-card: 16px;
+}
+
+/* ==========================================================================
+   SIDEBAR — dark navy nav body, light header (keeps an uploaded logo legible)
+   ========================================================================== */
+.fi-sidebar{
+  border-inline-end: 0 !important;
+}
+.fi-sidebar-header{
+  background: #fff !important;
+  border-block-end: 1px solid rgba(11,33,71,.08) !important;
+  position: relative;
+  z-index: 2;
+}
+.fi-sidebar > .overflow-x-clip{
+  position: relative;
+  z-index: 2;
+}
+.fi-sidebar-nav{
+  background: linear-gradient(190deg, var(--ink) 0%, var(--ink-2) 70%, var(--ink-3) 100%) !important;
+}
+.fi-sidebar-nav-groups{ gap: 1.6rem !important; padding-top: .5rem; }
+
+/* group labels/icons on dark bg */
+.fi-sidebar-group-label{ color: rgba(255,255,255,.45) !important; font-weight: 700 !important; letter-spacing: .04em; }
+.fi-sidebar-group-icon{ color: rgba(255,255,255,.45) !important; }
+.fi-sidebar-group-collapse-button{ color: rgba(255,255,255,.45) !important; }
+.fi-sidebar-group-collapse-button:hover{ color: #fff !important; background: rgba(255,255,255,.08) !important; }
+
+/* nav items on dark bg */
+.fi-sidebar-item-icon{ color: rgba(255,255,255,.55) !important; }
+.fi-sidebar-item-button{
+  border-radius: 10px !important;
+  transition: background-color .15s ease, color .15s ease, transform .15s ease !important;
+}
+.fi-sidebar-item-button:hover{
+  background: rgba(255,255,255,.08) !important;
+  transform: translateX(2px);
+}
+[dir="rtl"] .fi-sidebar-item-button:hover{ transform: translateX(-2px); }
+.fi-sidebar-item-button span,
+.fi-sidebar-item-button div{ color: rgba(255,255,255,.78); }
+
+/* active item — brand gradient pill, fully overrides the default gray fill */
+.fi-sidebar-item.fi-active > .fi-sidebar-item-button,
+.fi-sidebar-item-button.bg-gray-100{
+  background: linear-gradient(135deg, var(--brand), var(--brand-2)) !important;
+  box-shadow: 0 8px 18px -8px rgba(255,90,31,.6);
+}
+.fi-sidebar-item.fi-active .fi-sidebar-item-icon{ color: #fff !important; }
+.fi-sidebar-item.fi-active .fi-sidebar-item-button span{ color: #fff !important; font-weight: 600; }
+
+/* expand/collapse chevron button in the header */
+.fi-sidebar-header .fi-icon-btn{ color: var(--ink) !important; }
+
+/* scrollbar */
+.fi-sidebar-nav::-webkit-scrollbar{ width: 6px; }
+.fi-sidebar-nav::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.18); border-radius: 999px; }
+.fi-sidebar-nav::-webkit-scrollbar-track{ background: transparent; }
+
+/* ==========================================================================
+   TOPBAR
+   ========================================================================== */
+.fi-topbar nav{
+  box-shadow: 0 1px 0 rgba(11,33,71,.06), 0 4px 20px -14px rgba(11,33,71,.25) !important;
+  border-bottom: 2px solid var(--brand);
+}
+
+/* ==========================================================================
+   CARDS / SECTIONS / WIDGETS
+   ========================================================================== */
+.fi-section{
+  border-radius: var(--radius-card) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 28px -18px rgba(11,33,71,.22) !important;
+  border-color: rgba(11,33,71,.06) !important;
+}
+.fi-section-header{ border-radius: var(--radius-card) var(--radius-card) 0 0 !important; }
+.fi-section-content-ctn{ border-radius: 0 0 var(--radius-card) var(--radius-card) !important; }
+
+.fi-wi-stats-overview-stat{
+  border-radius: var(--radius-card) !important;
+  border-inline-start: 4px solid var(--brand) !important;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 10px 28px -18px rgba(11,33,71,.22) !important;
+}
+.fi-wi-stats-overview-stat-value{ color: var(--ink) !important; }
+.fi-wi-stats-overview-stat-icon{ color: var(--brand) !important; }
+
+/* ==========================================================================
+   BUTTONS / BADGES
+   ========================================================================== */
+.fi-btn{ border-radius: 10px !important; font-weight: 600 !important; }
+.fi-btn-color-primary{ box-shadow: 0 8px 16px -8px rgba(255,90,31,.5); }
+.fi-icon-btn{ border-radius: 10px !important; }
+.fi-badge{ border-radius: 999px !important; font-weight: 700 !important; }
+
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
+.fi-ta-table{ border-radius: var(--radius-card); overflow: hidden; }
+.fi-ta-header-cell{
+  font-weight: 700 !important;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  font-size: .68rem !important;
+  opacity: .6;
+}
+.fi-ta-row:hover{ background: var(--stone-50) !important; }
+
+/* ==========================================================================
+   INPUTS — the visible border/ring lives on the *wrapper*, not the bare input
+   ========================================================================== */
+.fi-input-wrp{ border-radius: 10px !important; }
+.fi-fo-checkbox-list,
+.fi-fo-radio,
+.fi-fo-textarea textarea{ border-radius: 10px !important; }
+
+/* ==========================================================================
+   MODALS
+   ========================================================================== */
+.fi-modal-window{ border-radius: 20px !important; }
+
+/* ==========================================================================
+   LOGIN / AUTH PAGES
+   ========================================================================== */
+.fi-simple-layout{
+  background:
+    radial-gradient(1100px 520px at 8% -8%, rgba(255,90,31,.14), transparent 60%),
+    radial-gradient(900px 480px at 110% 10%, rgba(18,58,122,.14), transparent 55%),
+    var(--stone-50) !important;
+}
+.fi-simple-main{
+  border-radius: 22px !important;
+  box-shadow: 0 30px 70px -30px rgba(11,33,71,.4) !important;
+  border-top: 4px solid var(--brand) !important;
+}
+.fi-logo{ color: var(--ink) !important; font-weight: 800 !important; }

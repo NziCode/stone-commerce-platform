@@ -1,68 +1,51 @@
-<div class="col-lg-4 col-sm-6 {{ isset($loop) && !$loop->first ? 'pt-8 pt-lg-0' : '' }}">
-    <div class="product-item text-center">
-        <div class="product-img">
-            <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
-                <img src="{{ $product->medium_image_url }}"
-                     alt="{{ $product->getTranslation('name', app()->getLocale()) }}">
-            </a>
-            <div class="add-action">
-                <ul>
-                    @if($product->isAvailable())
-                        <li>
-                            <form action="{{ route('cart.add', $product) }}" method="POST">
-                                @csrf
-                                <button type="submit"
-                                        class="btn btn-custom md-size btn-primary btn-secondary-hover">
-                                    افزودن به سبد
-                                </button>
-                            </form>
-                        </li>
-                    @else
-                        <li>
-                            <span class="btn btn-custom md-size btn-secondary" style="cursor:default">
-                                {{ $product->status_label }}
-                            </span>
-                        </li>
-                    @endif
-                    @auth
-                        <li>
-                            <form action="{{ route('wishlist.toggle', $product) }}" method="POST">
-                                @csrf
-                                <button type="submit"
-                                        class="btn btn-custom md-size btn-outline-secondary"
-                                        title="علاقه‌مندی">
-                                    <i class="fa fa-heart{{ auth()->user()->hasWishlisted($product->id) ? '' : '-o' }}"></i>
-                                </button>
-                            </form>
-                        </li>
-                    @endauth
-                </ul>
-            </div>
-        </div>
-        <div class="product-content py-4">
-            {{-- وضعیت --}}
-            <span class="d-block mb-1" style="font-size:12px;
-                color:{{ $product->status === 'available' ? '#28a745' : ($product->status === 'sold' ? '#dc3545' : '#ffc107') }}">
+<div class="col-lg-4 col-md-6 {{ isset($loop) && !$loop->first ? 'pt-6 pt-lg-0' : '' }}">
+    <div class="mt-pcard">
+        <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}" class="mt-pcard-img">
+            <img src="{{ $product->medium_image_url }}"
+                 alt="{{ $product->getTranslation('name', app()->getLocale()) }}" loading="lazy">
+            <span class="mt-pcard-status"
+                  style="color:{{ $product->status === 'available' ? '#1f9d55' : ($product->status === 'sold' ? '#e0473a' : '#e0a400') }}">
                 {{ $product->status_label }}
             </span>
-            <h2 class="title mb-0">
+        </a>
+        @auth
+            <form action="{{ route('wishlist.toggle', $product) }}" method="POST" style="position:absolute;top:60px;inset-inline-end:12px;z-index:2">
+                @csrf
+                <button type="submit" class="mt-pcard-wish {{ auth()->user()->hasWishlisted($product->id) ? 'is-active' : '' }}" title="{{ __('messages.wishlist') ?? 'Wishlist' }}">
+                    <svg viewBox="0 0 24 24" fill="{{ auth()->user()->hasWishlisted($product->id) ? 'currentColor' : 'none' }}" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+            </form>
+        @endauth
+        <div class="mt-pcard-body">
+            <span class="mt-pcard-cat">
+                {{ $product->primaryCategory()?->getTranslation('name', app()->getLocale()) ?? '' }}
+            </span>
+            <h3 class="mt-pcard-title">
                 <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
                     {{ $product->getTranslation('name', app()->getLocale()) }}
                 </a>
-            </h2>
+            </h3>
             @if($product->sku)
-                <small class="text-muted d-block">{{ $product->sku }}</small>
+                <span class="mt-pcard-sku">{{ $product->sku }}</span>
             @endif
-            <div class="price-box mt-2">
-                @if($product->price_on_request)
-                    <span class="new-price" style="font-size:14px">قیمت با تماس</span>
-                @elseif($product->price)
-                    <span class="new-price">{{ number_format($product->price) }}</span>
-                    @if($product->price_usd)
-                        <span class="old-price" style="font-size:13px">
-                            ${{ number_format($product->price_usd, 0) }}
-                        </span>
+            <div class="mt-pcard-foot">
+                <span class="mt-price">
+                    @if($product->price_on_request)
+                        <small>{{ __('messages.price') ?? 'Price' }}</small>{{ __('messages.price_on_request') ?? 'On request' }}
+                    @elseif($product->price)
+                        {{ number_format($product->price) }}
+                        @if($product->price_usd)<small>${{ number_format($product->price_usd, 0) }}</small>@endif
                     @endif
+                </span>
+                @if($product->isAvailable())
+                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="mt-pcard-add" title="{{ __('messages.add_to_cart') ?? 'Add to cart' }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                        </button>
+                    </form>
                 @endif
             </div>
         </div>

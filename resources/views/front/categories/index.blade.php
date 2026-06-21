@@ -4,60 +4,42 @@
 
 @section('content')
 
-    {{-- Breadcrumb --}}
-    <div class="breadcrumb-area breadcrumb-height"
-         data-bg-image="{{ asset('assets/images/breadcrumb/bg/1.jpg') }}">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <span class="breadcrumb-sub-title">{{ \App\Models\Setting::get('site_name') }}</span>
-                <h1 class="breadcrumb-title mb-1">{{ __('messages.categories') }}</h1>
-                <nav aria-label="breadcrumb" class="mt-3">
-                    <ol class="breadcrumb justify-content-center" style="background:none;padding:0;margin:0">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color:rgba(255,255,255,0.75)">
-                                {{ __('messages.home') }}
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active" style="color:#fff">
-                            {{ __('messages.categories') }}
-                        </li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
+    @include('front.components.breadcrumb', [
+        'subtitle' => \App\Models\Setting::get('site_name'),
+        'title'    => __('messages.categories'),
+    ])
 
-    {{-- Categories Grid --}}
-    <div class="category-area py-140">
-        <div class="container">
-            <div class="row">
+    <div class="mt-section">
+        <div class="mt-container">
+            <div class="row g-4">
                 @forelse($categories as $cat)
-                    <div class="col-lg-3 col-md-4 col-sm-6 mb-8">
-                        <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}"
-                           class="d-block" style="text-decoration:none">
-                            <div class="category-card" style="border:1px solid #eee;padding:24px;text-align:center;transition:all 0.3s">
-                                <h4 style="color:#00225a;margin-bottom:8px">
-                                    {{ $cat->getTranslation('name', app()->getLocale()) }}
-                                </h4>
-                                <span style="font-size:13px;color:#999">
-                                    {{ $cat->products()->where('is_active', true)->count() }}
-                                    {{ __('messages.products') }}
-                                </span>
-                                @if($cat->children->count())
-                                    <ul style="list-style:none;padding:0;margin:12px 0 0;border-top:1px solid #f0f0f0;padding-top:12px">
-                                        @foreach($cat->children->take(4) as $child)
-                                            <li style="font-size:13px;padding:3px 0;color:#666">
-                                                {{ $child->getTranslation('name', app()->getLocale()) }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}" class="mt-cat" style="padding:1.8rem 1.2rem;height:100%">
+                            <span class="mt-cat-ico" style="width:72px;height:72px;font-size:1.5rem">
+                                @if($cat->hasMedia('image'))
+                                    <img src="{{ $cat->thumb_url }}" alt="{{ $cat->getTranslation('name', app()->getLocale()) }}">
+                                @else
+                                    {{ mb_substr($cat->getTranslation('name', app()->getLocale()), 0, 1) }}
                                 @endif
-                            </div>
+                            </span>
+                            <strong style="font-size:1rem">{{ $cat->getTranslation('name', app()->getLocale()) }}</strong>
+                            <span>{{ $cat->products()->where('is_active', true)->count() }} {{ __('messages.products') }}</span>
+                            @if($cat->children->count())
+                                <span style="display:flex;flex-wrap:wrap;gap:.35rem;justify-content:center;margin-top:.4rem;border-top:1px solid var(--stone-100);padding-top:.7rem">
+                                    @foreach($cat->children->take(4) as $child)
+                                        <span style="font-size:.7rem;color:var(--stone-500);background:var(--stone-50);border-radius:var(--radius-pill);padding:.2rem .55rem">
+                                            {{ $child->getTranslation('name', app()->getLocale()) }}
+                                        </span>
+                                    @endforeach
+                                </span>
+                            @endif
                         </a>
                     </div>
                 @empty
-                    <div class="col-12 text-center py-10">
-                        <p class="text-muted">{{ __('messages.no_products') }}</p>
+                    <div class="col-12">
+                        <div class="no-products-found">
+                            <p class="text-muted mb-0">{{ __('messages.no_products') }}</p>
+                        </div>
                     </div>
                 @endforelse
             </div>
