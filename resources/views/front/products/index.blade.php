@@ -271,49 +271,16 @@
 
 @section('content')
 
-    {{-- Breadcrumb --}}
-    <div class="breadcrumb-area breadcrumb-height"
-         data-bg-image="{{ asset('assets/images/breadcrumb/bg/1.jpg') }}">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <span class="breadcrumb-sub-title">{{ __('messages.products') }}</span>
-                <h1 class="breadcrumb-title mb-1">
-                    {{ isset($category)
-                        ? $category->getTranslation('name', app()->getLocale())
-                        : __('messages.all_products') }}
-                </h1>
-                @if(isset($category) && $category->getTranslation('description', app()->getLocale()))
-                    <p class="breadcrumb-desc font-size-20">
-                        {{ Str::limit($category->getTranslation('description', app()->getLocale()), 120) }}
-                    </p>
-                @endif
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('home') }}">{{ __('messages.home') }}</a>
-                    </li>
-                    <li class="breadcrumb-item {{ !isset($category) ? 'active' : '' }}">
-                        @if(isset($category))
-                            <a href="{{ route('products.index') }}">{{ __('messages.products') }}</a>
-                        @else
-                            {{ __('messages.products') }}
-                        @endif
-                    </li>
-                    @if(isset($category) && $category->parent)
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('categories.show', $category->parent->getTranslation('slug', app()->getLocale())) }}">
-                                {{ $category->parent->getTranslation('name', app()->getLocale()) }}
-                            </a>
-                        </li>
-                    @endif
-                    @if(isset($category))
-                        <li class="breadcrumb-item active">
-                            {{ $category->getTranslation('name', app()->getLocale()) }}
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('front.components.breadcrumb', [
+        'subtitle' => __('messages.products'),
+        'title'    => isset($category) ? $category->getTranslation('name', app()->getLocale()) : __('messages.all_products'),
+        'desc'     => (isset($category) && $category->getTranslation('description', app()->getLocale())) ? Str::limit($category->getTranslation('description', app()->getLocale()), 120) : null,
+        'crumbs'   => array_filter([
+            ['label' => __('messages.products'), 'url' => isset($category) ? route('products.index') : null],
+            isset($category) && $category->parent ? ['label' => $category->parent->getTranslation('name', app()->getLocale()), 'url' => route('categories.show', $category->parent->getTranslation('slug', app()->getLocale()))] : null,
+            isset($category) ? ['label' => $category->getTranslation('name', app()->getLocale())] : null,
+        ]),
+    ])
 
     {{-- Shop area --}}
     <div class="product-area py-140">

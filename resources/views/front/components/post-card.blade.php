@@ -1,27 +1,28 @@
-<article class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
-    <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}"
-       class="block aspect-video overflow-hidden bg-gray-100">
-        <img src="{{ $post->cover_url }}"
-             alt="{{ $post->getTranslation('title', app()->getLocale()) }}"
-             class="w-full h-full object-cover hover:scale-105 transition duration-300">
+<article class="mt-post h-100">
+    <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}" class="mt-post-img">
+        <img src="{{ $post->cover_url }}" alt="{{ $post->getTranslation('title', app()->getLocale()) }}" loading="lazy">
     </a>
-    <div class="p-4">
-        <p class="text-xs text-gray-500 mb-2">
-            {{ $post->published_at?->diffForHumans() }}
+    <div class="mt-post-body">
+        <div class="mt-post-meta">
+            <span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                {{ $post->published_at?->diffForHumans() }}
+            </span>
             @if($post->reading_time)
-                · {{ $post->reading_time }} دقیقه مطالعه
+                <span>{{ $post->reading_time }} {{ __('messages.min_read') ?? 'min read' }}</span>
             @endif
-        </p>
-        <h3 class="font-bold text-gray-800 mb-2 line-clamp-2">
-            <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}"
-               class="hover:text-amber-600 transition">
+        </div>
+        <h3 class="mt-post-title">
+            <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}">
                 {{ $post->getTranslation('title', app()->getLocale()) }}
             </a>
         </h3>
         @if($post->getTranslation('excerpt', app()->getLocale()))
-            <p class="text-sm text-gray-600 line-clamp-3">
-                {{ $post->getTranslation('excerpt', app()->getLocale()) }}
-            </p>
+            <p class="mt-post-excerpt">{{ Str::limit($post->getTranslation('excerpt', app()->getLocale()), 110) }}</p>
         @endif
+        <a class="mt-post-more" href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}">
+            {{ __('messages.read_more') }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
     </div>
 </article>

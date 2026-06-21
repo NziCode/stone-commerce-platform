@@ -119,6 +119,7 @@ class TranslationSeeder extends Seeder
             'gallery'        => ['fa' => 'گالری',              'en' => 'Gallery',         'ar' => 'معرض الصور',      'hi' => 'गैलरी',         'it' => 'Galleria'],
             'price'          => ['fa' => 'قیمت',               'en' => 'Price',           'ar' => 'السعر',           'hi' => 'मूल्य',         'it' => 'Prezzo'],
             'sku'            => ['fa' => 'کد محصول (SKU)',      'en' => 'SKU',             'ar' => 'رمز المنتج',      'hi' => 'SKU',           'it' => 'Codice SKU'],
+            'attribute_key_internal' => ['fa' => 'کلید داخلی ویژگی', 'en' => 'Internal Attribute Key', 'ar' => 'المفتاح الداخلي للخاصية', 'hi' => 'आंतरिक विशेषता कुंजी', 'it' => 'Chiave Interna Attributo'],
             'name'           => ['fa' => 'نام',                'en' => 'Name',            'ar' => 'الاسم',           'hi' => 'नाम',           'it' => 'Nome'],
             'email'          => ['fa' => 'ایمیل',              'en' => 'Email',           'ar' => 'البريد الإلكتروني','hi' => 'ईमेल',         'it' => 'Email'],
             'phone'          => ['fa' => 'شماره تماس',         'en' => 'Phone',           'ar' => 'الهاتف',          'hi' => 'फ़ोन',          'it' => 'Telefono'],
@@ -326,6 +327,24 @@ class TranslationSeeder extends Seeder
             'event_start_date'   => ['fa' => 'تاریخ شروع',         'en' => 'Start Date',        'ar' => 'تاريخ البدء',      'hi' => 'प्रारंभ तिथि',  'it' => 'Data Inizio'],
             'event_end_date'     => ['fa' => 'تاریخ پایان',        'en' => 'End Date',          'ar' => 'تاريخ الانتهاء',   'hi' => 'समाप्ति तिथि',  'it' => 'Data Fine'],
             'event_website'      => ['fa' => 'وب‌سایت رویداد',    'en' => 'Event Website',     'ar' => 'موقع الفعالية',    'hi' => 'इवेंट वेबसाइट', 'it' => 'Sito dell\'Evento'],
+
+            // Modern theme — hero / categories / footer / cards (added with the new design)
+            'hero_eyebrow'         => ['fa' => 'تأمین‌کننده مستقیم معدن تا صادرات', 'en' => 'From quarry to export, direct', 'ar' => 'من المحجر إلى التصدير، مباشرة', 'hi' => 'खदान से निर्यात तक, सीधे', 'it' => 'Dalla cava all\'esportazione, diretto'],
+            'experience_years'     => ['fa' => 'سال تجربه',                       'en' => 'Years experience',              'ar' => 'سنوات الخبرة',                   'hi' => 'वर्षों का अनुभव',        'it' => 'Anni di esperienza'],
+            'happy_customers'      => ['fa' => 'مشتری راضی',                      'en' => 'Happy customers',               'ar' => 'عملاء سعداء',                    'hi' => 'संतुष्ट ग्राहक',          'it' => 'Clienti soddisfatti'],
+            'stone_categories'     => ['fa' => 'دسته‌بندی سنگ',                   'en' => 'Stone categories',              'ar' => 'فئات الأحجار',                   'hi' => 'पत्थर श्रेणियाँ',         'it' => 'Categorie di pietra'],
+            'exhibitions'          => ['fa' => 'نمایشگاه بین‌المللی',             'en' => 'International exhibitions',     'ar' => 'معارض دولية',                    'hi' => 'अंतर्राष्ट्रीय प्रदर्शनी', 'it' => 'Fiere internazionali'],
+            'our_categories'       => ['fa' => 'دسته‌بندی محصولات',               'en' => 'Our Categories',                'ar' => 'فئاتنا',                         'hi' => 'हमारी श्रेणियाँ',         'it' => 'Le Nostre Categorie'],
+            'categories_desc'      => ['fa' => 'مجموعه‌ای متنوع از سنگ‌های طبیعی برای هر پروژه', 'en' => 'A curated range of natural stone for every project', 'ar' => 'مجموعة مختارة من الأحجار الطبيعية لكل مشروع', 'hi' => 'हर प्रोजेक्ट के लिए प्राकृतिक पत्थर की विविध श्रृंखला', 'it' => 'Una selezione di pietre naturali per ogni progetto'],
+            'explore_categories'   => ['fa' => 'مشاهده دسته‌بندی‌ها',             'en' => 'Explore Categories',            'ar' => 'استكشف الفئات',                  'hi' => 'श्रेणियाँ देखें',         'it' => 'Esplora le Categorie'],
+            'find_your_stone'      => ['fa' => 'سنگ مورد نظر خود را پیدا کنید',  'en' => 'Find your stone',               'ar' => 'ابحث عن حجرك',                   'hi' => 'अपना पत्थर खोजें',        'it' => 'Trova la tua pietra'],
+            'view_all'             => ['fa' => 'مشاهده همه',                      'en' => 'View all',                      'ar' => 'عرض الكل',                       'hi' => 'सभी देखें',               'it' => 'Vedi tutto'],
+            'newsletter_desc'      => ['fa' => 'از جدیدترین محصولات، رویدادها و اخبار سنگ‌های طبیعی باخبر شوید.', 'en' => 'Get the latest stones, exhibitions and news in your inbox.', 'ar' => 'احصل على أحدث الأحجار والمعارض والأخبار في بريدك.', 'hi' => 'नवीनतम पत्थर, प्रदर्शनी और समाचार सीधे अपने इनबॉक्स में पाएं।', 'it' => 'Ricevi le ultime pietre, fiere e notizie nella tua casella di posta.'],
+            'footer_about_fallback'=> ['fa' => 'تأمین‌کننده و صادرکننده انواع سنگ‌های طبیعی با کیفیت صادراتی.', 'en' => 'A trusted source and exporter of premium natural stone.', 'ar' => 'مورد موثوق ومصدّر للأحجار الطبيعية الفاخرة.', 'hi' => 'प्रीमियम प्राकृतिक पत्थर का विश्वसनीय आपूर्तिकर्ता और निर्यातक।', 'it' => 'Un fornitore affidabile ed esportatore di pietra naturale di pregio.'],
+            'min_read'             => ['fa' => 'دقیقه مطالعه',                    'en' => 'min read',                      'ar' => 'دقيقة قراءة',                    'hi' => 'मिनट पढ़ें',              'it' => 'min di lettura'],
+            'booth'                => ['fa' => 'غرفه',                            'en' => 'Booth',                         'ar' => 'جناح',                           'hi' => 'बूथ',                     'it' => 'Stand'],
+            'hall'                 => ['fa' => 'سالن',                            'en' => 'Hall',                          'ar' => 'قاعة',                           'hi' => 'हॉल',                     'it' => 'Sala'],
+            'empty_cart'           => ['fa' => 'سبد خرید شما خالی است',          'en' => 'Your cart is empty',            'ar' => 'سلة التسوق فارغة',                'hi' => 'आपकी कार्ट खाली है',      'it' => 'Il tuo carrello è vuoto'],
         ],
     ];
 

@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery-ui.min.css') }}">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+
     @stack('styles')
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
@@ -26,6 +30,9 @@
     @else
         <link rel="stylesheet" href="{{ asset('assets/css/ltr.css') }}">
     @endif
+
+    {{-- Modern theme layer — loaded last so it wins over the legacy template --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/theme-modern.css') }}">
 
     @stack('head_scripts')
 </head>

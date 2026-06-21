@@ -76,21 +76,10 @@
 
 @section('content')
 
-    {{-- Breadcrumb --}}
-    <div class="breadcrumb-area breadcrumb-height"
-         data-bg-image="{{ asset('assets/images/breadcrumb/bg/1.jpg') }}">
-        <div class="container">
-            <div class="breadcrumb-content">
-                <span class="breadcrumb-sub-title">{{ __('messages.events') }}</span>
-                <h1 class="breadcrumb-title mb-1">{{ __('messages.events') }}</h1>
-                <ul class="breadcrumb" style="background:none;padding:0;margin:10px 0 0;display:flex;align-items:center;justify-content:center;list-style:none;direction:ltr">
-                    <li><a href="{{ route('home') }}" style="color:rgba(255,255,255,0.75)">{{ __('messages.home') }}</a></li>
-                    <li style="color:rgba(255,255,255,0.4);padding:0 8px">/</li>
-                    <li style="color:#ff5e13;font-weight:600">{{ __('messages.events') }}</li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('front.components.breadcrumb', [
+        'subtitle' => \App\Models\Setting::get('site_name'),
+        'title'    => __('messages.events'),
+    ])
 
     <div class="events-area py-140">
         <div class="container">
