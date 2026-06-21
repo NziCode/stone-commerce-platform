@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             TranslationSeeder::class,
             ProductSeeder::class,
             EventSeeder::class,
+            PostSeeder::class,
+            PageSeeder::class,
         ]);
     }
 }

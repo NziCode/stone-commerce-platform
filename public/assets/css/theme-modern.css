@@ -422,6 +422,12 @@ body{ background:var(--stone-50); }
 .mt-post-title a{ color:inherit; text-decoration:none; }
 .mt-post-title a:hover{ color:var(--brand); }
 .mt-post-excerpt{ font-size:.85rem; color:var(--stone-500); line-height:1.7; margin:0 0 .8rem; }
+.mt-post-img-fallback{
+  width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(150deg, var(--stone-100), var(--stone-50));
+  color:var(--stone-500);
+}
+.mt-post-img-fallback svg{ width:34px; height:34px; opacity:.55; }
 .mt-post-more{ font-size:.8rem; font-weight:700; color:var(--brand); text-decoration:none; display:inline-flex; align-items:center; gap:.3rem; }
 
 .mt-event-badge{ display:inline-flex; align-items:center; gap:.4rem; font-size:.72rem; font-weight:700; padding:.3rem .7rem; border-radius:var(--radius-pill); }
@@ -609,7 +615,38 @@ body{ background:var(--stone-50); }
 .event-card .event-date,
 .event-featured .event-date{ color:var(--brand) !important; }
 .event-info-widget{ border-radius:var(--radius) !important; background:linear-gradient(160deg,var(--ink),var(--ink-2)) !important; }
-/* Blog / post list cards (posts/index, posts/show related, search results) */
+/* Rich content typography (page bodies, post bodies) */
+.mt-prose{ font-size:1rem; line-height:2; color:var(--stone-700); }
+.mt-prose p{ margin:0 0 1.2rem; }
+.mt-prose h2, .mt-prose h3, .mt-prose h4{ color:var(--ink); font-weight:700; line-height:1.4; margin:1.8rem 0 .9rem; }
+.mt-prose h3{ font-size:1.2rem; position:relative; padding-inline-start:.9rem; }
+.mt-prose h3::before{ content:""; position:absolute; inset-inline-start:0; top:.25em; bottom:.25em; width:3px; border-radius:3px; background:linear-gradient(180deg,var(--brand),var(--brand-2)); }
+.mt-prose ul, .mt-prose ol{ margin:0 0 1.2rem; padding-inline-start:1.4rem; display:grid; gap:.4rem; }
+.mt-prose img{ max-width:100%; border-radius:var(--radius); margin:1rem 0; }
+.mt-prose a{ color:var(--brand); }
+.mt-prose strong{ color:var(--ink); }
+
+/* Certificate badge grid (used inside CMS page content, e.g. Certificates page) */
+.mt-cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0 2rem; }
+.mt-cert-card{ background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); padding:1.5rem 1.1rem; text-align:center; box-shadow:var(--shadow-sm); }
+.mt-cert-card .ico{ width:52px; height:52px; border-radius:50%; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; margin:0 auto .9rem; }
+.mt-cert-card .ico svg{ width:24px; height:24px; }
+.mt-cert-card strong{ display:block; color:var(--ink); font-size:.92rem; margin-bottom:.25rem; }
+.mt-cert-card span{ font-size:.76rem; color:var(--stone-500); display:block; line-height:1.5; }
+@media (max-width:767px){ .mt-cert-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:480px){ .mt-cert-grid{ grid-template-columns:1fr; } }
+
+/* Mine / quarry list (used inside CMS page content, e.g. Our Mines page) */
+.mt-mine-list{ display:grid; gap:1rem; margin:1.5rem 0 2rem; }
+.mt-mine-card{ display:flex; gap:1.1rem; align-items:flex-start; background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); padding:1.3rem 1.5rem; box-shadow:var(--shadow-sm); }
+.mt-mine-card .ico{ width:48px; height:48px; border-radius:12px; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.mt-mine-card .ico svg{ width:22px; height:22px; }
+.mt-mine-card strong{ display:block; color:var(--ink); font-size:1rem; margin-bottom:.2rem; }
+.mt-mine-card p{ margin:0; font-size:.85rem; color:var(--stone-500); line-height:1.7; }
+.mt-mine-card .tag{ display:inline-block; margin-top:.5rem; font-size:.7rem; font-weight:700; color:var(--brand); background:var(--brand-soft); border-radius:var(--radius-pill); padding:.2rem .6rem; }
+.mt-page-cover{ border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16/7; margin-bottom:2rem; background:var(--stone-50); }
+.mt-page-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+.mt-page-cover .mt-post-img-fallback{ height:100%; }
 .blog-item{ border-radius:var(--radius) !important; overflow:hidden; border:1px solid var(--stone-100); box-shadow:var(--shadow-sm); transition:.25s; background:#fff; }
 .blog-item:hover{ box-shadow:var(--shadow) !important; transform:translateY(-4px); }
 .blog-item .blog-img{ display:block; overflow:hidden; }

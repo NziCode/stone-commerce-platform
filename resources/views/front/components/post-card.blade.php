@@ -1,6 +1,12 @@
 <article class="mt-post h-100">
     <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}" class="mt-post-img">
-        <img src="{{ $post->cover_url }}" alt="{{ $post->getTranslation('title', app()->getLocale()) }}" loading="lazy">
+        @if($post->hasMedia('cover'))
+            <img src="{{ $post->cover_url }}" alt="{{ $post->getTranslation('title', app()->getLocale()) }}" loading="lazy">
+        @else
+            <span class="mt-post-img-fallback">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg>
+            </span>
+        @endif
     </a>
     <div class="mt-post-body">
         <div class="mt-post-meta">
