@@ -17,7 +17,7 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     protected $fillable = [
-        'name', 'email', 'password', 'phone', 'company', 'country',
+        'name', 'email', 'password', 'phone', 'company', 'country', 'locale',
         'preferred_language', 'is_active', 'last_login_at', 'last_login_ip',
     ];
 

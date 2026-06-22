@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/admin
-// Generated at: 2026-06-19 22:50:16
+// Generated at: 2026-06-22 09:29:34
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -24,6 +24,7 @@ return [
     'attribute_group_desc' => 'Raggruppa attributi nel modulo (opzionale)',
     'attribute_group_placeholder' => 'es. Dimensioni e Peso',
     'attribute_key_helper' => 'Chiave univoca in inglese',
+    'attribute_key_internal' => 'Chiave Interna Attributo',
     'attributes' => 'Attributi',
     'auto_translated' => 'Auto Tradotto',
     'available' => 'Disponibile',

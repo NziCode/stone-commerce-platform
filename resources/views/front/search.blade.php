@@ -1,90 +1,65 @@
 @extends('front.layouts.app')
-@section('title', 'جستجو: ' . $query)
+@section('title', __('messages.search') . ': ' . $query . ' — ' . \App\Models\Setting::get('site_name'))
+@php $locale = app()->getLocale(); @endphp
 
 @section('content')
 
     @include('front.components.breadcrumb', [
-        'subtitle' => 'نتایج',
-        'title'    => 'جستجو برای: ' . $query,
+        'subtitle' => __('messages.search'),
+        'title'    => $query ? (__('messages.search_results_for') ?? 'Results for') . ' "' . $query . '"' : __('messages.search'),
     ])
 
-    <div class="py-140">
-        <div class="container">
+    <div class="mt-section">
+        <div class="mt-container">
 
-            {{-- فرم جستجو --}}
-            <div class="row mb-10">
-                <div class="col-lg-6 mx-auto">
-                    <form action="{{ route('search') }}" method="GET">
-                        <div class="form-field d-flex">
-                            <input class="input-field" type="search" name="q"
-                                   value="{{ $query }}" placeholder="جستجو...">
-                            <button type="submit"
-                                    class="btn btn-secondary btn-primary-hover rounded-0">
-                                <i class="fa fa-search me-1"></i> جستجو
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            {{-- Search box --}}
+            <div class="mt-finder" style="max-width:640px;margin:0 auto 2.6rem">
+                <form action="{{ route('search') }}" method="GET" style="display:flex;flex:1;gap:.4rem">
+                    <input type="search" name="q" value="{{ $query }}" placeholder="{{ __('messages.search_placeholder') }}" style="flex:1;border:0;outline:0;background:transparent;padding:.85rem 1.1rem;font-size:.95rem;color:var(--stone-900);font-family:inherit">
+                    <button type="submit" style="border:0;cursor:pointer;border-radius:var(--radius);padding:0 1.5rem;background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;font-weight:700;display:inline-flex;align-items:center;gap:.5rem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        {{ __('messages.search') }}
+                    </button>
+                </form>
             </div>
 
             @if(strlen($query) < 2)
-                <div class="text-center py-10">
-                    <p class="text-muted">حداقل ۲ کاراکتر وارد کنید.</p>
+                <div style="text-align:center;padding:3rem">
+                    <p style="color:var(--stone-500)">{{ __('messages.search_min_chars') ?? 'Enter at least 2 characters.' }}</p>
                 </div>
             @elseif($products->isEmpty() && $posts->isEmpty())
-                <div class="text-center py-10">
-                    <i class="fa fa-search fa-3x text-muted mb-4 d-block"></i>
-                    <h4 class="text-muted">نتیجه‌ای یافت نشد</h4>
-                    <p>عبارت دیگری جستجو کنید یا
-                        <a href="{{ route('products.index') }}">همه محصولات</a>
-                        را ببینید.
-                    </p>
+                <div style="text-align:center;padding:3rem">
+                    <div style="width:72px;height:72px;border-radius:50%;background:var(--stone-100);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;color:var(--stone-400)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                    <h4 class="mt-heading" style="font-size:1.2rem;margin-bottom:.5rem">{{ __('messages.no_results') ?? 'No results found' }}</h4>
+                    <p style="color:var(--stone-500);margin-bottom:1.4rem">{{ __('messages.try_other_keyword') ?? 'Try a different keyword.' }}</p>
+                    <a href="{{ route('products.index') }}" class="mt-btn mt-btn-outline">{{ __('messages.all_products') }}</a>
                 </div>
             @else
-                {{-- محصولات --}}
                 @if($products->count())
-                    <div class="mb-12">
-                        <h3 class="mb-6">محصولات ({{ $products->count() }})</h3>
+                    <div style="margin-bottom:2.6rem">
+                        <div class="mt-section-head" style="margin-bottom:1.4rem">
+                            <h3 class="mt-heading" style="font-size:1.25rem">{{ __('messages.products') }} <span style="font-size:.85rem;font-weight:500;color:var(--stone-500)">({{ $products->count() }})</span></h3>
+                            @if($products->count() >= 12)
+                                <a href="{{ route('products.index', ['q' => $query]) }}" class="mt-btn mt-btn-outline mt-btn-sm">{{ __('messages.view_all') }}</a>
+                            @endif
+                        </div>
                         <div class="row">
                             @foreach($products as $product)
                                 @include('front.components.product-card', ['product' => $product])
                             @endforeach
                         </div>
-                        @if($products->count() >= 12)
-                            <div class="text-center mt-6">
-                                <a href="{{ route('products.index', ['q' => $query]) }}"
-                                   class="btn btn-secondary btn-primary-hover">
-                                    مشاهده همه نتایج محصولات
-                                </a>
-                            </div>
-                        @endif
                     </div>
                 @endif
 
-                {{-- اخبار --}}
                 @if($posts->count())
                     <div>
-                        <h3 class="mb-6">اخبار ({{ $posts->count() }})</h3>
-                        <div class="row">
+                        <h3 class="mt-heading" style="font-size:1.25rem;margin-bottom:1.4rem">{{ __('messages.news') }} <span style="font-size:.85rem;font-weight:500;color:var(--stone-500)">({{ $posts->count() }})</span></h3>
+                        <div class="row g-4">
                             @foreach($posts as $post)
-                                <div class="col-md-6 col-lg-4 mb-6">
-                                    <div class="blog-item">
-                                        <div class="inner-item">
-                                            <a class="blog-img"
-                                               href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}">
-                                                <img class="img-full" src="{{ $post->thumb_url }}"
-                                                     style="height:200px;object-fit:cover"
-                                                     alt="{{ $post->getTranslation('title', app()->getLocale()) }}">
-                                            </a>
-                                            <div class="blog-content">
-                                                <h3 class="title mb-2">
-                                                    <a href="{{ route('posts.show', $post->getTranslation('slug', app()->getLocale())) }}">
-                                                        {{ Str::limit($post->getTranslation('title', app()->getLocale()), 60) }}
-                                                    </a>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-6 col-lg-4">
+                                    @include('front.components.post-card', ['post' => $post])
                                 </div>
                             @endforeach
                         </div>
