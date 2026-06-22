@@ -349,6 +349,10 @@ class TranslationSeeder extends Seeder
             'share'                => ['fa' => 'اشتراک‌گذاری',                   'en' => 'Share',                         'ar' => 'مشاركة',                         'hi' => 'साझा करें',               'it' => 'Condividi'],
             'related'              => ['fa' => 'مطالب مرتبط',                    'en' => 'Related',                       'ar' => 'ذات صلة',                        'hi' => 'संबंधित',                 'it' => 'Correlati'],
             'countries'            => ['fa' => 'کشور صادراتی',                   'en' => 'Export Countries',              'ar' => 'دول التصدير',                    'hi' => 'निर्यात देश',             'it' => 'Paesi di Esportazione'],
+            'contact_us_title'     => ['fa' => 'تماس با ما',                      'en' => 'Contact Us',                    'ar' => 'اتصل بنا',                       'hi' => 'हमसे संपर्क करें',         'it' => 'Contattaci'],
+            'contact_us_desc'      => ['fa' => 'برای استعلام قیمت، درخواست نمونه یا هرگونه سؤال فنی با ما در تماس باشید.', 'en' => 'For price inquiries, sample requests, or any technical questions, get in touch with us.', 'ar' => 'للاستفسار عن الأسعار أو طلب العينات أو أي أسئلة فنية، تواصل معنا.', 'hi' => 'मूल्य पूछताछ, नमूना अनुरोध, या किसी भी तकनीकी प्रश्न के लिए हमसे संपर्क करें।', 'it' => 'Per richieste di preventivo, campioni o qualsiasi domanda tecnica, contattaci.'],
+            'contact_form_desc'    => ['fa' => 'فرم زیر را تکمیل کنید. در اسرع وقت پاسخگوی شما خواهیم بود.', 'en' => 'Fill in the form below. We will get back to you as soon as possible.', 'ar' => 'أكمل النموذج أدناه. سنرد عليك في أقرب وقت ممكن.', 'hi' => 'नीचे दिया गया फॉर्म भरें। हम जल्द से जल्द आपसे संपर्क करेंगे।', 'it' => 'Compila il modulo qui sotto. Ti risponderemo il prima possibile.'],
+            'subject'              => ['fa' => 'موضوع',                            'en' => 'Subject',                       'ar' => 'الموضوع',                        'hi' => 'विषय',                    'it' => 'Oggetto'],
         ],
     ];
 
