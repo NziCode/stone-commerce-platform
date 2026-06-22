@@ -28,6 +28,7 @@ class RegisteredUserController extends Controller
             'phone'    => ['nullable', 'string', 'max:20'],
             'company'  => ['nullable', 'string', 'max:255'],
             'country'  => ['nullable', 'string', 'max:5'],
+            'locale'   => ['nullable', 'string', 'in:fa,en,ar,hi,it'],
         ]);
 
         $user = User::create([
@@ -37,6 +38,7 @@ class RegisteredUserController extends Controller
             'phone'    => $request->phone,
             'company'  => $request->company,
             'country'  => $request->country,
+            'locale'   => $request->locale ?? app()->getLocale(),
         ]);
 
         try {

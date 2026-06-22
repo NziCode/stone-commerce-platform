@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-19 22:50:16
+// Generated at: 2026-06-22 09:29:34
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -24,6 +24,7 @@ return [
     'attribute_group_desc' => 'बेहतर प्रदर्शन के लिए समूह बनाएं (वैकल्पिक)',
     'attribute_group_placeholder' => 'उदा: आयाम और वजन',
     'attribute_key_helper' => 'अद्वितीय अंग्रेजी कुंजी',
+    'attribute_key_internal' => 'आंतरिक विशेषता कुंजी',
     'attributes' => 'विशेषताएं',
     'auto_translated' => 'स्वचालित',
     'available' => 'उपलब्ध',

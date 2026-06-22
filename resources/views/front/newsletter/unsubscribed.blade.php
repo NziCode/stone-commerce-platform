@@ -1,26 +1,21 @@
 @extends('front.layouts.app')
-@section('title', 'لغو اشتراک')
+@section('title', __('messages.newsletter_unsubscribe') ?? 'Unsubscribe')
 
 @section('content')
 
     @include('front.components.breadcrumb', [
-        'title' => 'لغو اشتراک از خبرنامه',
+        'title' => __('messages.newsletter_unsubscribe') ?? 'Unsubscribe from Newsletter',
     ])
 
-    <div class="py-140">
-        <div class="container">
-            <div class="text-center py-10">
-                <div class="counter-item d-inline-block p-8 mb-6">
-                    <i class="fa fa-check-circle fa-4x text-success mb-4 d-block"></i>
-                    <h3 class="mb-3">اشتراک شما لغو شد</h3>
-                    <p class="text-muted mb-6">
-                        با موفقیت از خبرنامه لغو اشتراک کردید.
-                    </p>
-                    <a href="{{ route('home') }}"
-                       class="btn btn-custom btn-secondary btn-primary-hover">
-                        بازگشت به خانه
-                    </a>
+    <div class="mt-section">
+        <div class="mt-container">
+            <div style="max-width:480px;margin:0 auto;text-align:center;padding:2rem 1rem">
+                <div style="width:80px;height:80px;border-radius:50%;background:#e9f9ef;color:#1f9d55;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="36" height="36"><path d="M20 6 9 17l-5-5"/></svg>
                 </div>
+                <h2 class="mt-heading" style="font-size:1.4rem;margin-bottom:.6rem">{{ __('messages.newsletter_unsubscribed_title') ?? 'You have been unsubscribed' }}</h2>
+                <p style="color:var(--stone-500);margin-bottom:2rem;line-height:1.8">{{ __('messages.newsletter_unsubscribed_desc') ?? 'You have successfully unsubscribed from our newsletter.' }}</p>
+                <a href="{{ route('home') }}" class="mt-btn mt-btn-primary">{{ __('messages.back_to_home') ?? 'Back to Home' }}</a>
             </div>
         </div>
     </div>

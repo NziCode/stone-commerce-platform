@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-19 22:50:16
+// Generated at: 2026-06-22 09:29:34
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -24,6 +24,7 @@ return [
     'attribute_group_desc' => 'Group attributes for better display in the product form (optional)',
     'attribute_group_placeholder' => 'e.g. Dimensions & Weight',
     'attribute_key_helper' => 'Unique key in English (e.g. color, thickness)',
+    'attribute_key_internal' => 'Internal Attribute Key',
     'attributes' => 'Attributes',
     'auto_translated' => 'Auto Translated',
     'available' => 'Available',

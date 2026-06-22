@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-19 22:50:16
+// Generated at: 2026-06-22 09:29:34
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -24,6 +24,7 @@ return [
     'attribute_group_desc' => 'تجميع المواصفات للعرض الأفضل (اختياري)',
     'attribute_group_placeholder' => 'مثال: الأبعاد والوزن',
     'attribute_key_helper' => 'مفتاح إنجليزي فريد',
+    'attribute_key_internal' => 'المفتاح الداخلي للخاصية',
     'attributes' => 'المواصفات',
     'auto_translated' => 'ترجمة تلقائية',
     'available' => 'متاح',

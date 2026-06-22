@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-19 22:50:16
+// Generated at: 2026-06-22 09:29:34
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -24,6 +24,7 @@ return [
     'attribute_group_desc' => 'ویژگی‌ها رو برای نمایش بهتر در فرم محصول دسته‌بندی کن (اختیاریه)',
     'attribute_group_placeholder' => 'مثلاً: ابعاد و وزن',
     'attribute_key_helper' => 'یه کلید انگلیسی یکتا (مثل: color, thickness)',
+    'attribute_key_internal' => 'کلید داخلی ویژگی',
     'attributes' => 'ویژگی‌ها',
     'auto_translated' => 'ترجمه خودکار',
     'available' => 'موجود',
