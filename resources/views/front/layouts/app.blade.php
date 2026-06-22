@@ -87,5 +87,6 @@
 @stack('scripts')
 
 <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/mobile-ux.js') }}"></script>
 </body>
 </html>
