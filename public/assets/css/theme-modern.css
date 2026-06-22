@@ -626,7 +626,21 @@ body{ background:var(--stone-50); }
 .mt-prose a{ color:var(--brand); }
 .mt-prose strong{ color:var(--ink); }
 
-/* Certificate badge grid (used inside CMS page content, e.g. Certificates page) */
+/* Contact info cards */
+.mt-contact-card{
+  background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius);
+  padding:1.6rem 1.4rem; text-align:center; box-shadow:var(--shadow-sm); height:100%;
+  display:flex; flex-direction:column; align-items:center; gap:.55rem;
+}
+.mt-contact-card-ico{
+  width:56px; height:56px; border-radius:50%; background:var(--brand-soft); color:var(--brand);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-bottom:.3rem;
+}
+.mt-contact-card-ico svg{ width:24px; height:24px; }
+.mt-contact-card h4{ font-size:.92rem; font-weight:700; color:var(--ink); margin:0; }
+.mt-contact-card a{ color:var(--brand); text-decoration:none; font-weight:600; font-size:.9rem; word-break:break-all; }
+.mt-contact-card a:hover{ color:var(--ink); }
+.mt-contact-card span{ font-size:.78rem; color:var(--stone-500); line-height:1.5; }
 .mt-cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0 2rem; }
 .mt-cert-card{ background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); padding:1.5rem 1.1rem; text-align:center; box-shadow:var(--shadow-sm); }
 .mt-cert-card .ico{ width:52px; height:52px; border-radius:50%; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; margin:0 auto .9rem; }

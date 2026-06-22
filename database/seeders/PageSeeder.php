@@ -592,6 +592,646 @@ class PageSeeder extends Seeder
                 'is_active'   => true,
                 'cover_seed'  => 'our-mines-cover.jpg',
             ],
+
+            // ── Buying Guide ─────────────────────────────────────────────
+            [
+                'title' => [
+                    'fa' => 'راهنمای خرید',
+                    'en' => 'Buying Guide',
+                    'ar' => 'دليل الشراء',
+                    'hi' => 'खरीदारी गाइड',
+                    'it' => 'Guida all\'Acquisto',
+                ],
+                'slug' => [
+                    'fa' => 'buying-guide',
+                    'en' => 'buying-guide',
+                    'ar' => 'buying-guide',
+                    'hi' => 'buying-guide',
+                    'it' => 'buying-guide',
+                ],
+                'excerpt' => [
+                    'fa' => 'از انتخاب نوع سنگ تا تأیید سفارش و ارسال — هر آنچه برای اولین خرید از ما باید بدانید.',
+                    'en' => 'From choosing the right stone type to confirming your order and shipment — everything you need to know for your first purchase from us.',
+                    'ar' => 'من اختيار نوع الحجر المناسب إلى تأكيد الطلب والشحن — كل ما تحتاج معرفته لأول عملية شراء منا.',
+                    'hi' => 'सही पत्थर के प्रकार को चुनने से लेकर ऑर्डर की पुष्टि और शिपमेंट तक — हमसे पहली खरीद के लिए आपको जो कुछ जानना चाहिए।',
+                    'it' => 'Dalla scelta del tipo di pietra giusto alla conferma dell\'ordine e alla spedizione — tutto ciò che devi sapere per il tuo primo acquisto da noi.',
+                ],
+                'content' => [
+                    'fa' => <<<'HTML'
+                        <p>خرید سنگ طبیعی برای اولین بار می‌تواند سردرگم‌کننده باشد — تنوع محصولات زیاد است، واحدهای اندازه‌گیری فرق دارند، و مسیر سفارش تا تحویل ممکن است مبهم باشد. این راهنما آن مسیر را مرحله به مرحله شفاف می‌کند.</p>
+
+                        <h3>۱. نوع سنگ را مشخص کنید</h3>
+                        <p>ابتدا بدانید برای چه کاربردی نیاز دارید: <strong>نما</strong>، <strong>کف داخلی</strong>، <strong>کف فضای باز</strong>، یا <strong>دکوراسیون</strong>؟ هر کاربرد مشخصه‌های فنی خاصی می‌طلبد:</p>
+                        <ul>
+                            <li><strong>تراورتن</strong> — گزینه اول نمای خارجی؛ سبک، دوام‌پذیر، قیمت رقابتی.</li>
+                            <li><strong>مرمریت</strong> — کف و دیوار داخلی پروژه‌های لوکس؛ درخشندگی بالا.</li>
+                            <li><strong>گرانیت</strong> — کف فضای باز و صنعتی؛ سخت‌ترین و مقاوم‌ترین.</li>
+                            <li><strong>انیکس</strong> — دکوراسیون ویژه و نورپردازی پشت سنگ.</li>
+                            <li><strong>سنگ آنتیک</strong> — فضای باز، پروژه‌های کلاسیک.</li>
+                        </ul>
+
+                        <h3>۲. ابعاد و واحد را درست تعیین کنید</h3>
+                        <p>محصولات ما در دو فرمت اصلی ارائه می‌شوند: <strong>بلوک</strong> (خام، برحسب متر مکعب) و <strong>اسلب / تایل</strong> (فرآوری‌شده، برحسب متر مربع). اگر مطمئن نیستید به کدام نیاز دارید، ابعاد پروژه و نوع استفاده را برای تیم ما توضیح دهید — در محاسبه کمک می‌کنیم.</p>
+
+                        <h3>۳. نمونه درخواست کنید</h3>
+                        <p>برای سفارش‌های بالای ۵۰ متر مربع، ارسال نمونه رایگان انجام می‌شود. نمونه زیر نور طبیعی محل پروژه را ارزیابی کنید — رنگ سنگ زیر نور مصنوعی متفاوت دیده می‌شود.</p>
+
+                        <h3>۴. استعلام قیمت و ثبت سفارش</h3>
+                        <p>قیمت‌گذاری ما براساس نوع سنگ، درجه کیفیت، ابعاد، و حجم سفارش متفاوت است. برای استعلام رسمی از صفحه <strong>تماس با ما</strong> یا از طریق شماره مستقیم اقدام کنید. پس از توافق قیمت، فاکتور پیش‌پرداخت صادر می‌شود.</p>
+
+                        <h3>۵. پرداخت</h3>
+                        <p>برای مشتریان <strong>داخلی</strong>: درگاه‌های پرداخت آنلاین ریالی (زرین‌پال / آیدی‌پی).
+                        برای مشتریان <strong>بین‌المللی</strong>: حواله بانکی (Swift/TT) یا آپلود رسید پرداخت برای تأیید دستی.</p>
+
+                        <h3>۶. آماده‌سازی و ارسال</h3>
+                        <p>پس از تأیید پرداخت، محصول در بازه ۵ تا ۱۵ روز کاری — بسته به حجم سفارش — بسته‌بندی صادراتی می‌شود. بارنامه و اسناد گمرکی برای تمام محموله‌های صادراتی ارائه می‌شود.</p>
+
+                        <h3>۷. پشتیبانی پس از تحویل</h3>
+                        <p>در صورت هرگونه مغایرت با مشخصات سفارش، ظرف ۷ روز از تحویل از طریق صفحه تماس اطلاع دهید. تیم ما پیگیری و رسیدگی خواهد کرد.</p>
+                        HTML,
+                    'en' => <<<'HTML'
+                        <p>Buying natural stone for the first time can feel overwhelming — the variety is wide, units of measurement differ, and the path from order to delivery may not be clear. This guide walks you through that process, step by step.</p>
+
+                        <h3>1. Identify Your Stone Type</h3>
+                        <p>Start by knowing your application: <strong>facade</strong>, <strong>interior flooring</strong>, <strong>exterior flooring</strong>, or <strong>decoration</strong>? Each use case calls for different technical properties:</p>
+                        <ul>
+                            <li><strong>Travertine</strong> — the top choice for exterior facades; lightweight, durable, competitively priced.</li>
+                            <li><strong>Marble</strong> — interior flooring and walls for luxury projects; high gloss.</li>
+                            <li><strong>Granite</strong> — exterior and industrial flooring; the hardest and most resistant.</li>
+                            <li><strong>Onyx</strong> — premium decoration and backlit applications.</li>
+                            <li><strong>Antique Stone</strong> — outdoor spaces and classic-style projects.</li>
+                        </ul>
+
+                        <h3>2. Define Your Dimensions and Unit</h3>
+                        <p>Our products come in two main formats: <strong>blocks</strong> (raw, sold by m³) and <strong>slabs / tiles</strong> (processed, sold by m²). If you're unsure which you need, share your project dimensions and intended use with our team — we'll help with the calculation.</p>
+
+                        <h3>3. Request a Sample</h3>
+                        <p>For orders above 50 m², we ship a free sample. Evaluate it under the natural light of your project site — stone color looks different under artificial light.</p>
+
+                        <h3>4. Request a Quote and Place Your Order</h3>
+                        <p>Pricing varies by stone type, quality grade, dimensions, and order volume. Use the <strong>Contact Us</strong> page or our direct line for a formal quote. Once the price is agreed, a pro-forma invoice is issued.</p>
+
+                        <h3>5. Payment</h3>
+                        <p>For <strong>domestic customers</strong>: online payment gateways (ZarinPal / IDPay).
+                        For <strong>international customers</strong>: bank transfer (Swift/TT) or receipt upload for manual approval.</p>
+
+                        <h3>6. Preparation and Shipment</h3>
+                        <p>After payment confirmation, your order is packed for export within 5–15 business days depending on volume. A bill of lading and customs documents are provided for all export shipments.</p>
+
+                        <h3>7. After-Delivery Support</h3>
+                        <p>If there is any discrepancy with the order specifications, notify us via the contact page within 7 days of delivery. Our team will follow up and resolve the issue.</p>
+                        HTML,
+                    'ar' => <<<'HTML'
+                        <p>قد يبدو شراء الحجر الطبيعي لأول مرة أمرًا مربكًا. يرشدك هذا الدليل خطوة بخطوة خلال العملية بأكملها.</p>
+
+                        <h3>1. حدد نوع الحجر</h3>
+                        <p>ابدأ بمعرفة الاستخدام المطلوب: <strong>واجهة</strong>، <strong>أرضية داخلية</strong>، <strong>أرضية خارجية</strong>، أم <strong>ديكور</strong>؟</p>
+                        <ul>
+                            <li><strong>الترافرتين</strong> — الخيار الأول للواجهات الخارجية.</li>
+                            <li><strong>الرخام</strong> — للأرضيات الداخلية والمشاريع الفاخرة.</li>
+                            <li><strong>الجرانيت</strong> — للأرضيات الخارجية والصناعية.</li>
+                            <li><strong>الأونكس</strong> — للديكور الراقي والإضاءة الخلفية.</li>
+                            <li><strong>الحجر الأنتيك</strong> — للمساحات الخارجية والمشاريع الكلاسيكية.</li>
+                        </ul>
+
+                        <h3>2. حدد الأبعاد والوحدة</h3>
+                        <p>منتجاتنا متاحة في شكل <strong>كتل</strong> (خام، بالمتر المكعب) أو <strong>ألواح/بلاط</strong> (مصنعة، بالمتر المربع). تواصل معنا إذا كنت غير متأكد.</p>
+
+                        <h3>3. اطلب عينة</h3>
+                        <p>للطلبات التي تزيد عن 50 م²، نوفر شحن عينة مجاني. قيّم العينة تحت الإضاءة الطبيعية لموقع مشروعك.</p>
+
+                        <h3>4. اطلب عرض سعر وقدّم طلبك</h3>
+                        <p>استخدم صفحة <strong>اتصل بنا</strong> للحصول على عرض سعر رسمي. بعد الاتفاق على السعر، يُصدر فاتورة أولية.</p>
+
+                        <h3>5. الدفع</h3>
+                        <p>للعملاء <strong>الدوليين</strong>: تحويل بنكي (Swift/TT) أو رفع إيصال للموافقة اليدوية.</p>
+
+                        <h3>6. التحضير والشحن</h3>
+                        <p>بعد تأكيد الدفع، يُعبأ طلبك للتصدير خلال 5–15 يوم عمل. يتم توفير بوليصة الشحن والوثائق الجمركية لجميع شحنات التصدير.</p>
+
+                        <h3>7. دعم ما بعد التسليم</h3>
+                        <p>في حال وجود أي تعارض مع مواصفات الطلب، أبلغنا عبر صفحة الاتصال خلال 7 أيام من التسليم.</p>
+                        HTML,
+                    'hi' => <<<'HTML'
+                        <p>पहली बार प्राकृतिक पत्थर खरीदना भारी लग सकता है। यह गाइड आपको उस प्रक्रिया में कदम-दर-कदम मार्गदर्शन करता है।</p>
+
+                        <h3>1. अपना पत्थर का प्रकार पहचानें</h3>
+                        <p>अपने उपयोग को जानकर शुरू करें: <strong>अग्रभाग</strong>, <strong>इंटीरियर फर्श</strong>, <strong>बाहरी फर्श</strong>, या <strong>सजावट</strong>?</p>
+                        <ul>
+                            <li><strong>ट्रैवर्टीन</strong> — बाहरी फेसाड के लिए पहली पसंद।</li>
+                            <li><strong>मार्बल</strong> — लक्जरी इंटीरियर के लिए।</li>
+                            <li><strong>ग्रेनाइट</strong> — बाहरी और औद्योगिक फर्श के लिए।</li>
+                            <li><strong>ओनिक्स</strong> — प्रीमियम सजावट और बैकलिट अनुप्रयोगों के लिए।</li>
+                        </ul>
+
+                        <h3>2. अपने आयाम और इकाई परिभाषित करें</h3>
+                        <p>हमारे उत्पाद <strong>ब्लॉक</strong> (कच्चे, m³ द्वारा) या <strong>स्लैब/टाइल्स</strong> (प्रसंस्कृत, m² द्वारा) में उपलब्ध हैं।</p>
+
+                        <h3>3. नमूना मांगें</h3>
+                        <p>50 m² से अधिक के ऑर्डर के लिए, हम मुफ्त नमूना भेजते हैं।</p>
+
+                        <h3>4. उद्धरण अनुरोध करें और ऑर्डर दें</h3>
+                        <p>औपचारिक उद्धरण के लिए <strong>हमसे संपर्क करें</strong> पृष्ठ का उपयोग करें।</p>
+
+                        <h3>5. भुगतान</h3>
+                        <p><strong>अंतरराष्ट्रीय ग्राहकों</strong> के लिए: बैंक ट्रांसफर (Swift/TT) या मैन्युअल अनुमोदन के लिए रसीद अपलोड।</p>
+
+                        <h3>6. तैयारी और शिपमेंट</h3>
+                        <p>भुगतान पुष्टि के बाद, आपका ऑर्डर मात्रा के आधार पर 5–15 कार्य दिवसों में निर्यात के लिए पैक किया जाता है।</p>
+
+                        <h3>7. डिलीवरी के बाद सहायता</h3>
+                        <p>यदि ऑर्डर विनिर्देशों में कोई विसंगति है, तो डिलीवरी के 7 दिनों के भीतर संपर्क पृष्ठ के माध्यम से हमें सूचित करें।</p>
+                        HTML,
+                    'it' => <<<'HTML'
+                        <p>Acquistare pietra naturale per la prima volta può sembrare complicato. Questa guida ti accompagna nel processo passo dopo passo.</p>
+
+                        <h3>1. Identifica il Tipo di Pietra</h3>
+                        <p>Inizia conoscendo la tua applicazione: <strong>facciata</strong>, <strong>pavimento interno</strong>, <strong>pavimento esterno</strong>, o <strong>decorazione</strong>?</p>
+                        <ul>
+                            <li><strong>Travertino</strong> — la prima scelta per le facciate esterne.</li>
+                            <li><strong>Marmo</strong> — pavimenti e pareti interni per progetti di lusso.</li>
+                            <li><strong>Granito</strong> — pavimenti esterni e industriali.</li>
+                            <li><strong>Onice</strong> — decorazione premium e applicazioni retroilluminate.</li>
+                            <li><strong>Pietra Antica</strong> — spazi esterni e progetti in stile classico.</li>
+                        </ul>
+
+                        <h3>2. Definisci le Dimensioni e l'Unità</h3>
+                        <p>I nostri prodotti sono disponibili in <strong>blocchi</strong> (grezzi, venduti per m³) o <strong>lastre/piastrelle</strong> (lavorati, venduti per m²).</p>
+
+                        <h3>3. Richiedi un Campione</h3>
+                        <p>Per ordini superiori a 50 m², spediamo un campione gratuito. Valutalo sotto la luce naturale del cantiere.</p>
+
+                        <h3>4. Richiedi un Preventivo e Fai il Tuo Ordine</h3>
+                        <p>Usa la pagina <strong>Contattaci</strong> per un preventivo formale. Una volta concordato il prezzo, viene emessa una fattura pro-forma.</p>
+
+                        <h3>5. Pagamento</h3>
+                        <p>Per i clienti <strong>internazionali</strong>: bonifico bancario (Swift/TT) o caricamento della ricevuta per approvazione manuale.</p>
+
+                        <h3>6. Preparazione e Spedizione</h3>
+                        <p>Dopo la conferma del pagamento, il tuo ordine viene imballato per l'esportazione entro 5–15 giorni lavorativi in base al volume.</p>
+
+                        <h3>7. Assistenza Post-Consegna</h3>
+                        <p>In caso di discrepanze con le specifiche dell'ordine, contattaci tramite la pagina dei contatti entro 7 giorni dalla consegna.</p>
+                        HTML,
+                ],
+                'meta_title' => [
+                    'fa' => 'راهنمای خرید سنگ طبیعی | EN Trading Group',
+                    'en' => 'Natural Stone Buying Guide | EN Trading Group',
+                    'ar' => 'دليل شراء الحجر الطبيعي | EN Trading Group',
+                    'hi' => 'प्राकृतिक पत्थर खरीद गाइड | EN Trading Group',
+                    'it' => 'Guida all\'Acquisto di Pietra Naturale | EN Trading Group',
+                ],
+                'meta_description' => [
+                    'fa' => 'از انتخاب نوع سنگ تا پرداخت و ارسال — راهنمای کامل خرید سنگ طبیعی از EN Trading Group.',
+                    'en' => 'From choosing the right stone to payment and shipping — the complete guide to buying natural stone from EN Trading Group.',
+                    'ar' => 'من اختيار الحجر المناسب إلى الدفع والشحن — الدليل الكامل لشراء الحجر الطبيعي من EN Trading Group.',
+                    'hi' => 'सही पत्थर चुनने से लेकर भुगतान और शिपिंग तक — EN Trading Group से प्राकृतिक पत्थर खरीदने की पूरी गाइड।',
+                    'it' => 'Dalla scelta della pietra giusta al pagamento e alla spedizione — la guida completa all\'acquisto di pietra naturale da EN Trading Group.',
+                ],
+                'template'    => 'sidebar',
+                'is_active'   => true,
+                'cover_seed'  => 'buying-guide-cover.jpg',
+            ],
+
+            // ── Payment Methods ──────────────────────────────────────────
+            [
+                'title' => [
+                    'fa' => 'روش‌های پرداخت',
+                    'en' => 'Payment Methods',
+                    'ar' => 'طرق الدفع',
+                    'hi' => 'भुगतान के तरीके',
+                    'it' => 'Metodi di Pagamento',
+                ],
+                'slug' => [
+                    'fa' => 'payment-methods',
+                    'en' => 'payment-methods',
+                    'ar' => 'payment-methods',
+                    'hi' => 'payment-methods',
+                    'it' => 'payment-methods',
+                ],
+                'excerpt' => [
+                    'fa' => 'خریداران داخلی و بین‌المللی می‌توانند از طریق روش‌های مختلف پرداخت، سفارش خود را نهایی کنند.',
+                    'en' => 'Domestic and international buyers can finalize their orders through several flexible payment methods.',
+                    'ar' => 'يمكن للمشترين المحليين والدوليين إتمام طلباتهم عبر طرق دفع مرنة متعددة.',
+                    'hi' => 'घरेलू और अंतरराष्ट्रीय खरीदार कई लचीले भुगतान तरीकों के माध्यम से अपने ऑर्डर को अंतिम रूप दे सकते हैं।',
+                    'it' => 'Gli acquirenti nazionali e internazionali possono finalizzare i loro ordini tramite diversi metodi di pagamento flessibili.',
+                ],
+                'content' => [
+                    'fa' => <<<'HTML'
+                        <p>ما تلاش می‌کنیم فرآیند پرداخت را برای هر دو گروه خریداران داخلی و بین‌المللی تا حد امکان ساده و امن نگه داریم. در ادامه روش‌های پرداخت پذیرفته‌شده را می‌بینید.</p>
+
+                        <h3>پرداخت آنلاین ریالی (خریداران داخلی)</h3>
+                        <p>خریداران داخلی می‌توانند مبلغ سفارش را از طریق درگاه‌های پرداخت امن زیر پرداخت کنند:</p>
+                        <ul>
+                            <li><strong>زرین‌پال</strong> — پذیرش تمامی کارت‌های عضو شتاب</li>
+                            <li><strong>آیدی‌پی</strong> — پرداخت مستقیم از حساب بانکی</li>
+                        </ul>
+                        <p>پس از پرداخت موفق، تأییدیه سفارش به‌صورت خودکار صادر می‌شود و پردازش سفارش آغاز می‌گردد.</p>
+
+                        <h3>حواله بانکی بین‌المللی (Swift / TT)</h3>
+                        <p>برای خریداران خارج از ایران، روش اصلی پرداخت حواله بانکی بین‌المللی است. پس از توافق قیمت، اطلاعات حساب و فاکتور پیش‌پرداخت (Pro-forma Invoice) برای شما ارسال می‌شود. به‌محض دریافت تأییدیه واریز، پردازش و آماده‌سازی محموله آغاز می‌شود.</p>
+                        <ul>
+                            <li>ارز پذیرفته‌شده: <strong>USD، EUR، AED</strong></li>
+                            <li>مدت زمان تأیید واریز: معمولاً ۱ تا ۳ روز کاری</li>
+                        </ul>
+
+                        <h3>آپلود رسید پرداخت</h3>
+                        <p>در صورتی که امکان حواله مستقیم وجود ندارد، می‌توانید رسید انتقال وجه را از طریق پنل کاربری آپلود کنید. پس از بررسی و تأیید دستی توسط تیم مالی، سفارش وارد چرخه پردازش می‌شود.</p>
+
+                        <h3>شرایط پرداخت و پیش‌پرداخت</h3>
+                        <ul>
+                            <li>سفارش‌های زیر ۵۰۰ دلار: <strong>پرداخت کامل پیش از ارسال</strong></li>
+                            <li>سفارش‌های ۵۰۰ تا ۵۰۰۰ دلار: <strong>۵۰٪ پیش‌پرداخت + ۵۰٪ پیش از بارگیری</strong></li>
+                            <li>سفارش‌های بالای ۵۰۰۰ دلار: <strong>شرایط قابل مذاکره</strong></li>
+                        </ul>
+
+                        <h3>امنیت و حریم خصوصی</h3>
+                        <p>تمام تراکنش‌های آنلاین با پروتکل SSL رمزنگاری شده‌اند. اطلاعات کارت یا حساب شما در سرورهای ما ذخیره نمی‌شود و پردازش پرداخت کاملاً توسط درگاه‌های معتبر انجام می‌گیرد.</p>
+
+                        <h3>سؤال دارید؟</h3>
+                        <p>برای هرگونه سؤال درباره روش پرداخت یا دریافت اطلاعات حساب بانکی با تیم فروش ما از طریق صفحه <a href="/contact">تماس با ما</a> در ارتباط باشید.</p>
+                        HTML,
+                    'en' => <<<'HTML'
+                        <p>We keep the payment process as simple and secure as possible for both domestic and international buyers. Here are the accepted payment methods.</p>
+
+                        <h3>Online Rial Payment (Domestic Buyers)</h3>
+                        <p>Domestic buyers can pay via the following secure gateways:</p>
+                        <ul>
+                            <li><strong>ZarinPal</strong> — accepts all Shetab network cards</li>
+                            <li><strong>IDPay</strong> — direct payment from bank account</li>
+                        </ul>
+                        <p>After a successful payment, an order confirmation is issued automatically and processing begins.</p>
+
+                        <h3>International Bank Transfer (Swift / TT)</h3>
+                        <p>For buyers outside Iran, the primary payment method is an international bank transfer. Once the price is agreed, we send you the bank account details and a Pro-forma Invoice. Processing and preparation begin as soon as the transfer is confirmed.</p>
+                        <ul>
+                            <li>Accepted currencies: <strong>USD, EUR, AED</strong></li>
+                            <li>Transfer confirmation time: typically 1–3 business days</li>
+                        </ul>
+
+                        <h3>Receipt Upload</h3>
+                        <p>If a direct wire transfer isn't possible, you can upload your payment receipt via your account panel. After manual review and approval by our finance team, the order enters the processing cycle.</p>
+
+                        <h3>Payment Terms and Advance Payment</h3>
+                        <ul>
+                            <li>Orders under $500: <strong>full payment before shipment</strong></li>
+                            <li>Orders $500–$5,000: <strong>50% advance + 50% before loading</strong></li>
+                            <li>Orders above $5,000: <strong>terms negotiable</strong></li>
+                        </ul>
+
+                        <h3>Security and Privacy</h3>
+                        <p>All online transactions are SSL-encrypted. Your card or account details are never stored on our servers — payment processing is handled entirely by certified gateways.</p>
+
+                        <h3>Have a Question?</h3>
+                        <p>For any questions about payment methods or to receive our bank account details, contact our sales team via the <a href="/en/contact">Contact Us</a> page.</p>
+                        HTML,
+                    'ar' => <<<'HTML'
+                        <p>نحرص على إبقاء عملية الدفع بسيطة وآمنة قدر الإمكان لكل من المشترين المحليين والدوليين.</p>
+
+                        <h3>الدفع الإلكتروني بالريال (للمشترين المحليين)</h3>
+                        <p>يمكن للمشترين المحليين الدفع عبر بوابات الدفع الآمنة التالية: <strong>زرين‌بال</strong> و<strong>آيدي‌باي</strong>.</p>
+
+                        <h3>التحويل البنكي الدولي (Swift / TT)</h3>
+                        <p>للمشترين خارج إيران، الطريقة الرئيسية للدفع هي التحويل البنكي الدولي. بعد الاتفاق على السعر، نرسل تفاصيل الحساب وفاتورة أولية (Pro-forma Invoice).</p>
+                        <ul>
+                            <li>العملات المقبولة: <strong>USD، EUR، AED</strong></li>
+                            <li>وقت تأكيد التحويل: عادةً 1–3 أيام عمل</li>
+                        </ul>
+
+                        <h3>رفع إيصال الدفع</h3>
+                        <p>إذا تعذّر التحويل المباشر، يمكنك رفع إيصال الدفع عبر لوحة حسابك. بعد المراجعة والموافقة اليدوية من فريقنا المالي، يدخل الطلب في دورة المعالجة.</p>
+
+                        <h3>شروط الدفع والدفعة المقدمة</h3>
+                        <ul>
+                            <li>الطلبات دون 500$: <strong>دفع كامل قبل الشحن</strong></li>
+                            <li>الطلبات 500$–5,000$: <strong>50% مقدمًا + 50% قبل التحميل</strong></li>
+                            <li>الطلبات فوق 5,000$: <strong>شروط قابلة للتفاوض</strong></li>
+                        </ul>
+
+                        <h3>الأمان والخصوصية</h3>
+                        <p>جميع المعاملات الإلكترونية مشفرة بـ SSL. لا يتم تخزين بيانات بطاقتك أو حسابك على خوادمنا أبدًا.</p>
+                        HTML,
+                    'hi' => <<<'HTML'
+                        <p>हम घरेलू और अंतरराष्ट्रीय दोनों खरीदारों के लिए भुगतान प्रक्रिया को यथासंभव सरल और सुरक्षित रखते हैं।</p>
+
+                        <h3>ऑनलाइन रियाल भुगतान (घरेलू खरीदार)</h3>
+                        <p>घरेलू खरीदार निम्नलिखित सुरक्षित गेटवे के माध्यम से भुगतान कर सकते हैं: <strong>ZarinPal</strong> और <strong>IDPay</strong>।</p>
+
+                        <h3>अंतरराष्ट्रीय बैंक ट्रांसफर (Swift / TT)</h3>
+                        <p>ईरान के बाहर के खरीदारों के लिए, प्राथमिक भुगतान विधि अंतरराष्ट्रीय बैंक ट्रांसफर है।</p>
+                        <ul>
+                            <li>स्वीकृत मुद्राएं: <strong>USD, EUR, AED</strong></li>
+                            <li>ट्रांसफर पुष्टि समय: आमतौर पर 1–3 व्यावसायिक दिन</li>
+                        </ul>
+
+                        <h3>रसीद अपलोड</h3>
+                        <p>यदि प्रत्यक्ष वायर ट्रांसफर संभव नहीं है, तो आप अपने खाता पैनल के माध्यम से अपनी भुगतान रसीद अपलोड कर सकते हैं।</p>
+
+                        <h3>भुगतान शर्तें और अग्रिम भुगतान</h3>
+                        <ul>
+                            <li>$500 से कम के ऑर्डर: <strong>शिपमेंट से पहले पूरा भुगतान</strong></li>
+                            <li>$500–$5,000 के ऑर्डर: <strong>50% अग्रिम + लोडिंग से पहले 50%</strong></li>
+                            <li>$5,000 से अधिक के ऑर्डर: <strong>शर्तें परक्राम्य</strong></li>
+                        </ul>
+
+                        <h3>सुरक्षा और गोपनीयता</h3>
+                        <p>सभी ऑनलाइन लेनदेन SSL-एन्क्रिप्टेड हैं। आपके कार्ड या खाते का विवरण कभी भी हमारे सर्वर पर संग्रहीत नहीं किया जाता।</p>
+                        HTML,
+                    'it' => <<<'HTML'
+                        <p>Manteniamo il processo di pagamento il più semplice e sicuro possibile per gli acquirenti nazionali e internazionali.</p>
+
+                        <h3>Pagamento Online in Rial (Acquirenti Nazionali)</h3>
+                        <p>Gli acquirenti nazionali possono pagare tramite i seguenti gateway sicuri: <strong>ZarinPal</strong> e <strong>IDPay</strong>.</p>
+
+                        <h3>Bonifico Bancario Internazionale (Swift / TT)</h3>
+                        <p>Per gli acquirenti fuori dall'Iran, il metodo di pagamento principale è il bonifico bancario internazionale.</p>
+                        <ul>
+                            <li>Valute accettate: <strong>USD, EUR, AED</strong></li>
+                            <li>Tempi di conferma del bonifico: tipicamente 1–3 giorni lavorativi</li>
+                        </ul>
+
+                        <h3>Caricamento della Ricevuta</h3>
+                        <p>Se un bonifico diretto non è possibile, puoi caricare la tua ricevuta di pagamento tramite il pannello del tuo account.</p>
+
+                        <h3>Termini di Pagamento e Acconto</h3>
+                        <ul>
+                            <li>Ordini sotto $500: <strong>pagamento completo prima della spedizione</strong></li>
+                            <li>Ordini $500–$5.000: <strong>50% di acconto + 50% prima del carico</strong></li>
+                            <li>Ordini oltre $5.000: <strong>termini negoziabili</strong></li>
+                        </ul>
+
+                        <h3>Sicurezza e Privacy</h3>
+                        <p>Tutte le transazioni online sono crittografate con SSL. I tuoi dati di carta o conto non vengono mai memorizzati sui nostri server.</p>
+                        HTML,
+                ],
+                'meta_title' => [
+                    'fa' => 'روش‌های پرداخت | EN Trading Group',
+                    'en' => 'Payment Methods | EN Trading Group',
+                    'ar' => 'طرق الدفع | EN Trading Group',
+                    'hi' => 'भुगतान के तरीके | EN Trading Group',
+                    'it' => 'Metodi di Pagamento | EN Trading Group',
+                ],
+                'meta_description' => [
+                    'fa' => 'روش‌های پرداخت داخلی و بین‌المللی EN Trading Group، از درگاه‌های آنلاین تا حواله بانکی.',
+                    'en' => 'Domestic and international payment methods at EN Trading Group, from online gateways to bank wire transfer.',
+                    'ar' => 'طرق الدفع المحلية والدولية في EN Trading Group، من بوابات الدفع إلى التحويل البنكي.',
+                    'hi' => 'EN Trading Group में घरेलू और अंतरराष्ट्रीय भुगतान विधियां, ऑनलाइन गेटवे से बैंक ट्रांसफर तक।',
+                    'it' => 'Metodi di pagamento nazionali e internazionali di EN Trading Group, dai gateway online al bonifico bancario.',
+                ],
+                'template'   => 'sidebar',
+                'is_active'  => true,
+                'cover_seed' => 'payment-methods-cover.jpg',
+            ],
+
+            // ── Shipping ─────────────────────────────────────────────────
+            [
+                'title' => [
+                    'fa' => 'حمل و نقل',
+                    'en' => 'Shipping',
+                    'ar' => 'الشحن',
+                    'hi' => 'शिपिंग',
+                    'it' => 'Spedizione',
+                ],
+                'slug' => [
+                    'fa' => 'shipping',
+                    'en' => 'shipping',
+                    'ar' => 'shipping',
+                    'hi' => 'shipping',
+                    'it' => 'shipping',
+                ],
+                'excerpt' => [
+                    'fa' => 'از بارگیری در معدن تا تحویل درب کارخانه یا بندر مقصد — همه‌چیز درباره نحوه ارسال سفارش‌های شما.',
+                    'en' => 'From loading at the quarry to delivery at your factory door or destination port — everything about how your orders are shipped.',
+                    'ar' => 'من التحميل في المحجر إلى التسليم عند باب مصنعك أو ميناء الوجهة — كل شيء عن كيفية شحن طلباتك.',
+                    'hi' => 'खदान पर लोडिंग से आपकी फैक्ट्री के दरवाजे या गंतव्य बंदरगाह तक डिलीवरी — आपके ऑर्डर कैसे भेजे जाते हैं, इसके बारे में सब कुछ।',
+                    'it' => 'Dal carico in cava alla consegna alla porta della tua fabbrica o al porto di destinazione — tutto su come vengono spediti i tuoi ordini.',
+                ],
+                'content' => [
+                    'fa' => <<<'HTML'
+                        <p>ما تجربه بیش از ۲۵ سال در لجستیک صادرات سنگ داریم و با شبکه‌ای از شرکت‌های حمل‌ونقل زمینی، دریایی و هوایی کار می‌کنیم تا محموله شما با کمترین هزینه و بیشترین امنیت به مقصد برسد.</p>
+
+                        <h3>روش‌های حمل و نقل</h3>
+                        <ul>
+                            <li><strong>کانتینر دریایی (FCL / LCL)</strong> — مناسب سفارش‌های بزرگ و صادرات بین‌المللی. بنادر اصلی ارسال: بندرعباس، بندر امام خمینی.</li>
+                            <li><strong>کامیون زمینی</strong> — برای کشورهای همسایه (ترکیه، عراق، امارات از طریق مرز) سریع‌تر و اقتصادی‌تر از دریا.</li>
+                            <li><strong>هوایی</strong> — برای نمونه‌های تجاری و محموله‌های فوری با وزن کم، از طریق فرودگاه‌های تهران و شیراز.</li>
+                        </ul>
+
+                        <h3>اینکوترمز پذیرفته‌شده</h3>
+                        <p>سفارش شما می‌تواند براساس هر یک از شرایط زیر تحویل داده شود:</p>
+                        <ul>
+                            <li><strong>EXW</strong> (تحویل در کارخانه) — حمل‌ونقل کامل بر عهده خریدار</li>
+                            <li><strong>FOB</strong> (تحویل در بندر مبدأ) — هزینه بارگیری روی کشتی با فروشنده</li>
+                            <li><strong>CIF</strong> (هزینه، بیمه و کرایه حمل) — تمام هزینه تا بندر مقصد با فروشنده</li>
+                            <li><strong>DAP</strong> (تحویل در مقصد) — تحویل تا درب انبار یا کارخانه خریدار</li>
+                        </ul>
+
+                        <h3>بسته‌بندی صادراتی</h3>
+                        <p>اسلب‌ها و تایل‌ها روی <strong>پالت‌های چوبی استاندارد</strong> با دیواره‌های محافظ بسته‌بندی می‌شوند. بلوک‌های خام با <strong>زنجیر و قید فولادی</strong> روی تریلر ثابت می‌شوند. همه محموله‌ها قبل از بارگیری تصویربرداری می‌شوند و گزارش تصویری برای خریدار ارسال می‌گردد.</p>
+
+                        <h3>مدارک صادراتی</h3>
+                        <p>برای هر محموله صادراتی مدارک زیر صادر می‌شود:</p>
+                        <ul>
+                            <li>فاکتور تجاری (Commercial Invoice)</li>
+                            <li>لیست بار (Packing List)</li>
+                            <li>بارنامه دریایی یا زمینی (B/L یا CMR)</li>
+                            <li>گواهی مبدأ (Certificate of Origin — اتاق بازرگانی ایران)</li>
+                            <li>گواهی کیفیت (در صورت درخواست)</li>
+                        </ul>
+
+                        <h3>زمان‌بندی ارسال</h3>
+                        <ul>
+                            <li>آماده‌سازی و بسته‌بندی: <strong>۵ تا ۱۵ روز کاری</strong> پس از تأیید پرداخت</li>
+                            <li>حمل دریایی به اروپا: <strong>۲۵ تا ۳۵ روز</strong></li>
+                            <li>حمل دریایی به خلیج فارس و آسیای جنوب شرقی: <strong>۷ تا ۱۵ روز</strong></li>
+                            <li>حمل زمینی به ترکیه و عراق: <strong>۵ تا ۱۰ روز</strong></li>
+                        </ul>
+
+                        <h3>بیمه محموله</h3>
+                        <p>بیمه باربری برای تمام محموله‌های صادراتی در صورت درخواست خریدار قابل ترتیب است. هزینه بیمه معمولاً ۰.۵ تا ۱٪ ارزش محموله است و در فاکتور نهایی لحاظ می‌شود.</p>
+
+                        <h3>ردیابی محموله</h3>
+                        <p>پس از بارگیری، شماره بارنامه و لینک ردیابی کانتینر از طریق ایمیل یا پیام برای شما ارسال می‌شود.</p>
+                        HTML,
+                    'en' => <<<'HTML'
+                        <p>With over 25 years of experience in stone export logistics, we work with a network of road, sea, and air freight partners to make sure your shipment reaches its destination safely and cost-effectively.</p>
+
+                        <h3>Shipping Methods</h3>
+                        <ul>
+                            <li><strong>Sea Container (FCL / LCL)</strong> — suited for large orders and international exports. Main departure ports: Bandar Abbas, Imam Khomeini Port.</li>
+                            <li><strong>Road Freight (Truck)</strong> — faster and more economical than sea for neighboring countries (Turkey, Iraq, UAE via border crossings).</li>
+                            <li><strong>Air Freight</strong> — for commercial samples and urgent low-weight shipments, via Tehran and Shiraz airports.</li>
+                        </ul>
+
+                        <h3>Accepted Incoterms</h3>
+                        <p>Your order can be delivered under any of the following terms:</p>
+                        <ul>
+                            <li><strong>EXW</strong> (Ex Works) — full transport at the buyer's expense</li>
+                            <li><strong>FOB</strong> (Free On Board) — seller covers loading onto the vessel</li>
+                            <li><strong>CIF</strong> (Cost, Insurance &amp; Freight) — seller covers all costs to destination port</li>
+                            <li><strong>DAP</strong> (Delivered At Place) — delivery to the buyer's warehouse or factory door</li>
+                        </ul>
+
+                        <h3>Export Packaging</h3>
+                        <p>Slabs and tiles are packed on <strong>standard wooden pallets</strong> with protective edge guards. Raw blocks are secured on trailers with <strong>steel chains and brackets</strong>. All shipments are photographed before loading and a photo report is sent to the buyer.</p>
+
+                        <h3>Export Documents</h3>
+                        <p>The following documents are issued for every export shipment:</p>
+                        <ul>
+                            <li>Commercial Invoice</li>
+                            <li>Packing List</li>
+                            <li>Bill of Lading or CMR (sea / road)</li>
+                            <li>Certificate of Origin (Iran Chamber of Commerce)</li>
+                            <li>Quality Certificate (on request)</li>
+                        </ul>
+
+                        <h3>Shipping Timeline</h3>
+                        <ul>
+                            <li>Preparation and packaging: <strong>5–15 business days</strong> after payment confirmation</li>
+                            <li>Sea freight to Europe: <strong>25–35 days</strong></li>
+                            <li>Sea freight to the Gulf and Southeast Asia: <strong>7–15 days</strong></li>
+                            <li>Road freight to Turkey and Iraq: <strong>5–10 days</strong></li>
+                        </ul>
+
+                        <h3>Cargo Insurance</h3>
+                        <p>Cargo insurance can be arranged for all export shipments on request. Insurance typically costs 0.5–1% of the shipment value and is included in the final invoice.</p>
+
+                        <h3>Shipment Tracking</h3>
+                        <p>After loading, the bill of lading number and container tracking link are sent to you by email or message.</p>
+                        HTML,
+                    'ar' => <<<'HTML'
+                        <p>مع أكثر من 25 عامًا من الخبرة في لوجستيات تصدير الحجر، نعمل مع شبكة من شركاء الشحن البري والبحري والجوي لضمان وصول شحنتك بأمان وبتكلفة فعّالة.</p>
+
+                        <h3>طرق الشحن</h3>
+                        <ul>
+                            <li><strong>حاوية بحرية (FCL / LCL)</strong> — مناسبة للطلبات الكبيرة. موانئ المغادرة الرئيسية: بندر عباس، ميناء الإمام الخميني.</li>
+                            <li><strong>شحن بري (شاحنة)</strong> — أسرع وأوفر للدول المجاورة (تركيا، العراق، الإمارات).</li>
+                            <li><strong>شحن جوي</strong> — للعينات التجارية والشحنات العاجلة خفيفة الوزن.</li>
+                        </ul>
+
+                        <h3>شروط التسليم (Incoterms)</h3>
+                        <ul>
+                            <li><strong>EXW</strong> — النقل الكامل على عاتق المشتري</li>
+                            <li><strong>FOB</strong> — يتحمل البائع تكاليف الشحن على متن السفينة</li>
+                            <li><strong>CIF</strong> — يتحمل البائع جميع التكاليف حتى ميناء الوجهة</li>
+                            <li><strong>DAP</strong> — التسليم حتى مستودع المشتري</li>
+                        </ul>
+
+                        <h3>التغليف للتصدير</h3>
+                        <p>تُعبأ الألواح والبلاطات على <strong>منصات خشبية قياسية</strong> مع حواف واقية. تُثبَّت الكتل الخام بـ<strong>سلاسل وأقواس فولادية</strong>. تُصوَّر جميع الشحنات قبل التحميل.</p>
+
+                        <h3>مستندات التصدير</h3>
+                        <ul>
+                            <li>الفاتورة التجارية</li>
+                            <li>قائمة التعبئة</li>
+                            <li>سند الشحن (B/L أو CMR)</li>
+                            <li>شهادة المنشأ (غرفة تجارة إيران)</li>
+                            <li>شهادة الجودة (عند الطلب)</li>
+                        </ul>
+
+                        <h3>الجدول الزمني للشحن</h3>
+                        <ul>
+                            <li>التحضير والتعبئة: <strong>5–15 يوم عمل</strong> بعد تأكيد الدفع</li>
+                            <li>الشحن البحري إلى أوروبا: <strong>25–35 يومًا</strong></li>
+                            <li>الشحن البحري إلى الخليج وجنوب شرق آسيا: <strong>7–15 يومًا</strong></li>
+                            <li>الشحن البري إلى تركيا والعراق: <strong>5–10 أيام</strong></li>
+                        </ul>
+
+                        <h3>تأمين البضائع</h3>
+                        <p>يمكن ترتيب تأمين البضائع لجميع شحنات التصدير عند الطلب، بتكلفة تتراوح بين 0.5–1% من قيمة الشحنة.</p>
+                        HTML,
+                    'hi' => <<<'HTML'
+                        <p>पत्थर निर्यात लॉजिस्टिक्स में 25 से अधिक वर्षों के अनुभव के साथ, हम सड़क, समुद्र और वायु माल भागीदारों के नेटवर्क के साथ काम करते हैं।</p>
+
+                        <h3>शिपिंग के तरीके</h3>
+                        <ul>
+                            <li><strong>समुद्री कंटेनर (FCL / LCL)</strong> — बड़े ऑर्डर के लिए उपयुक्त। मुख्य प्रस्थान बंदरगाह: बंदर अब्बास।</li>
+                            <li><strong>सड़क माल (ट्रक)</strong> — पड़ोसी देशों के लिए तेज़ और अधिक किफायती।</li>
+                            <li><strong>हवाई माल</strong> — वाणिज्यिक नमूनों और तत्काल कम-वजन शिपमेंट के लिए।</li>
+                        </ul>
+
+                        <h3>स्वीकृत Incoterms</h3>
+                        <ul>
+                            <li><strong>EXW</strong> — खरीदार की कीमत पर पूर्ण परिवहन</li>
+                            <li><strong>FOB</strong> — विक्रेता जहाज पर लोडिंग को कवर करता है</li>
+                            <li><strong>CIF</strong> — विक्रेता गंतव्य बंदरगाह तक सभी लागत कवर करता है</li>
+                            <li><strong>DAP</strong> — खरीदार के गोदाम या फैक्ट्री दरवाजे तक डिलीवरी</li>
+                        </ul>
+
+                        <h3>निर्यात पैकेजिंग</h3>
+                        <p>स्लैब और टाइलें <strong>मानक लकड़ी के पैलेट</strong> पर सुरक्षात्मक किनारे के साथ पैक की जाती हैं। सभी शिपमेंट लोडिंग से पहले फोटोग्राफ किए जाते हैं।</p>
+
+                        <h3>शिपिंग समयरेखा</h3>
+                        <ul>
+                            <li>तैयारी और पैकेजिंग: भुगतान पुष्टि के बाद <strong>5–15 व्यावसायिक दिन</strong></li>
+                            <li>यूरोप के लिए समुद्री माल: <strong>25–35 दिन</strong></li>
+                            <li>खाड़ी और दक्षिण पूर्व एशिया के लिए समुद्री माल: <strong>7–15 दिन</strong></li>
+                            <li>तुर्की और इराक के लिए सड़क माल: <strong>5–10 दिन</strong></li>
+                        </ul>
+
+                        <h3>कार्गो बीमा</h3>
+                        <p>अनुरोध पर सभी निर्यात शिपमेंट के लिए कार्गो बीमा की व्यवस्था की जा सकती है। बीमा आमतौर पर शिपमेंट मूल्य का 0.5–1% होता है।</p>
+                        HTML,
+                    'it' => <<<'HTML'
+                        <p>Con oltre 25 anni di esperienza nella logistica di esportazione della pietra, lavoriamo con una rete di partner di trasporto su strada, via mare e via aerea.</p>
+
+                        <h3>Metodi di Spedizione</h3>
+                        <ul>
+                            <li><strong>Container Marittimo (FCL / LCL)</strong> — adatto per ordini grandi. Principali porti di partenza: Bandar Abbas, Porto Imam Khomeini.</li>
+                            <li><strong>Trasporto su Strada (Camion)</strong> — più veloce ed economico per i paesi vicini.</li>
+                            <li><strong>Trasporto Aereo</strong> — per campioni commerciali e spedizioni urgenti di piccolo peso.</li>
+                        </ul>
+
+                        <h3>Incoterms Accettati</h3>
+                        <ul>
+                            <li><strong>EXW</strong> — trasporto completo a carico dell'acquirente</li>
+                            <li><strong>FOB</strong> — il venditore copre il carico sulla nave</li>
+                            <li><strong>CIF</strong> — il venditore copre tutti i costi fino al porto di destinazione</li>
+                            <li><strong>DAP</strong> — consegna al magazzino o alla porta della fabbrica dell'acquirente</li>
+                        </ul>
+
+                        <h3>Imballaggio per l'Esportazione</h3>
+                        <p>Lastre e piastrelle vengono imballate su <strong>pallet standard in legno</strong> con bordi protettivi. I blocchi grezzi sono fissati su rimorchi con <strong>catene e staffe in acciaio</strong>. Tutte le spedizioni vengono fotografate prima del carico.</p>
+
+                        <h3>Documenti di Esportazione</h3>
+                        <ul>
+                            <li>Fattura Commerciale</li>
+                            <li>Packing List</li>
+                            <li>Polizza di Carico o CMR (mare / strada)</li>
+                            <li>Certificato di Origine (Camera di Commercio dell'Iran)</li>
+                            <li>Certificato di Qualità (su richiesta)</li>
+                        </ul>
+
+                        <h3>Tempi di Spedizione</h3>
+                        <ul>
+                            <li>Preparazione e imballaggio: <strong>5–15 giorni lavorativi</strong> dopo la conferma del pagamento</li>
+                            <li>Trasporto marittimo verso l'Europa: <strong>25–35 giorni</strong></li>
+                            <li>Trasporto marittimo verso il Golfo e il Sud-Est asiatico: <strong>7–15 giorni</strong></li>
+                            <li>Trasporto su strada verso Turchia e Iraq: <strong>5–10 giorni</strong></li>
+                        </ul>
+
+                        <h3>Assicurazione del Carico</h3>
+                        <p>L'assicurazione del carico può essere organizzata per tutte le spedizioni su richiesta, con un costo tipico dello 0,5–1% del valore della spedizione.</p>
+                        HTML,
+                ],
+                'meta_title' => [
+                    'fa' => 'حمل و نقل | EN Trading Group',
+                    'en' => 'Shipping | EN Trading Group',
+                    'ar' => 'الشحن | EN Trading Group',
+                    'hi' => 'शिपिंग | EN Trading Group',
+                    'it' => 'Spedizione | EN Trading Group',
+                ],
+                'meta_description' => [
+                    'fa' => 'روش‌های حمل و نقل، اینکوترمز، مدارک صادراتی و زمان‌بندی ارسال سفارش‌های سنگ EN Trading Group.',
+                    'en' => 'Shipping methods, Incoterms, export documents, and order dispatch timeline at EN Trading Group.',
+                    'ar' => 'طرق الشحن وشروط التسليم ومستندات التصدير والجدول الزمني لإرسال الطلبات في EN Trading Group.',
+                    'hi' => 'EN Trading Group में शिपिंग के तरीके, Incoterms, निर्यात दस्तावेज़ और ऑर्डर डिस्पैच समयरेखा।',
+                    'it' => 'Metodi di spedizione, Incoterms, documenti di esportazione e tempistiche di invio ordini di EN Trading Group.',
+                ],
+                'template'   => 'sidebar',
+                'is_active'  => true,
+                'cover_seed' => 'shipping-cover.jpg',
+            ],
         ];
 
         foreach ($pages as $data) {
