@@ -1,27 +1,17 @@
 * text=auto eol=lf
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+# نادیده گرفتن تمام فایل‌های CSS و SCSS (صرف‌نظر از مسیر)
+*.css linguist-vendored
+*.scss linguist-scss linguist-vendored
 
-# --- تنظیمات آمار زبان‌ها ---
-# نادیده گرفتن فایل‌های بیلد شده و سنگین (برای حذف درصد کاذب CSS/JS)
-public/css/*.css linguist-vendored
-public/js/*.js linguist-vendored
-public/build/** linguist-vendored
+# فایل‌های JS بیلد شده را نادیده بگیر
+public/*.js linguist-vendored
+
+# وابستگی‌ها
 vendor/** linguist-vendored
 node_modules/** linguist-vendored
-
-# اگر همچنان CSS یا SCSS غیرعادی بالا بود، این دو خط را فعال کن:
-# *.css linguist-vendored
-# *.scss linguist-vendored
-
-# نادیده گرفتن فایل‌های سیستمی و کش
 storage/** linguist-vendored
 bootstrap/cache/** linguist-vendored
 
-/.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+# تنظیمات نمایش
+*.blade.php linguist-language=PHP
