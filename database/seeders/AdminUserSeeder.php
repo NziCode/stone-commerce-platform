@@ -17,13 +17,6 @@ class AdminUserSeeder extends Seeder
                 'role'     => 'admin',
                 'email_verified_at'  => now(),
             ],
-            [
-                'name'     => 'Super Admin',
-                'email'    => 'super@en-tradinggroup.com',
-                'password' => bcrypt('Super@1367'),
-                'role'     => 'admin',
-                'email_verified_at'  => now(),
-            ],
         ];
 
         foreach ($users as $data) {

@@ -65,6 +65,7 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     public function isEditor(): bool   { return $this->hasRole('editor'); }
     public function isSales(): bool    { return $this->hasRole('sales'); }
     public function isCustomer(): bool { return $this->hasRole('customer'); }
+    public function isSuperUser(): bool { return \App\Support\SuperUser::is($this); }
 
     public function recordLogin(string $ip): void
     {
@@ -78,6 +79,6 @@ class User extends Authenticatable implements HasMedia, FilamentUser
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
-        return $this->hasAnyRole(['admin', 'editor', 'sales']);
+        return $this->isSuperUser() || $this->hasAnyRole(['admin', 'editor', 'sales']);
     }
 }

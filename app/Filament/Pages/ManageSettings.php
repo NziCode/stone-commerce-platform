@@ -3,18 +3,14 @@
 namespace App\Filament\Pages;
 
 use App\Models\Setting;
-use Filament\Actions\Action;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Support\Exceptions\Halt;
+use Illuminate\Support\Facades\Cache;
 
 class ManageSettings extends Page
 {
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static ?int    $navigationSort = 99;
-    protected static string  $view = 'filament.pages.manage-settings';
+    protected static ?int $navigationSort    = 99;
 
     public static function getNavigationLabel(): string
     {
@@ -26,321 +22,145 @@ class ManageSettings extends Page
         return __('admin.settings');
     }
 
-    public static function getTitle(): string
-    {
-        return __('admin.settings');
-    }
+    protected static string $view = 'filament.pages.manage-settings';
 
-    // ── Form state ──────────────────────────────────────────────────────────
-    public ?array $data = [];
     public string $activeTab = 'general';
+
+    // ── Public properties for each group ────────────────
+    public string $site_name            = '';
+    public string $site_name_en         = '';
+    public string $site_tagline         = '';
+    public string $site_email           = '';
+    public string $site_phone           = '';
+    public string $site_phone_whatsapp  = '';
+    public string $site_working_hours   = '';
+    public string $site_address         = '';
+    public string $site_address_en      = '';
+    public string $site_map_lat         = '';
+    public string $site_map_lng         = '';
+    public string $site_google_map_embed = '';
+
+    public string $meta_title_fa        = '';
+    public string $meta_title_en        = '';
+    public string $meta_description_fa  = '';
+    public string $meta_description_en  = '';
+    public string $og_image             = '';
+    public string $google_analytics_id  = '';
+    public string $google_tag_manager_id = '';
+    public string $google_search_console = '';
+    public string $robots_txt           = '';
+
+    public string $social_instagram     = '';
+    public string $social_telegram      = '';
+    public string $social_whatsapp      = '';
+    public string $social_linkedin      = '';
+    public string $social_youtube       = '';
+    public string $social_twitter       = '';
+    public string $social_facebook      = '';
+
+    public string $payment_zarinpal_merchant = '';
+    public bool   $payment_zarinpal_sandbox  = false;
+    public string $payment_receipt_bank_name = '';
+    public string $payment_receipt_account_number = '';
+    public string $payment_receipt_iban    = '';
+    public string $payment_receipt_swift   = '';
+    public string $payment_receipt_instructions = '';
+
+    public string $smtp_host            = '';
+    public string $smtp_port            = '';
+    public string $smtp_username        = '';
+    public string $smtp_password        = '';
+    public string $smtp_from_address    = '';
+    public string $smtp_from_name       = '';
+
+    public string $sms_provider         = '';
+    public string $sms_api_key          = '';
+    public string $sms_sender           = '';
+    public string $sms_otp_template     = '';
+    public string $sms_order_confirmed_template = '';
+    public string $sms_order_shipped_template   = '';
+
+    public string $contact_notify_email         = '';
+    public string $contact_notify_sms           = '';
+    public string $contact_recaptcha_site_key   = '';
+    public string $contact_recaptcha_secret_key = '';
+    public bool   $contact_recaptcha_enabled    = false;
+
+    public string $about_years          = '';
+    public string $about_title          = '';
+    public string $about_desc           = '';
+    public string $about_feature_1      = '';
+    public string $about_feature_2      = '';
+    public string $about_feature_3      = '';
+
+    // ── Group → property mapping ─────────────────────────
+    protected array $groupKeys = [
+        'general' => [
+            'site_name','site_name_en','site_tagline','site_email','site_phone',
+            'site_phone_whatsapp','site_working_hours','site_address','site_address_en',
+            'site_map_lat','site_map_lng','site_google_map_embed',
+        ],
+        'seo' => [
+            'meta_title_fa','meta_title_en','meta_description_fa','meta_description_en',
+            'og_image','google_analytics_id','google_tag_manager_id',
+            'google_search_console','robots_txt',
+        ],
+        'social' => [
+            'social_instagram','social_telegram','social_whatsapp','social_linkedin',
+            'social_youtube','social_twitter','social_facebook',
+        ],
+        'payment' => [
+            'payment_zarinpal_merchant','payment_zarinpal_sandbox',
+            'payment_receipt_bank_name','payment_receipt_account_number',
+            'payment_receipt_iban','payment_receipt_swift','payment_receipt_instructions',
+        ],
+        'smtp' => [
+            'smtp_host','smtp_port','smtp_username','smtp_password',
+            'smtp_from_address','smtp_from_name',
+        ],
+        'sms' => [
+            'sms_provider','sms_api_key','sms_sender',
+            'sms_otp_template','sms_order_confirmed_template','sms_order_shipped_template',
+        ],
+        'contact' => [
+            'contact_notify_email','contact_notify_sms',
+            'contact_recaptcha_site_key','contact_recaptcha_secret_key',
+            'contact_recaptcha_enabled',
+        ],
+        'about' => [
+            'about_years','about_title','about_desc',
+            'about_feature_1','about_feature_2','about_feature_3',
+        ],
+    ];
 
     public function mount(): void
     {
-        $settings = Setting::all()->pluck('value', 'key')->toArray();
-        $this->form->fill($settings);
+        $all = Setting::all()->pluck('value', 'key');
+
+        foreach ($all as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = is_bool($this->$key)
+                    ? (bool) $value
+                    : (string) ($value ?? '');
+            }
+        }
     }
 
-    public function form(Form $form): Form
+    public function save(string $group): void
     {
-        return $form
-            ->schema([
-                Forms\Components\Tabs::make('settings_tabs')
-                    ->tabs([
+        $keys = $this->groupKeys[$group] ?? [];
 
-                        // ── General ─────────────────────────────────────
-                        Forms\Components\Tabs\Tab::make(__('admin.settings_general'))
-                            ->icon('heroicon-o-globe-alt')
-                            ->schema([
-                                Forms\Components\Section::make(__('admin.settings_site_identity'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('site_name')
-                                            ->label(__('admin.settings_site_name_fa'))
-                                            ->required()
-                                            ->maxLength(100),
-
-                                        Forms\Components\TextInput::make('site_name_en')
-                                            ->label(__('admin.settings_site_name_en'))
-                                            ->maxLength(100),
-
-                                        Forms\Components\TextInput::make('site_tagline')
-                                            ->label(__('admin.settings_tagline'))
-                                            ->columnSpanFull()
-                                            ->maxLength(200),
-
-                                        Forms\Components\FileUpload::make('site_logo')
-                                            ->label(__('admin.settings_logo'))
-                                            ->image()
-                                            ->directory('settings')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\FileUpload::make('site_favicon')
-                                            ->label(__('admin.settings_favicon'))
-                                            ->image()
-                                            ->directory('settings')
-                                            ->columnSpanFull(),
-                                    ]),
-
-                                Forms\Components\Section::make(__('admin.settings_contact_info'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('site_email')
-                                            ->label(__('admin.settings_email'))
-                                            ->email(),
-
-                                        Forms\Components\TextInput::make('site_phone')
-                                            ->label(__('admin.settings_phone')),
-
-                                        Forms\Components\TextInput::make('site_phone_whatsapp')
-                                            ->label('WhatsApp'),
-
-                                        Forms\Components\TextInput::make('site_working_hours')
-                                            ->label(__('admin.settings_working_hours')),
-
-                                        Forms\Components\Textarea::make('site_address')
-                                            ->label(__('admin.settings_address_fa'))
-                                            ->rows(2),
-
-                                        Forms\Components\Textarea::make('site_address_en')
-                                            ->label(__('admin.settings_address_en'))
-                                            ->rows(2),
-                                    ]),
-
-                                Forms\Components\Section::make(__('admin.settings_map'))
-                                    ->columns(2)
-                                    ->collapsed()
-                                    ->schema([
-                                        Forms\Components\TextInput::make('site_map_lat')
-                                            ->label(__('admin.settings_map_lat'))
-                                            ->numeric(),
-
-                                        Forms\Components\TextInput::make('site_map_lng')
-                                            ->label(__('admin.settings_map_lng'))
-                                            ->numeric(),
-
-                                        Forms\Components\Textarea::make('site_google_map_embed')
-                                            ->label(__('admin.settings_map_embed'))
-                                            ->rows(3)
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-
-                        // ── SEO ─────────────────────────────────────────
-                        Forms\Components\Tabs\Tab::make(__('admin.settings_seo'))
-                            ->icon('heroicon-o-magnifying-glass')
-                            ->schema([
-                                Forms\Components\Section::make(__('admin.settings_meta'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('meta_title_fa')
-                                            ->label(__('admin.settings_meta_title_fa'))
-                                            ->maxLength(70)
-                                            ->helperText('حداکثر ۷۰ کاراکتر'),
-
-                                        Forms\Components\TextInput::make('meta_title_en')
-                                            ->label(__('admin.settings_meta_title_en'))
-                                            ->maxLength(70)
-                                            ->helperText('Max 70 characters'),
-
-                                        Forms\Components\Textarea::make('meta_description_fa')
-                                            ->label(__('admin.settings_meta_desc_fa'))
-                                            ->rows(2)
-                                            ->maxLength(160)
-                                            ->helperText('حداکثر ۱۶۰ کاراکتر')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\Textarea::make('meta_description_en')
-                                            ->label(__('admin.settings_meta_desc_en'))
-                                            ->rows(2)
-                                            ->maxLength(160)
-                                            ->helperText('Max 160 characters')
-                                            ->columnSpanFull(),
-
-                                        Forms\Components\FileUpload::make('og_image')
-                                            ->label('OG Image (1200×630)')
-                                            ->image()
-                                            ->directory('settings')
-                                            ->columnSpanFull(),
-                                    ]),
-
-                                Forms\Components\Section::make(__('admin.settings_google'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('google_analytics_id')
-                                            ->label('Google Analytics ID')
-                                            ->placeholder('G-XXXXXXXXXX'),
-
-                                        Forms\Components\TextInput::make('google_tag_manager_id')
-                                            ->label('Google Tag Manager ID')
-                                            ->placeholder('GTM-XXXXXXX'),
-
-                                        Forms\Components\TextInput::make('google_search_console')
-                                            ->label('Google Search Console')
-                                            ->placeholder('verification code')
-                                            ->columnSpanFull(),
-                                    ]),
-
-                                Forms\Components\Section::make('Robots.txt')
-                                    ->collapsed()
-                                    ->schema([
-                                        Forms\Components\Textarea::make('robots_txt')
-                                            ->label('robots.txt')
-                                            ->rows(8)
-                                            ->fontFamily('mono')
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-
-                        // ── Social ──────────────────────────────────────
-                        Forms\Components\Tabs\Tab::make(__('admin.settings_social'))
-                            ->icon('heroicon-o-share')
-                            ->schema([
-                                Forms\Components\Section::make(__('admin.settings_social_networks'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('social_instagram')
-                                            ->label('Instagram')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-photo'),
-
-                                        Forms\Components\TextInput::make('social_telegram')
-                                            ->label('Telegram')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-paper-airplane'),
-
-                                        Forms\Components\TextInput::make('social_whatsapp')
-                                            ->label('WhatsApp')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-chat-bubble-left-ellipsis'),
-
-                                        Forms\Components\TextInput::make('social_linkedin')
-                                            ->label('LinkedIn')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-user'),
-
-                                        Forms\Components\TextInput::make('social_youtube')
-                                            ->label('YouTube')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-video-camera'),
-
-                                        Forms\Components\TextInput::make('social_twitter')
-                                            ->label('X / Twitter')
-                                            ->url()
-                                            ->prefixIcon('heroicon-o-at-symbol'),
-                                    ]),
-                            ]),
-
-                        // ── Payment ─────────────────────────────────────
-                        Forms\Components\Tabs\Tab::make(__('admin.settings_payment'))
-                            ->icon('heroicon-o-credit-card')
-                            ->schema([
-                                Forms\Components\Section::make('ZarinPal')
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('payment_zarinpal_merchant')
-                                            ->label('Merchant ID')
-                                            ->password()
-                                            ->revealable(),
-
-                                        Forms\Components\Toggle::make('payment_zarinpal_sandbox')
-                                            ->label(__('admin.settings_sandbox_mode')),
-                                    ]),
-
-                                Forms\Components\Section::make(__('admin.settings_bank_receipt'))
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('payment_receipt_bank_name')
-                                            ->label(__('admin.settings_bank_name')),
-
-                                        Forms\Components\TextInput::make('payment_receipt_account_number')
-                                            ->label(__('admin.settings_account_number')),
-
-                                        Forms\Components\TextInput::make('payment_receipt_iban')
-                                            ->label('IBAN'),
-
-                                        Forms\Components\TextInput::make('payment_receipt_swift')
-                                            ->label('SWIFT / BIC'),
-
-                                        Forms\Components\Textarea::make('payment_receipt_instructions')
-                                            ->label(__('admin.settings_payment_instructions'))
-                                            ->rows(3)
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-
-                        // ── Email ────────────────────────────────────────
-                        Forms\Components\Tabs\Tab::make(__('admin.settings_email'))
-                            ->icon('heroicon-o-envelope')
-                            ->schema([
-                                Forms\Components\Section::make('SMTP')
-                                    ->columns(2)
-                                    ->schema([
-                                        Forms\Components\TextInput::make('smtp_host')
-                                            ->label('SMTP Host')
-                                            ->placeholder('smtp.gmail.com'),
-
-                                        Forms\Components\TextInput::make('smtp_port')
-                                            ->label('SMTP Port')
-                                            ->numeric()
-                                            ->placeholder('587'),
-
-                                        Forms\Components\TextInput::make('smtp_username')
-                                            ->label(__('admin.settings_username')),
-
-                                        Forms\Components\TextInput::make('smtp_password')
-                                            ->label(__('admin.settings_password'))
-                                            ->password()
-                                            ->revealable(),
-
-                                        Forms\Components\TextInput::make('smtp_from_address')
-                                            ->label(__('admin.settings_from_email'))
-                                            ->email(),
-
-                                        Forms\Components\TextInput::make('smtp_from_name')
-                                            ->label(__('admin.settings_from_name')),
-                                    ]),
-                            ]),
-
-                    ])
-                    ->columnSpanFull()
-                    ->persistTabInQueryString('tab'),
-            ])
-            ->statePath('data');
-    }
-
-    public function save(): void
-    {
-        try {
-            $data = $this->form->getState();
-        } catch (Halt $exception) {
-            return;
+        foreach ($keys as $key) {
+            $value = $this->$key;
+            Setting::set($key, is_bool($value) ? ($value ? '1' : '0') : $value, $group);
         }
 
-        foreach ($data as $key => $value) {
-            Setting::updateOrCreate(
-                ['key' => $key],
-                ['value' => is_array($value) ? json_encode($value) : (string) ($value ?? '')]
-            );
-        }
-
-        // Clear Settings cache
-        \Illuminate\Support\Facades\Cache::forget('settings.all');
+        Cache::forget(Setting::CACHE_KEY);
+        Cache::forget('site_settings_public');
 
         Notification::make()
             ->title(__('admin.settings_saved'))
             ->success()
             ->send();
-    }
-
-    protected function getFormActions(): array
-    {
-        return [
-            Action::make('save')
-                ->label(__('admin.settings_save'))
-                ->submit('save')
-                ->icon('heroicon-o-check')
-                ->color('primary'),
-        ];
     }
 }
