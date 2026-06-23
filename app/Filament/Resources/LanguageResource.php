@@ -15,6 +15,23 @@ use Illuminate\Support\Facades\Artisan;
 
 class LanguageResource extends Resource
 {
+    /**
+     * Only SuperUser can manage languages.
+     */
+    public static function canAccess(): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
+    public static function canCreate(): bool   { return static::canAccess(); }
+    public static function canEdit($record): bool   { return static::canAccess(); }
+    public static function canDelete($record): bool { return static::canAccess(); }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
     protected static ?string $model = Language::class;
     protected static ?string $navigationIcon = 'heroicon-o-language';
     protected static ?int $navigationSort = 1;

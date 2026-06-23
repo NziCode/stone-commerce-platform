@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(\App\Filament\Auth\SuperUserAuthenticator::class)
             ->emailVerification(false)
             ->colors([
                 'primary' => Color::hex('#ff5a1f'),
@@ -139,18 +139,18 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\Dashboard::class,
+                \App\Filament\Pages\ManageSettings::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
+                \App\Filament\Widgets\QuickActions::class,
                 \App\Filament\Widgets\StatsOverview::class,
                 \App\Filament\Widgets\LatestOrders::class,
                 \App\Filament\Widgets\ProductStatusChart::class,
                 \App\Filament\Widgets\RevenueChart::class,
             ])
 
-            // ── Middleware ───────────────────────────────────────
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

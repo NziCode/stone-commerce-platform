@@ -14,6 +14,28 @@ use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
+    /**
+     * Assigning admin/super roles requires SuperUser.
+     * Regular admins can view users but not change roles.
+     */
+    public static function canCreate(): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
+    /**
+     * Only SuperUser can assign elevated roles.
+     */
+    public static function isSuperUserContext(): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
 
     public static function getNavigationLabel(): string
     {

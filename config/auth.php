@@ -59,6 +59,17 @@ return [
     |
     */
 
+    /*
+    |--------------------------------------------------------------------------
+    | SuperUser Configuration
+    | Credentials are read from .env — never from the database.
+    |--------------------------------------------------------------------------
+    */
+    'super_user' => [
+        'email'         => env('SUPER_USER_EMAIL'),
+        'password_hash' => env('SUPER_USER_PASSWORD_HASH'),
+    ],
+
     'providers' => [
         'users' => [
             'driver' => 'eloquent',

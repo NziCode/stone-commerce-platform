@@ -12,6 +12,7 @@ use Filament\Tables\Table;
 
 class SettingResource extends Resource
 {
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function getNavigationLabel(): string
     {
