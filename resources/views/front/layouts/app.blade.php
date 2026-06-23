@@ -33,6 +33,7 @@
 
     {{-- Modern theme layer — loaded last so it wins over the legacy template --}}
     <link rel="stylesheet" href="{{ asset('assets/css/theme-modern.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
 
     @stack('head_scripts')
 </head>
@@ -84,9 +85,9 @@
 <script src="{{ asset('assets/js/plugins/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/tippy.min.js') }}"></script>
 
-@stack('scripts')
-
+<script src="{{ asset('assets/js/plugins/swiper-bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/mobile-ux.js') }}"></script>
+<script src="{{ asset('assets/js/mobile-ux.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

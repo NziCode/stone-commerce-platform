@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/messages
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -38,6 +38,7 @@ return [
     'clear_cart' => 'कार्ट खाली करें',
     'clear_cart_confirm' => 'कार्ट खाली करें?',
     'clear_filter' => 'फ़िल्टर हटाएं',
+    'comment' => 'टिप्पणी',
     'company' => 'कंपनी',
     'company_placeholder' => 'कंपनी का नाम',
     'confirm' => 'पुष्टि करें',
@@ -58,6 +59,7 @@ return [
     'create_account' => 'खाता बनाएं',
     'currency_rial' => 'रियाल',
     'current_password' => 'वर्तमान पासवर्ड',
+    'customer_reviews' => 'ग्राहक समीक्षाएं',
     'customers' => 'ग्राहक',
     'date' => 'तारीख',
     'discount' => 'छूट',
@@ -114,6 +116,7 @@ return [
     'login_desc' => 'अपने खाते में साइन इन करें',
     'login_register' => 'साइन इन / रजिस्टर',
     'login_to_checkout' => 'चेकआउट के लिए लॉगिन',
+    'login_to_review' => 'समीक्षा छोड़ने के लिए साइन इन करें',
     'login_to_wishlist' => 'सहेजने के लिए लॉगिन',
     'logout' => 'लॉगआउट',
     'message' => 'संदेश',
@@ -138,6 +141,7 @@ return [
     'no_products' => 'कोई उत्पाद नहीं',
     'no_products_desc' => 'कोई उत्पाद नहीं मिला',
     'no_results' => 'कोई परिणाम नहीं',
+    'no_reviews_yet' => 'अभी तक कोई समीक्षा नहीं। पहले बनें!',
     'not_found' => 'पृष्ठ नहीं मिला',
     'notes' => 'नोट्स',
     'of' => 'में से',
@@ -178,6 +182,7 @@ return [
     'profile' => 'मेरी प्रोफ़ाइल',
     'quantity' => 'मात्रा',
     'quick_links' => 'त्वरित लिंक',
+    'rating' => 'रेटिंग',
     'read_more' => 'और पढ़ें',
     'receipt' => 'रसीद',
     'receipt_file' => 'रसीद फ़ाइल',
@@ -195,6 +200,9 @@ return [
     'resend_link' => 'लिंक पुनः भेजें',
     'reserved' => 'आरक्षित',
     'reset_password' => 'पासवर्ड रीसेट करें',
+    'review_placeholder' => 'इस उत्पाद के साथ अपना अनुभव साझा करें…',
+    'review_submitted' => 'आपकी समीक्षा जमा कर दी गई है और अनुमोदन के लिए प्रतीक्षा में है।',
+    'reviews' => 'समीक्षाएं',
     'save_changes' => 'परिवर्तन सहेजें',
     'search' => 'खोजें',
     'search_min_chars' => 'कम से कम 2 अक्षर दर्ज करें।',
@@ -209,11 +217,13 @@ return [
     'sort_name_asc' => 'नाम: A से Z',
     'sort_price_asc' => 'मूल्य: कम से अधिक',
     'sort_price_desc' => 'मूल्य: अधिक से कम',
+    'stars' => 'सितारे',
     'status' => 'स्थिति',
     'stone_categories' => 'पत्थर श्रेणियाँ',
     'subject' => 'विषय',
     'submit' => 'सबमिट',
     'submit_receipt' => 'रसीद जमा करें',
+    'submit_review' => 'समीक्षा जमा करें',
     'subtotal' => 'उप-योग',
     'success' => 'हो गया!',
     'total' => 'कुल',
@@ -231,6 +241,7 @@ return [
     'welcome' => 'स्वागत है',
     'wishlist' => 'पसंदीदा',
     'wishlisted' => 'सहेजा गया',
+    'write_review' => 'समीक्षा लिखें',
     'years_experience' => 'वर्षों का अनुभव',
     'your_order' => 'आपका ऑर्डर',
 ];

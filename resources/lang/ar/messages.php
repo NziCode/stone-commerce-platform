@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/messages
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -38,6 +38,7 @@ return [
     'clear_cart' => 'إفراغ السلة',
     'clear_cart_confirm' => 'إفراغ سلة التسوق؟',
     'clear_filter' => 'مسح الفلتر',
+    'comment' => 'تعليق',
     'company' => 'الشركة',
     'company_placeholder' => 'اسم الشركة',
     'confirm' => 'تأكيد',
@@ -58,6 +59,7 @@ return [
     'create_account' => 'إنشاء حساب',
     'currency_rial' => 'ريال',
     'current_password' => 'كلمة المرور الحالية',
+    'customer_reviews' => 'تقييمات العملاء',
     'customers' => 'عملاؤنا',
     'date' => 'التاريخ',
     'discount' => 'خصم',
@@ -114,6 +116,7 @@ return [
     'login_desc' => 'سجّل دخولك إلى حسابك',
     'login_register' => 'تسجيل الدخول / التسجيل',
     'login_to_checkout' => 'تسجيل الدخول للدفع',
+    'login_to_review' => 'سجّل دخولك لترك تقييم',
     'login_to_wishlist' => 'سجّل لحفظ',
     'logout' => 'تسجيل الخروج',
     'message' => 'الرسالة',
@@ -138,6 +141,7 @@ return [
     'no_products' => 'لا توجد منتجات',
     'no_products_desc' => 'لا توجد منتجات تطابق معاييرك',
     'no_results' => 'لا توجد نتائج',
+    'no_reviews_yet' => 'لا توجد تقييمات بعد. كن الأول!',
     'not_found' => 'الصفحة غير موجودة',
     'notes' => 'ملاحظات',
     'of' => 'من',
@@ -178,6 +182,7 @@ return [
     'profile' => 'ملفي الشخصي',
     'quantity' => 'الكمية',
     'quick_links' => 'روابط سريعة',
+    'rating' => 'التقييم',
     'read_more' => 'اقرأ المزيد',
     'receipt' => 'إيصال',
     'receipt_file' => 'ملف الإيصال',
@@ -195,6 +200,9 @@ return [
     'resend_link' => 'إعادة إرسال الرابط',
     'reserved' => 'محجوز',
     'reset_password' => 'إعادة تعيين كلمة المرور',
+    'review_placeholder' => 'شارك تجربتك مع هذا المنتج…',
+    'review_submitted' => 'تم تقديم تقييمك وهو في انتظار الموافقة.',
+    'reviews' => 'التقييمات',
     'save_changes' => 'حفظ التغييرات',
     'search' => 'بحث',
     'search_min_chars' => 'أدخل حرفين على الأقل.',
@@ -209,11 +217,13 @@ return [
     'sort_name_asc' => 'الاسم: أ إلى ي',
     'sort_price_asc' => 'السعر: من الأقل',
     'sort_price_desc' => 'السعر: من الأعلى',
+    'stars' => 'نجوم',
     'status' => 'الحالة',
     'stone_categories' => 'فئات الأحجار',
     'subject' => 'الموضوع',
     'submit' => 'إرسال',
     'submit_receipt' => 'إرسال الإيصال',
+    'submit_review' => 'إرسال التقييم',
     'subtotal' => 'المجموع الفرعي',
     'success' => 'تمت العملية',
     'total' => 'المجموع',
@@ -231,6 +241,7 @@ return [
     'welcome' => 'أهلاً بك',
     'wishlist' => 'المفضلة',
     'wishlisted' => 'محفوظ',
+    'write_review' => 'كتابة تقييم',
     'years_experience' => 'سنوات من الخبرة',
     'your_order' => 'طلبك',
 ];

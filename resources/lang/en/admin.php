@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -143,6 +143,7 @@ return [
     'reserved' => 'Reserved',
     'restore' => 'Restore',
     'revenue_this_month' => 'Revenue This Month',
+    'review_already_submitted' => 'You have already reviewed this product.',
     'reviews' => 'Reviews',
     'roles' => 'Roles',
     'root_categories' => 'Root Categories',

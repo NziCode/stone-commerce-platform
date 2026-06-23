@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -143,6 +143,7 @@ return [
     'reserved' => 'आरक्षित',
     'restore' => 'पुनर्स्थापित',
     'revenue_this_month' => 'इस माह राजस्व',
+    'review_already_submitted' => 'आपने पहले से इस उत्पाद की समीक्षा कर दी है।',
     'reviews' => 'समीक्षाएं',
     'roles' => 'भूमिकाएँ',
     'root_categories' => 'मुख्य श्रेणियाँ',

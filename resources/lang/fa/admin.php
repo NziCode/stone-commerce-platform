@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -143,6 +143,7 @@ return [
     'reserved' => 'رزرو شده',
     'restore' => 'بازیابی',
     'revenue_this_month' => 'درآمد این ماه',
+    'review_already_submitted' => 'شما قبلاً برای این محصول نظر ثبت کرده‌اید.',
     'reviews' => 'نظرات',
     'roles' => 'نقش‌ها',
     'root_categories' => 'دسته‌های اصلی',

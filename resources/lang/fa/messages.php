@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/messages
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -38,6 +38,7 @@ return [
     'clear_cart' => 'پاک کردن سبد',
     'clear_cart_confirm' => 'سبد خرید پاک شود؟',
     'clear_filter' => 'حذف فیلتر',
+    'comment' => 'توضیحات',
     'company' => 'شرکت',
     'company_placeholder' => 'نام شرکت',
     'confirm' => 'تأیید',
@@ -58,6 +59,7 @@ return [
     'create_account' => 'ایجاد حساب کاربری',
     'currency_rial' => 'ریال',
     'current_password' => 'رمز فعلی',
+    'customer_reviews' => 'نظرات مشتریان',
     'customers' => 'مشتریان',
     'date' => 'تاریخ',
     'discount' => 'تخفیف',
@@ -114,6 +116,7 @@ return [
     'login_desc' => 'به حساب کاربری وارد شوید',
     'login_register' => 'ورود و ثبت‌نام',
     'login_to_checkout' => 'ورود برای پرداخت',
+    'login_to_review' => 'برای ثبت نظر وارد شوید',
     'login_to_wishlist' => 'ورود برای ذخیره',
     'logout' => 'خروج',
     'message' => 'پیام',
@@ -138,6 +141,7 @@ return [
     'no_products' => 'هیچ محصولی پیدا نشد',
     'no_products_desc' => 'محصولی با این مشخصات پیدا نشد',
     'no_results' => 'نتیجه‌ای یافت نشد',
+    'no_reviews_yet' => 'هنوز نظری ثبت نشده. اول باشید!',
     'not_found' => 'صفحه پیدا نشد',
     'notes' => 'یادداشت',
     'of' => 'از',
@@ -178,6 +182,7 @@ return [
     'profile' => 'پروفایل من',
     'quantity' => 'تعداد',
     'quick_links' => 'لینک‌های سریع',
+    'rating' => 'امتیاز',
     'read_more' => 'ادامه بده',
     'receipt' => 'فیش',
     'receipt_file' => 'فایل فیش',
@@ -195,6 +200,9 @@ return [
     'resend_link' => 'ارسال مجدد لینک',
     'reserved' => 'رزرو شده',
     'reset_password' => 'بازنشانی رمز عبور',
+    'review_placeholder' => 'تجربه خود از این محصول را بنویسید…',
+    'review_submitted' => 'نظر شما ثبت شد و پس از تأیید نمایش داده می‌شود.',
+    'reviews' => 'نظرات',
     'save_changes' => 'ذخیره تغییرات',
     'search' => 'جستجو',
     'search_min_chars' => 'حداقل ۲ کاراکتر وارد کنید.',
@@ -209,11 +217,13 @@ return [
     'sort_name_asc' => 'نام: الف تا ی',
     'sort_price_asc' => 'قیمت: کم به زیاد',
     'sort_price_desc' => 'قیمت: زیاد به کم',
+    'stars' => 'ستاره',
     'status' => 'وضعیت',
     'stone_categories' => 'دسته‌بندی سنگ',
     'subject' => 'موضوع',
     'submit' => 'ارسال',
     'submit_receipt' => 'ارسال فیش',
+    'submit_review' => 'ارسال نظر',
     'subtotal' => 'جمع جزء',
     'success' => 'انجام شد!',
     'total' => 'جمع کل',
@@ -231,6 +241,7 @@ return [
     'welcome' => 'خوش اومدی',
     'wishlist' => 'علاقه‌مندی‌ها',
     'wishlisted' => 'ذخیره شد',
+    'write_review' => 'ثبت نظر',
     'years_experience' => 'سال تجربه',
     'your_order' => 'سفارش شما',
 ];

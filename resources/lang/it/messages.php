@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/messages
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -38,6 +38,7 @@ return [
     'clear_cart' => 'Svuota Carrello',
     'clear_cart_confirm' => 'Svuotare il carrello?',
     'clear_filter' => 'Rimuovi Filtro',
+    'comment' => 'Commento',
     'company' => 'Azienda',
     'company_placeholder' => 'Nome azienda',
     'confirm' => 'Conferma',
@@ -58,6 +59,7 @@ return [
     'create_account' => 'Crea Account',
     'currency_rial' => 'IRR',
     'current_password' => 'Password Attuale',
+    'customer_reviews' => 'Recensioni Clienti',
     'customers' => 'Clienti',
     'date' => 'Data',
     'discount' => 'Sconto',
@@ -114,6 +116,7 @@ return [
     'login_desc' => 'Accedi al tuo account',
     'login_register' => 'Accedi / Registrati',
     'login_to_checkout' => 'Accedi per pagare',
+    'login_to_review' => 'Accedi per lasciare una recensione',
     'login_to_wishlist' => 'Accedi per salvare',
     'logout' => 'Esci',
     'message' => 'Messaggio',
@@ -138,6 +141,7 @@ return [
     'no_products' => 'Nessun prodotto',
     'no_products_desc' => 'Nessun prodotto trovato',
     'no_results' => 'Nessun risultato',
+    'no_reviews_yet' => 'Nessuna recensione ancora. Sii il primo!',
     'not_found' => 'Pagina non trovata',
     'notes' => 'Note',
     'of' => 'di',
@@ -178,6 +182,7 @@ return [
     'profile' => 'Il Mio Profilo',
     'quantity' => 'Quantità',
     'quick_links' => 'Link Rapidi',
+    'rating' => 'Valutazione',
     'read_more' => 'Leggi tutto',
     'receipt' => 'Ricevuta',
     'receipt_file' => 'File Ricevuta',
@@ -195,6 +200,9 @@ return [
     'resend_link' => 'Reinvia Link',
     'reserved' => 'Riservato',
     'reset_password' => 'Reimposta Password',
+    'review_placeholder' => 'Condividi la tua esperienza con questo prodotto…',
+    'review_submitted' => 'La tua recensione è stata inviata ed è in attesa di approvazione.',
+    'reviews' => 'Recensioni',
     'save_changes' => 'Salva Modifiche',
     'search' => 'Cerca',
     'search_min_chars' => 'Inserisci almeno 2 caratteri.',
@@ -209,11 +217,13 @@ return [
     'sort_name_asc' => 'Nome: A-Z',
     'sort_price_asc' => 'Prezzo: Crescente',
     'sort_price_desc' => 'Prezzo: Decrescente',
+    'stars' => 'stelle',
     'status' => 'Stato',
     'stone_categories' => 'Categorie di pietra',
     'subject' => 'Oggetto',
     'submit' => 'Invia',
     'submit_receipt' => 'Invia Ricevuta',
+    'submit_review' => 'Invia Recensione',
     'subtotal' => 'Subtotale',
     'success' => 'Fatto!',
     'total' => 'Totale',
@@ -231,6 +241,7 @@ return [
     'welcome' => 'Benvenuto',
     'wishlist' => 'Lista Desideri',
     'wishlisted' => 'Salvato',
+    'write_review' => 'Scrivi una Recensione',
     'years_experience' => 'Anni di Esperienza',
     'your_order' => 'Il Tuo Ordine',
 ];
