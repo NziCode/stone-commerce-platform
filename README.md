@@ -25,10 +25,10 @@ built with **Laravel 12**, **Filament v3**, and a modular, production-oriented a
 
 **stone-commerce-platform** is a complete backend **and** customer-facing system for the **stone trading and e‑commerce industry**.
 
-The platform now spans two fully built surfaces:
+The platform spans two fully built surfaces:
 
-- a **public storefront** — catalog, search, cart, checkout, payments, orders, wishlist, reviews, news, exhibitions, and CMS pages, with a custom-designed UI
-- an **admin panel** (Filament) — 20 resources covering catalog, commerce, content, users/roles, and system configuration, with a custom-branded theme
+- a **public storefront** — catalog, search, cart, checkout, payments, orders, wishlist, reviews, news, exhibitions, CMS pages, error pages, and SEO — with a custom-designed modern UI
+- an **admin panel** (Filament) — 21 resources covering catalog, commerce, content, users/roles, and system configuration, with a custom-branded theme, live dashboard widgets, stats, charts, and order tables
 
 Unlike traditional e‑commerce systems, this platform models **unique stone items**, where each product represents a **specific stone block or slab** — not a quantity-based inventory item. Availability is a lifecycle state (`available` / `reserved` / `sold`), not a stock count.
 
@@ -41,8 +41,6 @@ Unlike traditional e‑commerce systems, this platform models **unique stone ite
 - an admin experience editors and sales staff can actually use day-to-day
 - support for both Iranian and international buyers/payment flows
 - a maintainable, modular Laravel/Filament codebase built for long-term extension
-
-Key design principles: clarity, scalability, maintainability, modular development, long-term extensibility.
 
 ---
 
@@ -62,30 +60,29 @@ Each product carries structured metadata: category, SKU, price (local + USD), st
 ### 🌍 Multilingual Content System (5 languages)
 - Persian (`fa`), English (`en`), Arabic (`ar`), Hindi (`hi`), Italian (`it`)
 - RTL/LTR layouts on both the storefront and the admin panel
-- `spatie/laravel-translatable` for translatable model fields (name, description, location, value, slug, …)
-- a **custom database-backed translation loader** (`App\Translation\DatabaseLoader`) that serves UI strings (`messages` / `admin` groups) from a cached, admin-editable `translations` table — with automatic fallback to the language files if the database is empty
-- admin-managed active/default languages with a cached `Language` lookup layer
+- `spatie/laravel-translatable` for translatable model fields
+- a **custom database-backed translation loader** (`App\Translation\DatabaseLoader`) that serves UI strings (`messages` / `admin` groups, 400+ keys) from a cached, admin-editable `translations` table — with automatic fallback to lang files
+- admin-managed active/default languages with a cached lookup layer
 - per-locale slugs and default-locale-aware listing/search
 
 ### 🔐 Access Control
-Role-based access via **Filament Shield** + **Spatie Permission**, with four seeded roles — `admin`, `editor`, `sales`, `customer` — and granular, resource-level permissions (view/create/edit/delete/manage/export per module).
+Role-based access via **Filament Shield** + **Spatie Permission**, with four seeded roles — `admin`, `editor`, `sales`, `customer` — and granular, resource-level permissions.
 
 ### 🛒 Commerce & Order Workflows
 - Cart → Checkout → Order → Payment, fully wired end to end
 - **Iranian payment gateways** via `shetabit/multipay` (ZarinPal, IDPay, …)
 - **International orders**: bank-transfer receipt upload + manual admin approval
-- Order lifecycle management, cancellation, and PDF export (`barryvdh/laravel-dompdf`)
-- Coupons, wishlists, product reviews, and a newsletter subscription flow
-- Contact-form inbox with admin replies
+- Order lifecycle, cancellation, and PDF export
+- Coupons, wishlists, product reviews (with admin moderation), and newsletter
 
-### 🧾 Activity Logging & Reliability
-- `spatie/laravel-activitylog` for auditability
-- `spatie/laravel-backup` for backups
-- `spatie/laravel-responsecache` + Redis for performance
-- `laravel/horizon` for queue monitoring (SMS/email/notification jobs)
+### 🎨 Frontend Design System
+A redesigned storefront built around a shared design system (`theme-modern.css`): the brand's orange/navy palette refined with stone-toned neutrals, RTL-first, fully responsive with a mobile bottom navigation bar, touch-optimized Swiper sliders, and a floating search/cart/profile bottom nav on mobile.
 
-### 🧩 Modular Architecture
-Clean separation between storefront (`resources/views/front`), admin (`app/Filament`), and domain logic (`app/Models`, `app/Services`), with reusable Blade components and a shared design-system layer.
+### 📊 Admin Panel
+A custom-branded Filament panel with a dark navy sidebar, live dashboard widgets (stats overview, revenue chart, product-status chart, latest orders table), brand colors wired to site settings, and a `admin-modern.css` polish layer — no custom Vite build required.
+
+### 🔍 SEO
+Full SEO implementation via `artesaos/seotools`: dynamic meta title/description, Open Graph, JSON-LD (Product schema on product pages, Article on posts), canonical URLs, Google Analytics, Google Tag Manager, Google Search Console verification — all configurable from the admin panel. Auto-generated `sitemap.xml` covering products, categories, posts, events, and pages in all active locales.
 
 ---
 
@@ -104,21 +101,16 @@ Each listing is a unique item with a lifecycle status (`available` / `reserved` 
 Enable/disable languages from the admin panel, set a default, cache active locales, and auto-generate translation form fields for every translatable resource.
 
 ### 5) CMS Layer
-Dynamic pages (About, Contact, …), homepage sliders/banners, admin-managed header/footer menus, homepage sections, a news (blog) module, and an exhibitions/events module — all multilingual.
+Dynamic pages (About, Contact, Buying Guide, Payment Methods, Shipping, Certificates, Our Mines), homepage sliders/banners, admin-managed header/footer menus, news (blog) module, exhibitions/events module — all multilingual with rich content.
 
-### 6) Integrations
-- SMS: Kavenegar / Melipayamak
-- Email: SMTP / SES
-- Payments: ZarinPal / IDPay (domestic), receipt upload (international)
-- Google reCAPTCHA on public forms
-- Excel export (`maatwebsite/excel`) for admin data
-- `spatie/laravel-sitemap` + `robots.txt` for SEO
+### 6) Commerce Layer
+Cart, checkout, order lifecycle, two payment paths (online gateway + receipt upload), coupons, wishlists, product reviews with pending/approved/rejected moderation, contact-form inbox, newsletter with subscription/unsubscription flow.
 
 ### 7) Storefront Experience
-A redesigned public storefront — home, product catalog (grid/list, filters, sort), product detail, categories, cart, checkout, orders, payment, wishlist, news, exhibitions, search, and contact — built around a single design system (shared header/footer/page-header components, modern card and form styling) rather than a generic theme.
+Home, product catalog (grid/list, filters, sort), product detail with gallery + tabs + star-rating reviews, categories, cart, checkout, orders, payment, wishlist, posts, events, search, contact, CMS pages, auth pages (login, register, forgot/reset password, verify email) — all with a unified design system, proper error pages (401/403/404/419/429/500/503), and SEO meta on every page.
 
 ### 8) Admin Experience
-A custom-branded Filament panel: brand colors and logo wired to site settings, a dark navy sidebar with a branded active-state, a polished dashboard (stats, latest orders, product-status chart, revenue chart), and a language switcher in the topbar — on top of Filament Shield's permission-aware navigation.
+21 Filament resources, 4 live dashboard widgets, custom-branded theme (dark sidebar, stats cards, branded login page), permission-aware navigation.
 
 ---
 
@@ -131,65 +123,55 @@ Implemented entities:
 `Page` · `Post` · `Event` · `Slider` · `Menu` · `MenuItem` · `Setting` · `SeoMeta` · `Redirect` ·
 `ContactMessage` · `Newsletter` · `Translation` · `User`
 
-### Translation-ready fields
-Translatable fields (JSON-backed) include `name`, `title`, `description`, `excerpt`, `location`, `value`, `slug`, and related copy fields across categories, products, posts, events, pages, sliders, and menu items.
-
----
-
-## 🏗️ Architecture Principles
-
-- SOLID principles and clean domain modeling
-- migration-first development
-- admin-resource–driven backend design (Filament Resources/Pages/Widgets)
-- centralized multilingual helpers (`LanguageService`, `DatabaseLoader`) for dynamic translation workflows
-- a shared front-end design layer (CSS design tokens + reusable Blade components) instead of per-page one-off styling
-- maintainable, scalable, modular architecture throughout
-
 ---
 
 ## ⚙️ Technical Foundation
 
 - ✅ **Laravel 12**
-- ✅ **Filament v3** Admin Panel (20 resources, 4 dashboard widgets)
+- ✅ **Filament v3** Admin Panel (21 resources, 4 dashboard widgets, custom theme)
 - ✅ **Filament Shield** + **Spatie Permission** (role-based access control)
 - ✅ **Spatie Media Library** (images, galleries, video)
-- ✅ **Spatie Activitylog**
-- ✅ **Spatie Laravel Translatable**
-- ✅ **Spatie Laravel Sluggable**
-- ✅ **Spatie Laravel Sitemap**
-- ✅ **Spatie Laravel Settings** + a custom `Setting` key/value layer for site-wide content
-- ✅ **Spatie Laravel Backup**
-- ✅ **Spatie Laravel Response Cache**
-- ✅ **Spatie Laravel Tags**
-- ✅ **Spatie Image Optimizer**
-- ✅ **Custom database-backed translation loader** (5 languages, admin-editable, cached)
-- ✅ **LanguageService** for active/default locale resolution
+- ✅ **Spatie Activitylog** · **Spatie Laravel Backup** · **Spatie Response Cache**
+- ✅ **Spatie Laravel Translatable** + **custom DB-backed UI translation loader** (400+ keys, 5 languages)
+- ✅ **Spatie Laravel Sluggable** · **Spatie Laravel Sitemap** · **Spatie Image Optimizer**
+- ✅ **artesaos/seotools** (meta, OG, JSON-LD, GA, GTM, canonical)
 - ✅ **shetabit/multipay** for Iranian payment gateways
-- ✅ **barryvdh/laravel-dompdf** for order/invoice PDFs
-- ✅ **maatwebsite/excel** for admin exports
-- ✅ **biscolab/laravel-recaptcha** for form protection
-- ✅ **kalnoy/nestedset** for nested category trees
-- ✅ **laravel/horizon** for queue monitoring
-- ✅ **mcamara/laravel-localization** for locale routing
-- ✅ A fully redesigned **storefront UI** (shared header/footer/page-header components, modern product/post/event cards, RTL-first)
-- ✅ A custom-branded **admin panel theme** layered on top of Filament's compiled CSS
+- ✅ **barryvdh/laravel-dompdf** (order/invoice PDFs)
+- ✅ **maatwebsite/excel** (admin exports)
+- ✅ **biscolab/laravel-recaptcha** (form protection)
+- ✅ **kalnoy/nestedset** (nested category trees)
+- ✅ **laravel/horizon** (queue monitoring — installed, jobs pending)
+- ✅ **mcamara/laravel-localization** (locale routing)
+- ✅ A fully redesigned **storefront UI** (RTL-first, mobile-first, bottom nav, touch sliders)
+- ✅ A custom-branded **admin panel theme** (dark sidebar, live widgets)
 
 ---
 
 ## 🌱 Seeders
 
-- `LanguageSeeder` — Persian, English, Arabic, Hindi, Italian
-- `TranslationSeeder` — UI strings for both the `admin` and `messages` groups, in all 5 languages, audited to stay in sync with what's actually used in the views
-- `RolePermissionSeeder` — `admin`, `editor`, `sales`, `customer` roles with granular permissions
-- `AdminUserSeeder` — a default admin account
-- `CategorySeeder` — multilingual parent/child stone-category trees (Igneous, Sedimentary, Metamorphic, Onyx & Alabaster, Travertine, …)
-- `AttributeSeeder` — reusable product specification attributes
-- `ProductSeeder` — sample catalog data
-- `SliderSeeder` — homepage slider content
-- `MenuSeeder` — header/footer menu structure
-- `EventSeeder` — sample exhibitions
+| Seeder | Contents |
+|--------|----------|
+| `LanguageSeeder` | fa, en, ar, hi, it |
+| `TranslationSeeder` | 400+ UI keys — `messages` + `admin` groups, all 5 languages |
+| `RolePermissionSeeder` | admin, editor, sales, customer roles with granular permissions |
+| `AdminUserSeeder` | default admin account |
+| `SettingSeeder` | site-wide settings (general, SEO, social, payment, appearance) |
+| `CategorySeeder` | multilingual stone-category trees |
+| `AttributeSeeder` | reusable product specification attributes |
+| `ProductSeeder` | sample catalog data |
+| `SliderSeeder` | homepage slider content |
+| `MenuSeeder` | header/footer menu structure |
+| `EventSeeder` | sample exhibitions |
+| `PostSeeder` | 6 multilingual blog posts (stone industry topics) |
+| `PageSeeder` | About, Certificates, Our Mines, Buying Guide, Payment Methods, Shipping |
 
-Run all of them via `php artisan db:seed`, or target one with `php artisan db:seed --class=TranslationSeeder`.
+```bash
+php artisan db:seed
+# or individually:
+php artisan db:seed --class=TranslationSeeder
+php artisan lang:generate
+php artisan sitemap:generate
+```
 
 ---
 
@@ -199,21 +181,21 @@ Run all of them via `php artisan db:seed`, or target one with `php artisan db:se
 |-------|------------|
 | Backend | Laravel 12 |
 | Admin Panel | Filament v3 (custom-branded theme) |
-| Frontend | Blade + a custom CSS design system (RTL-first) |
+| Frontend | Blade + custom CSS design system (RTL-first, mobile-first) |
 | Language | PHP 8.2+ |
 | Authorization | Filament Shield + Spatie Permission |
-| Media Management | Spatie Media Library + Spatie Image Optimizer |
+| Media | Spatie Media Library + Spatie Image Optimizer |
 | Translations | Spatie Laravel Translatable + custom DB-backed UI translation loader |
-| Activity Logging | Spatie Activitylog |
+| SEO | artesaos/seotools + Spatie Sitemap + robots.txt |
+| Logging | Spatie Activitylog |
 | Backups | Spatie Laravel Backup |
 | Caching | Spatie Response Cache + Redis |
-| SEO | artesaos/seotools + Spatie Sitemap |
 | Slugs | Spatie Laravel Sluggable |
 | Category Trees | kalnoy/nestedset |
 | Queues | Laravel Horizon |
 | Locale Routing | mcamara/laravel-localization |
-| SMS | Kavenegar / Melipayamak |
-| Email | SMTP / SES |
+| SMS | Kavenegar / Melipayamak (configured, jobs pending) |
+| Email | SMTP / SES (configured, Mailable classes pending) |
 | Payments (IR) | ZarinPal / IDPay via shetabit/multipay |
 | Payments (Intl.) | Receipt upload + manual approval |
 | PDF | barryvdh/laravel-dompdf |
@@ -223,96 +205,56 @@ Run all of them via `php artisan db:seed`, or target one with `php artisan db:se
 
 ---
 
-## 🎨 Frontend Design System
-
-The storefront and admin panel share one visual identity — a refined version of the brand's original orange/navy palette, warmed up with stone-toned neutrals instead of cold grays:
-
-- a single CSS design-system file (`theme-modern.css`) layered on top of the legacy template, so the whole site — home, catalog, categories, cart, checkout, account pages, blog, exhibitions — reads as one cohesive product instead of a patchwork of templated pages
-- a search-forward homepage hero, category grid, and product/post/event cards inspired by modern marketplace UX patterns
-- a shared page-header component used across every inner page, so breadcrumb/heading styling never has to be rebuilt per page
-- the Filament admin panel re-themed via a render-hook CSS layer (no custom Vite build required): a dark navy sidebar with a branded active state, a polished dashboard, and a branded login screen
-- RTL handled as a first-class concern throughout, not bolted on afterward
-
----
-
 ## 🗺️ Development Roadmap
 
-### Phase 0 — Environment Setup
-- [x] PHP / Composer / Node installation
-- [x] Laravel 12 project creation
-- [x] PHPStorm configuration
-- [x] Git repository + `.gitignore` + initial commit
+### ✅ Completed
 
-### Phase I — Foundation
-- [x] Laravel installation
-- [x] Filament setup
-- [x] Shield / permission structure
-- [x] Role definitions (Admin / Editor / Sales / Customer)
-- [x] Media library integration
-- [x] Activity logging integration
-- [x] Translation support integration
-- [x] Language management infrastructure
-- [x] Active/default language caching layer
+- [x] Laravel 12 + Filament v3 setup
+- [x] Role-based access control (Shield + Spatie Permission)
+- [x] 21 Filament admin resources
+- [x] Live admin dashboard (stats, charts, order table)
+- [x] Custom-branded admin theme
+- [x] Nested categories + dynamic attribute engine
+- [x] Single-item product lifecycle
+- [x] Full storefront redesign (all pages, RTL-first, mobile-first)
+- [x] Mobile UX overhaul (bottom nav, touch sliders, no arrow buttons)
+- [x] Cart → Checkout → Order → Payment (online + receipt)
+- [x] Wishlist, product reviews (with moderation), coupons
+- [x] Auth pages (login, register, forgot/reset password, verify, confirm)
+- [x] Profile, orders, wishlist account pages
+- [x] CMS pages (About, Certificates, Mines, Buying Guide, Payment, Shipping)
+- [x] News (blog) module with sidebar, related posts, share buttons
+- [x] Exhibitions/events module
+- [x] Newsletter (subscribe + confirm page + unsubscribe)
+- [x] Contact form with admin inbox
+- [x] Custom error pages (401/403/404/419/429/500/503)
+- [x] Full SEO (meta, OG, JSON-LD, canonical, GA, GTM, sitemap, robots.txt)
+- [x] 5-language translation system (DB-backed, admin-editable, 400+ keys)
+- [x] SVG placeholder images for all model fallbacks
+- [x] `storage:link` friendly media setup
 
-### Phase II — Core Domain Modeling
-- [x] Categories (nested)
-- [x] Products
-- [x] Dynamic attributes
-- [x] Translation-ready schema
-- [x] Filament resources for domain entities
-- [x] Slug automation
-- [x] Dynamic multilingual resource fields
-- [x] Multilingual category seed data
+### 🔄 In Progress / Next
 
-### Phase III — Catalog & Frontend
-- [x] Homepage slider
-- [x] Latest / featured products sections
-- [x] Top and bottom menus (admin-managed)
-- [x] Product media galleries (image + thumbnail + gallery + video)
-- [x] Filters and sorting (category, status, price, search)
-- [x] Grid/list catalog views
-- [x] Full storefront redesign (home, header/footer, catalog, categories, product detail)
-- [ ] SEO metadata audit per page
-- [ ] Further search relevance improvements
+- [ ] Email notifications (order confirmed, receipt approved, password reset)
+- [ ] SMS notifications (Kavenegar/Melipayamak job wiring)
+- [ ] Production deployment (`.env` hardening, Supervisor, opcache)
+- [ ] Image optimization pass (WebP conversion, lazy loading audit)
 
-### Phase IV — Multilingual
-- [x] Language enable/disable from admin panel
-- [x] Translatable fields: title / description / slug / meta
-- [x] RTL/LTR routing and rendering
-- [x] Database-backed, admin-editable UI translations (5 languages)
+### 📋 Backlog
 
-### Phase V — CMS & SEO
-- [x] Dynamic pages (About / Contact / …)
-- [x] News and exhibitions module
-- [ ] SEO: meta title / description / canonical / Open Graph audit
-- [ ] `sitemap.xml` + `robots.txt` verification in production
-
-### Phase VI — Commerce Layer
-- [x] Cart / checkout / order workflow
-- [x] Iranian payment gateway integration
-- [x] International payment: receipt upload + admin approval
-- [x] Wishlist, reviews, coupons
-- [x] Customer interaction management (contact inbox)
-- [ ] Transaction logging / reconciliation reports
-
-### Phase VII — Notifications
-- [ ] SMS notifications
-- [ ] Email automation
-- [ ] Queue-based jobs (Horizon is installed; workflows pending)
-
-### Phase VIII — Performance & Deployment
-- [ ] Route / view / config caching audit
-- [ ] Image thumbnail optimization pass
-- [ ] Security audit
-- [ ] Deploy (Docker or traditional server)
+- [ ] Advanced product filtering (price range, attribute filters)
+- [ ] Order PDF invoice download for customers
+- [ ] Admin bulk actions (export orders, bulk status update)
+- [ ] Multi-currency price display
+- [ ] Google reCAPTCHA activation on contact/newsletter forms
 
 ---
 
 ## 📌 Notes
 
-This project is under active development and continues to evolve. The storefront and admin panel are functionally complete for a single-vendor stone catalog; remaining work is concentrated on notifications, deployment hardening, and SEO polish.
+The multilingual layer — both content (`spatie/laravel-translatable`) and UI strings (the custom `Translation` model + `DatabaseLoader`) — is designed to stay flexible as new languages are added.
 
-The multilingual layer — both content (`spatie/laravel-translatable`) and UI strings (the custom `Translation` model + `DatabaseLoader`) — is designed to stay flexible as new languages are added, without hardcoded locale-specific changes across resource forms or views.
+The `TranslationSeeder` and `resources/lang/*/messages.php` files are always kept in sync: every new key added to the seeder is also added to all 5 lang files as a fallback.
 
 Security-sensitive files (`.env`, credentials) are excluded from version control.
 
