@@ -13,7 +13,7 @@ class ReviewController extends Controller
     {
         $request->validate([
             'rating'  => 'required|integer|min:1|max:5',
-            'comment' => 'nullable|string|min:10|max:1000',
+            'comment' => 'nullable|string|max:1000',
         ]);
 
         // چک کن قبلاً نظر نداده باشه
@@ -22,7 +22,7 @@ class ReviewController extends Controller
             ->first();
 
         if ($existing) {
-            return back()->with('error', 'شما قبلاً برای این محصول نظر ثبت کرده‌اید.');
+            return back()->with('error', __('messages.review_already_submitted') ?? 'You have already reviewed this product.');
         }
 
         Review::create([
@@ -30,13 +30,13 @@ class ReviewController extends Controller
             'user_id'          => auth()->id(),
             'reviewer_name'    => auth()->user()->name,
             'reviewer_email'   => auth()->user()->email,
-            'reviewer_country' => auth()->user()->country,
-            'reviewer_company' => auth()->user()->company,
-            'rating'           => $request->rating,
-            'comment'          => $request->comment,
+            'reviewer_country' => auth()->user()->country ?? null,
+            'reviewer_company' => auth()->user()->company ?? null,
+            'rating'           => (int) $request->rating,
+            'comment'          => $request->comment ?: null,
             'status'           => 'pending',
         ]);
 
-        return back()->with('success', 'نظر شما با موفقیت ثبت شد و پس از تأیید نمایش داده خواهد شد.');
+        return back()->with('success', __('messages.review_submitted') ?? 'Your review has been submitted and is pending approval.');
     }
 }

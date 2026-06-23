@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -143,6 +143,7 @@ return [
     'reserved' => 'محجوز',
     'restore' => 'استعادة',
     'revenue_this_month' => 'إيرادات هذا الشهر',
+    'review_already_submitted' => 'لقد قمت بالفعل بتقييم هذا المنتج.',
     'reviews' => 'التقييمات',
     'roles' => 'الأدوار',
     'root_categories' => 'الفئات الرئيسية',

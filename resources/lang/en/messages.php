@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/messages
-// Generated at: 2026-06-23 07:12:00
+// Generated at: 2026-06-23 07:29:59
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -38,6 +38,7 @@ return [
     'clear_cart' => 'Clear Cart',
     'clear_cart_confirm' => 'Clear cart?',
     'clear_filter' => 'Clear Filter',
+    'comment' => 'Comment',
     'company' => 'Company',
     'company_placeholder' => 'Company name',
     'confirm' => 'Confirm',
@@ -58,6 +59,7 @@ return [
     'create_account' => 'Create Account',
     'currency_rial' => 'IRR',
     'current_password' => 'Current Password',
+    'customer_reviews' => 'Customer Reviews',
     'customers' => 'Customers',
     'date' => 'Date',
     'discount' => 'Discount',
@@ -114,6 +116,7 @@ return [
     'login_desc' => 'Sign in to your account',
     'login_register' => 'Sign In / Register',
     'login_to_checkout' => 'Login to Checkout',
+    'login_to_review' => 'Sign in to leave a review',
     'login_to_wishlist' => 'Login to save',
     'logout' => 'Sign Out',
     'message' => 'Message',
@@ -138,6 +141,7 @@ return [
     'no_products' => 'No products found',
     'no_products_desc' => 'No products match your criteria',
     'no_results' => 'No results found',
+    'no_reviews_yet' => 'No reviews yet. Be the first!',
     'not_found' => 'Page not found',
     'notes' => 'Notes',
     'of' => 'of',
@@ -178,6 +182,7 @@ return [
     'profile' => 'My Profile',
     'quantity' => 'Quantity',
     'quick_links' => 'Quick Links',
+    'rating' => 'Rating',
     'read_more' => 'Read More',
     'receipt' => 'Receipt',
     'receipt_file' => 'Receipt File',
@@ -195,6 +200,9 @@ return [
     'resend_link' => 'Resend Link',
     'reserved' => 'Reserved',
     'reset_password' => 'Reset Password',
+    'review_placeholder' => 'Share your experience with this product…',
+    'review_submitted' => 'Your review has been submitted and is pending approval.',
+    'reviews' => 'Reviews',
     'save_changes' => 'Save Changes',
     'search' => 'Search',
     'search_min_chars' => 'Enter at least 2 characters.',
@@ -209,11 +217,13 @@ return [
     'sort_name_asc' => 'Name: A to Z',
     'sort_price_asc' => 'Price: Low to High',
     'sort_price_desc' => 'Price: High to Low',
+    'stars' => 'stars',
     'status' => 'Status',
     'stone_categories' => 'Stone categories',
     'subject' => 'Subject',
     'submit' => 'Submit',
     'submit_receipt' => 'Submit Receipt',
+    'submit_review' => 'Submit Review',
     'subtotal' => 'Subtotal',
     'success' => 'Done!',
     'total' => 'Total',
@@ -231,6 +241,7 @@ return [
     'welcome' => 'Welcome',
     'wishlist' => 'Wishlist',
     'wishlisted' => 'Saved',
+    'write_review' => 'Write a Review',
     'years_experience' => 'Years of Experience',
     'your_order' => 'Your Order',
 ];

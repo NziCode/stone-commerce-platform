@@ -18,7 +18,6 @@
 @endphp
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
 @endpush
 
 @section('content')
@@ -377,6 +376,4 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/js/plugins/swiper-bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/js/plugins/jquery.counterup.js') }}"></script>
 @endpush

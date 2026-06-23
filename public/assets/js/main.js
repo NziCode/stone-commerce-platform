@@ -737,13 +737,13 @@
     scrollToTop();
 
     /*--------------------------------
-    MailChimp
+    MailChimp — disabled (plugin not used in this project)
 -------------------------------- */
-    $('#mc-form').ajaxChimp({
-        language: 'en',
-        callback: mailChimpResponse,
-        url: 'https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef',
-    });
+    // $('#mc-form').ajaxChimp({
+    //     language: 'en',
+    //     callback: mailChimpResponse,
+    //     url: 'https://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef',
+    // });
     function mailChimpResponse(resp) {
         if (resp.result === 'success') {
             $('.mailchimp-success').addClass('active');

@@ -3,10 +3,6 @@
     $product->getTranslation('name', app()->getLocale())
     . ' — ' . \App\Models\Setting::get('site_name'))
 
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
-@endpush
-
 @php
     $locale   = app()->getLocale();
     $isWished = auth()->check() && auth()->user()->hasWishlisted($product->id);
@@ -214,6 +210,134 @@
                         </div>
                     @endif
 
+                    {{-- ── Reviews ── --}}
+                    @php
+                        $approvedReviews = $product->approvedReviews()->with('user')->latest()->get();
+                        $avgRating = $approvedReviews->avg('rating');
+                        $userReview = auth()->check()
+                            ? $product->reviews()->where('user_id', auth()->id())->first()
+                            : null;
+                    @endphp
+
+                    <div style="margin-top:2.4rem">
+                        <div class="mt-section-head" style="margin-bottom:1.4rem">
+                            <div>
+                                <span class="mt-eyebrow">{{ __('messages.reviews') ?? 'Reviews' }}</span>
+                                <h3 class="mt-heading" style="font-size:1.25rem;margin-top:.3rem">
+                                    {{ __('messages.customer_reviews') ?? 'Customer Reviews' }}
+                                    @if($approvedReviews->count())
+                                        <span style="font-size:.85rem;font-weight:500;color:var(--stone-500);margin-inline-start:.5rem">({{ $approvedReviews->count() }})</span>
+                                    @endif
+                                </h3>
+                            </div>
+                            @if($approvedReviews->count())
+                                <div style="display:flex;align-items:center;gap:.5rem">
+                                    <div style="display:flex;gap:2px">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <svg viewBox="0 0 24 24" width="18" height="18" fill="{{ $i <= round($avgRating) ? '#f59e0b' : 'none' }}" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                        @endfor
+                                    </div>
+                                    <span style="font-weight:700;color:var(--ink);font-size:.9rem">{{ number_format($avgRating, 1) }}</span>
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- Review list --}}
+                        @if($approvedReviews->count())
+                            <div style="display:grid;gap:.9rem;margin-bottom:2rem">
+                                @foreach($approvedReviews as $review)
+                                    <div class="sidebar-widget" style="padding:1.3rem 1.5rem">
+                                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.7rem">
+                                            <div style="display:flex;align-items:center;gap:.8rem">
+                                                <div style="width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex-shrink:0">
+                                                    {{ mb_strtoupper(mb_substr($review->reviewer_name, 0, 1)) }}
+                                                </div>
+                                                <div>
+                                                    <strong style="display:block;font-size:.88rem;color:var(--ink)">{{ $review->reviewer_name }}</strong>
+                                                    @if($review->reviewer_company)
+                                                        <span style="font-size:.72rem;color:var(--stone-500)">{{ $review->reviewer_company }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;flex-shrink:0">
+                                                <div style="display:flex;gap:2px">
+                                                    @for($i = 1; $i <= 5; $i++)
+                                                        <svg viewBox="0 0 24 24" width="13" height="13" fill="{{ $i <= $review->rating ? '#f59e0b' : 'none' }}" stroke="#f59e0b" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                    @endfor
+                                                </div>
+                                                <span style="font-size:.7rem;color:var(--stone-500)">{{ $review->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                        @if($review->comment)
+                                            <p style="font-size:.88rem;color:var(--stone-700);line-height:1.8;margin:0">{{ $review->comment }}</p>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div style="text-align:center;padding:2rem 1rem;background:var(--stone-50);border-radius:var(--radius);border:1px dashed var(--stone-200);margin-bottom:1.6rem">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32" style="color:var(--stone-300);margin:0 auto .7rem;display:block"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                <p style="color:var(--stone-500);font-size:.86rem;margin:0">{{ __('messages.no_reviews_yet') ?? 'No reviews yet. Be the first!' }}</p>
+                            </div>
+                        @endif
+
+                        {{-- Review form --}}
+                        @auth
+                            @if($userReview)
+                                <div class="sidebar-widget" style="border-inline-start:4px solid var(--ok);padding:1.1rem 1.4rem">
+                                    <div style="display:flex;align-items:center;gap:.6rem">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17" style="color:var(--ok);flex-shrink:0"><path d="M20 6 9 17l-5-5"/></svg>
+                                        <span style="font-size:.88rem;font-weight:600;color:var(--ink)">{{ __('messages.review_submitted') ?? 'Your review has been submitted and is pending approval.' }}</span>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="sidebar-widget">
+                                    <h4 class="sidebar-title">{{ __('messages.write_review') ?? 'Write a Review' }}</h4>
+                                    <form action="{{ route('reviews.store', $product) }}" method="POST" style="display:grid;gap:1rem">
+                                        @csrf
+                                        <div>
+                                            <label style="font-size:.82rem;font-weight:600;color:var(--ink);display:block;margin-bottom:.6rem">{{ __('messages.rating') ?? 'Rating' }} *</label>
+                                            <div id="starRating" style="display:flex;gap:.25rem" data-current="{{ (int) old('rating', 0) }}">
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    <label style="cursor:pointer" title="{{ $i }} {{ __('messages.stars') ?? 'stars' }}">
+                                                        <input type="radio" name="rating" value="{{ $i }}" style="display:none" {{ old('rating') == $i ? 'checked' : '' }}>
+                                                        <svg class="star-icon" data-val="{{ $i }}" viewBox="0 0 24 24" width="34" height="34"
+                                                             fill="{{ old('rating') >= $i ? '#f59e0b' : 'none' }}"
+                                                             stroke="#f59e0b" stroke-width="2"
+                                                             style="transition:transform .15s ease;display:block">
+                                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                                        </svg>
+                                                    </label>
+                                                @endfor
+                                            </div>
+                                            @error('rating') <small style="color:var(--bad)">{{ $message }}</small> @enderror
+                                        </div>
+                                        <div>
+                                            <label style="font-size:.82rem;font-weight:600;color:var(--ink);display:block;margin-bottom:.4rem">
+                                                {{ __('messages.comment') ?? 'Comment' }}
+                                                <span style="font-weight:400;color:var(--stone-500)">({{ __('messages.optional') ?? 'optional' }})</span>
+                                            </label>
+                                            <textarea name="comment" rows="3"
+                                                      placeholder="{{ __('messages.review_placeholder') ?? 'Share your experience with this product…' }}"
+                                                      class="form-control"
+                                                      maxlength="1000">{{ old('comment') }}</textarea>
+                                            @error('comment') <small style="color:var(--bad)">{{ $message }}</small> @enderror
+                                        </div>
+                                        <button type="submit" class="mt-btn mt-btn-primary" style="justify-self:start">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                            {{ __('messages.submit_review') ?? 'Submit Review' }}
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+                        @else
+                            <div style="background:var(--stone-50);border:1px solid var(--stone-200);border-radius:var(--radius);padding:1.2rem;text-align:center">
+                                <p style="color:var(--stone-500);font-size:.86rem;margin:0 0 .75rem">{{ __('messages.login_to_review') ?? 'Sign in to leave a review' }}</p>
+                                <a href="{{ route('login') }}" class="mt-btn mt-btn-outline mt-btn-sm">{{ __('messages.login') }}</a>
+                            </div>
+                        @endauth
+                    </div>
+
                 </div>
 
                 {{-- ══════════ RIGHT — Info + Actions + Sidebar ══════════ --}}
@@ -352,7 +476,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/js/plugins/swiper-bundle.min.js') }}"></script>
     <script>
     (function () {
         // ── Main gallery slider ──────────────────────
@@ -408,6 +531,40 @@
                 if (panel) panel.style.display = 'block';
             });
         });
+        /* ── Star rating interactive ────────────────────── */
+        var starRating = document.getElementById('starRating');
+        if (starRating) {
+            var labels  = Array.from(starRating.querySelectorAll('label'));
+            var inputs  = Array.from(starRating.querySelectorAll('input[type="radio"]'));
+            var stars   = Array.from(starRating.querySelectorAll('.star-icon'));
+            var current = parseInt(starRating.dataset.current) || 0;
+
+            stars.forEach(function(s){ s.style.pointerEvents = 'none'; });
+
+            function paintStars(upTo) {
+                stars.forEach(function (s, i) {
+                    s.setAttribute('fill', i < upTo ? '#f59e0b' : 'none');
+                    s.style.transform = i < upTo ? 'scale(1.2)' : 'scale(1)';
+                });
+            }
+
+            paintStars(current);
+
+            labels.forEach(function (label, idx) {
+                label.addEventListener('mouseenter', function () {
+                    paintStars(idx + 1);
+                });
+                label.addEventListener('click', function () {
+                    current = idx + 1;
+                    inputs[idx].checked = true;
+                    paintStars(current);
+                });
+            });
+
+            starRating.addEventListener('mouseleave', function () {
+                paintStars(current);
+            });
+        }
     })();
     </script>
 @endpush
