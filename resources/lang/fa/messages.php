@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/messages
-// Generated at: 2026-06-22 09:29:34
+// Generated at: 2026-06-23 07:12:00
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -32,6 +32,7 @@ return [
     'categories' => 'دسته‌بندی‌ها',
     'categories_desc' => 'مجموعه‌ای متنوع از سنگ‌های طبیعی برای هر پروژه',
     'change_password' => 'تغییر رمز عبور',
+    'check_back_soon' => 'به زودی بررسی کنید',
     'check_your_email' => 'ایمیل خود را بررسی کنید',
     'checkout' => 'تسویه حساب',
     'clear_cart' => 'پاک کردن سبد',
@@ -68,6 +69,20 @@ return [
     'empty_wishlist' => 'علاقه‌مندی‌ها خالی است',
     'empty_wishlist_desc' => 'محصولات موردعلاقه خود را با قلب اضافه کنید.',
     'error' => 'یه مشکلی پیش اومد',
+    'error_401_desc' => 'برای دسترسی به این صفحه باید وارد شوید.',
+    'error_401_title' => 'دسترسی مجاز نیست',
+    'error_403_desc' => 'شما مجوز دسترسی به این بخش را ندارید.',
+    'error_403_title' => 'دسترسی ممنوع',
+    'error_404_desc' => 'صفحه‌ای که دنبالش می‌گردید وجود ندارد، منتقل شده یا لینک اشتباه است.',
+    'error_404_title' => 'صفحه پیدا نشد',
+    'error_419_desc' => 'نشست شما منقضی شده. صفحه را تازه‌سازی کنید.',
+    'error_419_title' => 'نشست منقضی شده',
+    'error_429_desc' => 'درخواست‌های زیادی ارسال کرده‌اید. لطفاً لحظه‌ای صبر کنید.',
+    'error_429_title' => 'درخواست‌های بیش از حد',
+    'error_500_desc' => 'مشکلی از سمت ما رخ داده. روی آن کار می‌کنیم.',
+    'error_500_title' => 'خطای سرور',
+    'error_503_desc' => 'در حال بهبود سایت هستیم. به زودی بازمی‌گردیم.',
+    'error_503_title' => 'در حال تعمیر',
     'event_end_date' => 'تاریخ پایان',
     'event_start_date' => 'تاریخ شروع',
     'event_website' => 'وب‌سایت رویداد',
@@ -176,6 +191,7 @@ return [
     'related' => 'مطالب مرتبط',
     'remember_me' => 'مرا به خاطر بسپار',
     'remove' => 'حذف',
+    'report_problem' => 'گزارش مشکل',
     'resend_link' => 'ارسال مجدد لینک',
     'reserved' => 'رزرو شده',
     'reset_password' => 'بازنشانی رمز عبور',
@@ -203,6 +219,7 @@ return [
     'total' => 'جمع کل',
     'tracking_code' => 'کد رهگیری',
     'transfer_ref' => 'شماره حواله',
+    'try_again' => 'دوباره تلاش کنید',
     'try_other_keyword' => 'عبارت دیگری جستجو کنید.',
     'upload_receipt' => 'آپلود فیش بانکی',
     'verification_link_sent' => 'لینک تأیید جدید ارسال شد.',

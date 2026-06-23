@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-22 09:29:34
+// Generated at: 2026-06-23 07:12:00
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
