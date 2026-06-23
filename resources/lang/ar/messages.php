@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/messages
-// Generated at: 2026-06-22 09:29:34
+// Generated at: 2026-06-23 07:12:00
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -32,6 +32,7 @@ return [
     'categories' => 'الفئات',
     'categories_desc' => 'مجموعة مختارة من الأحجار الطبيعية لكل مشروع',
     'change_password' => 'تغيير كلمة المرور',
+    'check_back_soon' => 'تحقق قريباً',
     'check_your_email' => 'تحقق من بريدك الإلكتروني',
     'checkout' => 'إتمام الشراء',
     'clear_cart' => 'إفراغ السلة',
@@ -68,6 +69,20 @@ return [
     'empty_wishlist' => 'قائمة الرغبات فارغة',
     'empty_wishlist_desc' => 'أضف منتجاتك المفضلة بأيقونة القلب.',
     'error' => 'حدث خطأ',
+    'error_401_desc' => 'يرجى تسجيل الدخول للوصول إلى هذه الصفحة.',
+    'error_401_title' => 'غير مصرح',
+    'error_403_desc' => 'ليس لديك إذن للوصول إلى هذا المورد.',
+    'error_403_title' => 'الوصول محظور',
+    'error_404_desc' => 'الصفحة التي تبحث عنها غير موجودة أو الرابط غير صحيح.',
+    'error_404_title' => 'الصفحة غير موجودة',
+    'error_419_desc' => 'انتهت صلاحية جلستك. يرجى تحديث الصفحة والمحاولة مرة أخرى.',
+    'error_419_title' => 'انتهت الجلسة',
+    'error_429_desc' => 'لقد أرسلت طلبات كثيرة جداً. يرجى الانتظار لحظة والمحاولة مرة أخرى.',
+    'error_429_title' => 'طلبات كثيرة جداً',
+    'error_500_desc' => 'حدث خطأ من جانبنا. تمت إبلاغنا ونعمل على إصلاحه.',
+    'error_500_title' => 'خطأ في الخادم',
+    'error_503_desc' => 'نحن نجري تحسينات. سنعود قريباً — شكراً لصبرك.',
+    'error_503_title' => 'قيد الصيانة',
     'event_end_date' => 'تاريخ الانتهاء',
     'event_start_date' => 'تاريخ البدء',
     'event_website' => 'موقع الفعالية',
@@ -176,6 +191,7 @@ return [
     'related' => 'ذات صلة',
     'remember_me' => 'تذكرني',
     'remove' => 'حذف',
+    'report_problem' => 'الإبلاغ عن مشكلة',
     'resend_link' => 'إعادة إرسال الرابط',
     'reserved' => 'محجوز',
     'reset_password' => 'إعادة تعيين كلمة المرور',
@@ -203,6 +219,7 @@ return [
     'total' => 'المجموع',
     'tracking_code' => 'رمز التتبع',
     'transfer_ref' => 'مرجع التحويل',
+    'try_again' => 'حاول مرة أخرى',
     'try_other_keyword' => 'جرّب كلمة أخرى.',
     'upload_receipt' => 'رفع الإيصال',
     'verification_link_sent' => 'تم إرسال رابط تحقق جديد.',

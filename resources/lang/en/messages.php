@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/messages
-// Generated at: 2026-06-22 09:29:34
+// Generated at: 2026-06-23 07:12:00
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -32,6 +32,7 @@ return [
     'categories' => 'Categories',
     'categories_desc' => 'A curated range of natural stone for every project',
     'change_password' => 'Change Password',
+    'check_back_soon' => 'Check back soon',
     'check_your_email' => 'Check Your Email',
     'checkout' => 'Checkout',
     'clear_cart' => 'Clear Cart',
@@ -68,6 +69,20 @@ return [
     'empty_wishlist' => 'Your wishlist is empty',
     'empty_wishlist_desc' => 'Add your favourite products with the heart icon.',
     'error' => 'Something went wrong',
+    'error_401_desc' => 'Please log in to access this page.',
+    'error_401_title' => 'Unauthorized',
+    'error_403_desc' => 'You do not have permission to access this resource.',
+    'error_403_title' => 'Access Denied',
+    'error_404_desc' => 'The page you\'re looking for doesn\'t exist or the link is incorrect.',
+    'error_404_title' => 'Page Not Found',
+    'error_419_desc' => 'Your session has expired. Please refresh the page and try again.',
+    'error_419_title' => 'Session Expired',
+    'error_429_desc' => 'You\'ve made too many requests. Please wait a moment and try again.',
+    'error_429_title' => 'Too Many Requests',
+    'error_500_desc' => 'Something went wrong on our side. We\'ve been notified and are working on a fix.',
+    'error_500_title' => 'Server Error',
+    'error_503_desc' => 'We\'re making improvements. We\'ll be back shortly — thank you for your patience.',
+    'error_503_title' => 'Under Maintenance',
     'event_end_date' => 'End Date',
     'event_start_date' => 'Start Date',
     'event_website' => 'Event Website',
@@ -176,6 +191,7 @@ return [
     'related' => 'Related',
     'remember_me' => 'Remember me',
     'remove' => 'Remove',
+    'report_problem' => 'Report Problem',
     'resend_link' => 'Resend Link',
     'reserved' => 'Reserved',
     'reset_password' => 'Reset Password',
@@ -203,6 +219,7 @@ return [
     'total' => 'Total',
     'tracking_code' => 'Tracking Code',
     'transfer_ref' => 'Transfer Reference',
+    'try_again' => 'Try Again',
     'try_other_keyword' => 'Try a different keyword.',
     'upload_receipt' => 'Upload Receipt',
     'verification_link_sent' => 'A new verification link has been sent.',

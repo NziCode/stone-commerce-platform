@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/messages
-// Generated at: 2026-06-22 09:29:34
+// Generated at: 2026-06-23 07:12:00
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -32,6 +32,7 @@ return [
     'categories' => 'Categorie',
     'categories_desc' => 'Una selezione di pietre naturali per ogni progetto',
     'change_password' => 'Cambia Password',
+    'check_back_soon' => 'Controlla presto',
     'check_your_email' => 'Controlla la tua Email',
     'checkout' => 'Pagamento',
     'clear_cart' => 'Svuota Carrello',
@@ -68,6 +69,20 @@ return [
     'empty_wishlist' => 'Lista desideri vuota',
     'empty_wishlist_desc' => 'Aggiungi i tuoi prodotti preferiti con il cuore.',
     'error' => 'Qualcosa è andato storto',
+    'error_401_desc' => 'Accedi per visualizzare questa pagina.',
+    'error_401_title' => 'Non Autorizzato',
+    'error_403_desc' => 'Non hai il permesso di accedere a questa risorsa.',
+    'error_403_title' => 'Accesso Negato',
+    'error_404_desc' => 'La pagina che stai cercando non esiste o il link non è corretto.',
+    'error_404_title' => 'Pagina Non Trovata',
+    'error_419_desc' => 'La tua sessione è scaduta. Aggiorna la pagina e riprova.',
+    'error_419_title' => 'Sessione Scaduta',
+    'error_429_desc' => 'Hai fatto troppe richieste. Attendi un momento e riprova.',
+    'error_429_title' => 'Troppe Richieste',
+    'error_500_desc' => 'Qualcosa è andato storto da parte nostra. Siamo stati avvisati e stiamo lavorando a una soluzione.',
+    'error_500_title' => 'Errore del Server',
+    'error_503_desc' => 'Stiamo apportando miglioramenti. Torneremo presto — grazie per la pazienza.',
+    'error_503_title' => 'In Manutenzione',
     'event_end_date' => 'Data Fine',
     'event_start_date' => 'Data Inizio',
     'event_website' => 'Sito dell\'Evento',
@@ -176,6 +191,7 @@ return [
     'related' => 'Correlati',
     'remember_me' => 'Ricordami',
     'remove' => 'Rimuovi',
+    'report_problem' => 'Segnala Problema',
     'resend_link' => 'Reinvia Link',
     'reserved' => 'Riservato',
     'reset_password' => 'Reimposta Password',
@@ -203,6 +219,7 @@ return [
     'total' => 'Totale',
     'tracking_code' => 'Codice Tracking',
     'transfer_ref' => 'Riferimento Bonifico',
+    'try_again' => 'Riprova',
     'try_other_keyword' => 'Prova con un\'altra parola chiave.',
     'upload_receipt' => 'Carica Ricevuta',
     'verification_link_sent' => 'È stato inviato un nuovo link di verifica.',

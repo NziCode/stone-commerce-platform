@@ -28,5 +28,17 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
+            return response()->view('errors.404', [], 404);
+        });
+        $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\HttpException $e, $request) {
+            $code = $e->getStatusCode();
+            $view = view()->exists("errors.{$code}") ? "errors.{$code}" : 'errors.500';
+            return response()->view($view, ['exception' => $e], $code);
+        });
+        $exceptions->render(function (\Throwable $e, $request) {
+            if (!$request->expectsJson() && app()->environment('production')) {
+                return response()->view('errors.500', ['exception' => $e], 500);
+            }
+        });
     })->create();
