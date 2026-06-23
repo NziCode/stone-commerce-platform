@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class NewsletterController extends Controller
 {
+    public function subscribed()
+    {
+        return view('front.newsletter.subscribed');
+    }
+
     public function subscribe(Request $request)
     {
         $request->validate([
@@ -21,9 +26,10 @@ class NewsletterController extends Controller
         if ($existing) {
             if (!$existing->is_active) {
                 $existing->confirm();
-                return back()->with('success', 'اشتراک شما مجدداً فعال شد.');
+                return redirect()->route('newsletter.subscribed')
+                    ->with('success', __('messages.newsletter_reactivated') ?? 'Your subscription has been reactivated.');
             }
-            return back()->with('info', 'این ایمیل قبلاً ثبت شده است.');
+            return back()->with('info', __('messages.newsletter_already_subscribed') ?? 'This email is already subscribed.');
         }
 
         Newsletter::create([
@@ -34,7 +40,7 @@ class NewsletterController extends Controller
             'is_active'    => true,
         ]);
 
-        return back()->with('success', 'با موفقیت در خبرنامه ثبت‌نام شدید.');
+        return redirect()->route('newsletter.subscribed');
     }
 
     public function unsubscribe(string $token)

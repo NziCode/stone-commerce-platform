@@ -152,6 +152,7 @@ Route::group([
 
     // Newsletter
     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::get('/newsletter/subscribed', [NewsletterController::class, 'subscribed'])->name('newsletter.subscribed');
     Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
     // Cart
