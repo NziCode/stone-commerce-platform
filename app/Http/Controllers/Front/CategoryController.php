@@ -5,12 +5,21 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Traits\HasSeo;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use HasSeo;
+
     public function index()
     {
+        $locale = app()->getLocale();
+        $this->setSeo(
+            title: __('messages.categories') . ' | ' . \App\Models\Setting::get('site_name', config('app.name')),
+            description: __('messages.categories_desc'),
+        );
+
         $categories = Category::active()->roots()->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])->ordered()->get();
         return view('front.categories.index', compact('categories'));
     }
@@ -22,6 +31,8 @@ class CategoryController extends Controller
             ->whereJsonContains("slug->{$locale}", $slug)
             ->with('parent', 'children')
             ->firstOrFail();
+
+        $this->setCategorySeo($category);
 
         // Include self + all descendants
         $categoryIds = $category->descendants()->pluck('id')->push($category->id);
