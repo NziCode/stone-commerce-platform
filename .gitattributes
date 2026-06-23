@@ -1,17 +1,46 @@
+# ──────────────────────────────────────────────────
+#  EN Trading Group — Stone Commerce Platform
+#  GitHub Linguist configuration
+# ──────────────────────────────────────────────────
+
+# Line endings
 * text=auto eol=lf
 
-# نادیده گرفتن تمام فایل‌های CSS و SCSS (صرف‌نظر از مسیر)
-*.css linguist-vendored
-*.scss linguist-scss linguist-vendored
+# ── Vendor / third-party (excluded from stats) ──────
+vendor/**               linguist-vendored
+node_modules/**         linguist-vendored
+storage/**              linguist-vendored
+bootstrap/cache/**      linguist-vendored
 
-# فایل‌های JS بیلد شده را نادیده بگیر
-public/*.js linguist-vendored
+# ── Template CSS/JS (pre-built, not our code) ───────
+*.min.css               linguist-vendored
+*.min.js                linguist-vendored
+public/assets/css/style.css         linguist-vendored
+public/assets/css/style.min.css     linguist-vendored
+public/assets/css/ltr.css           linguist-vendored
+public/assets/css/rtl.css           linguist-vendored
+public/assets/js/main.js            linguist-vendored
+public/assets/js/vendor.min.js      linguist-vendored
+public/assets/js/plugins.min.js     linguist-vendored
+public/assets/js/vendor/**          linguist-vendored
+public/assets/js/plugins/**         linguist-vendored
+public/assets/fonts/**              linguist-vendored
 
-# وابستگی‌ها
-vendor/** linguist-vendored
-node_modules/** linguist-vendored
-storage/** linguist-vendored
-bootstrap/cache/** linguist-vendored
+# ── Our CSS (counted) ───────────────────────────────
+public/assets/css/theme-modern.css  linguist-detectable=true linguist-language=CSS
+public/assets/css/admin-modern.css  linguist-detectable=true linguist-language=CSS
+resources/css/**                    linguist-detectable=true linguist-language=CSS
 
-# تنظیمات نمایش
-*.blade.php linguist-language=PHP
+# ── Our JS (counted) ────────────────────────────────
+public/assets/js/mobile-ux.js       linguist-detectable=true linguist-language=JavaScript
+resources/js/**                     linguist-detectable=true linguist-language=JavaScript
+
+# ── Blade → PHP ─────────────────────────────────────
+*.blade.php                         linguist-language=PHP
+
+# ── Documentation & misc (excluded) ─────────────────
+*.md                    linguist-documentation
+*.lock                  linguist-vendored
+*.svg                   linguist-vendored
+*.xml                   linguist-vendored
+*.json                  linguist-vendored
