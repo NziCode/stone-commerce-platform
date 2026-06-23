@@ -6,17 +6,21 @@
 *.md diff=markdown
 *.php diff=php
 
-# --- بخش جدید برای اصلاح آمار زبان‌ها ---
-# نادیده گرفتن تمام فایل‌های CSS و SCSS در محاسبات
-*.css linguist-vendored
-*.scss linguist-vendored
+# --- تنظیمات آمار زبان‌ها ---
+# نادیده گرفتن فایل‌های بیلد شده و سنگین (برای حذف درصد کاذب CSS/JS)
+public/css/*.css linguist-vendored
+public/js/*.js linguist-vendored
+public/build/** linguist-vendored
+vendor/** linguist-vendored
+node_modules/** linguist-vendored
 
-# اگر فایل‌های جاوااسکریپت بیلد شده در پوشه public داری
-public/*.js linguist-vendored
+# اگر همچنان CSS یا SCSS غیرعادی بالا بود، این دو خط را فعال کن:
+# *.css linguist-vendored
+# *.scss linguist-vendored
 
-# اختیاری: اگر می‌خواهی Blade جزو آمار PHP حساب شود (نه جدا)
-*.blade.php linguist-language=PHP
-# ---------------------------------------
+# نادیده گرفتن فایل‌های سیستمی و کش
+storage/** linguist-vendored
+bootstrap/cache/** linguist-vendored
 
 /.github export-ignore
 CHANGELOG.md export-ignore
