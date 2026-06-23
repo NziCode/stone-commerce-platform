@@ -6,6 +6,18 @@
 *.md diff=markdown
 *.php diff=php
 
+# --- بخش جدید برای اصلاح آمار زبان‌ها ---
+# نادیده گرفتن تمام فایل‌های CSS و SCSS در محاسبات
+*.css linguist-vendored
+*.scss linguist-vendored
+
+# اگر فایل‌های جاوااسکریپت بیلد شده در پوشه public داری
+public/*.js linguist-vendored
+
+# اختیاری: اگر می‌خواهی Blade جزو آمار PHP حساب شود (نه جدا)
+*.blade.php linguist-language=PHP
+# ---------------------------------------
+
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
