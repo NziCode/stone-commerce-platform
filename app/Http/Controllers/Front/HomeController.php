@@ -5,14 +5,28 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\Post;
 use App\Models\Event;
+use App\Traits\HasSeo;
 
 class HomeController extends Controller
 {
+    use HasSeo;
+
     public function index()
     {
+        $siteName = Setting::get('site_name', config('app.name'));
+        $siteDesc = json_decode(Setting::get('about_desc', '{}'), true);
+        $locale   = app()->getLocale();
+        $desc     = is_array($siteDesc) ? ($siteDesc[$locale] ?? $siteDesc['en'] ?? '') : '';
+
+        $this->setSeo(
+            title:       $siteName,
+            description: $desc ? \Str::limit(strip_tags($desc), 155) : '',
+            image:       Setting::get('og_image') ?: Setting::get('site_logo'),
+        );
         $sliders = Slider::active()->get();
 
         $featuredProducts = Product::active()

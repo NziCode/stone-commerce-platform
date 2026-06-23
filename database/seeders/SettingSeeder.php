@@ -142,6 +142,13 @@ class SettingSeeder extends Seeder
             ],
             [
                 'group'     => 'seo',
+                'key'       => 'og_image',
+                'value'     => '',
+                'type'      => 'string',
+                'is_public' => false,
+            ],
+            [
+                'group'     => 'seo',
                 'key'       => 'google_analytics_id',
                 'value'     => '',
                 'type'      => 'string',
@@ -164,7 +171,7 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'seo',
                 'key'       => 'robots_txt',
-                'value'     => "User-agent: *\nAllow: /",
+                'value'     => "User-agent: *\nAllow: /\n\nDisallow: /admin\nDisallow: /admin/\nDisallow: /api/\nDisallow: /cart\nDisallow: /checkout\nDisallow: /payment\nDisallow: /orders\nDisallow: /profile\nDisallow: /wishlist\nDisallow: /login\nDisallow: /register\nDisallow: /forgot-password\nDisallow: /reset-password\nDisallow: /email/verify\n\nSitemap: /sitemap.xml",
                 'type'      => 'string',
                 'is_public' => false,
             ],
