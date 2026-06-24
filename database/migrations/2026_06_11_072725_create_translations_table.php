@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('locale', 10)->index();         // fa, en, ar, ...
             $table->string('group', 100)->index();         // admin, messages, validation
-            $table->string('key', 255)->index();           // dashboard, save, delete
+            $table->string('key', 100)->index();           // dashboard, save, delete
             $table->text('value')->nullable();             // داشبورد
             $table->boolean('is_auto')->default(false);    // ترجمه خودکار یا دستی
             $table->timestamps();
