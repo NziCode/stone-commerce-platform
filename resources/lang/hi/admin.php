@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-23 12:32:14
+// Generated at: 2026-06-29 12:30:56
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -231,7 +231,9 @@ return [
     'settings_username' => 'Username',
     'settings_working_hours' => 'Working Hours',
     'shipped' => 'भेजा गया',
-    'show_in_product_page' => 'उत्पाद पेज पर',
+    'show_in_card' => 'कार्ड में दिखाएं',
+    'show_in_card_hint' => 'उत्पाद सूची कार्ड पर दिखाई देने वाली विशेषताएं',
+    'show_in_product_page' => 'उत्पاد پेज پر',
     'site_info' => 'साइट जानकारी',
     'site_name_en' => 'साइट नाम (EN)',
     'site_name_fa' => 'साइट नाम (FA)',

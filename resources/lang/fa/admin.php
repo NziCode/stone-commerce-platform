@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-23 12:32:14
+// Generated at: 2026-06-29 12:30:56
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -231,6 +231,8 @@ return [
     'settings_username' => 'نام کاربری',
     'settings_working_hours' => 'ساعات کاری',
     'shipped' => 'ارسال شده',
+    'show_in_card' => 'نمایش در کارت محصول',
+    'show_in_card_hint' => 'ویژگی‌هایی که در کارت لیست محصولات نمایش داده می‌شوند',
     'show_in_product_page' => 'نمایش در صفحه محصول',
     'site_info' => 'اطلاعات سایت',
     'site_name_en' => 'نام سایت (انگلیسی)',

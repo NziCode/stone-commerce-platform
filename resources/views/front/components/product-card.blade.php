@@ -1,4 +1,10 @@
-@php $locale = app()->getLocale(); $isWished = auth()->check() && auth()->user()->hasWishlisted($product->id); @endphp
+@php
+    $locale = app()->getLocale();
+    $isWished = auth()->check() && auth()->user()->hasWishlisted($product->id);
+    $cardAttributes = $product->attributes
+        ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
+        ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
+@endphp
 
 <div class="col-lg-4 col-md-6">
     <div class="mt-pcard" style="position:relative">
@@ -44,6 +50,21 @@
             @if($product->sku)
                 <span class="mt-pcard-sku">{{ $product->sku }}</span>
             @endif
+
+            {{-- Card Attributes (قیمت و سایز و هر ویژگی که show_in_card=true باشد) --}}
+            @if($cardAttributes->isNotEmpty())
+                <ul class="mt-pcard-attrs">
+                    @foreach($cardAttributes as $pa)
+                        <li>
+                            <span class="mt-pcard-attr-label">
+                                {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
+                            </span>
+                            <span class="mt-pcard-attr-value">{{ $pa->display_value }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
+
             <div class="mt-pcard-foot">
                 <span class="mt-price">
                     @if($product->price_on_request)
