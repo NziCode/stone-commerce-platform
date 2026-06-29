@@ -40,6 +40,7 @@ return new class extends Migration
 
             $table->boolean('is_filterable')->default(false);
             $table->boolean('show_in_product_page')->default(true);
+            $table->boolean('show_in_card')->default(false);
             $table->boolean('is_active')->default(true);
             $table->unsignedSmallInteger('sort_order')->default(0);
 
@@ -48,6 +49,7 @@ return new class extends Migration
             $table->index('is_filterable');
             $table->index('is_active');
             $table->index('show_in_product_page');
+            $table->index('show_in_card');
             $table->index('sort_order');
         });
     }

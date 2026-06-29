@@ -6,265 +6,120 @@
 
 @push('styles')
     <style>
-        /* ── Toolbar ────────────────────────────────── */
-        .shop-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            padding: 14px 20px;
-            background: #f4f8ff;
-            margin-bottom: 30px;
-        }
-        .shop-toolbar .showing-count { font-size: 14px; color: #666; }
-        .shop-toolbar .showing-count strong { color: #00225a; }
-        .shop-toolbar-right { display: flex; align-items: center; gap: 12px; }
-        .sort-select {
-            border: 1px solid #dee2e6;
-            padding: 8px 14px;
-            font-size: 14px;
-            background: #fff;
-            color: #333;
-            cursor: pointer;
-            min-width: 180px;
-        }
-        .view-btns button {
-            width: 36px; height: 36px;
-            border: 1px solid #dee2e6;
-            background: #fff;
-            color: #999;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .view-btns button.active,
-        .view-btns button:hover { background: #00225a; color: #fff; border-color: #00225a; }
+        /* ── Toolbar ──────────────────────────────── */
+        .shop-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 20px;background:#f4f8ff;margin-bottom:30px;}
+        .shop-toolbar .showing-count{font-size:14px;color:#666;}
+        .shop-toolbar .showing-count strong{color:#00225a;}
+        .shop-toolbar-right{display:flex;align-items:center;gap:12px;}
+        .sort-select{border:1px solid #dee2e6;padding:8px 14px;font-size:14px;background:#fff;color:#333;cursor:pointer;min-width:180px;}
+        .view-btns button{width:36px;height:36px;border:1px solid #dee2e6;background:#fff;color:#999;cursor:pointer;transition:all .2s;}
+        .view-btns button.active,.view-btns button:hover{background:#00225a;color:#fff;border-color:#00225a;}
 
-        /* ── Product Card ───────────────────────────── */
-        .product-item { transition: box-shadow 0.3s ease; height: 100%; }
-        .product-item:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+        /* ── Sidebar misc ─────────────────────────── */
+        .active-filter-tag{display:inline-flex;align-items:center;gap:6px;background:#00225a;color:#fff;padding:4px 10px;font-size:12px;margin-bottom:6px;}
+        .active-filter-tag a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;}
+        .sidebar-cta{background:#00225a;padding:24px 20px;text-align:center;}
+        .sidebar-cta i{font-size:30px;color:#ff5e13;display:block;margin-bottom:10px;}
+        .sidebar-cta h4{color:#fff;font-size:15px;margin-bottom:8px;}
+        .sidebar-cta a.phone-link{color:#ff5e13;font-size:17px;font-weight:700;display:block;margin-bottom:14px;text-decoration:none;}
+        .category-tree{list-style:none;padding:0;margin:0;}
+        .category-tree > li{border-bottom:1px solid #f0f0f0;}
+        .category-tree > li:last-child{border-bottom:none;}
+        .cat-row{display:flex;align-items:center;justify-content:space-between;}
+        .cat-toggle{background:none;border:1px solid #dee2e6;width:24px;height:24px;font-size:16px;cursor:pointer;color:#666;flex-shrink:0;margin-inline-start:6px;transition:all .2s;display:flex;align-items:center;justify-content:center;order:-1;}
+        .cat-toggle.open{background:#ff5e13;border-color:#ff5e13;color:#fff;}
+        .cat-row > a{flex:1;display:flex;justify-content:space-between;align-items:center;padding:10px 0;font-size:15px;color:#444;text-decoration:none;transition:color .2s;}
+        .cat-row > a:hover,.cat-row > a.active{color:#ff5e13;font-weight:600;}
+        .cat-row > a span{background:#f0f0f0;color:#666;border-radius:20px;padding:1px 8px;font-size:12px;min-width:28px;text-align:center;font-weight:400;margin-inline-start:6px;flex-shrink:0;}
+        .cat-row > a.active span{background:#ff5e13;color:#fff;}
+        .cat-children{list-style:none;padding:0 0 6px 16px;margin:0;display:none;}
+        .cat-children.show{display:block;}
+        [dir="rtl"] .cat-children{padding:0 16px 6px 0;}
+        .cat-children li a{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:13px;color:#555;text-decoration:none;transition:color .2s;}
+        .cat-children li a:hover,.cat-children li a.active{color:#ff5e13;font-weight:600;}
+        .cat-children li a span{background:#f0f0f0;color:#666;border-radius:20px;padding:1px 6px;font-size:11px;min-width:22px;text-align:center;margin-inline-start:6px;flex-shrink:0;}
+        .cat-children li a.active span{background:#ff5e13;color:#fff;}
+        .no-products-found{text-align:center;padding:60px 20px;color:#888;}
+        .no-products-found i{font-size:48px;color:#dee2e6;display:block;margin-bottom:16px;}
+        .no-products-found h4{color:#555;margin-bottom:8px;}
+        [dir="rtl"] .shop-toolbar{flex-direction:row-reverse;}
+        [dir="rtl"] .shop-toolbar-right{flex-direction:row-reverse;}
+        .breadcrumb-area .breadcrumb-content .breadcrumb{background:none;padding:0;margin:10px 0 0;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;list-style:none;direction:ltr;}
+        .breadcrumb-area .breadcrumb-item a{color:rgba(255,255,255,0.7);}
+        .breadcrumb-area .breadcrumb-item.active{color:#ff5e13;}
+        .breadcrumb-area .breadcrumb-item + .breadcrumb-item::before{content:'/';color:rgba(255,255,255,0.4);padding:0 8px;}
 
-        .product-img {
-            position: relative;
-            overflow: hidden;
-            background: #f9f9f9;
-        }
-        .product-img a { display: block; }
-        .product-img img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            display: block;
-        }
-        .product-item:hover .product-img img { transform: scale(1.04); }
+        /* ══ GRID CARD ══════════════════════════════ */
+        .sc{background:#fff;border-radius:14px;overflow:hidden;border:1px solid #eef0f4;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:box-shadow .25s,transform .25s;height:100%;display:flex;flex-direction:column;}
+        .sc:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.1);}
+        .sc-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:#f5f5f5;}
+        .sc-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s;display:block;}
+        .sc:hover .sc-img img{transform:scale(1.06);}
+        .sc-badges{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:4px;z-index:2;}
+        .sc-b{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;}
+        .sc-b-new{background:#00225a;color:#fff;}
+        .sc-b-hot{background:#ff5e13;color:#fff;}
+        .sc-b-sold{background:#888;color:#fff;}
+        .sc-b-res{background:#e8a000;color:#fff;}
+        .sc-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:7px;flex:1;}
+        .sc-cat{font-size:10px;font-weight:700;color:#ff5e13;text-transform:uppercase;letter-spacing:.06em;}
+        .sc-name{font-size:14px;font-weight:700;color:#00225a;line-height:1.4;margin:0;}
+        .sc-name a{color:inherit;text-decoration:none;}
+        .sc-name a:hover{color:#ff5e13;}
+        .sc-dims{display:flex;gap:5px;flex-wrap:wrap;}
+        .sc-dim{display:inline-flex;align-items:center;gap:3px;background:#f4f6fa;border:0.5px solid #e8eaf0;padding:3px 8px;border-radius:20px;font-size:11px;}
+        .sc-dim-k{color:#888;}
+        .sc-dim-v{color:#00225a;font-weight:700;}
+        .sc-divider{height:0.5px;background:#eef0f4;margin:1px 0;}
+        .sc-prices{display:flex;flex-direction:column;gap:2px;margin-top:auto;}
+        .sc-price-usd{font-size:20px;font-weight:800;color:#00225a;line-height:1.1;}
+        .sc-price-sub{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+        .sc-price-eur{font-size:12px;font-weight:600;color:#1a6b3c;}
+        .sc-price-rial{font-size:11px;color:#999;}
+        .sc-price-req{font-size:13px;color:#888;font-style:italic;}
+        .sc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;gap:8px;}
+        .sc-status{font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px;}
+        .sc-status::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7;}
+        .sc-status-av{color:#1a7a45;}
+        .sc-status-un{color:#cc3333;}
+        .sc-status-re{color:#c47c00;}
+        .sc-status-so{color:#888;}
+        .sc-actions{display:flex;gap:5px;}
+        .sc-btn{font-size:11px;font-weight:700;padding:6px 11px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;transition:opacity .15s;white-space:nowrap;}
+        .sc-btn:hover{opacity:.85;}
+        .sc-btn-primary{background:#ff5e13;color:#fff;}
+        .sc-btn-ink{background:#f4f6fa;border:0.5px solid #dde0e8;color:#00225a;}
 
-        /* ── Add action overlay ─────────────────────── */
-        .product-img .add-action {
-            position: absolute !important;
-            bottom: -80px !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            transform: none !important;
-            -webkit-transform: none !important;
-            background: rgba(0,34,90,0.92);
-            padding: 10px;
-            display: flex !important;
-            align-items: stretch;
-            flex-direction: row;
-            gap: 6px;
-            transition: bottom 0.3s ease;
-            z-index: 3;
-            box-sizing: border-box;
-        }
-        .product-item:hover .product-img .add-action { bottom: 0 !important; }
+        /* ══ LIST CARD ══════════════════════════════ */
+        .pl{background:#fff;border:1px solid #eef0f4;border-radius:14px;overflow:hidden;display:flex;box-shadow:0 2px 10px rgba(0,0,0,.05);transition:box-shadow .25s;}
+        .pl:hover{box-shadow:0 6px 24px rgba(0,0,0,.09);}
+        .pl-img{width:200px;flex-shrink:0;position:relative;overflow:hidden;}
+        .pl-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+        .pl:hover .pl-img img{transform:scale(1.04);}
+        .pl-body{flex:1;padding:16px 18px;display:flex;gap:14px;}
+        .pl-info{flex:1;display:flex;flex-direction:column;gap:6px;}
+        .pl-name{font-size:16px;font-weight:700;color:#00225a;line-height:1.4;margin:0;}
+        .pl-name a{color:inherit;text-decoration:none;}
+        .pl-name a:hover{color:#ff5e13;}
+        .pl-desc{font-size:12px;color:#666;line-height:1.7;margin:0;}
+        .pl-right{width:170px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:10px;border-inline-start:1px solid #eef0f4;padding-inline-start:14px;}
+        .pl-price-usd{font-size:22px;font-weight:800;color:#00225a;line-height:1.1;}
+        .pl-price-sub{font-size:11px;color:#999;margin-top:1px;}
+        .pl-btns{display:flex;flex-direction:column;gap:6px;}
+        .pl-btn{font-size:12px;font-weight:700;padding:8px 10px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;text-align:center;transition:opacity .15s;display:block;}
+        .pl-btn:hover{opacity:.85;}
+        .pl-btn-primary{background:#ff5e13;color:#fff;}
+        .pl-btn-ghost{background:#f4f6fa;border:0.5px solid #dde0e8;color:#00225a;}
 
-        .product-img .add-action .btn-inquiry,
-        .product-img .add-action .btn-detail {
-            flex: 1 1 0 !important;
-            display: block !important;
-            text-align: center;
-            padding: 8px 6px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            white-space: nowrap;
-            line-height: 1.4;
-        }
-        .product-img .add-action .btn-inquiry {
-            background: #ff5e13;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        .product-img .add-action .btn-inquiry:hover { background: #e04d00; color: #fff; }
-        .product-img .add-action .btn-detail {
-            background: rgba(255,255,255,0.15);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.4);
-        }
-        .product-img .add-action .btn-detail:hover { background: rgba(255,255,255,0.25); color: #fff; }
+        .product-col-list{display:none;}
 
-        /* ── Badges ─────────────────────────────────── */
-        .product-badges {
-            position: absolute;
-            top: 10px;
-            inset-inline-start: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            z-index: 2;
-        }
-        .product-badge {
-            display: inline-block;
-            padding: 3px 8px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-        .badge-new      { background: #00225a; color: #fff; }
-        .badge-featured { background: #ff5e13; color: #fff; }
-        .badge-sold     { background: #888;    color: #fff; }
-        .badge-reserved { background: #e8a000; color: #fff; }
-
-        /* ── Product content ────────────────────────── */
-        .product-content { padding: 14px 4px 8px; }
-        .product-content .category-label {
-            font-size: 12px; color: #ff5e13;
-            font-weight: 500; display: block; margin-bottom: 4px;
-        }
-        .product-content .title {
-            font-size: 17px; font-weight: 600;
-            margin-bottom: 6px; line-height: 1.3;
-        }
-        .product-content .title a { color: #00225a; }
-        .product-content .title a:hover { color: #ff5e13; }
-        .product-content .price-box { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .product-content .new-price { color: #ff5e13; font-size: 18px; font-weight: 700; }
-        .product-content .price-on-request { font-size: 13px; color: #888; font-style: italic; }
-        .product-content .status-label { font-size: 12px; font-weight: 600; margin-top: 4px; display: block; }
-        .status-available   { color: #2d8a4e; }
-        .status-unavailable { color: #cc3333; }
-        .status-reserved    { color: #e8a000; }
-        .status-sold        { color: #888;    }
-
-        /* ── List View ──────────────────────────────── */
-        .product-col-list { display: none; }
-        .product-card-list {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            border: 1px solid #eee;
-            margin-bottom: 16px;
-            transition: box-shadow 0.3s;
-        }
-        .product-card-list:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-        .product-card-list .list-img { width: 200px; flex-shrink: 0; }
-        .product-card-list .list-img img { width: 100%; height: 180px; object-fit: cover; display: block; }
-        .product-card-list .list-body { flex: 1; padding: 4px 0; }
-        .product-card-list .list-body .desc { font-size: 14px; color: #666; margin: 8px 0 12px; line-height: 1.6; }
-        .product-card-list .list-body .list-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-
-        /* ── Sidebar misc ───────────────────────────── */
-        .active-filter-tag {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: #00225a; color: #fff;
-            padding: 4px 10px; font-size: 12px; margin-bottom: 6px;
-        }
-        .active-filter-tag a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px; }
-        .sidebar-cta { background: #00225a; padding: 24px 20px; text-align: center; }
-        .sidebar-cta i { font-size: 30px; color: #ff5e13; display: block; margin-bottom: 10px; }
-        .sidebar-cta h4 { color: #fff; font-size: 15px; margin-bottom: 8px; }
-        .sidebar-cta a.phone-link {
-            color: #ff5e13; font-size: 17px; font-weight: 700;
-            display: block; margin-bottom: 14px; text-decoration: none;
-        }
-
-        /* ── Category collapsible tree ──────────────── */
-        .category-tree { list-style: none; padding: 0; margin: 0; }
-        .category-tree > li { border-bottom: 1px solid #f0f0f0; }
-        .category-tree > li:last-child { border-bottom: none; }
-        .cat-row { display: flex; align-items: center; justify-content: space-between; }
-        .cat-toggle {
-            background: none; border: 1px solid #dee2e6;
-            width: 24px; height: 24px; font-size: 16px; line-height: 1;
-            cursor: pointer; color: #666; flex-shrink: 0;
-            margin-inline-start: 6px; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center;
-        }
-        /* LTR: toggle after link (right side) — default */
-        /* RTL: toggle before link (right side) */
-        [dir="rtl"] .cat-toggle { order: -1; margin-inline-start: 0; margin-inline-end: 6px; }
-        flex: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
-        font-size: 15px;
-        color: #444;
-        text-decoration: none;
-        transition: color 0.2s;
-        }
-        .cat-row > a:hover,
-        .cat-row > a.active { color: #ff5e13; font-weight: 600; }
-        .cat-row > a span {
-            background: #f0f0f0; color: #666;
-            border-radius: 20px; padding: 1px 8px;
-            font-size: 12px; min-width: 28px; text-align: center;
-            font-weight: 400; margin-inline-start: 6px; flex-shrink: 0;
-        }
-        .cat-row > a.active span { background: #ff5e13; color: #fff; }
-        .cat-toggle {
-            background: none; border: 1px solid #dee2e6;
-            width: 24px; height: 24px; font-size: 16px; line-height: 1;
-            cursor: pointer; color: #666; flex-shrink: 0;
-            margin-inline-start: 6px; transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center;
-            order: -1;
-        }
-        .cat-toggle.open { background: #ff5e13; border-color: #ff5e13; color: #fff; }
-        .cat-children {
-            list-style: none; padding: 0 0 6px 16px; margin: 0; display: none;
-        }
-        .cat-children.show { display: block; }
-        [dir="rtl"] .cat-children { padding: 0 16px 6px 0; }
-        .cat-children li a {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 7px 0; font-size: 13px; color: #555;
-            text-decoration: none; transition: color 0.2s;
-        }
-        .cat-children li a:hover,
-        .cat-children li a.active { color: #ff5e13; font-weight: 600; }
-        .cat-children li a span {
-            background: #f0f0f0; color: #666; border-radius: 20px;
-            padding: 1px 6px; font-size: 11px; min-width: 22px;
-            text-align: center; margin-inline-start: 6px; flex-shrink: 0;
-        }
-        .cat-children li a.active span { background: #ff5e13; color: #fff; }
-
-        /* ── No results ─────────────────────────────── */
-        .no-products-found { text-align: center; padding: 60px 20px; color: #888; }
-        .no-products-found i { font-size: 48px; color: #dee2e6; display: block; margin-bottom: 16px; }
-        .no-products-found h4 { color: #555; margin-bottom: 8px; }
-
-        /* ── RTL ────────────────────────────────────── */
-        [dir="rtl"] .shop-toolbar       { flex-direction: row-reverse; }
-        [dir="rtl"] .shop-toolbar-right { flex-direction: row-reverse; }
-        [dir="rtl"] .product-card-list  { flex-direction: row-reverse; }
-        [dir="rtl"] .sidebar-form .searchbox-input { padding-right: 20px; padding-left: 55px; text-align: right; }
-        [dir="rtl"] .sidebar-form .searchbox-btn   { right: auto; left: 10px; }
-
-        /* ── Breadcrumb ─────────────────────────────── */
-        .breadcrumb-area .breadcrumb-content .breadcrumb {
-            background: none; padding: 0; margin: 10px 0 0;
-            display: flex; align-items: center; justify-content: center;
-            flex-wrap: wrap; gap: 0; list-style: none;
-            direction: ltr;
-        }
-        .breadcrumb-area .breadcrumb-item a { color: rgba(255,255,255,0.7); }
-        .breadcrumb-area .breadcrumb-item.active { color: #ff5e13; }
-        .breadcrumb-area .breadcrumb-item + .breadcrumb-item::before {
-            content: '/'; color: rgba(255,255,255,0.4); padding: 0 8px;
+        [dir="rtl"] .pl{flex-direction:row-reverse;}
+        [dir="rtl"] .pl-body{flex-direction:row-reverse;}
+        @media(max-width:768px){
+            .pl{flex-direction:column;}
+            .pl-img{width:100%;height:200px;}
+            .pl-body{flex-direction:column;}
+            .pl-right{width:100%;border-inline-start:none;border-top:1px solid #eef0f4;padding-inline-start:0;padding-top:12px;}
         }
     </style>
 @endpush
@@ -460,111 +315,116 @@
                     @if($products->count())
                         <div class="product-wrap row" id="products-container">
                             @foreach($products as $product)
+                            @php
+                                $cardAttrs = $product->attributes
+                                    ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
+                                    ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
+                                $locale = app()->getLocale();
+                            @endphp
 
-                                {{-- Grid card --}}
+                                {{-- ══ GRID CARD ══ --}}
                                 <div class="col-md-4 col-sm-6 mb-8 product-col">
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
+                                    <div class="sc">
+                                        <div class="sc-img">
+                                            <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
                                                 <img src="{{ $product->medium_image_url ?? asset('assets/images/product/placeholder.jpg') }}"
-                                                     alt="{{ $product->getTranslation('name', app()->getLocale()) }}">
+                                                     alt="{{ $product->getTranslation('name', $locale) }}" loading="lazy">
                                             </a>
-                                            <div class="product-badges">
-                                                @if($product->is_new)
-                                                    <span class="product-badge badge-new">{{ __('messages.new') }}</span>
-                                                @endif
-                                                @if($product->is_featured)
-                                                    <span class="product-badge badge-featured">{{ __('messages.featured') }}</span>
-                                                @endif
-                                                @if($product->status === 'sold')
-                                                    <span class="product-badge badge-sold">{{ __('messages.product_sold') }}</span>
-                                                @endif
-                                                @if($product->status === 'reserved')
-                                                    <span class="product-badge badge-reserved">{{ __('messages.product_reserved') }}</span>
-                                                @endif
-                                            </div>
-                                            <div class="add-action">
-                                                <a class="btn-inquiry"
-                                                   href="{{ route('contact') }}?product={{ $product->sku }}">
-                                                    {{ __('messages.inquiry') }}
-                                                </a>
-                                                <a class="btn-detail"
-                                                   href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
-                                                    {{ __('messages.view_details') }}
-                                                </a>
+                                            <div class="sc-badges">
+                                                @if($product->is_new)<span class="sc-b sc-b-new">{{ __('messages.new') }}</span>@endif
+                                                @if($product->is_featured)<span class="sc-b sc-b-hot">{{ __('messages.featured') }}</span>@endif
+                                                @if($product->status === 'sold')<span class="sc-b sc-b-sold">{{ __('messages.product_sold') }}</span>@endif
+                                                @if($product->status === 'reserved')<span class="sc-b sc-b-res">{{ __('messages.product_reserved') }}</span>@endif
                                             </div>
                                         </div>
-                                        <div class="product-content">
+                                        <div class="sc-body">
                                             @if($product->primaryCategory())
-                                                <span class="category-label">
-                                                    {{ $product->primaryCategory()->getTranslation('name', app()->getLocale()) }}
-                                                </span>
+                                                <span class="sc-cat">{{ $product->primaryCategory()->getTranslation('name', $locale) }}</span>
                                             @endif
-                                            <h2 class="title">
-                                                <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
-                                                    {{ $product->getTranslation('name', app()->getLocale()) }}
-                                                </a>
+                                            <h2 class="sc-name">
+                                                <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                             </h2>
-                                            <div class="price-box">
+                                            @if($cardAttrs->isNotEmpty())
+                                                <div class="sc-dims">
+                                                    @foreach($cardAttrs as $pa)
+                                                        <span class="sc-dim">
+                                                            <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
+                                                            <span class="sc-dim-v">{{ $pa->display_value }}</span>
+                                                        </span>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                            <div class="sc-divider"></div>
+                                            <div class="sc-prices">
                                                 @if($product->price_on_request)
-                                                    <span class="price-on-request">{{ __('messages.price_on_request') }}</span>
-                                                @elseif($product->price_usd)
-                                                    <span class="new-price">${{ number_format($product->price_usd) }}</span>
-                                                @elseif($product->price)
-                                                    <span class="new-price">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</span>
+                                                    <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
+                                                @else
+                                                    @if($product->price_usd)<span class="sc-price-usd">${{ number_format($product->price_usd) }}</span>@endif
+                                                    <div class="sc-price-sub">
+                                                        @if($product->price_eur)<span class="sc-price-eur">€{{ number_format($product->price_eur) }}</span>@endif
+                                                        @if($product->price)<span class="sc-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</span>@endif
+                                                    </div>
                                                 @endif
                                             </div>
-                                            <span class="status-label status-{{ $product->status }}">
-                                                {{ $product->status_label }}
-                                            </span>
+                                            <div class="sc-foot">
+                                                <span class="sc-status sc-status-{{ $product->status === 'available' ? 'av' : ($product->status === 'sold' ? 'so' : ($product->status === 'reserved' ? 're' : 'un')) }}">{{ $product->status_label }}</span>
+                                                <div class="sc-actions">
+                                                    <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}" class="sc-btn sc-btn-ink">{{ __('messages.view_details') }}</a>
+                                                    <a href="{{ route('contact') }}?product={{ $product->sku }}" class="sc-btn sc-btn-primary">{{ __('messages.inquiry') }}</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                {{-- List card --}}
-                                <div class="col-12 mb-4 product-col-list">
-                                    <div class="product-card-list">
-                                        <div class="list-img">
-                                            <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}">
+                                {{-- ══ LIST CARD ══ --}}
+                                <div class="col-12 mb-5 product-col-list">
+                                    <div class="pl">
+                                        <div class="pl-img">
+                                            <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
                                                 <img src="{{ $product->medium_image_url ?? asset('assets/images/product/placeholder.jpg') }}"
-                                                     alt="{{ $product->getTranslation('name', app()->getLocale()) }}">
+                                                     alt="{{ $product->getTranslation('name', $locale) }}" loading="lazy">
                                             </a>
                                         </div>
-                                        <div class="list-body">
-                                            @if($product->primaryCategory())
-                                                <span class="category-label">
-                                                    {{ $product->primaryCategory()->getTranslation('name', app()->getLocale()) }}
-                                                </span>
-                                            @endif
-                                            <h3 class="title" style="font-size:20px">
-                                                <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}" style="color:#00225a">
-                                                    {{ $product->getTranslation('name', app()->getLocale()) }}
-                                                </a>
-                                            </h3>
-                                            @if($product->getTranslation('short_description', app()->getLocale()))
-                                                <p class="desc">
-                                                    {{ Str::limit($product->getTranslation('short_description', app()->getLocale()), 150) }}
-                                                </p>
-                                            @endif
-                                            <div class="price-box mb-2">
-                                                @if($product->price_on_request)
-                                                    <span class="price-on-request">{{ __('messages.price_on_request') }}</span>
-                                                @elseif($product->price_usd)
-                                                    <span class="new-price">${{ number_format($product->price_usd) }}</span>
+                                        <div class="pl-body">
+                                            <div class="pl-info">
+                                                @if($product->primaryCategory())
+                                                    <span class="sc-cat">{{ $product->primaryCategory()->getTranslation('name', $locale) }}</span>
+                                                @endif
+                                                <h3 class="pl-name">
+                                                    <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
+                                                </h3>
+                                                @if($product->getTranslation('short_description', $locale))
+                                                    <p class="pl-desc">{{ Str::limit($product->getTranslation('short_description', $locale), 160) }}</p>
+                                                @endif
+                                                @if($cardAttrs->isNotEmpty())
+                                                    <div class="sc-dims" style="margin-top:4px;">
+                                                        @foreach($cardAttrs as $pa)
+                                                            <span class="sc-dim">
+                                                                <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
+                                                                <span class="sc-dim-v">{{ $pa->display_value }}</span>
+                                                            </span>
+                                                        @endforeach
+                                                    </div>
                                                 @endif
                                             </div>
-                                            <span class="status-label status-{{ $product->status }} d-block mb-2">
-                                                {{ $product->status_label }}
-                                            </span>
-                                            <div class="list-actions">
-                                                <a href="{{ route('products.show', $product->getTranslation('slug', app()->getLocale())) }}"
-                                                   class="btn btn-custom md-size btn-primary btn-secondary-hover">
-                                                    {{ __('messages.view_details') }}
-                                                </a>
-                                                <a href="{{ route('contact') }}?product={{ $product->sku }}"
-                                                   class="btn btn-custom md-size btn-secondary btn-primary-hover">
-                                                    {{ __('messages.inquiry') }}
-                                                </a>
+                                            <div class="pl-right">
+                                                <div>
+                                                    @if($product->price_on_request)
+                                                        <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
+                                                    @else
+                                                        @if($product->price_usd)<div class="pl-price-usd">${{ number_format($product->price_usd) }}</div>@endif
+                                                        <div class="pl-price-sub">
+                                                            @if($product->price_eur)€{{ number_format($product->price_eur) }} · @endif
+                                                            @if($product->price){{ number_format($product->price) }} {{ __('messages.currency_rial') }}@endif
+                                                        </div>
+                                                    @endif
+                                                    <span class="sc-status sc-status-{{ $product->status === 'available' ? 'av' : ($product->status === 'sold' ? 'so' : ($product->status === 'reserved' ? 're' : 'un')) }}" style="margin-top:6px;display:inline-flex;">{{ $product->status_label }}</span>
+                                                </div>
+                                                <div class="pl-btns">
+                                                    <a href="{{ route('contact') }}?product={{ $product->sku }}" class="pl-btn pl-btn-primary">{{ __('messages.inquiry') }}</a>
+                                                    <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}" class="pl-btn pl-btn-ghost">{{ __('messages.view_details') }}</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -633,7 +493,7 @@
 
         btnList?.addEventListener('click', () => {
             gridCols.forEach(el => el.style.display = 'none');
-            listCols.forEach(el => el.style.display = '');
+            listCols.forEach(el => el.style.display = 'block');
             btnList.classList.add('active');
             btnGrid.classList.remove('active');
         });

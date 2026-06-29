@@ -15,7 +15,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::active()
-            ->with(['media', 'categories', 'attributes'])
+            ->with(['media', 'categories', 'attributes', 'attributes.attribute'])
             ->ordered();
 
         // Status filter
@@ -76,7 +76,7 @@ class ProductController extends Controller
             ->firstOrFail();
 
         $query = Product::active()
-            ->with(['media', 'categories', 'attributes'])
+            ->with(['media', 'categories', 'attributes', 'attributes.attribute'])
             ->whereHas('categories', function ($q) use ($category) {
                 $ids = $category->descendants()->pluck('id')->push($category->id);
                 $q->whereIn('categories.id', $ids);

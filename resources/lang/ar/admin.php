@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-23 12:32:14
+// Generated at: 2026-06-29 12:30:56
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -231,6 +231,8 @@ return [
     'settings_username' => 'Username',
     'settings_working_hours' => 'Working Hours',
     'shipped' => 'تم الشحن',
+    'show_in_card' => 'عرض في بطاقة المنتج',
+    'show_in_card_hint' => 'الخصائص المعروضة في بطاقات القائمة',
     'show_in_product_page' => 'عرض في صفحة المنتج',
     'site_info' => 'معلومات الموقع',
     'site_name_en' => 'اسم الموقع (EN)',

@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-23 12:32:14
+// Generated at: 2026-06-29 12:30:56
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -231,6 +231,8 @@ return [
     'settings_username' => 'Username',
     'settings_working_hours' => 'Working Hours',
     'shipped' => 'Shipped',
+    'show_in_card' => 'Show in Product Card',
+    'show_in_card_hint' => 'Attributes shown on product listing cards',
     'show_in_product_page' => 'Show on Product Page',
     'site_info' => 'Site Info',
     'site_name_en' => 'Site Name (EN)',

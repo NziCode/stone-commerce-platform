@@ -187,6 +187,11 @@ class AttributeResource extends Resource
                         ->label(__('admin.show_in_product_page'))
                         ->default(true),
 
+                    Forms\Components\Toggle::make('show_in_card')
+                        ->label(__('admin.show_in_card'))
+                        ->helperText(__('admin.show_in_card_hint'))
+                        ->default(false),
+
                     Forms\Components\Toggle::make('is_active')
                         ->label(__('admin.is_active'))
                         ->default(true),
@@ -415,6 +420,9 @@ class AttributeResource extends Resource
                     ->label(__('admin.is_filterable'))
                     ->boolean(),
 
+                Tables\Columns\ToggleColumn::make('show_in_card')
+                    ->label(__('admin.show_in_card')),
+
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label(__('admin.is_active')),
 
@@ -431,6 +439,9 @@ class AttributeResource extends Resource
 
                 Tables\Filters\TernaryFilter::make('show_in_product_page')
                     ->label(__('admin.show_in_product_page')),
+
+                Tables\Filters\TernaryFilter::make('show_in_card')
+                    ->label(__('admin.show_in_card')),
 
                 Tables\Filters\SelectFilter::make('type')
                     ->label(__('admin.type'))

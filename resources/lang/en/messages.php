@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/messages
-// Generated at: 2026-06-23 12:32:14
+// Generated at: 2026-06-29 12:30:56
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [

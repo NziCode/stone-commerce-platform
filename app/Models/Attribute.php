@@ -14,7 +14,7 @@ class Attribute extends Model
     protected $fillable = [
         'key', 'label', 'group', 'type', 'options', 'unit',
         'min_value', 'max_value', 'step_value', 'default_value',
-        'is_filterable', 'show_in_product_page', 'is_active', 'sort_order',
+        'is_filterable', 'show_in_product_page', 'show_in_card', 'is_active', 'sort_order',
     ];
 
     // options is NOT translatable -> stored as plain array of {key, label:{locale:...}}
@@ -27,6 +27,7 @@ class Attribute extends Model
         'step_value'           => 'decimal:4',
         'is_filterable'        => 'boolean',
         'show_in_product_page' => 'boolean',
+        'show_in_card'         => 'boolean',
         'is_active'            => 'boolean',
         'sort_order'           => 'integer',
     ];
@@ -51,6 +52,11 @@ class Attribute extends Model
     public function scopeOrdered($q)
     {
         return $q->orderBy('sort_order');
+    }
+
+    public function scopeShowInCard($q)
+    {
+        return $q->where('show_in_card', true);
     }
 
     public function scopeSearch($q, string $term)
