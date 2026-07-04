@@ -213,6 +213,11 @@
                     <div class="swiper-container project-slider" style="position:relative;z-index:1">
                         <div class="swiper-wrapper">
                             @foreach($featuredProducts as $product)
+                                @php
+                                    $cardAttributes = $product->attributes
+                                        ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
+                                        ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
+                                @endphp
                                 <div class="swiper-slide" style="width:280px">
                                     <div class="mt-pcard" style="background:#fff">
                                         <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
@@ -224,6 +229,38 @@
                                             <h3 class="mt-pcard-title">
                                                 <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                             </h3>
+                                            @if($cardAttributes->isNotEmpty())
+                                                <ul class="mt-pcard-attrs">
+                                                    @foreach($cardAttributes as $pa)
+                                                        <li>
+                                                            <span class="mt-pcard-attr-label">
+                                                                {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
+                                                            </span>
+                                                            <span class="mt-pcard-attr-value">{{ $pa->display_value }}</span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                            <div class="mt-pcard-foot">
+                                                <span class="mt-price">
+                                                    @if($product->price_on_request)
+                                                        <small>{{ __('messages.price') }}</small>{{ __('messages.price_on_request') }}
+                                                    @elseif($product->price)
+                                                        {{ number_format($product->price) }} {{ __('messages.currency_rial') }}
+                                                        @if($product->price_usd)
+                                                            <small>${{ number_format($product->price_usd, 0) }}</small>
+                                                        @endif
+                                                    @endif
+                                                </span>
+                                                @if($product->isAvailable())
+                                                    <form action="{{ route('cart.add', $product) }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="mt-pcard-add">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -253,6 +290,11 @@
                 <div class="swiper-container service-slider">
                     <div class="swiper-wrapper">
                         @foreach($latestProducts as $product)
+                            @php
+                                $cardAttributes = $product->attributes
+                                    ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
+                                    ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
+                            @endphp
                             <div class="swiper-slide" style="width:280px">
                                 <div class="mt-pcard">
                                     <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
@@ -264,12 +306,27 @@
                                         <h3 class="mt-pcard-title">
                                             <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                         </h3>
+                                        @if($cardAttributes->isNotEmpty())
+                                            <ul class="mt-pcard-attrs">
+                                                @foreach($cardAttributes as $pa)
+                                                    <li>
+                                                        <span class="mt-pcard-attr-label">
+                                                            {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
+                                                        </span>
+                                                        <span class="mt-pcard-attr-value">{{ $pa->display_value }}</span>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                         <div class="mt-pcard-foot">
                                             <span class="mt-price">
                                                 @if($product->price_on_request)
                                                     <small>{{ __('messages.price') }}</small>{{ __('messages.price_on_request') }}
                                                 @elseif($product->price)
-                                                    {{ number_format($product->price) }}
+                                                    {{ number_format($product->price) }} {{ __('messages.currency_rial') }}
+                                                    @if($product->price_usd)
+                                                        <small>${{ number_format($product->price_usd, 0) }}</small>
+                                                    @endif
                                                 @endif
                                             </span>
                                             @if($product->isAvailable())
