@@ -70,7 +70,7 @@
                     @if($product->price_on_request)
                         <small>{{ __('messages.price') }}</small>{{ __('messages.price_on_request') }}
                     @elseif($product->price)
-                        {{ number_format($product->price) }}
+                        {{ number_format($product->price) }} {{ __('messages.currency_rial') }}
                         @if($product->price_usd)
                             <small>${{ number_format($product->price_usd, 0) }}</small>
                         @endif

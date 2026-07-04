@@ -72,10 +72,10 @@
         .sc-dim-v{color:#00225a;font-weight:700;}
         .sc-divider{height:0.5px;background:#eef0f4;margin:1px 0;}
         .sc-prices{display:flex;flex-direction:column;gap:2px;margin-top:auto;}
-        .sc-price-usd{font-size:20px;font-weight:800;color:#00225a;line-height:1.1;}
+        .sc-price-rial{font-size:20px;font-weight:800;color:#00225a;line-height:1.1;}
         .sc-price-sub{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
         .sc-price-eur{font-size:12px;font-weight:600;color:#1a6b3c;}
-        .sc-price-rial{font-size:11px;color:#999;}
+        .sc-price-usd{font-size:11px;color:#999;}
         .sc-price-req{font-size:13px;color:#888;font-style:italic;}
         .sc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;gap:8px;}
         .sc-status{font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px;}
@@ -103,7 +103,7 @@
         .pl-name a:hover{color:#ff5e13;}
         .pl-desc{font-size:12px;color:#666;line-height:1.7;margin:0;}
         .pl-right{width:170px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:10px;border-inline-start:1px solid #eef0f4;padding-inline-start:14px;}
-        .pl-price-usd{font-size:22px;font-weight:800;color:#00225a;line-height:1.1;}
+        .pl-price-rial{font-size:22px;font-weight:800;color:#00225a;line-height:1.1;}
         .pl-price-sub{font-size:11px;color:#999;margin-top:1px;}
         .pl-btns{display:flex;flex-direction:column;gap:6px;}
         .pl-btn{font-size:12px;font-weight:700;padding:8px 10px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;text-align:center;transition:opacity .15s;display:block;}
@@ -359,10 +359,10 @@
                                                 @if($product->price_on_request)
                                                     <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
                                                 @else
-                                                    @if($product->price_usd)<span class="sc-price-usd">${{ number_format($product->price_usd) }}</span>@endif
+                                                    @if($product->price)<span class="sc-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</span>@endif
                                                     <div class="sc-price-sub">
+                                                        @if($product->price_usd)<span class="sc-price-usd">${{ number_format($product->price_usd) }}</span>@endif
                                                         @if($product->price_eur)<span class="sc-price-eur">€{{ number_format($product->price_eur) }}</span>@endif
-                                                        @if($product->price)<span class="sc-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</span>@endif
                                                     </div>
                                                 @endif
                                             </div>
@@ -413,10 +413,10 @@
                                                     @if($product->price_on_request)
                                                         <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
                                                     @else
-                                                        @if($product->price_usd)<div class="pl-price-usd">${{ number_format($product->price_usd) }}</div>@endif
+                                                        @if($product->price)<div class="pl-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</div>@endif
                                                         <div class="pl-price-sub">
-                                                            @if($product->price_eur)€{{ number_format($product->price_eur) }} · @endif
-                                                            @if($product->price){{ number_format($product->price) }} {{ __('messages.currency_rial') }}@endif
+                                                            @if($product->price_usd)${{ number_format($product->price_usd) }}@endif
+                                                            @if($product->price_eur) · €{{ number_format($product->price_eur) }}@endif
                                                         </div>
                                                     @endif
                                                     <span class="sc-status sc-status-{{ $product->status === 'available' ? 'av' : ($product->status === 'sold' ? 'so' : ($product->status === 'reserved' ? 're' : 'un')) }}" style="margin-top:6px;display:inline-flex;">{{ $product->status_label }}</span>

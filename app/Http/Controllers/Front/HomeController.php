@@ -32,14 +32,14 @@ class HomeController extends Controller
         $featuredProducts = Product::active()
             ->available()
             ->featured()
-            ->with(['media', 'categories'])
+            ->with(['media', 'categories', 'attributes', 'attributes.attribute'])
             ->ordered()
             ->limit(8)
             ->get();
 
         $latestProducts = Product::active()
             ->available()
-            ->with(['media', 'categories'])
+            ->with(['media', 'categories', 'attributes', 'attributes.attribute'])
             ->latest()
             ->limit(8)
             ->get();
