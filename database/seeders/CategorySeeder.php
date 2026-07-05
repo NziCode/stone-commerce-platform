@@ -22,6 +22,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'ट्रैवर्टाइन',
                     'it' => 'Travertino',
                     'ar' => 'التراڤرتين',
+                    'zh' => '洞石',
+                    'tr' => 'Traverten',
                 ],
                 'slug' => [
                     'fa' => 'travertan',
@@ -29,6 +31,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'travertine',
                     'it' => 'travertino',
                     'ar' => 'travertine',
+                    'zh' => 'travertine',
+                    'tr' => 'travertine',
                 ],
                 'description' => [
                     'fa' => 'تراورتن یکی از پرکاربردترین سنگ‌های ساختمانی ایران است که از معادن مختلف کشور استخراج می‌شود.',
@@ -36,6 +40,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'Il travertino è una delle pietre da costruzione più utilizzate in Iran.',
                     'ar' => 'التراڤرتين هو أحد أكثر أحجار البناء استخداماً في إيران.',
+                    'zh' => '洞石是伊朗使用最广泛的建筑石材之一,产自全国各地的多个矿区。',
+                    'tr' => "Traverten, ülkenin çeşitli ocaklarından çıkarılan, İran'da en yaygın kullanılan yapı taşlarından biridir.",
                 ],
                 'sort_order' => 1,
                 'children' => [
@@ -57,6 +63,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'संगमरमर',
                     'it' => 'Marmo',
                     'ar' => 'الرخام',
+                    'zh' => '大理石',
+                    'tr' => 'Mermer',
                 ],
                 'slug' => [
                     'fa' => 'marmorit',
@@ -64,6 +72,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'marble',
                     'it' => 'marmo',
                     'ar' => 'marble',
+                    'zh' => 'marble',
+                    'tr' => 'marble',
                 ],
                 'description' => [
                     'fa' => 'مرمریت سنگی با زیبایی بی‌نظیر برای کاربردهای لوکس در ساختمان‌سازی.',
@@ -71,6 +81,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'Il marmo è una pietra di bellezza senza pari per applicazioni di lusso.',
                     'ar' => 'الرخام حجر ذو جمال لا مثيل له للتطبيقات الفاخرة.',
+                    'zh' => '大理石以其无与伦比的美感,广泛用于高端建筑装饰。',
+                    'tr' => 'Mermer, inşaatta lüks uygulamalar için eşsiz güzellikte bir taştır.',
                 ],
                 'sort_order' => 2,
                 'children' => [
@@ -90,6 +102,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'ग्रेनाइट',
                     'it' => 'Granito',
                     'ar' => 'الجرانيت',
+                    'zh' => '花岗岩',
+                    'tr' => 'Granit',
                 ],
                 'slug' => [
                     'fa' => 'granite',
@@ -97,6 +111,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'granite',
                     'it' => 'granito',
                     'ar' => 'granite',
+                    'zh' => 'granite',
+                    'tr' => 'granite',
                 ],
                 'description' => [
                     'fa' => 'گرانیت سخت‌ترین سنگ ساختمانی با مقاومت بالا در برابر سایش و رطوبت.',
@@ -104,6 +120,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'Il granito è la pietra da costruzione più dura con alta resistenza.',
                     'ar' => 'الجرانيت هو أصلب حجر بناء مع مقاومة عالية.',
+                    'zh' => '花岗岩是最坚硬的建筑石材,具有极高的耐磨性和防潮性。',
+                    'tr' => 'Granit, aşınmaya ve neme karşı yüksek dirence sahip en sert yapı taşıdır.',
                 ],
                 'sort_order' => 3,
                 'children' => [
@@ -122,6 +140,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'पुरातन पत्थर',
                     'it' => 'Pietra Antica',
                     'ar' => 'الحجر الأنتيك',
+                    'zh' => '复古石材',
+                    'tr' => 'Antik Taş',
                 ],
                 'slug' => [
                     'fa' => 'sang-antique',
@@ -129,6 +149,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'antique-stone',
                     'it' => 'pietra-antica',
                     'ar' => 'antique-stone',
+                    'zh' => 'antique-stone',
+                    'tr' => 'antique-stone',
                 ],
                 'description' => [
                     'fa' => 'سنگ‌های آنتیک با بافت و ظاهر قدیمی، مناسب برای طراحی‌های کلاسیک و روستیک.',
@@ -136,6 +158,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'Pietre antiche con texture invecchiata, adatte per design classici e rustici.',
                     'ar' => 'الأحجار الأنتيكية ذات الملمس القديم، مناسبة للتصاميم الكلاسيكية.',
+                    'zh' => '复古石材具有做旧的质感与外观,适用于古典与乡村风格的设计。',
+                    'tr' => 'Eskitilmiş doku ve görünüme sahip antik taşlar, klasik ve rustik tasarımlar için idealdir.',
                 ],
                 'sort_order' => 4,
                 'children' => [
@@ -153,6 +177,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'चूना पत्थर',
                     'it' => 'Calcare',
                     'ar' => 'الحجر الجيري',
+                    'zh' => '石灰石',
+                    'tr' => 'Kireçtaşı',
                 ],
                 'slug' => [
                     'fa' => 'sang-ahak',
@@ -160,6 +186,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'limestone',
                     'it' => 'calcare',
                     'ar' => 'limestone',
+                    'zh' => 'limestone',
+                    'tr' => 'limestone',
                 ],
                 'description' => [
                     'fa' => 'سنگ آهک سنگی سبک و کاربردی برای نماکاری و فضاهای خارجی.',
@@ -167,6 +195,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'Il calcare è una pietra leggera e pratica per facciate e spazi esterni.',
                     'ar' => 'الحجر الجيري حجر خفيف وعملي للواجهات والمساحات الخارجية.',
+                    'zh' => '石灰石是一种轻质实用的石材,适用于外墙装饰和户外空间。',
+                    'tr' => 'Kireçtaşı, cepheler ve dış mekanlar için hafif ve pratik bir taştır.',
                 ],
                 'sort_order' => 5,
                 'children' => [
@@ -183,6 +213,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'स्लेट',
                     'it' => 'Ardesia',
                     'ar' => 'الأردواز',
+                    'zh' => '板岩',
+                    'tr' => 'Arduvaz',
                 ],
                 'slug' => [
                     'fa' => 'slate',
@@ -190,6 +222,8 @@ class CategorySeeder extends Seeder
                     'hi' => 'slate',
                     'it' => 'ardesia',
                     'ar' => 'slate',
+                    'zh' => 'slate',
+                    'tr' => 'slate',
                 ],
                 'description' => [
                     'fa' => 'اسلیت سنگی با لایه‌های طبیعی، مناسب برای کف‌پوش و نمای خارجی.',
@@ -197,6 +231,8 @@ class CategorySeeder extends Seeder
                     'hi' => null,
                     'it' => 'L\'ardesia è una pietra a strati naturali, adatta per pavimenti e rivestimenti esterni.',
                     'ar' => 'الأردواز حجر طبيعي متعدد الطبقات، مناسب للأرضيات والواجهات الخارجية.',
+                    'zh' => '板岩是一种天然层状石材,适用于地面铺装和外墙装饰。',
+                    'tr' => 'Arduvaz, zemin kaplamaları ve dış cephe kaplamaları için uygun doğal katmanlı bir taştır.',
                 ],
                 'sort_order' => 6,
                 'children' => [
@@ -229,6 +265,8 @@ class CategorySeeder extends Seeder
                         'hi' => $child['en'],
                         'it' => $child['en'],
                         'ar' => $child['en'],
+                        'zh' => $child['en'],
+                        'tr' => $child['en'],
                     ],
                     'slug'       => [
                         'fa' => $child['slug_fa'],
@@ -236,6 +274,8 @@ class CategorySeeder extends Seeder
                         'hi' => $child['slug_en'],
                         'it' => $child['slug_en'],
                         'ar' => $child['slug_en'],
+                        'zh' => $child['slug_en'],
+                        'tr' => $child['slug_en'],
                     ],
                     'is_active'  => true,
                     'sort_order' => $child['sort'],

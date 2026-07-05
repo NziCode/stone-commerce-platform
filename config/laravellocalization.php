@@ -37,6 +37,20 @@ return [
             'regional'   => 'ar_AE',
             'direction'  => 'rtl',
         ],
+        'zh' => [
+            'name'       => 'Chinese',
+            'script'     => 'Hans',
+            'native'     => '中文',
+            'regional'   => 'zh_CN',
+            'direction'  => 'ltr',
+        ],
+        'tr' => [
+            'name'       => 'Turkish',
+            'script'     => 'Latn',
+            'native'     => 'Türkçe',
+            'regional'   => 'tr_TR',
+            'direction'  => 'ltr',
+        ],
     ],
 
     'useAcceptLanguageHeader'    => false,

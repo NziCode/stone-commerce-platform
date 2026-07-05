@@ -23,6 +23,8 @@ class EventSeeder extends Seeder
                     'ar' => 'حضور EN Trading Group في المعرض الدولي السابع عشر لحجر إيران',
                     'hi' => '17वें ईरान अंतरराष्ट्रीय पत्थर प्रदर्शनी में EN Trading Group',
                     'it' => 'EN Trading Group alla 17ª Fiera Internazionale della Pietra Iraniana',
+                    'zh' => 'EN Trading Group 参加第17届伊朗国际石材展',
+                    'tr' => 'EN Trading Group 17. İran Uluslararası Taş Fuarı\'nda',
                 ],
                 'slug' => [
                     'fa' => 'hozoor-namayeshgah-sang-mahallat-17',
@@ -30,6 +32,8 @@ class EventSeeder extends Seeder
                     'ar' => 'en-trading-mahallat-stone-expo-17',
                     'hi' => 'en-trading-mahallat-stone-expo-17',
                     'it' => 'en-trading-mahallat-stone-expo-17',
+                    'zh' => 'en-trading-mahallat-stone-expo-17',
+                    'tr' => 'en-trading-mahallat-stone-expo-17',
                 ],
                 'description' => [
                     'fa' => 'EN Trading Group در هفدهمین نمایشگاه بین‌المللی سنگ ایران، برگزار شده در سایت دائمی نمایشگاه نیم‌ور محلات، با غرفه‌ای اختصاصی حضور یافت. در این رویداد، جدیدترین بلوک‌های تراورتن سفید و عسلی شرکت به نمایش گذاشته شد و تیم فروش با ده‌ها بازرگان داخلی و خارجی دیدار و مذاکره کرد. این حضور فرصتی برای معرفی توان تولید و کیفیت محصولات شرکت به بازارهای جدید بود.',
@@ -37,6 +41,8 @@ class EventSeeder extends Seeder
                     'ar' => 'شاركت EN Trading Group في المعرض الدولي السابع عشر لحجر إيران، الذي أُقيم في موقع نیم‌ور الدائم بمحلات، بجناح مخصص. عرضت الشركة أحدث كتل الترافرتين الأبيض والعسلي.',
                     'hi' => 'EN Trading Group ने महल्लात के स्थायी निमवर प्रदर्शनी स्थल पर आयोजित 17वें ईरान अंतरराष्ट्रीय पत्थर प्रदर्शनी में एक समर्पित स्टॉल के साथ भाग लिया।',
                     'it' => 'EN Trading Group ha partecipato alla 17ª Fiera Internazionale della Pietra Iraniana, tenutasi presso il sito espositivo permanente di Nimvar a Mahallat, con uno stand dedicato.',
+                    'zh' => 'EN Trading Group参加了在马哈拉特尼姆瓦尔国际石材展览常设场地举行的第十七届伊朗国际石材展，并设有专属展位。公司展示了最新的白色和蜂蜜色travertine荒料，销售团队与数十位国内外贸易商进行了会面与洽谈。此次参展为公司向新市场展示生产能力和产品质量提供了良机。',
+                    'tr' => 'EN Trading Group, Mahallat\'taki Nimvar kalıcı fuar alanında düzenlenen 17. İran Uluslararası Taş Fuarı\'na özel bir standla katıldı. Şirket, en yeni beyaz ve bal rengi traverten bloklarını sergiledi ve satış ekibi onlarca yerli ve yabancı tüccarla görüştü. Bu katılım, şirketin üretim kapasitesini ve ürün kalitesini yeni pazarlara tanıtma fırsatı sundu.',
                 ],
                 'location' => [
                     'fa' => 'سایت دائمی نمایشگاه بین‌المللی سنگ نیم‌ور، غرفه ۲۴',
@@ -44,6 +50,8 @@ class EventSeeder extends Seeder
                     'ar' => 'موقع نیم‌ور الدائم لمعرض الحجر الدولي، الجناح 24',
                     'hi' => 'निमवर स्थायी अंतरराष्ट्रीय पत्थर प्रदर्शनी स्थल, स्टॉल 24',
                     'it' => 'Sito Espositivo Permanente Internazionale della Pietra di Nimvar, Stand 24',
+                    'zh' => '尼姆瓦尔国际石材展览常设场地，24号展位',
+                    'tr' => 'Nimvar Kalıcı Uluslararası Taş Fuarı Alanı, 24 No\'lu Stand',
                 ],
                 'city'         => 'محلات (نیم‌ور)',
                 'country'      => 'ایران',
@@ -69,6 +77,8 @@ class EventSeeder extends Seeder
                     'ar' => 'حضور EN Trading Group في المعرض الدولي السادس عشر لحجر إيران',
                     'hi' => '16वें ईरान अंतरराष्ट्रीय पत्थर प्रदर्शनी में EN Trading Group',
                     'it' => 'EN Trading Group alla 16ª Fiera Internazionale della Pietra Iraniana',
+                    'zh' => 'EN Trading Group 参加第16届伊朗国际石材展',
+                    'tr' => 'EN Trading Group 16. İran Uluslararası Taş Fuarı\'nda',
                 ],
                 'slug' => [
                     'fa' => 'hozoor-namayeshgah-sang-mahallat-16',
@@ -76,6 +86,8 @@ class EventSeeder extends Seeder
                     'ar' => 'en-trading-mahallat-stone-expo-16',
                     'hi' => 'en-trading-mahallat-stone-expo-16',
                     'it' => 'en-trading-mahallat-stone-expo-16',
+                    'zh' => 'en-trading-mahallat-stone-expo-16',
+                    'tr' => 'en-trading-mahallat-stone-expo-16',
                 ],
                 'description' => [
                     'fa' => 'تیم EN Trading Group در شانزدهمین نمایشگاه بین‌المللی سنگ محلات با حضور بازدیدکنندگانی از حدود ۵۰ کشور شرکت کرد. در این دوره، نمونه‌های بلوک تراورتن طوسی و کرم شرکت مورد استقبال بازرگانان منطقه‌ای قرار گرفت و چندین قرارداد همکاری اولیه با شرکا تجاری جدید منعقد شد.',
@@ -83,6 +95,8 @@ class EventSeeder extends Seeder
                     'ar' => 'شارك فريق EN Trading Group في المعرض الدولي السادس عشر لحجر محلات بحضور زوار من حوالي 50 دولة.',
                     'hi' => 'EN Trading Group की टीम ने 16वें महल्लात अंतरराष्ट्रीय पत्थर प्रदर्शनी में भाग लिया, जिसमें लगभग 50 देशों के आगंतुक शामिल हुए।',
                     'it' => 'Il team di EN Trading Group ha partecipato alla 16ª Fiera Internazionale della Pietra di Mahallat, con visitatori da circa 50 paesi.',
+                    'zh' => 'EN Trading Group团队参加了第十六届马哈拉特国际石材展，来自约50个国家的参观者出席了本届展会。在此次展会中，公司的灰色和奶油色travertine荒料样品受到区域贸易商的热烈欢迎，并与多家新的业务伙伴签署了初步合作协议。',
+                    'tr' => 'EN Trading Group ekibi, yaklaşık 50 ülkeden ziyaretçinin katıldığı 16. Mahallat Uluslararası Taş Fuarı\'na katıldı. Bu etkinlikte şirketin gri ve krem traverten blok numuneleri bölgesel tüccarlar tarafından büyük ilgiyle karşılandı ve yeni iş ortaklarıyla çeşitli ön işbirliği anlaşmaları imzalandı.',
                 ],
                 'location' => [
                     'fa' => 'سایت دائمی نمایشگاه بین‌المللی سنگ نیم‌ور، غرفه ۱۷',
@@ -90,6 +104,8 @@ class EventSeeder extends Seeder
                     'ar' => 'موقع نیم‌ور الدائم لمعرض الحجر الدولي، الجناح 17',
                     'hi' => 'निमवर स्थायी अंतरराष्ट्रीय पत्थर प्रदर्शनी स्थल, स्टॉल 17',
                     'it' => 'Sito Espositivo Permanente Internazionale della Pietra di Nimvar, Stand 17',
+                    'zh' => '尼姆瓦尔国际石材展览常设场地，17号展位',
+                    'tr' => 'Nimvar Kalıcı Uluslararası Taş Fuarı Alanı, 17 No\'lu Stand',
                 ],
                 'city'         => 'محلات (نیم‌ور)',
                 'country'      => 'ایران',
@@ -113,6 +129,8 @@ class EventSeeder extends Seeder
                     'ar' => 'حضور EN Trading Group في معرض مشهد الدولي الثاني للحجر',
                     'hi' => 'दूसरे मशहद अंतरराष्ट्रीय पत्थर प्रदर्शनी में EN Trading Group',
                     'it' => 'EN Trading Group alla 2ª Fiera Internazionale della Pietra di Mashhad',
+                    'zh' => 'EN Trading Group 参加第二届马什哈德国际石材展',
+                    'tr' => 'EN Trading Group 2. Meşhed Uluslararası Taş Fuarı\'nda',
                 ],
                 'slug' => [
                     'fa' => 'hozoor-namayeshgah-sang-mashhad-2',
@@ -120,6 +138,8 @@ class EventSeeder extends Seeder
                     'ar' => 'en-trading-mashhad-stone-expo-2',
                     'hi' => 'en-trading-mashhad-stone-expo-2',
                     'it' => 'en-trading-mashhad-stone-expo-2',
+                    'zh' => 'en-trading-mashhad-stone-expo-2',
+                    'tr' => 'en-trading-mashhad-stone-expo-2',
                 ],
                 'description' => [
                     'fa' => 'EN Trading Group در دومین نمایشگاه تخصصی سنگ و ساختمان مشهد شرکت کرد؛ رویدادی با هدف توسعه صادرات سنگ از شرق کشور به بازارهای قزاقستان، افغانستان و ترکمنستان. حضور در این نمایشگاه فرصتی برای آشنایی با خریداران منطقه شرق ایران و آسیای مرکزی فراهم کرد.',
@@ -127,6 +147,8 @@ class EventSeeder extends Seeder
                     'ar' => 'شاركت EN Trading Group في معرض مشهد التخصصي الثاني للحجر والبناء، وهو حدث يهدف إلى توسيع صادرات الحجر من شرق إيران.',
                     'hi' => 'EN Trading Group ने दूसरे मशहद विशेष पत्थर और निर्माण प्रदर्शनी में भाग लिया।',
                     'it' => 'EN Trading Group ha partecipato alla 2ª Fiera Specializzata della Pietra e Costruzione di Mashhad.',
+                    'zh' => 'EN Trading Group参加了第二届马什哈德专业石材与建筑展，该展会旨在扩大伊朗东部地区对哈萨克斯坦、阿富汗和土库曼斯坦市场的石材出口。参展为公司提供了结识伊朗东部及中亚地区买家的机会。',
+                    'tr' => 'EN Trading Group, İran\'ın doğusundan Kazakistan, Afganistan ve Türkmenistan pazarlarına taş ihracatını genişletmeyi amaçlayan 2. Meşhed Uzmanlaşmış Taş ve İnşaat Fuarı\'na katıldı. Bu katılım, doğu İran ve Orta Asya\'dan alıcılarla bağlantı kurma fırsatı sağladı.',
                 ],
                 'location' => [
                     'fa' => 'نمایشگاه بین‌المللی مشهد، غرفه ۹',
@@ -134,6 +156,8 @@ class EventSeeder extends Seeder
                     'ar' => 'مركز مشهد الدولي للمعارض، الجناح 9',
                     'hi' => 'मशहद अंतरराष्ट्रीय प्रदर्शनी केंद्र, स्टॉल 9',
                     'it' => 'Centro Espositivo Internazionale di Mashhad, Stand 9',
+                    'zh' => '马什哈德国际展览中心，9号展位',
+                    'tr' => 'Meşhed Uluslararası Fuar Merkezi, 9 No\'lu Stand',
                 ],
                 'city'         => 'مشهد',
                 'country'      => 'ایران',
@@ -155,6 +179,8 @@ class EventSeeder extends Seeder
                     'ar' => 'حضور EN Trading Group في معرض طهران لصناعة البناء والحجر',
                     'hi' => 'तेहरान निर्माण और पत्थर उद्योग मेले में EN Trading Group',
                     'it' => 'EN Trading Group alla Fiera dell\'Industria Edile e Lapidea di Teheran',
+                    'zh' => 'EN Trading Group 参加德黑兰建筑与石材工业博览会',
+                    'tr' => 'EN Trading Group Tahran İnşaat ve Taş Endüstrisi Fuarı\'nda',
                 ],
                 'slug' => [
                     'fa' => 'hozoor-namayeshgah-sakhteman-sang-tehran',
@@ -162,6 +188,8 @@ class EventSeeder extends Seeder
                     'ar' => 'en-trading-tehran-construction-fair',
                     'hi' => 'en-trading-tehran-construction-fair',
                     'it' => 'en-trading-tehran-construction-fair',
+                    'zh' => 'en-trading-tehran-construction-fair',
+                    'tr' => 'en-trading-tehran-construction-fair',
                 ],
                 'description' => [
                     'fa' => 'EN Trading Group هم‌اکنون در نمایشگاه صنعت ساختمان و سنگ تهران حضور دارد و محصولات تراورتن و مرمریت خود را به همراه کاتالوگ صادراتی به نمایش گذاشته است. علاقه‌مندان می‌توانند از غرفه شرکت در سالن ۳۸ بازدید کرده و با کارشناسان فروش گفتگو کنند.',
@@ -169,6 +197,8 @@ class EventSeeder extends Seeder
                     'ar' => 'تشارك EN Trading Group حاليًا في معرض طهران لصناعة البناء والحجر، حيث تعرض منتجاتها من الترافرتين والرخام.',
                     'hi' => 'EN Trading Group वर्तमान में तेहरान निर्माण और पत्थर उद्योग मेले में भाग ले रहा है।',
                     'it' => 'EN Trading Group sta attualmente partecipando alla Fiera dell\'Industria Edile e Lapidea di Teheran.',
+                    'zh' => 'EN Trading Group目前正在参加德黑兰建筑与石材工业博览会，展示其travertine和大理石产品及出口目录。参观者可前往公司位于38号展厅的展位，与销售团队直接交流。',
+                    'tr' => 'EN Trading Group, halihazırda Tahran İnşaat ve Taş Endüstrisi Fuarı\'na katılarak traverten ve mermer ürünlerini ihracat kataloğuyla birlikte sergiliyor. Ziyaretçiler, 38 No\'lu Salon\'daki şirket standına uğrayarak satış ekibiyle görüşebilir.',
                 ],
                 'location' => [
                     'fa' => 'محل دائمی نمایشگاه‌های بین‌المللی تهران، سالن ۳۸، غرفه ۱۱۲',
@@ -176,6 +206,8 @@ class EventSeeder extends Seeder
                     'ar' => 'أرض المعارض الدولية الدائمة بطهران، القاعة 38، الجناح 112',
                     'hi' => 'तेहरान अंतरराष्ट्रीय स्थायी मेला मैदान, हॉल 38, स्टॉल 112',
                     'it' => 'Quartiere Fieristico Permanente Internazionale di Teheran, Padiglione 38, Stand 112',
+                    'zh' => '德黑兰国际展览常设场地，38号厅，112号展位',
+                    'tr' => 'Tahran Uluslararası Kalıcı Fuar Alanı, 38 No\'lu Salon, 112 No\'lu Stand',
                 ],
                 'city'         => 'تهران',
                 'country'      => 'ایران',

@@ -19,6 +19,8 @@ class PageSeeder extends Seeder
                     'ar' => 'من نحن',
                     'hi' => 'हमारे बारे में',
                     'it' => 'Chi Siamo',
+                    'zh' => '关于我们',
+                    'tr' => 'Hakkımızda',
                 ],
                 'slug' => [
                     'fa' => 'about',
@@ -26,6 +28,8 @@ class PageSeeder extends Seeder
                     'ar' => 'about',
                     'hi' => 'about',
                     'it' => 'about',
+                    'zh' => 'about',
+                    'tr' => 'about',
                 ],
                 'excerpt' => [
                     'fa' => 'بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران به بیش از ۵۰ کشور جهان.',
@@ -33,6 +37,8 @@ class PageSeeder extends Seeder
                     'ar' => 'أكثر من 25 عامًا من الخبرة في استخراج ومعالجة وتصدير الحجر الطبيعي الإيراني إلى أكثر من 50 دولة.',
                     'hi' => 'ईरानी प्राकृतिक पत्थर के निष्कर्षण, प्रसंस्करण और 50 से अधिक देशों में निर्यात में 25 से अधिक वर्षों का अनुभव।',
                     'it' => 'Oltre 25 anni di esperienza nell\'estrazione, lavorazione ed esportazione di pietra naturale iraniana in oltre 50 paesi.',
+                    'zh' => '我们拥有超过25年在伊朗天然石材开采、加工和出口方面的经验,产品远销50多个国家。',
+                    'tr' => "İran doğal taşlarının çıkarılması, işlenmesi ve 50'den fazla ülkeye ihracatında 25 yılı aşkın deneyim.",
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -95,6 +101,30 @@ class PageSeeder extends Seeder
                         <h3>Collaborazioni Internazionali</h3>
                         <p>Il nostro team commerciale partecipa regolarmente a fiere internazionali della pietra per rimanere in contatto diretto con commercianti e appaltatori di tutto il mondo.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p><strong>EN Trading Group</strong> 拥有超过25年的经验,为国内外买家打造了一条完整、值得信赖的天然石材供应链——从矿山到客户。我们的工作始于在伊朗各地自有矿区的直接采购与开采,并延续至加工、质量控制以及国际包装与运输。</p>
+
+                        <h3>为什么选择 EN Trading Group?</h3>
+                        <p>我们悠久的经验,加上对自有矿区的直接掌控,使我们能够提供稳定的品质、均匀的色泽和具有竞争力的价格——省去不必要的中间环节。如今,我们的产品包括洞石、大理石、花岗岩、复古石材、石灰石和板岩,已出口至五大洲50多个国家。</p>
+
+                        <h3>我们对品质的承诺</h3>
+                        <p>每一块荒料在进入生产线前都要经过颜色、孔隙率和纹理一致性的检测。成品板材还要经过多道质量控制关卡,确保交付给客户的产品与订单完全一致。</p>
+
+                        <h3>国际合作</h3>
+                        <p>我们的销售团队定期参加国际石材展会,与世界各地的贸易商和承包商保持直接联系。这种参展加上免费样品寄送和技术咨询服务,使无论大小项目与我们的合作都变得简单。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p><strong>EN Trading Group</strong>, 25 yılı aşkın süredir doğal taş için eksiksiz ve güvenilir bir tedarik zinciri kurmaktadır — ocaktan müşteriye — hem yerli hem de uluslararası alıcılara hizmet vererek. Çalışmalarımız, İran genelindeki kendi ocaklarımızdan doğrudan tedarik ve çıkarma ile başlar; işleme, kalite kontrol ve uluslararası paketleme ile sevkiyata kadar devam eder.</p>
+
+                        <h3>Neden EN Trading Group?</h3>
+                        <p>Uzun yıllara dayanan deneyimimiz, kendi ocaklarımıza doğrudan erişimimizle birleşince, gereksiz aracılar olmadan tutarlı kalite, tek tip renk ve rekabetçi fiyatlar sunmamızı sağlıyor. Bugün traverten, mermer, granit, antik taş, kireçtaşı ve arduvaz dahil ürünlerimiz 5 kıtada 50'den fazla ülkeye ihraç edilmektedir.</p>
+
+                        <h3>Kaliteye Bağlılığımız</h3>
+                        <p>Her blok, üretime girmeden önce renk, gözeneklilik ve damar tutarlılığı açısından incelenir. Bitmiş plakalar, müşteriye ulaşan ürünün tam olarak sipariş edilen ürün olduğundan emin olmak için birçok kalite kontrol aşamasından geçer.</p>
+
+                        <h3>Uluslararası Ortaklıklar</h3>
+                        <p>Satış ekibimiz, dünya çapındaki tüccar ve müteahhitlerle doğrudan temas halinde kalmak için düzenli olarak uluslararası taş fuarlarına katılır. Bu varlık, ücretsiz numune gönderimi ve teknik danışmanlık ile birleşince, her ölçekteki projeler için bizimle çalışmayı kolaylaştırır.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'درباره ما | EN Trading Group',
@@ -102,6 +132,8 @@ class PageSeeder extends Seeder
                     'ar' => 'من نحن | EN Trading Group',
                     'hi' => 'हमारे बारे में | EN Trading Group',
                     'it' => 'Chi Siamo | EN Trading Group',
+                    'zh' => '关于我们 | EN Trading Group',
+                    'tr' => 'Hakkımızda | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران به بیش از ۵۰ کشور جهان.',
@@ -109,6 +141,8 @@ class PageSeeder extends Seeder
                     'ar' => 'أكثر من 25 عامًا من الخبرة في استخراج ومعالجة وتصدير الحجر الطبيعي الإيراني.',
                     'hi' => 'ईरानी प्राकृतिक पत्थर के निष्कर्षण और निर्यात में 25 से अधिक वर्षों का अनुभव।',
                     'it' => 'Oltre 25 anni di esperienza nell\'estrazione ed esportazione di pietra naturale iraniana.',
+                    'zh' => '我们拥有超过25年在伊朗天然石材开采、加工和出口方面的经验。',
+                    'tr' => 'İran doğal taşlarının çıkarılması ve ihracatında 25 yılı aşkın deneyim.',
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -123,6 +157,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الشهادات',
                     'hi' => 'प्रमाण पत्र',
                     'it' => 'Certificati',
+                    'zh' => '认证证书',
+                    'tr' => 'Sertifikalar',
                 ],
                 'slug' => [
                     'fa' => 'certificates',
@@ -130,6 +166,8 @@ class PageSeeder extends Seeder
                     'ar' => 'certificates',
                     'hi' => 'certificates',
                     'it' => 'certificates',
+                    'zh' => 'certificates',
+                    'tr' => 'certificates',
                 ],
                 'excerpt' => [
                     'fa' => 'استانداردهای کیفیت، آزمایشگاهی و صادراتی که محصولات و فرآیندهای ما براساس آن‌ها ارزیابی می‌شوند.',
@@ -137,6 +175,8 @@ class PageSeeder extends Seeder
                     'ar' => 'معايير الجودة والمختبرات والتصدير التي يتم تقييم منتجاتنا وعملياتنا وفقًا لها.',
                     'hi' => 'गुणवत्ता, प्रयोगशाला और निर्यात मानक जिनके आधार पर हमारे उत्पादों और प्रक्रियाओं का मूल्यांकन किया जाता है।',
                     'it' => 'Gli standard di qualità, laboratorio ed esportazione in base ai quali vengono valutati i nostri prodotti e processi.',
+                    'zh' => '我们产品与流程所依据评估的质量、实验室及出口标准。',
+                    'tr' => 'Ürünlerimizin ve süreçlerimizin değerlendirildiği kalite, laboratuvar ve ihracat standartları.',
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -329,6 +369,82 @@ class PageSeeder extends Seeder
 
                         <p>Una copia digitale di ciascuno di questi documenti può essere inviata a clienti e partner commerciali su richiesta tramite la nostra pagina di contatto.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p>对我们而言,质量不仅仅是一句口号——它贯穿于我们流程的每一个环节,从开采到最终包装,均依照国家和国际标准进行验证。以下是我们流程所遵循的主要认证与标准。</p>
+
+                        <div class="mt-cert-grid">
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>ISO 9001:2015</strong>
+                                <span>质量管理体系</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>ISO 14001:2015</strong>
+                                <span>环境管理体系</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>CE Marking — EN 1469</strong>
+                                <span>天然石材饰面欧洲标准</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>伊朗国家标准 (INSO)</strong>
+                                <span>建筑石材要求</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>出口许可证</strong>
+                                <span>工业、矿业与贸易部</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>实验室检测报告</strong>
+                                <span>抗压强度、吸水率、耐磨性</span>
+                            </div>
+                        </div>
+
+                        <p>如有需要,可通过我们的联系页面向客户和贸易伙伴发送这些文件的数字副本。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p>Bizim için kalite sadece bir iddia değildir — çıkarımdan nihai ambalajlamaya kadar her aşamada ulusal ve uluslararası standartlara göre doğrulanan sürecimizin bir parçasıdır. Aşağıda süreçlerimizin yönetildiği başlıca sertifikalar ve standartlar yer almaktadır.</p>
+
+                        <div class="mt-cert-grid">
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>ISO 9001:2015</strong>
+                                <span>Kalite Yönetim Sistemi</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>ISO 14001:2015</strong>
+                                <span>Çevre Yönetim Sistemi</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>CE İşareti — EN 1469</strong>
+                                <span>Doğal taş kaplama için Avrupa standardı</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>İran Ulusal Standardı (INSO)</strong>
+                                <span>Yapı taşı gereklilikleri</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>İhracat Lisansı</strong>
+                                <span>Sanayi, Maden ve Ticaret Bakanlığı</span>
+                            </div>
+                            <div class="mt-cert-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4z"/><path d="m9 12 2 2 4-4"/></svg></span>
+                                <strong>Laboratuvar Test Raporları</strong>
+                                <span>Basınç dayanımı, su emme, aşınma</span>
+                            </div>
+                        </div>
+
+                        <p>Bu belgelerin dijital bir kopyası, talep üzerine iletişim sayfamız aracılığıyla müşterilere ve ticari ortaklara gönderilebilir.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'گواهینامه‌ها | EN Trading Group',
@@ -336,6 +452,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الشهادات | EN Trading Group',
                     'hi' => 'प्रमाण पत्र | EN Trading Group',
                     'it' => 'Certificati | EN Trading Group',
+                    'zh' => '认证证书 | EN Trading Group',
+                    'tr' => 'Sertifikalar | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'استانداردهای کیفیت، آزمایشگاهی و صادراتی محصولات و فرآیندهای EN Trading Group.',
@@ -343,6 +461,8 @@ class PageSeeder extends Seeder
                     'ar' => 'معايير الجودة والمختبرات والتصدير وراء منتجات وعمليات EN Trading Group.',
                     'hi' => 'EN Trading Group उत्पादों और प्रक्रियाओं के पीछे गुणवत्ता, प्रयोगशाला और निर्यात मानक।',
                     'it' => 'Standard di qualità, laboratorio ed esportazione alla base dei prodotti e processi di EN Trading Group.',
+                    'zh' => 'EN Trading Group产品与流程所依据的质量、实验室及出口标准。',
+                    'tr' => 'EN Trading Group ürün ve süreçlerinin arkasındaki kalite, laboratuvar ve ihracat standartları.',
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -357,6 +477,8 @@ class PageSeeder extends Seeder
                     'ar' => 'مناجمنا',
                     'hi' => 'हमारी खदानें',
                     'it' => 'Le Nostre Cave',
+                    'zh' => '我们的矿区',
+                    'tr' => 'Ocaklarımız',
                 ],
                 'slug' => [
                     'fa' => 'our-mines',
@@ -364,6 +486,8 @@ class PageSeeder extends Seeder
                     'ar' => 'our-mines',
                     'hi' => 'our-mines',
                     'it' => 'our-mines',
+                    'zh' => 'our-mines',
+                    'tr' => 'our-mines',
                 ],
                 'excerpt' => [
                     'fa' => 'دسترسی مستقیم به معادن اختصاصی در نقاط مختلف ایران، پایه و اساس کیفیت ثابت محصولات ماست.',
@@ -371,6 +495,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الوصول المباشر إلى محاجر مخصصة في جميع أنحاء إيران هو أساس جودة منتجاتنا الثابتة.',
                     'hi' => 'ईरान भर में समर्पित खदानों तक प्रत्यक्ष पहुंच हमारे सुसंगत उत्पाद गुणवत्ता की नींव है।',
                     'it' => 'L\'accesso diretto a cave dedicate in tutto l\'Iran è la base della qualità costante dei nostri prodotti.',
+                    'zh' => '直接掌控伊朗各地的自有矿区,是我们产品质量稳定的基础。',
+                    'tr' => 'İran genelindeki kendi ocaklarımıza doğrudan erişim, tutarlı ürün kalitemizin temelidir.',
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -573,6 +699,86 @@ class PageSeeder extends Seeder
 
                         <p>Il nostro team tecnico visita periodicamente queste cave per verificare la qualità dell'estrazione prima dell'acquisto.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p>直接掌控自有矿区是我们最重要的竞争优势——这使我们能够从开采源头就开始控制质量,并消除对中间商的依赖。以下是我们主要合作矿区的介绍。</p>
+
+                        <div class="mt-mine-list">
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>马哈拉特洞石矿区</strong>
+                                    <p>马尔卡齐省 — 我们白色和蜂蜜色洞石的主要来源,纹理均匀,适用于大型项目的立面和地面铺装。</p>
+                                    <span class="tag">洞石</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>阿扎尔沙尔大理石矿区</strong>
+                                    <p>东阿塞拜疆省 — 高光泽白色大理石供应商,是立面和室内装饰的热门选择。</p>
+                                    <span class="tag">大理石</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>阿巴德玛瑙矿区</strong>
+                                    <p>法尔斯省 — 具透明纹理的玛瑙和雪花石供应源,主要用于奢华项目和背光应用。</p>
+                                    <span class="tag">玛瑙</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>比尔詹德花岗岩矿区</strong>
+                                    <p>南呼罗珊省 — 高耐久性花岗岩供应商,适用于户外地面铺装和高流量项目。</p>
+                                    <span class="tag">花岗岩</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>我们的技术团队定期实地考察这些矿区,在采购前确认开采质量和纹理一致性。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p>Ocaklarımıza doğrudan erişim, en önemli rekabet avantajımızdır — bu, kaliteyi çıkarım noktasından itibaren kontrol etmemizi sağlar ve aracılara bağımlılığı ortadan kaldırır. Aşağıda birlikte çalıştığımız başlıca ortak ocaklar yer almaktadır.</p>
+
+                        <div class="mt-mine-list">
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>Mahallat Traverten Ocağı</strong>
+                                    <p>Merkezi Eyaleti — büyük projelerde cephe ve zemin kaplaması için uygun, tutarlı damarlara sahip beyaz ve bal rengi traverteninin ana kaynağımız.</p>
+                                    <span class="tag">Traverten</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>Azarşehr Mermer Ocağı</strong>
+                                    <p>Doğu Azerbaycan Eyaleti — cephe ve iç mekan dekorasyonu için popüler bir seçim olan yüksek parlaklıkta beyaz mermer tedarikçisi.</p>
+                                    <span class="tag">Mermer</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>Abadeh Oniks Ocağı</strong>
+                                    <p>Fars Eyaleti — çoğunlukla lüks projelerde ve arkadan aydınlatmalı uygulamalarda kullanılan, yarı saydam damarlara sahip oniks ve alçıtaşı kaynağı.</p>
+                                    <span class="tag">Oniks</span>
+                                </div>
+                            </div>
+                            <div class="mt-mine-card">
+                                <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 20 6-12 4 6 3-4 5 10z"/></svg></span>
+                                <div>
+                                    <strong>Birjand Granit Ocağı</strong>
+                                    <p>Güney Horasan Eyaleti — açık hava zemin kaplaması ve yoğun trafikli projeler için uygun, yüksek dayanıklılığa sahip granit tedarikçisi.</p>
+                                    <span class="tag">Granit</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>Teknik ekibimiz, satın alma öncesinde çıkarım kalitesini ve damar tutarlılığını doğrulamak için bu ocakları düzenli olarak ziyaret eder.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'معادن ما | EN Trading Group',
@@ -580,6 +786,8 @@ class PageSeeder extends Seeder
                     'ar' => 'مناجمنا | EN Trading Group',
                     'hi' => 'हमारी खदानें | EN Trading Group',
                     'it' => 'Le Nostre Cave | EN Trading Group',
+                    'zh' => '我们的矿区 | EN Trading Group',
+                    'tr' => 'Ocaklarımız | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'دسترسی مستقیم به معادن اختصاصی در نقاط مختلف ایران، پایه کیفیت ثابت محصولات ماست.',
@@ -587,6 +795,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الوصول المباشر إلى محاجر مخصصة في جميع أنحاء إيران هو أساس جودة منتجاتنا.',
                     'hi' => 'ईरान भर में समर्पित खदानों तक प्रत्यक्ष पहुंच हमारे उत्पाद गुणवत्ता की नींव है।',
                     'it' => 'L\'accesso diretto a cave dedicate in tutto l\'Iran è la base della qualità dei nostri prodotti.',
+                    'zh' => '直接掌控伊朗各地自有矿区,是我们产品质量稳定的基础。',
+                    'tr' => 'İran genelindeki özel ocaklara doğrudan erişim, tutarlı ürün kalitemizin temelidir.',
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -601,6 +811,8 @@ class PageSeeder extends Seeder
                     'ar' => 'دليل الشراء',
                     'hi' => 'खरीदारी गाइड',
                     'it' => 'Guida all\'Acquisto',
+                    'zh' => '购买指南',
+                    'tr' => 'Satın Alma Rehberi',
                 ],
                 'slug' => [
                     'fa' => 'buying-guide',
@@ -608,6 +820,8 @@ class PageSeeder extends Seeder
                     'ar' => 'buying-guide',
                     'hi' => 'buying-guide',
                     'it' => 'buying-guide',
+                    'zh' => 'buying-guide',
+                    'tr' => 'buying-guide',
                 ],
                 'excerpt' => [
                     'fa' => 'از انتخاب نوع سنگ تا تأیید سفارش و ارسال — هر آنچه برای اولین خرید از ما باید بدانید.',
@@ -615,6 +829,8 @@ class PageSeeder extends Seeder
                     'ar' => 'من اختيار نوع الحجر المناسب إلى تأكيد الطلب والشحن — كل ما تحتاج معرفته لأول عملية شراء منا.',
                     'hi' => 'सही पत्थर के प्रकार को चुनने से लेकर ऑर्डर की पुष्टि और शिपमेंट तक — हमसे पहली खरीद के लिए आपको जो कुछ जानना चाहिए।',
                     'it' => 'Dalla scelta del tipo di pietra giusto alla conferma dell\'ordine e alla spedizione — tutto ciò che devi sapere per il tuo primo acquisto da noi.',
+                    'zh' => '从选择石材类型到确认订单和发货——首次向我们购买时您需要了解的一切。',
+                    'tr' => 'Doğru taş türünü seçmekten siparişinizi ve sevkiyatınızı onaylamaya kadar — bizden ilk alışverişiniz için bilmeniz gereken her şey.',
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -773,6 +989,70 @@ class PageSeeder extends Seeder
                         <h3>7. Assistenza Post-Consegna</h3>
                         <p>In caso di discrepanze con le specifiche dell'ordine, contattaci tramite la pagina dei contatti entro 7 giorni dalla consegna.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p>第一次购买天然石材可能会让人感到无所适从——产品种类繁多,计量单位各不相同,从下单到交付的流程也可能不够清晰。本指南将逐步为您理清这一过程。</p>
+
+                        <h3>1. 确定您需要的石材类型</h3>
+                        <p>首先明确您的使用场景:<strong>立面</strong>、<strong>室内地面</strong>、<strong>室外地面</strong>,还是<strong>装饰</strong>?每种用途都需要不同的技术特性:</p>
+                        <ul>
+                            <li><strong>洞石</strong> — 室外立面的首选;轻质、耐用、价格具竞争力。</li>
+                            <li><strong>大理石</strong> — 用于豪华项目的室内地面和墙面;高光泽度。</li>
+                            <li><strong>花岗岩</strong> — 用于室外及工业地面;最坚硬、最耐用。</li>
+                            <li><strong>玛瑙</strong> — 用于高端装饰及背光应用。</li>
+                            <li><strong>复古石材</strong> — 用于户外空间及古典风格项目。</li>
+                        </ul>
+
+                        <h3>2. 正确确定尺寸和单位</h3>
+                        <p>我们的产品有两种主要形式:<strong>荒料</strong>(未加工,按立方米计价)和<strong>板材/瓷砖</strong>(已加工,按平方米计价)。如果您不确定需要哪一种,请将项目尺寸和用途告知我们的团队——我们会协助您计算。</p>
+
+                        <h3>3. 申请样品</h3>
+                        <p>订单面积超过50平方米时,我们提供免费样品寄送。请在项目现场的自然光下评估样品——石材在人工光源下颜色会有所不同。</p>
+
+                        <h3>4. 询价并下单</h3>
+                        <p>我们的定价因石材类型、质量等级、尺寸和订单量而异。如需正式报价,请通过<strong>联系我们</strong>页面或直接联系电话咨询。价格确认后,我们将开具形式发票。</p>
+
+                        <h3>5. 付款</h3>
+                        <p>对于<strong>国内客户</strong>:在线里亚尔支付网关(ZarinPal / IDPay)。
+                        对于<strong>国际客户</strong>:银行电汇(Swift/TT)或上传付款凭证以进行人工确认。</p>
+
+                        <h3>6. 备货与发货</h3>
+                        <p>付款确认后,订单将在5至15个工作日内(视订单量而定)完成出口包装。所有出口货物均提供提单及海关文件。</p>
+
+                        <h3>7. 交付后支持</h3>
+                        <p>如订单规格存在任何差异,请在收货后7天内通过联系页面告知我们。我们的团队将跟进并处理。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p>Doğal taşı ilk kez satın almak kafa karıştırıcı olabilir — ürün çeşitliliği geniştir, ölçü birimleri farklılık gösterir ve siparişten teslimata kadar olan süreç net olmayabilir. Bu rehber, o süreçte size adım adım yol gösterir.</p>
+
+                        <h3>1. Taş Türünüzü Belirleyin</h3>
+                        <p>Öncelikle uygulamanızı belirleyin: <strong>cephe</strong>, <strong>iç mekan zemini</strong>, <strong>dış mekan zemini</strong> veya <strong>dekorasyon</strong>? Her kullanım farklı teknik özellikler gerektirir:</p>
+                        <ul>
+                            <li><strong>Traverten</strong> — dış cepheler için ilk tercih; hafif, dayanıklı, rekabetçi fiyatlı.</li>
+                            <li><strong>Mermer</strong> — lüks projelerde iç mekan zemini ve duvarları; yüksek parlaklık.</li>
+                            <li><strong>Granit</strong> — dış mekan ve endüstriyel zeminler; en sert ve en dayanıklı.</li>
+                            <li><strong>Oniks</strong> — premium dekorasyon ve arkadan aydınlatmalı uygulamalar.</li>
+                            <li><strong>Antik Taş</strong> — dış mekanlar ve klasik tarz projeler.</li>
+                        </ul>
+
+                        <h3>2. Boyutlarınızı ve Biriminizi Belirleyin</h3>
+                        <p>Ürünlerimiz iki ana formatta sunulur: <strong>bloklar</strong> (ham, m³ olarak satılır) ve <strong>plaka/fayans</strong> (işlenmiş, m² olarak satılır). Hangisine ihtiyacınız olduğundan emin değilseniz, proje boyutlarınızı ve kullanım amacınızı ekibimizle paylaşın — hesaplamada size yardımcı oluruz.</p>
+
+                        <h3>3. Numune Talep Edin</h3>
+                        <p>50 m² üzerindeki siparişler için ücretsiz numune gönderiyoruz. Numuneyi proje sahanızın doğal ışığı altında değerlendirin — taş rengi yapay ışık altında farklı görünür.</p>
+
+                        <h3>4. Teklif Alın ve Siparişinizi Verin</h3>
+                        <p>Fiyatlandırma taş türüne, kalite derecesine, boyutlara ve sipariş hacmine göre değişir. Resmi bir teklif için <strong>Bize Ulaşın</strong> sayfasını veya doğrudan hattımızı kullanın. Fiyat üzerinde anlaşıldıktan sonra bir proforma fatura düzenlenir.</p>
+
+                        <h3>5. Ödeme</h3>
+                        <p><strong>Yerli müşteriler</strong> için: çevrimiçi ödeme ağ geçitleri (ZarinPal / IDPay).
+                        <strong>Uluslararası müşteriler</strong> için: banka havalesi (Swift/TT) veya manuel onay için makbuz yükleme.</p>
+
+                        <h3>6. Hazırlık ve Sevkiyat</h3>
+                        <p>Ödeme onayının ardından siparişiniz, hacme bağlı olarak 5-15 iş günü içinde ihracat için paketlenir. Tüm ihracat sevkiyatları için konşimento ve gümrük belgeleri sağlanır.</p>
+
+                        <h3>7. Teslimat Sonrası Destek</h3>
+                        <p>Sipariş özellikleriyle herhangi bir uyuşmazlık olması durumunda, teslimattan itibaren 7 gün içinde iletişim sayfası üzerinden bize bildirin. Ekibimiz takip edip sorunu çözecektir.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'راهنمای خرید سنگ طبیعی | EN Trading Group',
@@ -780,6 +1060,8 @@ class PageSeeder extends Seeder
                     'ar' => 'دليل شراء الحجر الطبيعي | EN Trading Group',
                     'hi' => 'प्राकृतिक पत्थर खरीद गाइड | EN Trading Group',
                     'it' => 'Guida all\'Acquisto di Pietra Naturale | EN Trading Group',
+                    'zh' => '天然石材购买指南 | EN Trading Group',
+                    'tr' => 'Doğal Taş Satın Alma Rehberi | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'از انتخاب نوع سنگ تا پرداخت و ارسال — راهنمای کامل خرید سنگ طبیعی از EN Trading Group.',
@@ -787,6 +1069,8 @@ class PageSeeder extends Seeder
                     'ar' => 'من اختيار الحجر المناسب إلى الدفع والشحن — الدليل الكامل لشراء الحجر الطبيعي من EN Trading Group.',
                     'hi' => 'सही पत्थर चुनने से लेकर भुगतान और शिपिंग तक — EN Trading Group से प्राकृतिक पत्थर खरीदने की पूरी गाइड।',
                     'it' => 'Dalla scelta della pietra giusta al pagamento e alla spedizione — la guida completa all\'acquisto di pietra naturale da EN Trading Group.',
+                    'zh' => '从选择石材类型到付款和发货——从EN Trading Group购买天然石材的完整指南。',
+                    'tr' => "Doğru taşı seçmekten ödeme ve sevkiyata kadar — EN Trading Group'tan doğal taş satın almaya yönelik eksiksiz rehber.",
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -801,6 +1085,8 @@ class PageSeeder extends Seeder
                     'ar' => 'طرق الدفع',
                     'hi' => 'भुगतान के तरीके',
                     'it' => 'Metodi di Pagamento',
+                    'zh' => '付款方式',
+                    'tr' => 'Ödeme Yöntemleri',
                 ],
                 'slug' => [
                     'fa' => 'payment-methods',
@@ -808,6 +1094,8 @@ class PageSeeder extends Seeder
                     'ar' => 'payment-methods',
                     'hi' => 'payment-methods',
                     'it' => 'payment-methods',
+                    'zh' => 'payment-methods',
+                    'tr' => 'payment-methods',
                 ],
                 'excerpt' => [
                     'fa' => 'خریداران داخلی و بین‌المللی می‌توانند از طریق روش‌های مختلف پرداخت، سفارش خود را نهایی کنند.',
@@ -815,6 +1103,8 @@ class PageSeeder extends Seeder
                     'ar' => 'يمكن للمشترين المحليين والدوليين إتمام طلباتهم عبر طرق دفع مرنة متعددة.',
                     'hi' => 'घरेलू और अंतरराष्ट्रीय खरीदार कई लचीले भुगतान तरीकों के माध्यम से अपने ऑर्डर को अंतिम रूप दे सकते हैं।',
                     'it' => 'Gli acquirenti nazionali e internazionali possono finalizzare i loro ordini tramite diversi metodi di pagamento flessibili.',
+                    'zh' => '国内外买家均可通过多种灵活的付款方式完成订单。',
+                    'tr' => 'Yerli ve uluslararası alıcılar, çeşitli esnek ödeme yöntemleriyle siparişlerini tamamlayabilir.',
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -963,6 +1253,74 @@ class PageSeeder extends Seeder
                         <h3>Sicurezza e Privacy</h3>
                         <p>Tutte le transazioni online sono crittografate con SSL. I tuoi dati di carta o conto non vengono mai memorizzati sui nostri server.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p>我们致力于让国内外买家的付款流程尽可能简单和安全。以下是我们接受的付款方式。</p>
+
+                        <h3>在线里亚尔付款(国内买家)</h3>
+                        <p>国内买家可通过以下安全网关付款:</p>
+                        <ul>
+                            <li><strong>ZarinPal</strong> — 接受所有Shetab网络银行卡</li>
+                            <li><strong>IDPay</strong> — 银行账户直接付款</li>
+                        </ul>
+                        <p>付款成功后,系统将自动开具订单确认书并开始处理订单。</p>
+
+                        <h3>国际银行电汇(Swift / TT)</h3>
+                        <p>对于伊朗境外的买家,主要付款方式为国际银行电汇。价格确认后,我们将向您发送银行账户信息和形式发票(Pro-forma Invoice)。收到汇款确认后,即开始处理和备货。</p>
+                        <ul>
+                            <li>接受币种:<strong>美元、欧元、迪拉姆</strong></li>
+                            <li>汇款确认时间:通常为1至3个工作日</li>
+                        </ul>
+
+                        <h3>上传付款凭证</h3>
+                        <p>如无法直接电汇,您可以通过账户面板上传付款凭证。经我们财务团队人工审核确认后,订单将进入处理流程。</p>
+
+                        <h3>付款条件与预付款</h3>
+                        <ul>
+                            <li>500美元以下订单:<strong>发货前全额付款</strong></li>
+                            <li>500至5000美元订单:<strong>预付50% + 装货前付清50%</strong></li>
+                            <li>5000美元以上订单:<strong>条款可协商</strong></li>
+                        </ul>
+
+                        <h3>安全与隐私</h3>
+                        <p>所有在线交易均采用SSL加密。您的银行卡或账户信息绝不会存储在我们的服务器上——付款处理完全由认证网关完成。</p>
+
+                        <h3>有疑问?</h3>
+                        <p>如对付款方式有任何疑问,或需要获取我们的银行账户信息,请通过<a href="/contact">联系我们</a>页面与我们的销售团队联系。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p>Hem yerli hem de uluslararası alıcılar için ödeme sürecini mümkün olduğunca basit ve güvenli tutuyoruz. İşte kabul edilen ödeme yöntemleri.</p>
+
+                        <h3>Çevrimiçi Riyal Ödemesi (Yerli Alıcılar)</h3>
+                        <p>Yerli alıcılar aşağıdaki güvenli ağ geçitleri üzerinden ödeme yapabilir:</p>
+                        <ul>
+                            <li><strong>ZarinPal</strong> — tüm Şetab ağı kartlarını kabul eder</li>
+                            <li><strong>IDPay</strong> — banka hesabından doğrudan ödeme</li>
+                        </ul>
+                        <p>Başarılı bir ödemenin ardından sipariş onayı otomatik olarak düzenlenir ve işleme başlanır.</p>
+
+                        <h3>Uluslararası Banka Havalesi (Swift / TT)</h3>
+                        <p>İran dışındaki alıcılar için birincil ödeme yöntemi uluslararası banka havalesidir. Fiyat üzerinde anlaşıldıktan sonra size banka hesap bilgilerini ve bir proforma fatura göndeririz. Havale onaylanır onaylanmaz işleme ve hazırlık başlar.</p>
+                        <ul>
+                            <li>Kabul edilen para birimleri: <strong>USD, EUR, AED</strong></li>
+                            <li>Havale onay süresi: genellikle 1-3 iş günü</li>
+                        </ul>
+
+                        <h3>Makbuz Yükleme</h3>
+                        <p>Doğrudan banka havalesi mümkün değilse, ödeme makbuzunuzu hesap panelinizden yükleyebilirsiniz. Finans ekibimiz tarafından manuel inceleme ve onaydan sonra sipariş işleme döngüsüne girer.</p>
+
+                        <h3>Ödeme Koşulları ve Peşinat</h3>
+                        <ul>
+                            <li>500 doların altındaki siparişler: <strong>sevkiyattan önce tam ödeme</strong></li>
+                            <li>500-5.000 dolar arası siparişler: <strong>%50 peşinat + yüklemeden önce %50</strong></li>
+                            <li>5.000 doların üzerindeki siparişler: <strong>koşullar müzakere edilebilir</strong></li>
+                        </ul>
+
+                        <h3>Güvenlik ve Gizlilik</h3>
+                        <p>Tüm çevrimiçi işlemler SSL ile şifrelenmiştir. Kart veya hesap bilgileriniz sunucularımızda asla saklanmaz — ödeme işlemleri tamamen sertifikalı ağ geçitleri tarafından gerçekleştirilir.</p>
+
+                        <h3>Sorunuz mu var?</h3>
+                        <p>Ödeme yöntemleri hakkında herhangi bir sorunuz varsa veya banka hesap bilgilerimizi almak isterseniz, <a href="/contact">Bize Ulaşın</a> sayfası üzerinden satış ekibimizle iletişime geçin.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'روش‌های پرداخت | EN Trading Group',
@@ -970,6 +1328,8 @@ class PageSeeder extends Seeder
                     'ar' => 'طرق الدفع | EN Trading Group',
                     'hi' => 'भुगतान के तरीके | EN Trading Group',
                     'it' => 'Metodi di Pagamento | EN Trading Group',
+                    'zh' => '付款方式 | EN Trading Group',
+                    'tr' => 'Ödeme Yöntemleri | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'روش‌های پرداخت داخلی و بین‌المللی EN Trading Group، از درگاه‌های آنلاین تا حواله بانکی.',
@@ -977,6 +1337,8 @@ class PageSeeder extends Seeder
                     'ar' => 'طرق الدفع المحلية والدولية في EN Trading Group، من بوابات الدفع إلى التحويل البنكي.',
                     'hi' => 'EN Trading Group में घरेलू और अंतरराष्ट्रीय भुगतान विधियां, ऑनलाइन गेटवे से बैंक ट्रांसफर तक।',
                     'it' => 'Metodi di pagamento nazionali e internazionali di EN Trading Group, dai gateway online al bonifico bancario.',
+                    'zh' => 'EN Trading Group的国内外付款方式,从在线网关到银行电汇。',
+                    'tr' => "EN Trading Group'un çevrimiçi ağ geçitlerinden banka havalesine kadar yerli ve uluslararası ödeme yöntemleri.",
                 ],
                 'template'   => 'sidebar',
                 'is_active'  => true,
@@ -991,6 +1353,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الشحن',
                     'hi' => 'शिपिंग',
                     'it' => 'Spedizione',
+                    'zh' => '运输',
+                    'tr' => 'Sevkiyat',
                 ],
                 'slug' => [
                     'fa' => 'shipping',
@@ -998,6 +1362,8 @@ class PageSeeder extends Seeder
                     'ar' => 'shipping',
                     'hi' => 'shipping',
                     'it' => 'shipping',
+                    'zh' => 'shipping',
+                    'tr' => 'shipping',
                 ],
                 'excerpt' => [
                     'fa' => 'از بارگیری در معدن تا تحویل درب کارخانه یا بندر مقصد — همه‌چیز درباره نحوه ارسال سفارش‌های شما.',
@@ -1005,6 +1371,8 @@ class PageSeeder extends Seeder
                     'ar' => 'من التحميل في المحجر إلى التسليم عند باب مصنعك أو ميناء الوجهة — كل شيء عن كيفية شحن طلباتك.',
                     'hi' => 'खदान पर लोडिंग से आपकी फैक्ट्री के दरवाजे या गंतव्य बंदरगाह तक डिलीवरी — आपके ऑर्डर कैसे भेजे जाते हैं, इसके बारे में सब कुछ।',
                     'it' => 'Dal carico in cava alla consegna alla porta della tua fabbrica o al porto di destinazione — tutto su come vengono spediti i tuoi ordini.',
+                    'zh' => '从矿区装货到交付至您的工厂门口或目的港——关于订单运输方式的一切信息。',
+                    'tr' => 'Ocakta yüklemeden fabrika kapınıza veya varış limanına teslimata kadar — siparişlerinizin nasıl sevk edildiğine dair her şey.',
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
@@ -1213,6 +1581,98 @@ class PageSeeder extends Seeder
                         <h3>Assicurazione del Carico</h3>
                         <p>L'assicurazione del carico può essere organizzata per tutte le spedizioni su richiesta, con un costo tipico dello 0,5–1% del valore della spedizione.</p>
                         HTML,
+                    'zh' => <<<'HTML'
+                        <p>我们拥有超过25年的石材出口物流经验,与陆运、海运和空运合作伙伴组成的网络合作,确保您的货物安全、经济地抵达目的地。</p>
+
+                        <h3>运输方式</h3>
+                        <ul>
+                            <li><strong>海运集装箱(整箱/拼箱)</strong> — 适用于大宗订单和国际出口。主要发货港口:阿巴斯港、霍梅尼港。</li>
+                            <li><strong>陆运卡车</strong> — 对于邻国(土耳其、伊拉克、阿联酋,经陆路口岸)比海运更快、更经济。</li>
+                            <li><strong>空运</strong> — 适用于商业样品和低重量紧急货物,经由德黑兰和设拉子机场。</li>
+                        </ul>
+
+                        <h3>接受的国际贸易术语(Incoterms)</h3>
+                        <p>您的订单可按以下任一条款交付:</p>
+                        <ul>
+                            <li><strong>EXW</strong>(工厂交货)— 全部运输费用由买方承担</li>
+                            <li><strong>FOB</strong>(船上交货)— 卖方承担装船费用</li>
+                            <li><strong>CIF</strong>(成本、保险费加运费)— 卖方承担至目的港的全部费用</li>
+                            <li><strong>DAP</strong>(目的地交货)— 交付至买方仓库或工厂门口</li>
+                        </ul>
+
+                        <h3>出口包装</h3>
+                        <p>板材和瓷砖采用<strong>标准木托盘</strong>包装,并配有防护边角。荒料则用<strong>钢链和支架</strong>固定在拖车上。所有货物在装货前均会拍照,并向买方发送图片报告。</p>
+
+                        <h3>出口单证</h3>
+                        <p>每批出口货物均会开具以下单证:</p>
+                        <ul>
+                            <li>商业发票(Commercial Invoice)</li>
+                            <li>装箱单(Packing List)</li>
+                            <li>海运或陆运提单(B/L 或 CMR)</li>
+                            <li>原产地证书(伊朗商会出具)</li>
+                            <li>质量证书(应要求提供)</li>
+                        </ul>
+
+                        <h3>运输时间表</h3>
+                        <ul>
+                            <li>备货与包装:付款确认后 <strong>5至15个工作日</strong></li>
+                            <li>海运至欧洲:<strong>25至35天</strong></li>
+                            <li>海运至海湾地区及东南亚:<strong>7至15天</strong></li>
+                            <li>陆运至土耳其和伊拉克:<strong>5至10天</strong></li>
+                        </ul>
+
+                        <h3>货物保险</h3>
+                        <p>应买方要求,可为所有出口货物安排货运保险。保险费用通常为货值的0.5%至1%,并计入最终发票。</p>
+
+                        <h3>货物追踪</h3>
+                        <p>装货后,提单号和集装箱追踪链接将通过电子邮件或消息发送给您。</p>
+                        HTML,
+                    'tr' => <<<'HTML'
+                        <p>Taş ihracat lojistiğinde 25 yılı aşkın deneyimimizle, sevkiyatınızın güvenli ve uygun maliyetli bir şekilde varış noktasına ulaşmasını sağlamak için kara, deniz ve hava taşımacılığı ortaklarından oluşan bir ağla çalışıyoruz.</p>
+
+                        <h3>Sevkiyat Yöntemleri</h3>
+                        <ul>
+                            <li><strong>Deniz Konteyneri (FCL / LCL)</strong> — büyük siparişler ve uluslararası ihracatlar için uygundur. Başlıca kalkış limanları: Bender Abbas, İmam Humeyni Limanı.</li>
+                            <li><strong>Karayolu Taşımacılığı (Kamyon)</strong> — komşu ülkeler için (Türkiye, Irak, BAE sınır geçişleri yoluyla) denizden daha hızlı ve ekonomiktir.</li>
+                            <li><strong>Hava Kargo</strong> — ticari numuneler ve acil düşük ağırlıklı sevkiyatlar için, Tahran ve Şiraz havalimanları üzerinden.</li>
+                        </ul>
+
+                        <h3>Kabul Edilen Incoterms</h3>
+                        <p>Siparişiniz aşağıdaki koşullardan herhangi biri altında teslim edilebilir:</p>
+                        <ul>
+                            <li><strong>EXW</strong> (Fabrika Teslim) — tüm nakliye alıcının sorumluluğundadır</li>
+                            <li><strong>FOB</strong> (Gemi Güvertesi Teslim) — satıcı gemiye yükleme masraflarını karşılar</li>
+                            <li><strong>CIF</strong> (Maliyet, Sigorta ve Navlun) — satıcı varış limanına kadar tüm masrafları karşılar</li>
+                            <li><strong>DAP</strong> (Belirtilen Yerde Teslim) — alıcının deposu veya fabrika kapısına teslim</li>
+                        </ul>
+
+                        <h3>İhracat Ambalajı</h3>
+                        <p>Plakalar ve fayanslar, koruyucu kenar takviyeli <strong>standart ahşap paletler</strong> üzerinde paketlenir. Ham bloklar, <strong>çelik zincir ve braketlerle</strong> römorklara sabitlenir. Tüm sevkiyatlar yüklemeden önce fotoğraflanır ve alıcıya bir fotoğraf raporu gönderilir.</p>
+
+                        <h3>İhracat Belgeleri</h3>
+                        <p>Her ihracat sevkiyatı için aşağıdaki belgeler düzenlenir:</p>
+                        <ul>
+                            <li>Ticari Fatura</li>
+                            <li>Çeki Listesi</li>
+                            <li>Konşimento veya CMR (deniz / kara)</li>
+                            <li>Menşe Şahadetnamesi (İran Ticaret Odası)</li>
+                            <li>Kalite Sertifikası (talep üzerine)</li>
+                        </ul>
+
+                        <h3>Sevkiyat Zaman Çizelgesi</h3>
+                        <ul>
+                            <li>Hazırlık ve ambalajlama: ödeme onayından sonra <strong>5-15 iş günü</strong></li>
+                            <li>Avrupa'ya deniz taşımacılığı: <strong>25-35 gün</strong></li>
+                            <li>Körfez ve Güneydoğu Asya'ya deniz taşımacılığı: <strong>7-15 gün</strong></li>
+                            <li>Türkiye ve Irak'a karayolu taşımacılığı: <strong>5-10 gün</strong></li>
+                        </ul>
+
+                        <h3>Kargo Sigortası</h3>
+                        <p>Talep üzerine tüm ihracat sevkiyatları için kargo sigortası düzenlenebilir. Sigorta genellikle sevkiyat değerinin %0,5-1'i kadardır ve nihai faturaya dahil edilir.</p>
+
+                        <h3>Sevkiyat Takibi</h3>
+                        <p>Yükleme sonrasında konşimento numarası ve konteyner takip bağlantısı size e-posta veya mesaj yoluyla gönderilir.</p>
+                        HTML,
                 ],
                 'meta_title' => [
                     'fa' => 'حمل و نقل | EN Trading Group',
@@ -1220,6 +1680,8 @@ class PageSeeder extends Seeder
                     'ar' => 'الشحن | EN Trading Group',
                     'hi' => 'शिपिंग | EN Trading Group',
                     'it' => 'Spedizione | EN Trading Group',
+                    'zh' => '运输 | EN Trading Group',
+                    'tr' => 'Sevkiyat | EN Trading Group',
                 ],
                 'meta_description' => [
                     'fa' => 'روش‌های حمل و نقل، اینکوترمز، مدارک صادراتی و زمان‌بندی ارسال سفارش‌های سنگ EN Trading Group.',
@@ -1227,6 +1689,8 @@ class PageSeeder extends Seeder
                     'ar' => 'طرق الشحن وشروط التسليم ومستندات التصدير والجدول الزمني لإرسال الطلبات في EN Trading Group.',
                     'hi' => 'EN Trading Group में शिपिंग के तरीके, Incoterms, निर्यात दस्तावेज़ और ऑर्डर डिस्पैच समयरेखा।',
                     'it' => 'Metodi di spedizione, Incoterms, documenti di esportazione e tempistiche di invio ordini di EN Trading Group.',
+                    'zh' => 'EN Trading Group的运输方式、国际贸易术语、出口单证及订单发货时间表。',
+                    'tr' => "EN Trading Group'ta sevkiyat yöntemleri, Incoterms, ihracat belgeleri ve sipariş sevkiyat zaman çizelgesi.",
                 ],
                 'template'   => 'sidebar',
                 'is_active'  => true,

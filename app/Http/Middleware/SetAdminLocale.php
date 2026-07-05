@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class SetAdminLocale
 {
-    const ADMIN_LOCALES = ['fa', 'en', 'ar', 'hi', 'it'];
+    const ADMIN_LOCALES = ['fa', 'en', 'ar', 'hi', 'it', 'zh', 'tr'];
 
     public function handle(Request $request, Closure $next)
     {

@@ -94,7 +94,7 @@ class UserResource extends Resource
 
                     Forms\Components\Select::make('locale')
                         ->label('زبان')
-                        ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية'])
+                        ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية', 'zh' => '中文', 'tr' => 'Türkçe'])
                         ->default('fa'),
 
                     Forms\Components\TextInput::make('password')
