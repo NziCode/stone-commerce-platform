@@ -28,7 +28,7 @@ class RegisteredUserController extends Controller
             'phone'    => ['nullable', 'string', 'max:20'],
             'company'  => ['nullable', 'string', 'max:255'],
             'country'  => ['nullable', 'string', 'max:5'],
-            'locale'   => ['nullable', 'string', 'in:fa,en,ar,hi,it'],
+            'locale'   => ['nullable', 'string', 'in:fa,en,ar,hi,it,zh,tr'],
         ]);
 
         $user = User::create([

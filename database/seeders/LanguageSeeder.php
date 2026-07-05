@@ -65,6 +65,28 @@ class LanguageSeeder extends Seeder
                 'is_active'   => true,
                 'sort_order'  => 4,
             ],
+            [
+                'name'        => 'Chinese',
+                'native_name' => '中文',
+                'code'        => 'zh',
+                'locale'      => 'zh_CN',
+                'direction'   => 'ltr',
+                'flag'        => '🇨🇳',
+                'is_default'  => false,
+                'is_active'   => true,
+                'sort_order'  => 5,
+            ],
+            [
+                'name'        => 'Turkish',
+                'native_name' => 'Türkçe',
+                'code'        => 'tr',
+                'locale'      => 'tr_TR',
+                'direction'   => 'ltr',
+                'flag'        => '🇹🇷',
+                'is_default'  => false,
+                'is_active'   => true,
+                'sort_order'  => 6,
+            ],
         ];
 
         foreach ($languages as $language) {

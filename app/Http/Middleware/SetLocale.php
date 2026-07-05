@@ -19,7 +19,7 @@ class SetLocale
         try {
             $validLocales = Language::allActive()->pluck('code')->toArray();
         } catch (\Exception $e) {
-            $validLocales = ['fa', 'en', 'hi', 'it', 'ar'];
+            $validLocales = ['fa', 'en', 'hi', 'it', 'ar', 'zh', 'tr'];
         }
 
         if (in_array($segment, $validLocales)) {

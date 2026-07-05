@@ -42,7 +42,7 @@ class EventResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $locales = ['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية'];
+        $locales = ['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية', 'zh' => '中文', 'tr' => 'Türkçe'];
 
         return $form->schema([
             Forms\Components\Tabs::make()->tabs([

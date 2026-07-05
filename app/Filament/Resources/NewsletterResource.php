@@ -60,7 +60,7 @@ class NewsletterResource extends Resource
 
                 Forms\Components\Select::make('language')
                     ->label('زبان')
-                    ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية'])
+                    ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية', 'zh' => '中文', 'tr' => 'Türkçe'])
                     ->default('fa'),
 
                 Forms\Components\Toggle::make('is_active')
@@ -111,7 +111,7 @@ class NewsletterResource extends Resource
                 Tables\Filters\TernaryFilter::make('is_active')->label('فعال'),
                 Tables\Filters\SelectFilter::make('language')
                     ->label('زبان')
-                    ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية']),
+                    ->options(['fa' => 'فارسی', 'en' => 'English', 'hi' => 'Hindi', 'it' => 'Italiano', 'ar' => 'العربية', 'zh' => '中文', 'tr' => 'Türkçe']),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
