@@ -279,6 +279,7 @@ return [
     'transaction_id' => 'رقم العملية',
     'translate_automatically' => 'ترجمة تلقائية',
     'translate_confirm_body' => 'سيتم ترجمة محتوى اللغة الأساسية إلى اللغات الأخرى. لن يتم استبدال الحقول المملوءة مسبقًا.',
+    'translate_confirm_overwrite' => 'تأكيد واستبدال الترجمات الحالية',
     'translate_success' => 'تمت الترجمة بنجاح',
     'translate_partial' => 'فشلت الترجمة لبعض اللغات',
     'translation_complete' => 'الترجمة مكتملة',

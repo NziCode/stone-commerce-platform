@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Filament\Resources\ProductResource\Pages\CreateProduct;
 use App\Models\User;
+use App\Services\TranslationService;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -83,5 +85,39 @@ class TranslateFieldsActionTest extends TestCase
         foreach ($manualValues as $path => $value) {
             $livewire->assertSet("data.{$path}", $value);
         }
+    }
+
+    public function test_confirm_and_overwrite_replaces_fields_that_already_have_values(): void
+    {
+        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+
+        $this->actingAs($admin);
+
+        // Stub the translator so this test doesn't depend on the real network endpoint;
+        // it only needs to prove the "overwrite" argument reaches the translation logic.
+        $fake = Mockery::mock(TranslationService::class);
+        $fake->shouldReceive('translateFields')
+            ->andReturnUsing(fn (array $fields, string $target, string $source) => array_map(
+                fn ($value) => "[{$target}] {$value}",
+                $fields
+            ));
+        $fake->shouldReceive('translateHtml')
+            ->andReturnUsing(fn (?string $html, string $target, string $source) => '<p>[' . $target . '] ' . strip_tags((string) $html) . '</p>');
+        $this->app->instance(TranslationService::class, $fake);
+
+        $manualTurkishName = 'Manuel Türkçe İsim';
+
+        $livewire = Livewire::test(CreateProduct::class)
+            ->fillForm([
+                'name.fa' => 'محصول تست نمونه',
+                'name.tr' => $manualTurkishName,
+                'slug.tr' => 'manuel-turkce-isim',
+            ])
+            ->callFormComponentAction('translateAutomaticallyAction', 'translateAutomatically', [], ['overwrite' => true]);
+
+        // The pre-existing manual translation and slug are replaced, unlike the default "Confirm" behavior.
+        $this->assertNotEquals($manualTurkishName, $livewire->get('data.name.tr'));
+        $this->assertStringContainsString('[tr]', $livewire->get('data.name.tr'));
+        $this->assertNotEquals('manuel-turkce-isim', $livewire->get('data.slug.tr'));
     }
 }

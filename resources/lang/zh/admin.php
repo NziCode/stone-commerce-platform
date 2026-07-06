@@ -279,6 +279,7 @@ return [
     'transaction_id' => '交易编号',
     'translate_automatically' => '自动翻译',
     'translate_confirm_body' => '这将把主语言内容翻译成其他语言。已填写的字段不会被覆盖。',
+    'translate_confirm_overwrite' => '确认并覆盖现有翻译',
     'translate_success' => '翻译成功完成',
     'translate_partial' => '部分语言翻译失败',
     'translation_complete' => '翻译已完成',
