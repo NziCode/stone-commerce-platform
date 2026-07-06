@@ -15,8 +15,12 @@ use Illuminate\Support\Str;
  *
  * Drop it above a per-locale Tabs block that follows this app's `field.{locale_code}`
  * naming convention (see ProductResource's NameTranslations tabs). Reads the primary
- * locale's values and fills the other active locales via the free TranslationService,
- * without overwriting any target field an editor already filled in by hand.
+ * locale's values and fills the other active locales via the free TranslationService.
+ *
+ * The confirmation modal offers two ways to proceed: the default "Confirm" only fills
+ * target fields that are still empty, while the extra "Confirm and Overwrite Existing
+ * Translations" button re-translates and replaces every target field regardless of
+ * whether an editor already filled it in by hand.
  */
 class TranslateFieldsAction
 {
@@ -33,7 +37,14 @@ class TranslateFieldsAction
             ->color('gray')
             ->requiresConfirmation()
             ->modalDescription(__('admin.translate_confirm_body'))
-            ->action(function (Get $get, Set $set) use ($fields, $slugField, $slugSourceField) {
+            ->extraModalFooterActions(fn (Action $action): array => [
+                $action->makeModalSubmitAction('translateOverwrite', arguments: ['overwrite' => true])
+                    ->label(__('admin.translate_confirm_overwrite'))
+                    ->color('danger'),
+            ])
+            ->action(function (Get $get, Set $set, array $arguments) use ($fields, $slugField, $slugSourceField) {
+                $overwrite = (bool) ($arguments['overwrite'] ?? false);
+
                 $sourceCode = LanguageService::getDefault()?->code ?? 'fa';
 
                 $targets = LanguageService::getActive()
@@ -55,7 +66,7 @@ class TranslateFieldsAction
 
                         $sourceValue = $get("{$field}.{$sourceCode}");
 
-                        if (blank($sourceValue) || filled($get("{$field}.{$targetCode}"))) {
+                        if (blank($sourceValue) || (! $overwrite && filled($get("{$field}.{$targetCode}")))) {
                             continue;
                         }
 
@@ -83,7 +94,7 @@ class TranslateFieldsAction
 
                         $sourceValue = $get("{$field}.{$sourceCode}");
 
-                        if (blank($sourceValue) || filled($get("{$field}.{$targetCode}"))) {
+                        if (blank($sourceValue) || (! $overwrite && filled($get("{$field}.{$targetCode}")))) {
                             continue;
                         }
 
@@ -101,7 +112,7 @@ class TranslateFieldsAction
                     if ($slugField) {
                         $translatedName = $get("{$slugSourceField}.{$targetCode}");
 
-                        if (filled($translatedName) && blank($get("{$slugField}.{$targetCode}"))) {
+                        if (filled($translatedName) && ($overwrite || blank($get("{$slugField}.{$targetCode}")))) {
                             $set("{$slugField}.{$targetCode}", Str::slug($translatedName));
                         }
                     }

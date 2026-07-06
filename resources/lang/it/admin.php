@@ -279,6 +279,7 @@ return [
     'transaction_id' => 'ID Transazione',
     'translate_automatically' => 'Traduci Automaticamente',
     'translate_confirm_body' => 'Questo tradurrà il contenuto della lingua principale nelle altre lingue. I campi già compilati non verranno sovrascritti.',
+    'translate_confirm_overwrite' => 'Conferma e Sovrascrivi le Traduzioni Esistenti',
     'translate_success' => 'Traduzione completata con successo',
     'translate_partial' => 'Traduzione non riuscita per alcune lingue',
     'translation_complete' => 'Traduzione completa',

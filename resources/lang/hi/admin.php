@@ -279,6 +279,7 @@ return [
     'transaction_id' => 'लेन-देन ID',
     'translate_automatically' => 'स्वचालित अनुवाद',
     'translate_confirm_body' => 'यह प्राथमिक भाषा की सामग्री का अन्य भाषाओं में अनुवाद करेगा। पहले से भरे गए फ़ील्ड बदले नहीं जाएंगे।',
+    'translate_confirm_overwrite' => 'पुष्टि करें और मौजूदा अनुवादों को अधिलेखित करें',
     'translate_success' => 'अनुवाद सफलतापूर्वक पूरा हुआ',
     'translate_partial' => 'कुछ भाषाओं के लिए अनुवाद विफल रहा',
     'translation_complete' => 'अनुवाद पूर्ण',

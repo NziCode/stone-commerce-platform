@@ -279,6 +279,7 @@ return [
     'transaction_id' => 'شناسه تراکنش',
     'translate_automatically' => 'ترجمه خودکار',
     'translate_confirm_body' => 'محتوای زبان پیش‌فرض به بقیه زبان‌ها ترجمه می‌شود. فیلدهایی که از قبل پر شده‌اند تغییر نمی‌کنند.',
+    'translate_confirm_overwrite' => 'تأیید و بازنویسی ترجمه‌های موجود',
     'translate_success' => 'ترجمه با موفقیت انجام شد',
     'translate_partial' => 'ترجمه برخی زبان‌ها ناموفق بود',
     'translation_complete' => 'همه ترجمه‌ها کامله',

@@ -279,6 +279,7 @@ return [
     'transaction_id' => 'İşlem Numarası',
     'translate_automatically' => 'Otomatik Çevir',
     'translate_confirm_body' => 'Bu, birincil dil içeriğini diğer dillere çevirecektir. Daha önce doldurulmuş alanların üzerine yazılmaz.',
+    'translate_confirm_overwrite' => 'Onayla ve Mevcut Çevirilerin Üzerine Yaz',
     'translate_success' => 'Çeviri başarıyla tamamlandı',
     'translate_partial' => 'Bazı diller için çeviri başarısız oldu',
     'translation_complete' => 'Çeviri tamamlandı',
