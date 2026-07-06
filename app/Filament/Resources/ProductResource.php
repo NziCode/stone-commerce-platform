@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Attribute;
 use App\Models\Product;
 use App\Services\LanguageService;
@@ -82,6 +83,17 @@ class ProductResource extends Resource
                                         ->preload()
                                         ->columnSpanFull(),
                                 ]),
+
+                            Forms\Components\Actions::make([
+                                TranslateFieldsAction::make(
+                                    fields: [
+                                        'name' => false,
+                                        'short_description' => false,
+                                        'description' => true,
+                                    ],
+                                    slugField: 'slug',
+                                ),
+                            ])->key('data.translateActionsMain'),
 
                             Forms\Components\Tabs::make('NameTranslations')
                                 ->tabs(
@@ -330,6 +342,14 @@ class ProductResource extends Resource
                     // ── SEO ────────────────────────────────────────
                     Forms\Components\Tabs\Tab::make(__('admin.meta_title'))
                         ->schema([
+                            Forms\Components\Actions::make([
+                                TranslateFieldsAction::make(fields: [
+                                    'meta_title' => false,
+                                    'meta_description' => false,
+                                    'meta_keywords' => false,
+                                ]),
+                            ])->key('data.translateActionsSeo'),
+
                             Forms\Components\Tabs::make('SeoTranslations')
                                 ->tabs(
                                     collect(LanguageService::getActive())->map(function ($lang) {
