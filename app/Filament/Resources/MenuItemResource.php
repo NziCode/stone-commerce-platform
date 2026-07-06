@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MenuItemResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\MenuItem;
 use App\Models\Menu;
 use Filament\Forms;
@@ -99,6 +100,12 @@ class MenuItemResource extends Resource
                         ->label('فعال')
                         ->default(true),
                 ]),
+
+                Forms\Components\Actions::make([
+                    TranslateFieldsAction::make(fields: [
+                        'label' => false,
+                    ]),
+                ])->key('data.translateActions'),
 
                 Forms\Components\Tabs::make('translations')->tabs(
                     collect($locales)->map(fn($label, $code) =>

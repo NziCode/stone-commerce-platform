@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SliderResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Slider;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -82,6 +83,14 @@ class SliderResource extends Resource
                         ->label('فعال')
                         ->default(true),
                 ]),
+
+                Forms\Components\Actions::make([
+                    TranslateFieldsAction::make(fields: [
+                        'title' => false,
+                        'subtitle' => false,
+                        'button_text' => false,
+                    ]),
+                ])->key('data.translateActions'),
 
                 Forms\Components\Tabs::make('translations')->tabs(
                     collect($locales)->map(fn($label, $code) =>

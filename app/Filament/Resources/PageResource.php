@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PageResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -48,6 +49,18 @@ class PageResource extends Resource
             Forms\Components\Tabs::make()->tabs([
 
                 Forms\Components\Tabs\Tab::make('محتوا')->schema([
+                    Forms\Components\Actions::make([
+                        TranslateFieldsAction::make(
+                            fields: [
+                                'title' => false,
+                                'excerpt' => false,
+                                'content' => true,
+                            ],
+                            slugField: 'slug',
+                            slugSourceField: 'title',
+                        ),
+                    ])->key('data.translateActionsMain'),
+
                     Forms\Components\Tabs::make('translations')->tabs(
                         collect($locales)->map(fn($label, $code) =>
                         Forms\Components\Tabs\Tab::make($label)->schema([
@@ -106,6 +119,14 @@ class PageResource extends Resource
                 ]),
 
                 Forms\Components\Tabs\Tab::make('سئو')->schema([
+                    Forms\Components\Actions::make([
+                        TranslateFieldsAction::make(fields: [
+                            'meta_title' => false,
+                            'meta_description' => false,
+                            'meta_keywords' => false,
+                        ]),
+                    ])->key('data.translateActionsSeo'),
+
                     Forms\Components\Tabs::make('seo_translations')->tabs(
                         collect($locales)->map(fn($label, $code) =>
                         Forms\Components\Tabs\Tab::make($label)->schema([

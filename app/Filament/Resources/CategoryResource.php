@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Category;
 use App\Services\LanguageService;
 use Filament\Forms;
@@ -118,6 +119,18 @@ class CategoryResource extends Resource
             // ── Translations (Tabs) ───────────────────────────
             Forms\Components\Section::make(__('admin.content'))
                 ->schema([
+                    Forms\Components\Actions::make([
+                        TranslateFieldsAction::make(
+                            fields: [
+                                'name' => false,
+                                'description' => false,
+                                'meta_title' => false,
+                                'meta_description' => false,
+                            ],
+                            slugField: 'slug',
+                        ),
+                    ])->key('data.translateActions'),
+
                     Forms\Components\Tabs::make('Translations')
                         ->tabs(
                             collect(LanguageService::getActive())->map(function ($lang) {
