@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/admin
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'Ricevuta Bancaria',
     'basic_info' => 'Info Base',
     'booth_number' => 'Stand',
+    'cached_at' => 'Memorizzato il',
+    'cached_translation' => 'Traduzione in Cache',
     'cancel' => 'Annulla',
     'cancelled' => 'Annullato',
     'categories' => 'Categorie',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'Info Contatto',
     'contact_messages' => 'Messaggi Ricevuti',
     'content' => 'Contenuto',
+    'context' => 'Contesto',
     'country' => 'Paese',
     'coupons' => 'Coupon',
     'create' => 'Crea',
@@ -249,6 +252,8 @@ return [
     'sold' => 'Venduto',
     'sold_products' => 'Prodotti Venduti',
     'sort_order' => 'Ordine di Visualizzazione',
+    'source_locale' => 'Lingua di Origine',
+    'source_text' => 'Testo di Origine',
     'start_date' => 'Data Inizio',
     'stat_available_products' => 'Available Products',
     'stat_new_messages' => 'New Messages',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'Sottocategorie',
     'subtotal' => 'Subtotale',
     'tagline' => 'Slogan',
+    'target_locale' => 'Lingua di Destinazione',
     'title' => 'Titolo',
     'total' => 'Totale',
     'total_siblings' => 'Totale fratelli',
     'total_users' => 'Utenti Totali',
     'transaction_id' => 'ID Transazione',
-    'translate_automatically' => 'Traduci Automaticamente',
-    'translate_confirm_body' => 'Questo tradurrà il contenuto della lingua principale nelle altre lingue. I campi già compilati non verranno sovrascritti.',
-    'translate_confirm_overwrite' => 'Conferma e Sovrascrivi le Traduzioni Esistenti',
-    'translate_success' => 'Traduzione completata con successo',
-    'translate_partial' => 'Traduzione non riuscita per alcune lingue',
+    'translated_text' => 'Testo Tradotto',
+    'translation_cache' => 'Cache delle Traduzioni',
     'translation_complete' => 'Traduzione completa',
     'translation_incomplete' => 'Traduzione incompleta',
     'translations' => 'Traduzioni',

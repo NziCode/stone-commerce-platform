@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — zh/admin
-// Generated at: 2026-07-05 09:38:54
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => '银行汇款凭证',
     'basic_info' => '基本信息',
     'booth_number' => '展位',
+    'cached_at' => '缓存时间',
+    'cached_translation' => '缓存的翻译',
     'cancel' => '取消',
     'cancelled' => '已取消',
     'categories' => '分类',
@@ -53,6 +55,7 @@ return [
     'contact_info' => '联系信息',
     'contact_messages' => '收件箱',
     'content' => '内容',
+    'context' => '上下文',
     'country' => '国家',
     'coupons' => '优惠券',
     'create' => '新建',
@@ -249,6 +252,8 @@ return [
     'sold' => '已售出',
     'sold_products' => '已售产品',
     'sort_order' => '显示顺序',
+    'source_locale' => '源语言',
+    'source_text' => '源文本',
     'start_date' => '开始日期',
     'stat_available_products' => '有货产品',
     'stat_new_messages' => '新消息',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => '子分类',
     'subtotal' => '小计',
     'tagline' => '网站标语',
+    'target_locale' => '目标语言',
     'title' => '标题',
     'total' => '总计',
     'total_siblings' => '同级分类总数',
     'total_users' => '用户总数',
     'transaction_id' => '交易编号',
-    'translate_automatically' => '自动翻译',
-    'translate_confirm_body' => '这将把主语言内容翻译成其他语言。已填写的字段不会被覆盖。',
-    'translate_confirm_overwrite' => '确认并覆盖现有翻译',
-    'translate_success' => '翻译成功完成',
-    'translate_partial' => '部分语言翻译失败',
+    'translated_text' => '译文',
+    'translation_cache' => '翻译缓存',
     'translation_complete' => '翻译已完成',
     'translation_incomplete' => '缺少翻译',
     'translations' => '翻译',

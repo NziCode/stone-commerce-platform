@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — en/admin
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'Bank Receipt',
     'basic_info' => 'Basic Info',
     'booth_number' => 'Booth',
+    'cached_at' => 'Cached At',
+    'cached_translation' => 'Cached Translation',
     'cancel' => 'Cancel',
     'cancelled' => 'Cancelled',
     'categories' => 'Categories',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'Contact Info',
     'contact_messages' => 'Inbox',
     'content' => 'Content',
+    'context' => 'Context',
     'country' => 'Country',
     'coupons' => 'Coupons',
     'create' => 'Create',
@@ -249,6 +252,8 @@ return [
     'sold' => 'Sold',
     'sold_products' => 'Sold Products',
     'sort_order' => 'Display Order',
+    'source_locale' => 'Source Locale',
+    'source_text' => 'Source Text',
     'start_date' => 'Start Date',
     'stat_available_products' => 'Available Products',
     'stat_new_messages' => 'New Messages',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'Sub-categories',
     'subtotal' => 'Subtotal',
     'tagline' => 'Tagline',
+    'target_locale' => 'Target Locale',
     'title' => 'Title',
     'total' => 'Total',
     'total_siblings' => 'Total siblings',
     'total_users' => 'Total Users',
     'transaction_id' => 'Transaction ID',
-    'translate_automatically' => 'Translate Automatically',
-    'translate_confirm_body' => 'This will translate the primary language content into the other languages. Fields that are already filled in will not be overwritten.',
-    'translate_confirm_overwrite' => 'Confirm and Overwrite Existing Translations',
-    'translate_success' => 'Translation completed successfully',
-    'translate_partial' => 'Translation failed for some languages',
+    'translated_text' => 'Translated Text',
+    'translation_cache' => 'Translation Cache',
     'translation_complete' => 'Translation complete',
     'translation_incomplete' => 'Missing translations',
     'translations' => 'Translations',
