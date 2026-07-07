@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MenuResource\Pages;
+use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use Filament\Forms;
@@ -70,6 +71,14 @@ class MenuResource extends Resource
             ]),
 
             Forms\Components\Section::make('آیتم‌های منو')->schema([
+                Forms\Components\Actions::make([
+                    TranslateFieldsAction::make(fields: [
+                        'allItems' => [
+                            'label' => false,
+                        ],
+                    ]),
+                ]),
+
                 Repeater::make('allItems')
                     ->label('')
                     ->relationship('allItems')
