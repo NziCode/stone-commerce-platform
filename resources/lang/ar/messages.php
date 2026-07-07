@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/messages
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => 'إعادة إرسال الرابط',
     'reserved' => 'محجوز',
     'reset_password' => 'إعادة تعيين كلمة المرور',
+    'review_already_submitted' => 'لقد قمت بالفعل بتقييم هذا المنتج.',
     'review_placeholder' => 'شارك تجربتك مع هذا المنتج…',
     'review_submitted' => 'تم تقديم تقييمك وهو في انتظار الموافقة.',
     'reviews' => 'التقييمات',

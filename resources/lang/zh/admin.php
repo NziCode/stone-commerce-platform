@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — zh/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => '付款已确认',
     'payments' => '付款记录',
     'pending' => '待处理',
+    'pending_orders' => '待处理订单',
     'pending_receipts' => '待审核汇款凭证',
+    'pending_reviews' => '待审核评价',
     'permission_denied' => '无访问权限',
     'permissions' => '权限',
     'phone' => '电话',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => '同级分类总数',
     'total_users' => '用户总数',
     'transaction_id' => '交易编号',
+    'translate_automatically' => '自动翻译',
+    'translate_confirm_body' => '源语言将被翻译成其他已启用的语言。将填充空白字段，除非您选择覆盖现有翻译。',
+    'translate_confirm_overwrite' => '确认并覆盖现有翻译',
+    'translate_partial' => '翻译部分完成',
+    'translate_success' => '翻译成功完成',
     'translated_text' => '译文',
     'translation_cache' => '翻译缓存',
     'translation_complete' => '翻译已完成',
