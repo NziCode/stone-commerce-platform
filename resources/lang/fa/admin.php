@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'فیش بانکی',
     'basic_info' => 'اطلاعات اصلی',
     'booth_number' => 'شماره غرفه',
+    'cached_at' => 'زمان ذخیره در کش',
+    'cached_translation' => 'ترجمه کش‌شده',
     'cancel' => 'انصراف',
     'cancelled' => 'لغو شده',
     'categories' => 'دسته‌بندی‌ها',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'اطلاعات تماس',
     'contact_messages' => 'پیام‌های دریافتی',
     'content' => 'محتوا',
+    'context' => 'بافتار',
     'country' => 'کشور',
     'coupons' => 'کوپن‌ها',
     'create' => 'ایجاد',
@@ -249,6 +252,8 @@ return [
     'sold' => 'فروخته شده',
     'sold_products' => 'محصولات فروخته شده',
     'sort_order' => 'ترتیب نمایش',
+    'source_locale' => 'زبان مبدأ',
+    'source_text' => 'متن مبدأ',
     'start_date' => 'تاریخ شروع',
     'stat_available_products' => 'محصولات موجود',
     'stat_new_messages' => 'پیام‌های جدید',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'زیردسته‌ها',
     'subtotal' => 'جمع جزء',
     'tagline' => 'شعار سایت',
+    'target_locale' => 'زبان مقصد',
     'title' => 'عنوان',
     'total' => 'مبلغ کل',
     'total_siblings' => 'تعداد همتایان',
     'total_users' => 'تعداد کاربران',
     'transaction_id' => 'شناسه تراکنش',
-    'translate_automatically' => 'ترجمه خودکار',
-    'translate_confirm_body' => 'محتوای زبان پیش‌فرض به بقیه زبان‌ها ترجمه می‌شود. فیلدهایی که از قبل پر شده‌اند تغییر نمی‌کنند.',
-    'translate_confirm_overwrite' => 'تأیید و بازنویسی ترجمه‌های موجود',
-    'translate_success' => 'ترجمه با موفقیت انجام شد',
-    'translate_partial' => 'ترجمه برخی زبان‌ها ناموفق بود',
+    'translated_text' => 'متن ترجمه‌شده',
+    'translation_cache' => 'کش ترجمه',
     'translation_complete' => 'همه ترجمه‌ها کامله',
     'translation_incomplete' => 'ترجمه ناقصه',
     'translations' => 'ترجمه‌ها',

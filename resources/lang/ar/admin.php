@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'إيصال بنكي',
     'basic_info' => 'المعلومات الأساسية',
     'booth_number' => 'رقم الجناح',
+    'cached_at' => 'وقت التخزين المؤقت',
+    'cached_translation' => 'ترجمة مخزنة مؤقتاً',
     'cancel' => 'إلغاء',
     'cancelled' => 'ملغى',
     'categories' => 'الفئات',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'معلومات الاتصال',
     'contact_messages' => 'الرسائل الواردة',
     'content' => 'المحتوى',
+    'context' => 'السياق',
     'country' => 'البلد',
     'coupons' => 'الكوبونات',
     'create' => 'إنشاء',
@@ -249,6 +252,8 @@ return [
     'sold' => 'مباع',
     'sold_products' => 'المنتجات المباعة',
     'sort_order' => 'ترتيب العرض',
+    'source_locale' => 'اللغة المصدر',
+    'source_text' => 'النص المصدر',
     'start_date' => 'تاريخ البدء',
     'stat_available_products' => 'Available Products',
     'stat_new_messages' => 'New Messages',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'الفئات الفرعية',
     'subtotal' => 'المجموع الجزئي',
     'tagline' => 'الشعار',
+    'target_locale' => 'اللغة الهدف',
     'title' => 'العنوان',
     'total' => 'المجموع',
     'total_siblings' => 'إجمالي الأشقاء',
     'total_users' => 'إجمالي المستخدمين',
     'transaction_id' => 'رقم العملية',
-    'translate_automatically' => 'ترجمة تلقائية',
-    'translate_confirm_body' => 'سيتم ترجمة محتوى اللغة الأساسية إلى اللغات الأخرى. لن يتم استبدال الحقول المملوءة مسبقًا.',
-    'translate_confirm_overwrite' => 'تأكيد واستبدال الترجمات الحالية',
-    'translate_success' => 'تمت الترجمة بنجاح',
-    'translate_partial' => 'فشلت الترجمة لبعض اللغات',
+    'translated_text' => 'النص المترجم',
+    'translation_cache' => 'ذاكرة تخزين الترجمة',
     'translation_complete' => 'الترجمة مكتملة',
     'translation_incomplete' => 'ترجمة ناقصة',
     'translations' => 'الترجمات',

@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — tr/admin
-// Generated at: 2026-07-05 09:38:54
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'Banka Dekontu',
     'basic_info' => 'Temel Bilgiler',
     'booth_number' => 'Stant',
+    'cached_at' => 'Önbelleğe Alınma Zamanı',
+    'cached_translation' => 'Önbelleğe Alınmış Çeviri',
     'cancel' => 'İptal',
     'cancelled' => 'İptal Edildi',
     'categories' => 'Kategoriler',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'İletişim Bilgileri',
     'contact_messages' => 'Gelen Kutusu',
     'content' => 'İçerik',
+    'context' => 'Bağlam',
     'country' => 'Ülke',
     'coupons' => 'Kuponlar',
     'create' => 'Oluştur',
@@ -249,6 +252,8 @@ return [
     'sold' => 'Satıldı',
     'sold_products' => 'Satılan Ürünler',
     'sort_order' => 'Görüntüleme Sırası',
+    'source_locale' => 'Kaynak Dil',
+    'source_text' => 'Kaynak Metin',
     'start_date' => 'Başlangıç Tarihi',
     'stat_available_products' => 'Mevcut Ürünler',
     'stat_new_messages' => 'Yeni Mesajlar',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'Alt Kategoriler',
     'subtotal' => 'Ara Toplam',
     'tagline' => 'Slogan',
+    'target_locale' => 'Hedef Dil',
     'title' => 'Başlık',
     'total' => 'Toplam',
     'total_siblings' => 'Toplam kardeş öğe',
     'total_users' => 'Toplam Kullanıcı',
     'transaction_id' => 'İşlem Numarası',
-    'translate_automatically' => 'Otomatik Çevir',
-    'translate_confirm_body' => 'Bu, birincil dil içeriğini diğer dillere çevirecektir. Daha önce doldurulmuş alanların üzerine yazılmaz.',
-    'translate_confirm_overwrite' => 'Onayla ve Mevcut Çevirilerin Üzerine Yaz',
-    'translate_success' => 'Çeviri başarıyla tamamlandı',
-    'translate_partial' => 'Bazı diller için çeviri başarısız oldu',
+    'translated_text' => 'Çevrilmiş Metin',
+    'translation_cache' => 'Çeviri Önbelleği',
     'translation_complete' => 'Çeviri tamamlandı',
     'translation_incomplete' => 'Eksik çeviriler',
     'translations' => 'Çeviriler',

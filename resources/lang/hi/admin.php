@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 11:17:03
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -41,6 +41,8 @@ return [
     'bank_receipt' => 'बैंक रसीद',
     'basic_info' => 'मूल जानकारी',
     'booth_number' => 'बूथ नंबर',
+    'cached_at' => 'कैश किए जाने का समय',
+    'cached_translation' => 'कैश किया गया अनुवाद',
     'cancel' => 'रद्द करें',
     'cancelled' => 'रद्द हुआ',
     'categories' => 'श्रेणियाँ',
@@ -53,6 +55,7 @@ return [
     'contact_info' => 'संपर्क जानकारी',
     'contact_messages' => 'इनबॉक्स',
     'content' => 'सामग्री',
+    'context' => 'संदर्भ',
     'country' => 'देश',
     'coupons' => 'कूपन',
     'create' => 'बनाएं',
@@ -249,6 +252,8 @@ return [
     'sold' => 'बिक गया',
     'sold_products' => 'बेचे उत्पाद',
     'sort_order' => 'प्रदर्शन क्रम',
+    'source_locale' => 'स्रोत भाषा',
+    'source_text' => 'स्रोत पाठ',
     'start_date' => 'प्रारंभ तिथि',
     'stat_available_products' => 'Available Products',
     'stat_new_messages' => 'New Messages',
@@ -272,16 +277,14 @@ return [
     'sub_categories' => 'उप श्रेणियाँ',
     'subtotal' => 'उपकुल',
     'tagline' => 'टैगलाइन',
+    'target_locale' => 'लक्ष्य भाषा',
     'title' => 'शीर्षक',
     'total' => 'कुल',
     'total_siblings' => 'कुल समकक्ष',
     'total_users' => 'कुल उपयोगकर्ता',
     'transaction_id' => 'लेन-देन ID',
-    'translate_automatically' => 'स्वचालित अनुवाद',
-    'translate_confirm_body' => 'यह प्राथमिक भाषा की सामग्री का अन्य भाषाओं में अनुवाद करेगा। पहले से भरे गए फ़ील्ड बदले नहीं जाएंगे।',
-    'translate_confirm_overwrite' => 'पुष्टि करें और मौजूदा अनुवादों को अधिलेखित करें',
-    'translate_success' => 'अनुवाद सफलतापूर्वक पूरा हुआ',
-    'translate_partial' => 'कुछ भाषाओं के लिए अनुवाद विफल रहा',
+    'translated_text' => 'अनूदित पाठ',
+    'translation_cache' => 'अनुवाद कैश',
     'translation_complete' => 'अनुवाद पूर्ण',
     'translation_incomplete' => 'अनुवाद अधूरा',
     'translations' => 'अनुवाद',
