@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
                 'info'    => Color::hex('#123a7a'),
                 'gray'    => Color::Slate,
             ])
-            ->brandName('EN Trading Group')
+            ->brandName('Stone Commerce')
             ->brandLogoHeight('2.25rem')
             ->brandLogo(fn () => \App\Models\Setting::get('site_logo')
                 ? asset(\App\Models\Setting::get('site_logo'))

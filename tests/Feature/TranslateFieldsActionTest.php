@@ -19,7 +19,7 @@ class TranslateFieldsActionTest extends TestCase
 {
     public function test_translate_automatically_fills_empty_fields_without_overwriting_and_regenerates_slug(): void
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
 
         $this->actingAs($admin);
 
@@ -64,7 +64,7 @@ class TranslateFieldsActionTest extends TestCase
 
     public function test_translate_automatically_does_not_touch_fields_already_filled_in_every_target_locale(): void
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
 
         $this->actingAs($admin);
 
@@ -89,7 +89,7 @@ class TranslateFieldsActionTest extends TestCase
 
     public function test_confirm_and_overwrite_replaces_fields_that_already_have_values(): void
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
 
         $this->actingAs($admin);
 

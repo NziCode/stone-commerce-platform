@@ -12,8 +12,8 @@ class AdminUserSeeder extends Seeder
         $users = [
             [
                 'name'     => 'Admin',
-                'email'    => 'admin@en-tradinggroup.com',
-                'password' => bcrypt('Admin@1367'),
+                'email'    => env('ADMIN_SEED_EMAIL', 'admin@example.com'),
+                'password' => bcrypt(env('ADMIN_SEED_PASSWORD', 'ChangeMe123!')),
                 'role'     => 'admin',
                 'email_verified_at'  => now(),
             ],

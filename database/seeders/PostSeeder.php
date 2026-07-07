@@ -104,12 +104,12 @@ class PostSeeder extends Seeder
             // ── 3) Export milestone ────────────────────────────────────────
             [
                 'title' => [
-                    'fa' => 'صادرات ۲۰۰۰ تن سنگ تراورتن به اروپا؛ گامی تازه برای EN Trading Group',
+                    'fa' => 'صادرات ۲۰۰۰ تن سنگ تراورتن به اروپا؛ گامی تازه برای Stone Commerce',
                     'en' => '2,000 Tons of Travertine Exported to Europe: A New Milestone',
                     'ar' => 'تصدير 2000 طن من حجر الترافرتين إلى أوروبا: إنجاز جديد',
                     'hi' => 'यूरोप को 2,000 टन ट्रैवर्टीन का निर्यात: एक नई उपलब्धि',
                     'it' => '2.000 Tonnellate di Travertino Esportate in Europa: Un Nuovo Traguardo',
-                    'zh' => '2000吨travertine石材出口欧洲：EN Trading Group的新里程碑',
+                    'zh' => '2000吨travertine石材出口欧洲：Stone Commerce的新里程碑',
                     'tr' => 'Avrupa\'ya 2.000 Ton Traverten İhracatı: Yeni Bir Kilometre Taşı',
                 ],
                 'slug' => [

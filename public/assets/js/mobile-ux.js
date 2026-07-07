@@ -1,5 +1,5 @@
 /* ============================================================
-   EN Trading Group — Mobile UX enhancements
+   Stone Commerce — Mobile UX enhancements
    Loaded after main.js. Patches Swiper instances and adds
    mobile-specific interactions without touching the legacy file.
    ============================================================ */

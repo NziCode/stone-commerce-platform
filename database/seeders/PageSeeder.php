@@ -42,9 +42,9 @@ class PageSeeder extends Seeder
                 ],
                 'content' => [
                     'fa' => <<<'HTML'
-                        <p>گروه <strong>EN Trading</strong> با بیش از ۲۵ سال فعالیت مستمر در صنعت سنگ‌های طبیعی، از معدن تا میز مشتری، یک زنجیره کامل و قابل اعتماد را در اختیار خریداران داخلی و بین‌المللی قرار می‌دهد. کار ما با شناسایی و استخراج مستقیم از معادن اختصاصی در نقاط مختلف ایران آغاز می‌شود و تا فرآوری، کنترل کیفیت، و در نهایت بسته‌بندی و حمل بین‌المللی ادامه پیدا می‌کند.</p>
+                        <p>گروه <strong>Stone Commerce</strong> با بیش از ۲۵ سال فعالیت مستمر در صنعت سنگ‌های طبیعی، از معدن تا میز مشتری، یک زنجیره کامل و قابل اعتماد را در اختیار خریداران داخلی و بین‌المللی قرار می‌دهد. کار ما با شناسایی و استخراج مستقیم از معادن اختصاصی در نقاط مختلف ایران آغاز می‌شود و تا فرآوری، کنترل کیفیت، و در نهایت بسته‌بندی و حمل بین‌المللی ادامه پیدا می‌کند.</p>
 
-                        <h3>چرا EN Trading Group؟</h3>
+                        <h3>چرا Stone Commerce؟</h3>
                         <p>تجربه طولانی ما در کنار دسترسی مستقیم به معادن، به ما این امکان را می‌دهد که محصولاتی با کیفیت ثابت، رنگ‌بندی یکنواخت و قیمت رقابتی به مشتریان ارائه دهیم — بدون واسطه‌های غیرضروری. امروز محصولات ما شامل تراورتن، مرمریت، گرانیت، سنگ آنتیک، سنگ آهک و اسلیت، به بیش از ۵۰ کشور در ۵ قاره جهان صادر می‌شود.</p>
 
                         <h3>تعهد ما به کیفیت</h3>
@@ -54,9 +54,9 @@ class PageSeeder extends Seeder
                         <p>تیم فروش ما به‌صورت مستمر در نمایشگاه‌های بین‌المللی سنگ حضور دارد تا با بازرگانان و پیمانکاران از سراسر جهان در ارتباط مستقیم باشد. این حضور، همراه با امکان ارسال نمونه و مشاوره فنی رایگان، همکاری با ما را برای پروژه‌های کوچک و بزرگ ساده می‌کند.</p>
                         HTML,
                     'en' => <<<'HTML'
-                        <p><strong>EN Trading Group</strong> has spent over 25 years building a complete, trustworthy supply chain for natural stone — from quarry to customer — serving both domestic and international buyers. Our work begins with sourcing and direct extraction from dedicated mines across Iran, and continues through processing, quality control, and international packaging and shipping.</p>
+                        <p><strong>Stone Commerce</strong> has spent over 25 years building a complete, trustworthy supply chain for natural stone — from quarry to customer — serving both domestic and international buyers. Our work begins with sourcing and direct extraction from dedicated mines across Iran, and continues through processing, quality control, and international packaging and shipping.</p>
 
-                        <h3>Why EN Trading Group?</h3>
+                        <h3>Why Stone Commerce?</h3>
                         <p>Our long-standing experience, combined with direct access to our own quarries, lets us offer consistent quality, uniform coloring, and competitive pricing — without unnecessary middlemen. Today our products, including travertine, marble, granite, antique stone, limestone, and slate, are exported to more than 50 countries across 5 continents.</p>
 
                         <h3>Our Commitment to Quality</h3>
@@ -66,9 +66,9 @@ class PageSeeder extends Seeder
                         <p>Our sales team regularly attends international stone exhibitions to stay in direct contact with traders and contractors worldwide. That presence, combined with free sample shipping and technical consultation, makes working with us straightforward for projects of any size.</p>
                         HTML,
                     'ar' => <<<'HTML'
-                        <p>على مدى أكثر من 25 عامًا، بنت <strong>مجموعة EN Trading</strong> سلسلة توريد كاملة وموثوقة للحجر الطبيعي — من المحجر إلى العميل — لخدمة المشترين المحليين والدوليين. يبدأ عملنا بالتوريد والاستخراج المباشر من مناجم مخصصة في جميع أنحاء إيران، ويستمر عبر المعالجة ومراقبة الجودة والتعبئة والشحن الدولي.</p>
+                        <p>على مدى أكثر من 25 عامًا، بنت <strong>مجموعة Stone Commerce</strong> سلسلة توريد كاملة وموثوقة للحجر الطبيعي — من المحجر إلى العميل — لخدمة المشترين المحليين والدوليين. يبدأ عملنا بالتوريد والاستخراج المباشر من مناجم مخصصة في جميع أنحاء إيران، ويستمر عبر المعالجة ومراقبة الجودة والتعبئة والشحن الدولي.</p>
 
-                        <h3>لماذا مجموعة EN Trading؟</h3>
+                        <h3>لماذا مجموعة Stone Commerce؟</h3>
                         <p>تتيح لنا خبرتنا الطويلة، إلى جانب الوصول المباشر إلى محاجرنا الخاصة، تقديم جودة ثابتة وألوان موحدة وأسعار تنافسية. تُصدَّر منتجاتنا اليوم — بما في ذلك الترافرتين والرخام والجرانيت والحجر الأنتيك والحجر الجيري والإردواز — إلى أكثر من 50 دولة عبر 5 قارات.</p>
 
                         <h3>التزامنا بالجودة</h3>
@@ -78,9 +78,9 @@ class PageSeeder extends Seeder
                         <p>يحضر فريق المبيعات لدينا بانتظام المعارض الدولية للحجر للبقاء على اتصال مباشر مع التجار والمقاولين حول العالم.</p>
                         HTML,
                     'hi' => <<<'HTML'
-                        <p><strong>EN Trading Group</strong> ने 25 से अधिक वर्षों में प्राकृतिक पत्थर के लिए एक संपूर्ण, भरोसेमंद आपूर्ति श्रृंखला बनाई है — खदान से ग्राहक तक — घरेलू और अंतरराष्ट्रीय खरीदारों दोनों की सेवा करते हुए। हमारा काम ईरान भर की समर्पित खदानों से सोर्सिंग और प्रत्यक्ष निष्कर्षण से शुरू होता है।</p>
+                        <p><strong>Stone Commerce</strong> ने 25 से अधिक वर्षों में प्राकृतिक पत्थर के लिए एक संपूर्ण, भरोसेमंद आपूर्ति श्रृंखला बनाई है — खदान से ग्राहक तक — घरेलू और अंतरराष्ट्रीय खरीदारों दोनों की सेवा करते हुए। हमारा काम ईरान भर की समर्पित खदानों से सोर्सिंग और प्रत्यक्ष निष्कर्षण से शुरू होता है।</p>
 
-                        <h3>EN Trading Group क्यों?</h3>
+                        <h3>Stone Commerce क्यों?</h3>
                         <p>हमारा दीर्घकालिक अनुभव, अपनी खदानों तक सीधी पहुंच के साथ मिलकर, हमें सुसंगत गुणवत्ता, एकसमान रंग और प्रतिस्पर्धी मूल्य निर्धारण प्रदान करने देता है। आज हमारे उत्पाद 5 महाद्वीपों के 50 से अधिक देशों में निर्यात किए जाते हैं।</p>
 
                         <h3>गुणवत्ता के प्रति हमारी प्रतिबद्धता</h3>
@@ -90,9 +90,9 @@ class PageSeeder extends Seeder
                         <p>हमारी बिक्री टीम दुनिया भर के व्यापारियों और ठेकेदारों के साथ सीधे संपर्क में रहने के लिए नियमित रूप से अंतरराष्ट्रीय पत्थर प्रदर्शनियों में भाग लेती है।</p>
                         HTML,
                     'it' => <<<'HTML'
-                        <p>Da oltre 25 anni, <strong>EN Trading Group</strong> costruisce una filiera completa e affidabile per la pietra naturale — dalla cava al cliente — servendo acquirenti sia nazionali che internazionali. Il nostro lavoro inizia con l'approvvigionamento e l'estrazione diretta da cave dedicate in tutto l'Iran.</p>
+                        <p>Da oltre 25 anni, <strong>Stone Commerce</strong> costruisce una filiera completa e affidabile per la pietra naturale — dalla cava al cliente — servendo acquirenti sia nazionali che internazionali. Il nostro lavoro inizia con l'approvvigionamento e l'estrazione diretta da cave dedicate in tutto l'Iran.</p>
 
-                        <h3>Perché EN Trading Group?</h3>
+                        <h3>Perché Stone Commerce?</h3>
                         <p>La nostra lunga esperienza, unita all'accesso diretto alle nostre cave, ci permette di offrire qualità costante, colorazione uniforme e prezzi competitivi. Oggi i nostri prodotti vengono esportati in oltre 50 paesi in 5 continenti.</p>
 
                         <h3>Il Nostro Impegno per la Qualità</h3>
@@ -102,9 +102,9 @@ class PageSeeder extends Seeder
                         <p>Il nostro team commerciale partecipa regolarmente a fiere internazionali della pietra per rimanere in contatto diretto con commercianti e appaltatori di tutto il mondo.</p>
                         HTML,
                     'zh' => <<<'HTML'
-                        <p><strong>EN Trading Group</strong> 拥有超过25年的经验,为国内外买家打造了一条完整、值得信赖的天然石材供应链——从矿山到客户。我们的工作始于在伊朗各地自有矿区的直接采购与开采,并延续至加工、质量控制以及国际包装与运输。</p>
+                        <p><strong>Stone Commerce</strong> 拥有超过25年的经验,为国内外买家打造了一条完整、值得信赖的天然石材供应链——从矿山到客户。我们的工作始于在伊朗各地自有矿区的直接采购与开采,并延续至加工、质量控制以及国际包装与运输。</p>
 
-                        <h3>为什么选择 EN Trading Group?</h3>
+                        <h3>为什么选择 Stone Commerce?</h3>
                         <p>我们悠久的经验,加上对自有矿区的直接掌控,使我们能够提供稳定的品质、均匀的色泽和具有竞争力的价格——省去不必要的中间环节。如今,我们的产品包括洞石、大理石、花岗岩、复古石材、石灰石和板岩,已出口至五大洲50多个国家。</p>
 
                         <h3>我们对品质的承诺</h3>
@@ -114,9 +114,9 @@ class PageSeeder extends Seeder
                         <p>我们的销售团队定期参加国际石材展会,与世界各地的贸易商和承包商保持直接联系。这种参展加上免费样品寄送和技术咨询服务,使无论大小项目与我们的合作都变得简单。</p>
                         HTML,
                     'tr' => <<<'HTML'
-                        <p><strong>EN Trading Group</strong>, 25 yılı aşkın süredir doğal taş için eksiksiz ve güvenilir bir tedarik zinciri kurmaktadır — ocaktan müşteriye — hem yerli hem de uluslararası alıcılara hizmet vererek. Çalışmalarımız, İran genelindeki kendi ocaklarımızdan doğrudan tedarik ve çıkarma ile başlar; işleme, kalite kontrol ve uluslararası paketleme ile sevkiyata kadar devam eder.</p>
+                        <p><strong>Stone Commerce</strong>, 25 yılı aşkın süredir doğal taş için eksiksiz ve güvenilir bir tedarik zinciri kurmaktadır — ocaktan müşteriye — hem yerli hem de uluslararası alıcılara hizmet vererek. Çalışmalarımız, İran genelindeki kendi ocaklarımızdan doğrudan tedarik ve çıkarma ile başlar; işleme, kalite kontrol ve uluslararası paketleme ile sevkiyata kadar devam eder.</p>
 
-                        <h3>Neden EN Trading Group?</h3>
+                        <h3>Neden Stone Commerce?</h3>
                         <p>Uzun yıllara dayanan deneyimimiz, kendi ocaklarımıza doğrudan erişimimizle birleşince, gereksiz aracılar olmadan tutarlı kalite, tek tip renk ve rekabetçi fiyatlar sunmamızı sağlıyor. Bugün traverten, mermer, granit, antik taş, kireçtaşı ve arduvaz dahil ürünlerimiz 5 kıtada 50'den fazla ülkeye ihraç edilmektedir.</p>
 
                         <h3>Kaliteye Bağlılığımız</h3>
@@ -127,13 +127,13 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'درباره ما | EN Trading Group',
-                    'en' => 'About Us | EN Trading Group',
-                    'ar' => 'من نحن | EN Trading Group',
-                    'hi' => 'हमारे बारे में | EN Trading Group',
-                    'it' => 'Chi Siamo | EN Trading Group',
-                    'zh' => '关于我们 | EN Trading Group',
-                    'tr' => 'Hakkımızda | EN Trading Group',
+                    'fa' => 'درباره ما | Stone Commerce',
+                    'en' => 'About Us | Stone Commerce',
+                    'ar' => 'من نحن | Stone Commerce',
+                    'hi' => 'हमारे बारे में | Stone Commerce',
+                    'it' => 'Chi Siamo | Stone Commerce',
+                    'zh' => '关于我们 | Stone Commerce',
+                    'tr' => 'Hakkımızda | Stone Commerce',
                 ],
                 'meta_description' => [
                     'fa' => 'بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران به بیش از ۵۰ کشور جهان.',
@@ -447,22 +447,22 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'گواهینامه‌ها | EN Trading Group',
-                    'en' => 'Certificates | EN Trading Group',
-                    'ar' => 'الشهادات | EN Trading Group',
-                    'hi' => 'प्रमाण पत्र | EN Trading Group',
-                    'it' => 'Certificati | EN Trading Group',
-                    'zh' => '认证证书 | EN Trading Group',
-                    'tr' => 'Sertifikalar | EN Trading Group',
+                    'fa' => 'گواهینامه‌ها | Stone Commerce',
+                    'en' => 'Certificates | Stone Commerce',
+                    'ar' => 'الشهادات | Stone Commerce',
+                    'hi' => 'प्रमाण पत्र | Stone Commerce',
+                    'it' => 'Certificati | Stone Commerce',
+                    'zh' => '认证证书 | Stone Commerce',
+                    'tr' => 'Sertifikalar | Stone Commerce',
                 ],
                 'meta_description' => [
-                    'fa' => 'استانداردهای کیفیت، آزمایشگاهی و صادراتی محصولات و فرآیندهای EN Trading Group.',
-                    'en' => 'Quality, laboratory, and export standards behind EN Trading Group products and processes.',
-                    'ar' => 'معايير الجودة والمختبرات والتصدير وراء منتجات وعمليات EN Trading Group.',
-                    'hi' => 'EN Trading Group उत्पादों और प्रक्रियाओं के पीछे गुणवत्ता, प्रयोगशाला और निर्यात मानक।',
-                    'it' => 'Standard di qualità, laboratorio ed esportazione alla base dei prodotti e processi di EN Trading Group.',
-                    'zh' => 'EN Trading Group产品与流程所依据的质量、实验室及出口标准。',
-                    'tr' => 'EN Trading Group ürün ve süreçlerinin arkasındaki kalite, laboratuvar ve ihracat standartları.',
+                    'fa' => 'استانداردهای کیفیت، آزمایشگاهی و صادراتی محصولات و فرآیندهای Stone Commerce.',
+                    'en' => 'Quality, laboratory, and export standards behind Stone Commerce products and processes.',
+                    'ar' => 'معايير الجودة والمختبرات والتصدير وراء منتجات وعمليات Stone Commerce.',
+                    'hi' => 'Stone Commerce उत्पादों और प्रक्रियाओं के पीछे गुणवत्ता, प्रयोगशाला और निर्यात मानक।',
+                    'it' => 'Standard di qualità, laboratorio ed esportazione alla base dei prodotti e processi di Stone Commerce.',
+                    'zh' => 'Stone Commerce产品与流程所依据的质量、实验室及出口标准。',
+                    'tr' => 'Stone Commerce ürün ve süreçlerinin arkasındaki kalite, laboratuvar ve ihracat standartları.',
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -781,13 +781,13 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'معادن ما | EN Trading Group',
-                    'en' => 'Our Mines | EN Trading Group',
-                    'ar' => 'مناجمنا | EN Trading Group',
-                    'hi' => 'हमारी खदानें | EN Trading Group',
-                    'it' => 'Le Nostre Cave | EN Trading Group',
-                    'zh' => '我们的矿区 | EN Trading Group',
-                    'tr' => 'Ocaklarımız | EN Trading Group',
+                    'fa' => 'معادن ما | Stone Commerce',
+                    'en' => 'Our Mines | Stone Commerce',
+                    'ar' => 'مناجمنا | Stone Commerce',
+                    'hi' => 'हमारी खदानें | Stone Commerce',
+                    'it' => 'Le Nostre Cave | Stone Commerce',
+                    'zh' => '我们的矿区 | Stone Commerce',
+                    'tr' => 'Ocaklarımız | Stone Commerce',
                 ],
                 'meta_description' => [
                     'fa' => 'دسترسی مستقیم به معادن اختصاصی در نقاط مختلف ایران، پایه کیفیت ثابت محصولات ماست.',
@@ -1055,22 +1055,22 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'راهنمای خرید سنگ طبیعی | EN Trading Group',
-                    'en' => 'Natural Stone Buying Guide | EN Trading Group',
-                    'ar' => 'دليل شراء الحجر الطبيعي | EN Trading Group',
-                    'hi' => 'प्राकृतिक पत्थर खरीद गाइड | EN Trading Group',
-                    'it' => 'Guida all\'Acquisto di Pietra Naturale | EN Trading Group',
-                    'zh' => '天然石材购买指南 | EN Trading Group',
-                    'tr' => 'Doğal Taş Satın Alma Rehberi | EN Trading Group',
+                    'fa' => 'راهنمای خرید سنگ طبیعی | Stone Commerce',
+                    'en' => 'Natural Stone Buying Guide | Stone Commerce',
+                    'ar' => 'دليل شراء الحجر الطبيعي | Stone Commerce',
+                    'hi' => 'प्राकृतिक पत्थर खरीद गाइड | Stone Commerce',
+                    'it' => 'Guida all\'Acquisto di Pietra Naturale | Stone Commerce',
+                    'zh' => '天然石材购买指南 | Stone Commerce',
+                    'tr' => 'Doğal Taş Satın Alma Rehberi | Stone Commerce',
                 ],
                 'meta_description' => [
-                    'fa' => 'از انتخاب نوع سنگ تا پرداخت و ارسال — راهنمای کامل خرید سنگ طبیعی از EN Trading Group.',
-                    'en' => 'From choosing the right stone to payment and shipping — the complete guide to buying natural stone from EN Trading Group.',
-                    'ar' => 'من اختيار الحجر المناسب إلى الدفع والشحن — الدليل الكامل لشراء الحجر الطبيعي من EN Trading Group.',
-                    'hi' => 'सही पत्थर चुनने से लेकर भुगतान और शिपिंग तक — EN Trading Group से प्राकृतिक पत्थर खरीदने की पूरी गाइड।',
-                    'it' => 'Dalla scelta della pietra giusta al pagamento e alla spedizione — la guida completa all\'acquisto di pietra naturale da EN Trading Group.',
-                    'zh' => '从选择石材类型到付款和发货——从EN Trading Group购买天然石材的完整指南。',
-                    'tr' => "Doğru taşı seçmekten ödeme ve sevkiyata kadar — EN Trading Group'tan doğal taş satın almaya yönelik eksiksiz rehber.",
+                    'fa' => 'از انتخاب نوع سنگ تا پرداخت و ارسال — راهنمای کامل خرید سنگ طبیعی از Stone Commerce.',
+                    'en' => 'From choosing the right stone to payment and shipping — the complete guide to buying natural stone from Stone Commerce.',
+                    'ar' => 'من اختيار الحجر المناسب إلى الدفع والشحن — الدليل الكامل لشراء الحجر الطبيعي من Stone Commerce.',
+                    'hi' => 'सही पत्थर चुनने से लेकर भुगतान और शिपिंग तक — Stone Commerce से प्राकृतिक पत्थर खरीदने की पूरी गाइड।',
+                    'it' => 'Dalla scelta della pietra giusta al pagamento e alla spedizione — la guida completa all\'acquisto di pietra naturale da Stone Commerce.',
+                    'zh' => '从选择石材类型到付款和发货——从Stone Commerce购买天然石材的完整指南。',
+                    'tr' => "Doğru taşı seçmekten ödeme ve sevkiyata kadar — Stone Commerce'tan doğal taş satın almaya yönelik eksiksiz rehber.",
                 ],
                 'template'    => 'sidebar',
                 'is_active'   => true,
@@ -1323,22 +1323,22 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'روش‌های پرداخت | EN Trading Group',
-                    'en' => 'Payment Methods | EN Trading Group',
-                    'ar' => 'طرق الدفع | EN Trading Group',
-                    'hi' => 'भुगतान के तरीके | EN Trading Group',
-                    'it' => 'Metodi di Pagamento | EN Trading Group',
-                    'zh' => '付款方式 | EN Trading Group',
-                    'tr' => 'Ödeme Yöntemleri | EN Trading Group',
+                    'fa' => 'روش‌های پرداخت | Stone Commerce',
+                    'en' => 'Payment Methods | Stone Commerce',
+                    'ar' => 'طرق الدفع | Stone Commerce',
+                    'hi' => 'भुगतान के तरीके | Stone Commerce',
+                    'it' => 'Metodi di Pagamento | Stone Commerce',
+                    'zh' => '付款方式 | Stone Commerce',
+                    'tr' => 'Ödeme Yöntemleri | Stone Commerce',
                 ],
                 'meta_description' => [
-                    'fa' => 'روش‌های پرداخت داخلی و بین‌المللی EN Trading Group، از درگاه‌های آنلاین تا حواله بانکی.',
-                    'en' => 'Domestic and international payment methods at EN Trading Group, from online gateways to bank wire transfer.',
-                    'ar' => 'طرق الدفع المحلية والدولية في EN Trading Group، من بوابات الدفع إلى التحويل البنكي.',
-                    'hi' => 'EN Trading Group में घरेलू और अंतरराष्ट्रीय भुगतान विधियां, ऑनलाइन गेटवे से बैंक ट्रांसफर तक।',
-                    'it' => 'Metodi di pagamento nazionali e internazionali di EN Trading Group, dai gateway online al bonifico bancario.',
-                    'zh' => 'EN Trading Group的国内外付款方式,从在线网关到银行电汇。',
-                    'tr' => "EN Trading Group'un çevrimiçi ağ geçitlerinden banka havalesine kadar yerli ve uluslararası ödeme yöntemleri.",
+                    'fa' => 'روش‌های پرداخت داخلی و بین‌المللی Stone Commerce، از درگاه‌های آنلاین تا حواله بانکی.',
+                    'en' => 'Domestic and international payment methods at Stone Commerce, from online gateways to bank wire transfer.',
+                    'ar' => 'طرق الدفع المحلية والدولية في Stone Commerce، من بوابات الدفع إلى التحويل البنكي.',
+                    'hi' => 'Stone Commerce में घरेलू और अंतरराष्ट्रीय भुगतान विधियां, ऑनलाइन गेटवे से बैंक ट्रांसफर तक।',
+                    'it' => 'Metodi di pagamento nazionali e internazionali di Stone Commerce, dai gateway online al bonifico bancario.',
+                    'zh' => 'Stone Commerce的国内外付款方式,从在线网关到银行电汇。',
+                    'tr' => "Stone Commerce'un çevrimiçi ağ geçitlerinden banka havalesine kadar yerli ve uluslararası ödeme yöntemleri.",
                 ],
                 'template'   => 'sidebar',
                 'is_active'  => true,
@@ -1675,22 +1675,22 @@ class PageSeeder extends Seeder
                         HTML,
                 ],
                 'meta_title' => [
-                    'fa' => 'حمل و نقل | EN Trading Group',
-                    'en' => 'Shipping | EN Trading Group',
-                    'ar' => 'الشحن | EN Trading Group',
-                    'hi' => 'शिपिंग | EN Trading Group',
-                    'it' => 'Spedizione | EN Trading Group',
-                    'zh' => '运输 | EN Trading Group',
-                    'tr' => 'Sevkiyat | EN Trading Group',
+                    'fa' => 'حمل و نقل | Stone Commerce',
+                    'en' => 'Shipping | Stone Commerce',
+                    'ar' => 'الشحن | Stone Commerce',
+                    'hi' => 'शिपिंग | Stone Commerce',
+                    'it' => 'Spedizione | Stone Commerce',
+                    'zh' => '运输 | Stone Commerce',
+                    'tr' => 'Sevkiyat | Stone Commerce',
                 ],
                 'meta_description' => [
-                    'fa' => 'روش‌های حمل و نقل، اینکوترمز، مدارک صادراتی و زمان‌بندی ارسال سفارش‌های سنگ EN Trading Group.',
-                    'en' => 'Shipping methods, Incoterms, export documents, and order dispatch timeline at EN Trading Group.',
-                    'ar' => 'طرق الشحن وشروط التسليم ومستندات التصدير والجدول الزمني لإرسال الطلبات في EN Trading Group.',
-                    'hi' => 'EN Trading Group में शिपिंग के तरीके, Incoterms, निर्यात दस्तावेज़ और ऑर्डर डिस्पैच समयरेखा।',
-                    'it' => 'Metodi di spedizione, Incoterms, documenti di esportazione e tempistiche di invio ordini di EN Trading Group.',
-                    'zh' => 'EN Trading Group的运输方式、国际贸易术语、出口单证及订单发货时间表。',
-                    'tr' => "EN Trading Group'ta sevkiyat yöntemleri, Incoterms, ihracat belgeleri ve sipariş sevkiyat zaman çizelgesi.",
+                    'fa' => 'روش‌های حمل و نقل، اینکوترمز، مدارک صادراتی و زمان‌بندی ارسال سفارش‌های سنگ Stone Commerce.',
+                    'en' => 'Shipping methods, Incoterms, export documents, and order dispatch timeline at Stone Commerce.',
+                    'ar' => 'طرق الشحن وشروط التسليم ومستندات التصدير والجدول الزمني لإرسال الطلبات في Stone Commerce.',
+                    'hi' => 'Stone Commerce में शिपिंग के तरीके, Incoterms, निर्यात दस्तावेज़ और ऑर्डर डिस्पैच समयरेखा।',
+                    'it' => 'Metodi di spedizione, Incoterms, documenti di esportazione e tempistiche di invio ordini di Stone Commerce.',
+                    'zh' => 'Stone Commerce的运输方式、国际贸易术语、出口单证及订单发货时间表。',
+                    'tr' => "Stone Commerce'ta sevkiyat yöntemleri, Incoterms, ihracat belgeleri ve sipariş sevkiyat zaman çizelgesi.",
                 ],
                 'template'   => 'sidebar',
                 'is_active'  => true,
