@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — zh/messages
-// Generated at: 2026-07-05 09:38:54
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => '重新发送链接',
     'reserved' => '已预订',
     'reset_password' => '重置密码',
+    'review_already_submitted' => '您已经评价过该产品。',
     'review_placeholder' => '分享您对该产品的使用体验……',
     'review_submitted' => '您的评价已提交，审核通过后将显示。',
     'reviews' => '评价',

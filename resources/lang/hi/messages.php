@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/messages
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => 'लिंक पुनः भेजें',
     'reserved' => 'आरक्षित',
     'reset_password' => 'पासवर्ड रीसेट करें',
+    'review_already_submitted' => 'आपने पहले से इस उत्पाद की समीक्षा कर दी है।',
     'review_placeholder' => 'इस उत्पाद के साथ अपना अनुभव साझा करें…',
     'review_submitted' => 'आपकी समीक्षा जमा कर दी गई है और अनुमोदन के लिए प्रतीक्षा में है।',
     'reviews' => 'समीक्षाएं',

@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — tr/messages
-// Generated at: 2026-07-05 09:38:54
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => 'Bağlantıyı Tekrar Gönder',
     'reserved' => 'Rezerve',
     'reset_password' => 'Şifreyi Sıfırla',
+    'review_already_submitted' => 'Bu ürünü zaten değerlendirdiniz.',
     'review_placeholder' => 'Bu ürünle ilgili deneyiminizi paylaşın…',
     'review_submitted' => 'Değerlendirmeniz gönderildi ve onay bekliyor.',
     'reviews' => 'Değerlendirmeler',

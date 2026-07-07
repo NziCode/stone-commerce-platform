@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — ar/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => 'تم التحقق من الدفع',
     'payments' => 'المدفوعات',
     'pending' => 'قيد الانتظار',
+    'pending_orders' => 'الطلبات المعلقة',
     'pending_receipts' => 'الإيصالات المعلقة',
+    'pending_reviews' => 'التقييمات المعلقة',
     'permission_denied' => 'الوصول مرفوض',
     'permissions' => 'الصلاحيات',
     'phone' => 'الهاتف',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => 'إجمالي الأشقاء',
     'total_users' => 'إجمالي المستخدمين',
     'transaction_id' => 'رقم العملية',
+    'translate_automatically' => 'ترجمة تلقائية',
+    'translate_confirm_body' => 'ستتم ترجمة اللغة المصدر إلى اللغات النشطة الأخرى. سيتم ملء الحقول الفارغة، ما لم تختر الكتابة فوق الترجمات الموجودة.',
+    'translate_confirm_overwrite' => 'تأكيد والكتابة فوق الترجمات الموجودة',
+    'translate_partial' => 'اكتملت الترجمة جزئياً',
+    'translate_success' => 'تمت الترجمة بنجاح',
     'translated_text' => 'النص المترجم',
     'translation_cache' => 'ذاكرة تخزين الترجمة',
     'translation_complete' => 'الترجمة مكتملة',

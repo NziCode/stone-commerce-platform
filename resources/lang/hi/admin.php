@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — hi/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => 'भुगतान सत्यापित',
     'payments' => 'भुगतान',
     'pending' => 'लंबित',
+    'pending_orders' => 'लंबित ऑर्डर',
     'pending_receipts' => 'लंबित रसीदें',
+    'pending_reviews' => 'लंबित समीक्षाएं',
     'permission_denied' => 'पहुंच नहीं',
     'permissions' => 'अनुमतियाँ',
     'phone' => 'फ़ोन',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => 'कुल समकक्ष',
     'total_users' => 'कुल उपयोगकर्ता',
     'transaction_id' => 'लेन-देन ID',
+    'translate_automatically' => 'स्वचालित अनुवाद',
+    'translate_confirm_body' => 'स्रोत भाषा को अन्य सक्रिय भाषाओं में अनुवादित किया जाएगा। खाली फ़ील्ड भर दी जाएंगी, जब तक कि आप ओवरराइट का चयन न करें।',
+    'translate_confirm_overwrite' => 'पुष्टि करें और मौजूदा अनुवाद अधिलेखित करें',
+    'translate_partial' => 'अनुवाद आंशिक रूप से पूर्ण हुआ',
+    'translate_success' => 'अनुवाद सफलतापूर्वक पूर्ण हुआ',
     'translated_text' => 'अनूदित पाठ',
     'translation_cache' => 'अनुवाद कैश',
     'translation_complete' => 'अनुवाद पूर्ण',

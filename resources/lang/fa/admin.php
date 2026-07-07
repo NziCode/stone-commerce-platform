@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => 'پرداخت تأیید شد',
     'payments' => 'پرداخت‌ها',
     'pending' => 'در انتظار',
+    'pending_orders' => 'سفارشات در انتظار',
     'pending_receipts' => 'فیش‌های در انتظار',
+    'pending_reviews' => 'نظرات در انتظار',
     'permission_denied' => 'دسترسی نداری',
     'permissions' => 'دسترسی‌ها',
     'phone' => 'شماره تماس',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => 'تعداد همتایان',
     'total_users' => 'تعداد کاربران',
     'transaction_id' => 'شناسه تراکنش',
+    'translate_automatically' => 'ترجمه خودکار',
+    'translate_confirm_body' => 'زبان مبدأ به سایر زبان‌های فعال ترجمه خواهد شد. فیلدهای خالی پر می‌شوند، مگر اینکه گزینه بازنویسی را انتخاب کنید.',
+    'translate_confirm_overwrite' => 'تأیید و بازنویسی ترجمه‌های موجود',
+    'translate_partial' => 'ترجمه به‌صورت ناقص انجام شد',
+    'translate_success' => 'ترجمه با موفقیت انجام شد',
     'translated_text' => 'متن ترجمه‌شده',
     'translation_cache' => 'کش ترجمه',
     'translation_complete' => 'همه ترجمه‌ها کامله',

@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/messages
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => 'Reinvia Link',
     'reserved' => 'Riservato',
     'reset_password' => 'Reimposta Password',
+    'review_already_submitted' => 'Hai già recensito questo prodotto.',
     'review_placeholder' => 'Condividi la tua esperienza con questo prodotto…',
     'review_submitted' => 'La tua recensione è stata inviata ed è in attesa di approvazione.',
     'reviews' => 'Recensioni',

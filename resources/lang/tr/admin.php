@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — tr/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => 'Ödeme onaylandı',
     'payments' => 'Ödemeler',
     'pending' => 'Beklemede',
+    'pending_orders' => 'Bekleyen Siparişler',
     'pending_receipts' => 'Bekleyen Dekontlar',
+    'pending_reviews' => 'Bekleyen Değerlendirmeler',
     'permission_denied' => 'Erişim reddedildi',
     'permissions' => 'İzinler',
     'phone' => 'Telefon',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => 'Toplam kardeş öğe',
     'total_users' => 'Toplam Kullanıcı',
     'transaction_id' => 'İşlem Numarası',
+    'translate_automatically' => 'Otomatik Çevir',
+    'translate_confirm_body' => 'Kaynak dil, diğer aktif dillere çevrilecektir. Üzerine yazmayı seçmediğiniz sürece boş alanlar doldurulacaktır.',
+    'translate_confirm_overwrite' => 'Onayla ve Mevcut Çevirilerin Üzerine Yaz',
+    'translate_partial' => 'Çeviri kısmen tamamlandı',
+    'translate_success' => 'Çeviri başarıyla tamamlandı',
     'translated_text' => 'Çevrilmiş Metin',
     'translation_cache' => 'Çeviri Önbelleği',
     'translation_complete' => 'Çeviri tamamlandı',

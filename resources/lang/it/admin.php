@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — it/admin
-// Generated at: 2026-07-07 11:17:03
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -158,7 +158,9 @@ return [
     'payment_verified' => 'Pagamento verificato',
     'payments' => 'Pagamenti',
     'pending' => 'In Attesa',
+    'pending_orders' => 'Ordini in Attesa',
     'pending_receipts' => 'Ricevute in Attesa',
+    'pending_reviews' => 'Recensioni in Attesa',
     'permission_denied' => 'Accesso negato',
     'permissions' => 'Permessi',
     'phone' => 'Telefono',
@@ -283,6 +285,11 @@ return [
     'total_siblings' => 'Totale fratelli',
     'total_users' => 'Utenti Totali',
     'transaction_id' => 'ID Transazione',
+    'translate_automatically' => 'Traduci Automaticamente',
+    'translate_confirm_body' => 'La lingua di origine verrà tradotta nelle altre lingue attive. I campi vuoti verranno compilati, a meno che non si scelga di sovrascrivere.',
+    'translate_confirm_overwrite' => 'Conferma e Sovrascrivi le Traduzioni Esistenti',
+    'translate_partial' => 'Traduzione completata parzialmente',
+    'translate_success' => 'Traduzione completata con successo',
     'translated_text' => 'Testo Tradotto',
     'translation_cache' => 'Cache delle Traduzioni',
     'translation_complete' => 'Traduzione completa',

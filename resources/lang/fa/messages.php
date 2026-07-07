@@ -1,7 +1,7 @@
 <?php
 
 // Auto-generated from database — fa/messages
-// Generated at: 2026-06-29 12:30:56
+// Generated at: 2026-07-07 12:23:33
 // DO NOT EDIT MANUALLY — use the admin panel
 
 return [
@@ -205,6 +205,7 @@ return [
     'resend_link' => 'ارسال مجدد لینک',
     'reserved' => 'رزرو شده',
     'reset_password' => 'بازنشانی رمز عبور',
+    'review_already_submitted' => 'شما قبلاً برای این محصول نظر ثبت کرده‌اید.',
     'review_placeholder' => 'تجربه خود از این محصول را بنویسید…',
     'review_submitted' => 'نظر شما ثبت شد و پس از تأیید نمایش داده می‌شود.',
     'reviews' => 'نظرات',
