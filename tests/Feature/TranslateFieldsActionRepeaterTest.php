@@ -30,7 +30,7 @@ class TranslateFieldsActionRepeaterTest extends TestCase
 
     public function test_translate_automatically_recurses_into_repeater_items_and_preserves_structure(): void
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
         $this->actingAs($admin);
 
         $this->fakeTranslator();
@@ -71,7 +71,7 @@ class TranslateFieldsActionRepeaterTest extends TestCase
 
     public function test_translate_automatically_does_not_overwrite_repeater_labels_already_filled(): void
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
         $this->actingAs($admin);
 
         $this->fakeTranslator();

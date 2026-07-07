@@ -24,7 +24,7 @@ class TranslationCacheResourceTest extends TestCase
 
     protected function actingAsAdmin(): User
     {
-        $admin = User::where('email', 'admin@en-tradinggroup.com')->firstOrFail();
+        $admin = User::where('email', 'admin@example.com')->firstOrFail();
         $this->actingAs($admin);
 
         return $admin;
