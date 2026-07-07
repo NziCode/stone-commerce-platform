@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Cache;
+use App\Models\TranslationCache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\RateLimiter;
  * (the same one translate.google.com uses in the browser). No API key, no billing.
  * It's an undocumented endpoint, so every call is cached and failures degrade to null
  * rather than breaking the admin form.
+ *
+ * Every translated string is persisted in the `translation_caches` table (see
+ * App\Models\TranslationCache) rather than the general-purpose cache store, so
+ * identical source text is only ever sent to the external translator once —
+ * reused across repeater rows, records, and future runs — and previously
+ * cached translations remain available even when the external service is
+ * rate-limited or unreachable.
  */
 class TranslationService
 {
@@ -25,6 +32,9 @@ class TranslationService
         'zh' => 'zh-CN',
     ];
 
+    /** In-process memo so repeated identical lookups in one run skip the DB too. */
+    protected static array $memo = [];
+
     /**
      * Translate a single plain-text value.
      */
@@ -36,11 +46,19 @@ class TranslationService
             return $text;
         }
 
-        $cacheKey = 'translate.' . md5($sourceLocale . '|' . $targetLocale . '|' . $text);
+        $cached = $this->cachedLookup($text, $targetLocale, $sourceLocale);
 
-        return Cache::remember($cacheKey, now()->addDays(30), function () use ($text, $targetLocale, $sourceLocale) {
-            return $this->translateUncached($text, $targetLocale, $sourceLocale);
-        });
+        if ($cached !== null) {
+            return $cached;
+        }
+
+        $translated = $this->translateUncached($text, $targetLocale, $sourceLocale);
+
+        if ($translated !== null) {
+            $this->rememberTranslation($text, $targetLocale, $sourceLocale, $translated);
+        }
+
+        return $translated;
     }
 
     /**
@@ -77,6 +95,10 @@ class TranslationService
      * Translate several plain-text fields to the same target language in one request,
      * cutting round trips to translate.googleapis.com when a form has many fields.
      *
+     * Fields already found in the local cache are resolved immediately without any
+     * network call, and fields sharing identical source text are only translated
+     * once — the result is fanned out to every field name that shares that text.
+     *
      * @param  array<string, string|null>  $fields  ['field_name' => 'source text']
      * @return array<string, string|null>           ['field_name' => 'translated text']
      */
@@ -88,35 +110,105 @@ class TranslationService
             return array_map(fn ($v) => (string) $v, $fields);
         }
 
-        $separator = "\n@@@\n";
-        $joined = implode($separator, array_map(fn ($v) => trim((string) $v), $fields));
+        $result = [];
+        $pending = []; // unique source text => [field names sharing it]
 
-        if (strlen($joined) > self::MAX_CHUNK) {
-            $result = [];
-            foreach ($fields as $name => $value) {
-                $result[$name] = $this->translate($value, $targetLocale, $sourceLocale);
+        foreach ($fields as $name => $value) {
+            $text = trim((string) $value);
+            $cached = $this->cachedLookup($text, $targetLocale, $sourceLocale);
+
+            if ($cached !== null) {
+                $result[$name] = $cached;
+                continue;
             }
+
+            $pending[$text][] = $name;
+        }
+
+        if (empty($pending)) {
             return $result;
         }
 
-        $translatedJoined = $this->translate($joined, $targetLocale, $sourceLocale);
+        $uniqueTexts = array_keys($pending);
+        $separator = "\n@@@\n";
+        $joined = implode($separator, $uniqueTexts);
+
+        if (strlen($joined) > self::MAX_CHUNK) {
+            foreach ($uniqueTexts as $text) {
+                $translated = $this->translate($text, $targetLocale, $sourceLocale);
+
+                foreach ($pending[$text] as $name) {
+                    $result[$name] = $translated;
+                }
+            }
+
+            return $result;
+        }
+
+        $translatedJoined = $this->translateUncached($joined, $targetLocale, $sourceLocale);
 
         if ($translatedJoined === null) {
-            return array_fill_keys(array_keys($fields), null);
+            foreach ($uniqueTexts as $text) {
+                foreach ($pending[$text] as $name) {
+                    $result[$name] = null;
+                }
+            }
+
+            return $result;
         }
 
         $parts = preg_split('/\s*@@@\s*/', $translatedJoined);
-        $names = array_keys($fields);
 
-        if (count($parts) !== count($names)) {
-            $result = [];
-            foreach ($fields as $name => $value) {
-                $result[$name] = $this->translate($value, $targetLocale, $sourceLocale);
+        if (count($parts) !== count($uniqueTexts)) {
+            foreach ($uniqueTexts as $text) {
+                $translated = $this->translate($text, $targetLocale, $sourceLocale);
+
+                foreach ($pending[$text] as $name) {
+                    $result[$name] = $translated;
+                }
             }
+
             return $result;
         }
 
-        return array_combine($names, $parts);
+        foreach ($uniqueTexts as $i => $text) {
+            $translated = $parts[$i];
+            $this->rememberTranslation($text, $targetLocale, $sourceLocale, $translated);
+
+            foreach ($pending[$text] as $name) {
+                $result[$name] = $translated;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Check the in-process memo, then the persistent DB cache, for an existing
+     * translation of $text. Returns null on a miss — callers fall through to
+     * the external translator.
+     */
+    protected function cachedLookup(string $text, string $targetLocale, string $sourceLocale): ?string
+    {
+        $memoKey = "{$sourceLocale}|{$targetLocale}|{$text}";
+
+        if (array_key_exists($memoKey, static::$memo)) {
+            return static::$memo[$memoKey];
+        }
+
+        $cached = TranslationCache::lookup($sourceLocale, $targetLocale, $text);
+
+        if ($cached !== null) {
+            static::$memo[$memoKey] = $cached;
+        }
+
+        return $cached;
+    }
+
+    protected function rememberTranslation(string $text, string $targetLocale, string $sourceLocale, string $translated): void
+    {
+        TranslationCache::store($sourceLocale, $targetLocale, $text, $translated);
+        static::$memo["{$sourceLocale}|{$targetLocale}|{$text}"] = $translated;
     }
 
     protected function translateUncached(string $text, string $targetLocale, string $sourceLocale): ?string
