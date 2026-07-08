@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => '显示在产品列表卡片上的属性',
     'show_in_product_page' => '在产品页面显示',
     'site_info' => '网站信息',
+    'site_name' => '网站名称',
     'site_name_en' => '网站名称（英语）',
     'site_name_fa' => '网站名称（波斯语）',
     'sku' => '产品编号（SKU）',

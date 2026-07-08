@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => 'उत्पाद सूची कार्ड पर दिखाई देने वाली विशेषताएं',
     'show_in_product_page' => 'उत्पاد پेज پر',
     'site_info' => 'साइट जानकारी',
+    'site_name' => 'साइट का नाम',
     'site_name_en' => 'साइट नाम (EN)',
     'site_name_fa' => 'साइट नाम (FA)',
     'sku' => 'SKU',

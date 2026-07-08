@@ -6,11 +6,11 @@
     $locale = app()->getLocale();
     $sitePhone = \App\Models\Setting::get('site_phone');
     $aboutYears   = \App\Models\Setting::get('about_years', '25');
-    $aboutTitle   = json_decode(\App\Models\Setting::get('about_title'), true);
-    $aboutDesc    = json_decode(\App\Models\Setting::get('about_desc'), true);
-    $aboutFeat1   = json_decode(\App\Models\Setting::get('about_feature_1'), true);
-    $aboutFeat2   = json_decode(\App\Models\Setting::get('about_feature_2'), true);
-    $aboutFeat3   = json_decode(\App\Models\Setting::get('about_feature_3'), true);
+    $aboutTitle   = \App\Models\Setting::get('about_title');
+    $aboutDesc    = \App\Models\Setting::get('about_desc');
+    $aboutFeat1   = \App\Models\Setting::get('about_feature_1');
+    $aboutFeat2   = \App\Models\Setting::get('about_feature_2');
+    $aboutFeat3   = \App\Models\Setting::get('about_feature_3');
     $totalProducts = \App\Models\Product::count();
     $soldProducts  = \App\Models\Product::where('status','sold')->count();
     $totalCategories = \App\Models\Category::count();
@@ -29,9 +29,9 @@
                 <div>
                     <span class="mt-hero-eyebrow">{{ __('messages.hero_eyebrow') }}</span>
                     <h1 class="mt-display">
-                        {{ $aboutTitle[$locale] ?? $aboutTitle['en'] ?? \App\Models\Setting::get('site_name') }}
+                        {{ $aboutTitle ?: \App\Models\Setting::get('site_name') }}
                     </h1>
-                    <p>{{ Str::limit(strip_tags($aboutDesc[$locale] ?? $aboutDesc['en'] ?? __('messages.welcome')), 170) }}</p>
+                    <p>{{ Str::limit(strip_tags($aboutDesc ?: __('messages.welcome')), 170) }}</p>
 
                     <div class="mt-finder">
                         <form action="{{ route('search') }}" method="GET" style="display:flex;flex:1;gap:.4rem">
@@ -163,7 +163,7 @@
             <div class="mt-about">
                 <div class="mt-about-media">
                     <img src="{{ \App\Models\Setting::get('about_image') ?: ($featuredProducts->first()->medium_image_url ?? '') }}"
-                         alt="{{ $aboutTitle[$locale] ?? '' }}">
+                         alt="{{ $aboutTitle }}">
                     <div class="mt-about-badge">
                         <strong>{{ $aboutYears }}</strong>
                         <span>{{ __('messages.years_experience') }}</span>
@@ -172,14 +172,14 @@
                 <div>
                     <span class="mt-eyebrow">{{ __('messages.about') }}</span>
                     <div class="mt-vein"><svg viewBox="0 0 84 14"><path d="M1 7c8-10 14 8 22 0s14 8 22 0 14 8 22 0 14 8 16 0"/></svg></div>
-                    <h2 class="mt-heading">{{ $aboutTitle[$locale] ?? $aboutTitle['en'] ?? '' }}</h2>
-                    <p class="mt-lede" style="margin-top:.9rem">{{ $aboutDesc[$locale] ?? $aboutDesc['en'] ?? '' }}</p>
+                    <h2 class="mt-heading">{{ $aboutTitle }}</h2>
+                    <p class="mt-lede" style="margin-top:.9rem">{{ $aboutDesc }}</p>
                     <ul class="mt-about-list">
                         @foreach([$aboutFeat1, $aboutFeat2, $aboutFeat3] as $feat)
                             @if($feat)
                                 <li>
                                     <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
-                                    <span>{{ $feat[$locale] ?? $feat['en'] ?? '' }}</span>
+                                    <span>{{ $feat }}</span>
                                 </li>
                             @endif
                         @endforeach

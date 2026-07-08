@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => 'Attributi mostrati nelle schede elenco prodotti',
     'show_in_product_page' => 'Mostra nella Pagina',
     'site_info' => 'Info Sito',
+    'site_name' => 'Nome del Sito',
     'site_name_en' => 'Nome Sito (EN)',
     'site_name_fa' => 'Nome Sito (FA)',
     'sku' => 'Codice SKU',

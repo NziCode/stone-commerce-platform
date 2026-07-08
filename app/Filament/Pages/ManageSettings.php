@@ -3,6 +3,9 @@
 namespace App\Filament\Pages;
 
 use App\Models\Setting;
+use App\Services\LanguageService;
+use App\Services\TranslationService;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Cache;
@@ -27,23 +30,22 @@ class ManageSettings extends Page
     public string $activeTab = 'general';
 
     // ── Public properties for each group ────────────────
-    public string $site_name            = '';
-    public string $site_name_en         = '';
-    public string $site_tagline         = '';
+    // Translatable fields (locale code => value) — see Setting::TRANSLATABLE_KEYS.
+    public array $site_name             = [];
+    public array $site_tagline          = [];
+    public array $site_working_hours    = [];
+    public array $site_address          = [];
+
     public string $site_email           = '';
     public string $site_phone           = '';
     public string $site_phone_whatsapp  = '';
-    public string $site_working_hours   = '';
-    public string $site_address         = '';
-    public string $site_address_en      = '';
     public string $site_map_lat         = '';
     public string $site_map_lng         = '';
     public string $site_google_map_embed = '';
 
-    public string $meta_title_fa        = '';
-    public string $meta_title_en        = '';
-    public string $meta_description_fa  = '';
-    public string $meta_description_en  = '';
+    public array $meta_title            = [];
+    public array $meta_description      = [];
+
     public string $og_image             = '';
     public string $google_analytics_id  = '';
     public string $google_tag_manager_id = '';
@@ -60,11 +62,11 @@ class ManageSettings extends Page
 
     public string $payment_zarinpal_merchant = '';
     public bool   $payment_zarinpal_sandbox  = false;
-    public string $payment_receipt_bank_name = '';
+    public array  $payment_receipt_bank_name = [];
     public string $payment_receipt_account_number = '';
     public string $payment_receipt_iban    = '';
     public string $payment_receipt_swift   = '';
-    public string $payment_receipt_instructions = '';
+    public array  $payment_receipt_instructions = [];
 
     public string $smtp_host            = '';
     public string $smtp_port            = '';
@@ -76,9 +78,9 @@ class ManageSettings extends Page
     public string $sms_provider         = '';
     public string $sms_api_key          = '';
     public string $sms_sender           = '';
-    public string $sms_otp_template     = '';
-    public string $sms_order_confirmed_template = '';
-    public string $sms_order_shipped_template   = '';
+    public array  $sms_otp_template     = [];
+    public array  $sms_order_confirmed_template = [];
+    public array  $sms_order_shipped_template   = [];
 
     public string $contact_notify_email         = '';
     public string $contact_notify_sms           = '';
@@ -87,21 +89,21 @@ class ManageSettings extends Page
     public bool   $contact_recaptcha_enabled    = false;
 
     public string $about_years          = '';
-    public string $about_title          = '';
-    public string $about_desc           = '';
-    public string $about_feature_1      = '';
-    public string $about_feature_2      = '';
-    public string $about_feature_3      = '';
+    public array  $about_title          = [];
+    public array  $about_desc           = [];
+    public array  $about_feature_1      = [];
+    public array  $about_feature_2      = [];
+    public array  $about_feature_3      = [];
 
     // ── Group → property mapping ─────────────────────────
     protected array $groupKeys = [
         'general' => [
-            'site_name','site_name_en','site_tagline','site_email','site_phone',
-            'site_phone_whatsapp','site_working_hours','site_address','site_address_en',
+            'site_name','site_tagline','site_email','site_phone',
+            'site_phone_whatsapp','site_working_hours','site_address',
             'site_map_lat','site_map_lng','site_google_map_embed',
         ],
         'seo' => [
-            'meta_title_fa','meta_title_en','meta_description_fa','meta_description_en',
+            'meta_title','meta_description',
             'og_image','google_analytics_id','google_tag_manager_id',
             'google_search_console','robots_txt',
         ],
@@ -138,11 +140,19 @@ class ManageSettings extends Page
         $all = Setting::all()->pluck('value', 'key');
 
         foreach ($all as $key => $value) {
-            if (property_exists($this, $key)) {
-                $this->$key = is_bool($this->$key)
-                    ? (bool) $value
-                    : (string) ($value ?? '');
+            if (! property_exists($this, $key)) {
+                continue;
             }
+
+            if (in_array($key, Setting::TRANSLATABLE_KEYS, true)) {
+                $decoded = json_decode((string) $value, true);
+                $this->$key = is_array($decoded) ? $decoded : [];
+                continue;
+            }
+
+            $this->$key = is_bool($this->$key)
+                ? (bool) $value
+                : (string) ($value ?? '');
         }
     }
 
@@ -152,6 +162,12 @@ class ManageSettings extends Page
 
         foreach ($keys as $key) {
             $value = $this->$key;
+
+            if (in_array($key, Setting::TRANSLATABLE_KEYS, true)) {
+                Setting::set($key, json_encode($value, JSON_UNESCAPED_UNICODE), $group);
+                continue;
+            }
+
             Setting::set($key, is_bool($value) ? ($value ? '1' : '0') : $value, $group);
         }
 
@@ -162,5 +178,81 @@ class ManageSettings extends Page
             ->title(__('admin.settings_saved'))
             ->success()
             ->send();
+    }
+
+    /**
+     * "Translate Automatically" for a tab's translatable fields — fills (or, with the
+     * overwrite footer button, replaces) every active locale from the site's default
+     * locale using the same TranslationService the Product resource uses.
+     */
+    public function translateGroupAction(): Action
+    {
+        return Action::make('translateGroup')
+            ->label(__('admin.translate_automatically'))
+            ->icon('heroicon-o-language')
+            ->color('gray')
+            ->requiresConfirmation()
+            ->modalDescription(__('admin.translate_confirm_body'))
+            ->extraModalFooterActions(fn (Action $action): array => [
+                $action->makeModalSubmitAction('translateOverwrite', arguments: ['overwrite' => true])
+                    ->label(__('admin.translate_confirm_overwrite'))
+                    ->color('danger'),
+            ])
+            ->action(function (array $arguments) {
+                $group = $arguments['group'] ?? null;
+                $overwrite = (bool) ($arguments['overwrite'] ?? false);
+
+                $keys = array_values(array_intersect($this->groupKeys[$group] ?? [], Setting::TRANSLATABLE_KEYS));
+
+                if (empty($keys)) {
+                    return;
+                }
+
+                $sourceCode = LanguageService::getDefault()?->code ?? 'fa';
+                $targets = LanguageService::getActive()
+                    ->pluck('code')
+                    ->reject(fn ($code) => $code === $sourceCode)
+                    ->values();
+
+                $translator = app(TranslationService::class);
+                $failedLocales = [];
+
+                foreach ($targets as $targetCode) {
+                    $toTranslate = [];
+
+                    foreach ($keys as $key) {
+                        $sourceValue = $this->$key[$sourceCode] ?? '';
+
+                        if (blank($sourceValue) || (! $overwrite && filled($this->$key[$targetCode] ?? null))) {
+                            continue;
+                        }
+
+                        $toTranslate[$key] = $sourceValue;
+                    }
+
+                    if (empty($toTranslate)) {
+                        continue;
+                    }
+
+                    $results = $translator->translateFields($toTranslate, $targetCode, $sourceCode);
+
+                    foreach ($results as $key => $value) {
+                        if ($value === null) {
+                            $failedLocales[$targetCode] = true;
+                            continue;
+                        }
+
+                        $this->{$key}[$targetCode] = $value;
+                    }
+                }
+
+                Notification::make()
+                    ->title($failedLocales
+                        ? __('admin.translate_partial')
+                        : __('admin.translate_success'))
+                    ->body($failedLocales ? implode(', ', array_keys($failedLocales)) : null)
+                    ->color($failedLocales ? 'warning' : 'success')
+                    ->send();
+            });
     }
 }

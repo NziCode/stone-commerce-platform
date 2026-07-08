@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => 'الخصائص المعروضة في بطاقات القائمة',
     'show_in_product_page' => 'عرض في صفحة المنتج',
     'site_info' => 'معلومات الموقع',
+    'site_name' => 'اسم الموقع',
     'site_name_en' => 'اسم الموقع (EN)',
     'site_name_fa' => 'اسم الموقع (FA)',
     'sku' => 'رمز المنتج',

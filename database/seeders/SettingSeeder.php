@@ -15,22 +15,15 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'general',
                 'key'       => 'site_name',
-                'value'     => 'Stone Commerce',
-                'type'      => 'string',
-                'is_public' => true,
-            ],
-            [
-                'group'     => 'general',
-                'key'       => 'site_name_en',
-                'value'     => 'Stone Commerce',
-                'type'      => 'string',
+                'value'     => json_encode(['fa' => 'Stone Commerce', 'en' => 'Stone Commerce']),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
             [
                 'group'     => 'general',
                 'key'       => 'site_tagline',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
             [
@@ -71,22 +64,15 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'general',
                 'key'       => 'site_address',
-                'value'     => '',
-                'type'      => 'string',
-                'is_public' => true,
-            ],
-            [
-                'group'     => 'general',
-                'key'       => 'site_address_en',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
             [
                 'group'     => 'general',
                 'key'       => 'site_working_hours',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
             [
@@ -114,30 +100,16 @@ class SettingSeeder extends Seeder
             // ── SEO ──────────────────────────────────────────
             [
                 'group'     => 'seo',
-                'key'       => 'meta_title_fa',
-                'value'     => 'Stone Commerce | خرید سنگ ساختمانی',
-                'type'      => 'string',
+                'key'       => 'meta_title',
+                'value'     => json_encode(['fa' => 'Stone Commerce | خرید سنگ ساختمانی', 'en' => 'Stone Commerce | Natural Stone']),
+                'type'      => 'translatable',
                 'is_public' => false,
             ],
             [
                 'group'     => 'seo',
-                'key'       => 'meta_title_en',
-                'value'     => 'Stone Commerce | Natural Stone',
-                'type'      => 'string',
-                'is_public' => false,
-            ],
-            [
-                'group'     => 'seo',
-                'key'       => 'meta_description_fa',
-                'value'     => '',
-                'type'      => 'string',
-                'is_public' => false,
-            ],
-            [
-                'group'     => 'seo',
-                'key'       => 'meta_description_en',
-                'value'     => '',
-                'type'      => 'string',
+                'key'       => 'meta_description',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => false,
             ],
             [
@@ -266,8 +238,8 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'payment',
                 'key'       => 'payment_receipt_bank_name',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
             [
@@ -294,8 +266,8 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'payment',
                 'key'       => 'payment_receipt_instructions',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => true,
             ],
 
@@ -368,22 +340,22 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'sms',
                 'key'       => 'sms_order_confirmed_template',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => false,
             ],
             [
                 'group'     => 'sms',
                 'key'       => 'sms_order_shipped_template',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => false,
             ],
             [
                 'group'     => 'sms',
                 'key'       => 'sms_otp_template',
-                'value'     => '',
-                'type'      => 'string',
+                'value'     => json_encode([]),
+                'type'      => 'translatable',
                 'is_public' => false,
             ],
 
@@ -480,27 +452,32 @@ class SettingSeeder extends Seeder
             [
                 'group' => 'home',
                 'key' => 'about_title',
-                'value' => json_encode(['fa' => 'بهترین سنگ‌های طبیعی ایران را از ما بخواهید', 'en' => 'Get the Best Natural Stones of Iran from Us', 'ar' => 'احصل على أفضل الأحجار الطبيعية الإيرانية منا', 'hi' => 'हमसे ईरान के सर्वश्रेष्ठ प्राकृतिक पत्थर प्राप्त करें', 'it' => 'Ottieni le Migliori Pietre Naturali dell\'Iran da Noi', 'zh' => '从我们这里获取伊朗最优质的天然石材', 'tr' => "İran'ın En İyi Doğal Taşlarını Bizden Alın"])
+                'value' => json_encode(['fa' => 'بهترین سنگ‌های طبیعی ایران را از ما بخواهید', 'en' => 'Get the Best Natural Stones of Iran from Us', 'ar' => 'احصل على أفضل الأحجار الطبيعية الإيرانية منا', 'hi' => 'हमसे ईरान के सर्वश्रेष्ठ प्राकृतिक पत्थर प्राप्त करें', 'it' => 'Ottieni le Migliori Pietre Naturali dell\'Iran da Noi', 'zh' => '从我们这里获取伊朗最优质的天然石材', 'tr' => "İran'ın En İyi Doğal Taşlarını Bizden Alın"]),
+                'type' => 'translatable',
             ],
             [
                 'group' => 'home',
                 'key' => 'about_desc',
-                'value' => json_encode(['fa' => 'گروه Stone Commerce با بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران، از جمله تراورتن، مرمریت و گرانیت، یکی از معتبرترین تأمین‌کنندگان سنگ در منطقه است.', 'en' => 'Stone Commerce, with over 25 years of experience in extracting, processing and exporting Iranian natural stones including travertine, marble and granite, is one of the most reputable stone suppliers in the region.', 'ar' => 'مجموعة Stone Commerce، بخبرة تزيد عن 25 عامًا في استخراج ومعالجة وتصدير الأحجار الطبيعية الإيرانية بما في ذلك التراڤرتين والرخام والجرانيت.', 'hi' => 'Stone Commerce, 25 से अधिक वर्षों के अनुभव के साथ ईरानी प्राकृतिक पत्थरों के निष्कर्षण, प्रसंस्करण और निर्यात में।', 'it' => 'Stone Commerce, con oltre 25 anni di esperienza nell\'estrazione, lavorazione ed esportazione di pietre naturali iraniane.', 'zh' => 'Stone Commerce拥有超过25年在伊朗天然石材开采、加工和出口方面的经验,包括洞石、大理石和花岗岩,是该地区最受信赖的石材供应商之一。', 'tr' => "Stone Commerce, traverten, mermer ve granit dahil olmak üzere İran doğal taşlarının çıkarılması, işlenmesi ve ihracatında 25 yılı aşkın deneyime sahip olup, bölgenin en güvenilir taş tedarikçilerinden biridir."])
+                'value' => json_encode(['fa' => 'گروه Stone Commerce با بیش از ۲۵ سال تجربه در استخراج، فرآوری و صادرات سنگ‌های طبیعی ایران، از جمله تراورتن، مرمریت و گرانیت، یکی از معتبرترین تأمین‌کنندگان سنگ در منطقه است.', 'en' => 'Stone Commerce, with over 25 years of experience in extracting, processing and exporting Iranian natural stones including travertine, marble and granite, is one of the most reputable stone suppliers in the region.', 'ar' => 'مجموعة Stone Commerce، بخبرة تزيد عن 25 عامًا في استخراج ومعالجة وتصدير الأحجار الطبيعية الإيرانية بما في ذلك التراڤرتين والرخام والجرانيت.', 'hi' => 'Stone Commerce, 25 से अधिक वर्षों के अनुभव के साथ ईरानी प्राकृतिक पत्थरों के निष्कर्षण, प्रसंस्करण और निर्यात में।', 'it' => 'Stone Commerce, con oltre 25 anni di esperienza nell\'estrazione, lavorazione ed esportazione di pietre naturali iraniane.', 'zh' => 'Stone Commerce拥有超过25年在伊朗天然石材开采、加工和出口方面的经验,包括洞石、大理石和花岗岩,是该地区最受信赖的石材供应商之一。', 'tr' => "Stone Commerce, traverten, mermer ve granit dahil olmak üzere İran doğal taşlarının çıkarılması, işlenmesi ve ihracatında 25 yılı aşkın deneyime sahip olup, bölgenin en güvenilir taş tedarikçilerinden biridir."]),
+                'type' => 'translatable',
             ],
             [
                 'group' => 'home',
                 'key' => 'about_feature_1',
-                'value' => json_encode(['fa' => 'استخراج مستقیم از معادن اختصاصی در ایران', 'en' => 'Direct extraction from dedicated mines in Iran', 'ar' => 'استخراج مباشر من المناجم المخصصة في إيران', 'hi' => 'ईरान में समर्पित खदानों से प्रत्यक्ष निष्कर्षण', 'it' => 'Estrazione diretta da miniere dedicate in Iran', 'zh' => '直接从伊朗自有矿区开采', 'tr' => "İran'daki özel ocaklardan doğrudan çıkarma"])
+                'value' => json_encode(['fa' => 'استخراج مستقیم از معادن اختصاصی در ایران', 'en' => 'Direct extraction from dedicated mines in Iran', 'ar' => 'استخراج مباشر من المناجم المخصصة في إيران', 'hi' => 'ईरान में समर्पित खदानों से प्रत्यक्ष निष्कर्षण', 'it' => 'Estrazione diretta da miniere dedicate in Iran', 'zh' => '直接从伊朗自有矿区开采', 'tr' => "İran'daki özel ocaklardan doğrudan çıkarma"]),
+                'type' => 'translatable',
             ],
             [
                 'group' => 'home',
                 'key' => 'about_feature_2',
-                'value' => json_encode(['fa' => 'صادرات به بیش از ۵۰ کشور در ۵ قاره جهان', 'en' => 'Export to more than 50 countries across 5 continents', 'ar' => 'تصدير إلى أكثر من 50 دولة عبر 5 قارات', 'hi' => '5 महाद्वीपों में 50 से अधिक देशों में निर्यात', 'it' => 'Esportazione in oltre 50 paesi in 5 continenti', 'zh' => '出口至五大洲50多个国家', 'tr' => "5 kıtada 50'den fazla ülkeye ihracat"])
+                'value' => json_encode(['fa' => 'صادرات به بیش از ۵۰ کشور در ۵ قاره جهان', 'en' => 'Export to more than 50 countries across 5 continents', 'ar' => 'تصدير إلى أكثر من 50 دولة عبر 5 قارات', 'hi' => '5 महाद्वीपों में 50 से अधिक देशों में निर्यात', 'it' => 'Esportazione in oltre 50 paesi in 5 continenti', 'zh' => '出口至五大洲50多个国家', 'tr' => "5 kıtada 50'den fazla ülkeye ihracat"]),
+                'type' => 'translatable',
             ],
             [
                 'group' => 'home',
                 'key' => 'about_feature_3',
-                'value' => json_encode(['fa' => 'کنترل کیفیت دقیق در تمام مراحل تولید و ارسال', 'en' => 'Strict quality control at all stages of production and shipping', 'ar' => 'رقابة صارمة على الجودة في جميع مراحل الإنتاج والشحن', 'hi' => 'उत्पादन और शिपिंग के सभी चरणों में सख्त गुणवत्ता नियंत्रण', 'it' => 'Controllo qualità rigoroso in tutte le fasi di produzione e spedizione', 'zh' => '生产和运输各阶段严格的质量控制', 'tr' => 'Üretim ve sevkiyatın tüm aşamalarında sıkı kalite kontrolü'])
+                'value' => json_encode(['fa' => 'کنترل کیفیت دقیق در تمام مراحل تولید و ارسال', 'en' => 'Strict quality control at all stages of production and shipping', 'ar' => 'رقابة صارمة على الجودة في جميع مراحل الإنتاج والشحن', 'hi' => 'उत्पादन और शिपिंग के सभी चरणों में सख्त गुणवत्ता नियंत्रण', 'it' => 'Controllo qualità rigoroso in tutte le fasi di produzione e spedizione', 'zh' => '生产和运输各阶段严格的质量控制', 'tr' => 'Üretim ve sevkiyatın tüm aşamalarında sıkı kalite kontrolü']),
+                'type' => 'translatable',
             ],
         ];
 

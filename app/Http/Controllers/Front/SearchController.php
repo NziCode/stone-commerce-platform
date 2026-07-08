@@ -18,6 +18,7 @@ class SearchController extends Controller
 
         $this->setSeo(
             title: ($query ? "\"$query\" — " : '') . __('messages.search') . ' | ' . \App\Models\Setting::get('site_name', config('app.name')),
+            appendSiteName: false,
         );
 
         $products = collect();

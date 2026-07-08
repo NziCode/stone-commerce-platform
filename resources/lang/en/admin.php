@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => 'Attributes shown on product listing cards',
     'show_in_product_page' => 'Show on Product Page',
     'site_info' => 'Site Info',
+    'site_name' => 'Site Name',
     'site_name_en' => 'Site Name (EN)',
     'site_name_fa' => 'Site Name (FA)',
     'sku' => 'SKU',
