@@ -18,14 +18,13 @@ class HomeController extends Controller
     public function index()
     {
         $siteName = Setting::get('site_name', config('app.name'));
-        $siteDesc = json_decode(Setting::get('about_desc', '{}'), true);
-        $locale   = app()->getLocale();
-        $desc     = is_array($siteDesc) ? ($siteDesc[$locale] ?? $siteDesc['en'] ?? '') : '';
+        $desc     = Setting::get('about_desc', '');
 
         $this->setSeo(
-            title:       $siteName,
-            description: $desc ? \Str::limit(strip_tags($desc), 155) : '',
-            image:       Setting::get('og_image') ?: Setting::get('site_logo'),
+            title:          $siteName,
+            description:    $desc ? \Str::limit(strip_tags($desc), 155) : '',
+            image:          Setting::get('og_image') ?: Setting::get('site_logo'),
+            appendSiteName: false,
         );
         $sliders = Slider::active()->get();
 

@@ -240,6 +240,7 @@ return [
     'show_in_card_hint' => 'Ürün listeleme kartlarında gösterilen özellikler',
     'show_in_product_page' => 'Ürün Sayfasında Göster',
     'site_info' => 'Site Bilgisi',
+    'site_name' => 'Site Adı',
     'site_name_en' => 'Site Adı (İngilizce)',
     'site_name_fa' => 'Site Adı (Farsça)',
     'sku' => 'Ürün Kodu (SKU)',

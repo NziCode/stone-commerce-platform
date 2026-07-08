@@ -11,20 +11,15 @@ $tabs = [
     ['key'=>'contact', 'label'=>__('admin.contact'), 'icon'=>'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V6a2 2 0 012-2z'],
     ['key'=>'about',   'label'=>__('admin.about'),   'icon'=>'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
 ];
-
-function fi($wire, $key, $label, $type = 'text', $placeholder = '') {
-    $id = 'setting_' . $key;
-    $val = $type === 'textarea' ? '' : "value=\"{{ e(\$wire->$key) }}\"";
-    return '';
-}
 @endphp
+
+<div x-data="{ tab: '{{ $activeTab }}' }">
 
 {{-- Tab nav --}}
 <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.5rem;background:#fff;border-radius:14px;padding:.55rem;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 20px -14px rgba(11,33,71,.15);border:1px solid rgba(11,33,71,.06)">
     @foreach($tabs as $t)
-        <button wire:click="$set('activeTab','{{ $t['key'] }}')"
-                style="display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;border-radius:9px;border:none;cursor:pointer;font-size:.83rem;font-weight:600;font-family:inherit;transition:all .15s;
-                    {{ $activeTab === $t['key'] ? 'background:linear-gradient(135deg,#ff5a1f,#ff8a3d);color:#fff;box-shadow:0 6px 14px -6px rgba(255,90,31,.5)' : 'color:#6b7280;background:transparent' }}">
+        <button type="button" @click="tab = '{{ $t['key'] }}'"
+                :style="'display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;border-radius:9px;border:none;cursor:pointer;font-size:.83rem;font-weight:600;font-family:inherit;transition:all .15s;' + (tab === '{{ $t['key'] }}' ? 'background:linear-gradient(135deg,#ff5a1f,#ff8a3d);color:#fff;box-shadow:0 6px 14px -6px rgba(255,90,31,.5)' : 'color:#6b7280;background:transparent')">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="{{ $t['icon'] }}"/></svg>
             {{ $t['label'] }}
         </button>
@@ -39,26 +34,35 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 @endphp
 
 {{-- GENERAL --}}
-@if($activeTab === 'general')
+<div x-show="tab === 'general'" x-cloak>
 <form wire:submit.prevent="save('general')">
+    @include('filament.pages.partials.settings-action-bar', ['group' => 'general'])
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.site_info') }}</h3>
-        <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.site_name_fa') }}</label><input type="text" wire:model.defer="site_name" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.site_name_en') }}</label><input type="text" wire:model.defer="site_name_en" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">{{ __('admin.tagline') }}</label><input type="text" wire:model.defer="site_tagline" class="{{ $inputClass }}"></div>
-        </div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'site_name', 'label' => __('admin.site_name')],
+                ['key' => 'site_tagline', 'label' => __('admin.tagline')],
+            ],
+        ])
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.contact_info') }}</h3>
-        <div style="{{ $gridStyle }}">
+        <div style="{{ $gridStyle }}; margin-bottom:1rem">
             <div><label style="{{ $labelStyle }}">{{ __('admin.email') }}</label><input type="email" wire:model.defer="site_email" class="{{ $inputClass }}"></div>
             <div><label style="{{ $labelStyle }}">{{ __('admin.phone') }}</label><input type="text" wire:model.defer="site_phone" class="{{ $inputClass }}"></div>
             <div><label style="{{ $labelStyle }}">WhatsApp</label><input type="text" wire:model.defer="site_phone_whatsapp" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.working_hours') }}</label><input type="text" wire:model.defer="site_working_hours" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.address_fa') }}</label><textarea wire:model.defer="site_address" rows="2" class="{{ $inputClass }}"></textarea></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.address_en') }}</label><textarea wire:model.defer="site_address_en" rows="2" class="{{ $inputClass }}"></textarea></div>
         </div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'site_working_hours', 'label' => __('admin.working_hours')],
+                ['key' => 'site_address', 'label' => __('admin.address'), 'type' => 'textarea', 'rows' => 2],
+            ],
+        ])
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.map') }}</h3>
@@ -70,20 +74,23 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- SEO --}}
-@if($activeTab === 'seo')
+<div x-show="tab === 'seo'" x-cloak>
 <form wire:submit.prevent="save('seo')">
+    @include('filament.pages.partials.settings-action-bar', ['group' => 'seo'])
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">Meta Tags</h3>
-        <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Meta Title (FA)</label><input type="text" wire:model.defer="meta_title_fa" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Meta Title (EN)</label><input type="text" wire:model.defer="meta_title_en" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Meta Description (FA)</label><input type="text" wire:model.defer="meta_description_fa" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Meta Description (EN)</label><input type="text" wire:model.defer="meta_description_en" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">OG Image URL</label><input type="text" wire:model.defer="og_image" class="{{ $inputClass }}"></div>
-        </div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'meta_title', 'label' => __('admin.meta_title')],
+                ['key' => 'meta_description', 'label' => __('admin.meta_description'), 'type' => 'textarea', 'rows' => 2],
+            ],
+        ])
+        <div style="margin-top:1rem"><label style="{{ $labelStyle }}">OG Image URL</label><input type="text" wire:model.defer="og_image" class="{{ $inputClass }}"></div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">Google</h3>
@@ -99,11 +106,12 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- SOCIAL --}}
-@if($activeTab === 'social')
+<div x-show="tab === 'social'" x-cloak>
 <form wire:submit.prevent="save('social')">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.social_networks') }}</h3>
         <div style="{{ $gridStyle }}">
@@ -114,11 +122,12 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- PAYMENT --}}
-@if($activeTab === 'payment')
+<div x-show="tab === 'payment'" x-cloak>
 <form wire:submit.prevent="save('payment')">
+    @include('filament.pages.partials.settings-action-bar', ['group' => 'payment'])
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">ZarinPal</h3>
         <div style="{{ $gridStyle }}">
@@ -131,21 +140,28 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.bank_receipt') }}</h3>
-        <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.bank_name') }}</label><input type="text" wire:model.defer="payment_receipt_bank_name" class="{{ $inputClass }}"></div>
+        <div style="{{ $gridStyle }}; margin-bottom:1rem">
             <div><label style="{{ $labelStyle }}">{{ __('admin.account_number') }}</label><input type="text" wire:model.defer="payment_receipt_account_number" class="{{ $inputClass }}"></div>
             <div><label style="{{ $labelStyle }}">IBAN</label><input type="text" wire:model.defer="payment_receipt_iban" class="{{ $inputClass }}"></div>
             <div><label style="{{ $labelStyle }}">SWIFT</label><input type="text" wire:model.defer="payment_receipt_swift" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">{{ __('admin.payment_instructions') }}</label><textarea wire:model.defer="payment_receipt_instructions" rows="3" class="{{ $inputClass }}"></textarea></div>
         </div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'payment_receipt_bank_name', 'label' => __('admin.bank_name')],
+                ['key' => 'payment_receipt_instructions', 'label' => __('admin.payment_instructions'), 'type' => 'textarea', 'rows' => 3],
+            ],
+        ])
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- SMTP --}}
-@if($activeTab === 'smtp')
+<div x-show="tab === 'smtp'" x-cloak>
 <form wire:submit.prevent="save('smtp')">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">SMTP</h3>
         <div style="{{ $gridStyle }}">
@@ -159,11 +175,12 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- SMS --}}
-@if($activeTab === 'sms')
+<div x-show="tab === 'sms'" x-cloak>
 <form wire:submit.prevent="save('sms')">
+    @include('filament.pages.partials.settings-action-bar', ['group' => 'sms'])
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">SMS Gateway</h3>
         <div style="{{ $gridStyle }}">
@@ -181,19 +198,24 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.sms_templates') }}</h3>
-        <div style="display:grid;gap:1rem">
-            <div><label style="{{ $labelStyle }}">OTP Template</label><input type="text" wire:model.defer="sms_otp_template" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Order Confirmed Template</label><input type="text" wire:model.defer="sms_order_confirmed_template" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Order Shipped Template</label><input type="text" wire:model.defer="sms_order_shipped_template" class="{{ $inputClass }}"></div>
-        </div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'sms_otp_template', 'label' => 'OTP Template'],
+                ['key' => 'sms_order_confirmed_template', 'label' => 'Order Confirmed Template'],
+                ['key' => 'sms_order_shipped_template', 'label' => 'Order Shipped Template'],
+            ],
+        ])
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- CONTACT --}}
-@if($activeTab === 'contact')
+<div x-show="tab === 'contact'" x-cloak>
 <form wire:submit.prevent="save('contact')">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.notifications') }}</h3>
         <div style="{{ $gridStyle }}">
@@ -214,24 +236,31 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
 
 {{-- ABOUT --}}
-@if($activeTab === 'about')
+<div x-show="tab === 'about'" x-cloak>
 <form wire:submit.prevent="save('about')">
+    @include('filament.pages.partials.settings-action-bar', ['group' => 'about'])
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.about_section') }}</h3>
-        <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.years_experience') }}</label><input type="number" wire:model.defer="about_years" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.about_title') }}</label><input type="text" wire:model.defer="about_title" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">{{ __('admin.about_desc') }}</label><textarea wire:model.defer="about_desc" rows="3" class="{{ $inputClass }}"></textarea></div>
-            <div><label style="{{ $labelStyle }}">Feature 1</label><input type="text" wire:model.defer="about_feature_1" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Feature 2</label><input type="text" wire:model.defer="about_feature_2" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Feature 3</label><input type="text" wire:model.defer="about_feature_3" class="{{ $inputClass }}"></div>
-        </div>
+        <div style="max-width:220px;margin-bottom:1rem"><label style="{{ $labelStyle }}">{{ __('admin.years_experience') }}</label><input type="number" wire:model.defer="about_years" class="{{ $inputClass }}"></div>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'about_title', 'label' => __('admin.about_title')],
+                ['key' => 'about_desc', 'label' => __('admin.about_desc'), 'type' => 'textarea', 'rows' => 3],
+                ['key' => 'about_feature_1', 'label' => 'Feature 1'],
+                ['key' => 'about_feature_2', 'label' => 'Feature 2'],
+                ['key' => 'about_feature_3', 'label' => 'Feature 3'],
+            ],
+        ])
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
-@endif
+</div>
+
+</div>
 
 </x-filament-panels::page>

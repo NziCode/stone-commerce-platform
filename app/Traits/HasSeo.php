@@ -9,16 +9,23 @@ use App\Models\Setting;
 
 trait HasSeo
 {
+    /**
+     * @param  bool  $appendSiteName  SEOMeta appends " {separator} {site name}" to $title by
+     *                                default. Pass false when $title already includes the site
+     *                                name itself (e.g. the homepage, category/search listings),
+     *                                otherwise it shows up twice in the <title> tag.
+     */
     protected function setSeo(
         string $title,
         string $description = '',
         string $image = '',
         string $type = 'website',
-        array $schemaData = []
+        array $schemaData = [],
+        bool $appendSiteName = true
     ): void {
         $siteName = Setting::get('site_name', config('app.name'));
 
-        SEOMeta::setTitle($title);
+        SEOMeta::setTitle($title, $appendSiteName);
         SEOMeta::setDescription($description);
 
         OpenGraph::setTitle($title);

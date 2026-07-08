@@ -18,6 +18,7 @@ class CategoryController extends Controller
         $this->setSeo(
             title: __('messages.categories') . ' | ' . \App\Models\Setting::get('site_name', config('app.name')),
             description: __('messages.categories_desc'),
+            appendSiteName: false,
         );
 
         $categories = Category::active()->roots()->with(['children' => fn($q) => $q->withCount(['products as active_products_count' => fn($q) => $q->where('is_active', true)])])->ordered()->get();
