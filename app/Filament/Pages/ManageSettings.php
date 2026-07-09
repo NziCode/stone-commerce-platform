@@ -40,7 +40,6 @@ class ManageSettings extends Page
 
     public string $site_email           = '';
     public string $site_phone           = '';
-    public string $site_phone_whatsapp  = '';
     public string $site_map_lat         = '';
     public string $site_map_lng         = '';
 
@@ -100,7 +99,7 @@ class ManageSettings extends Page
     protected array $groupKeys = [
         'general' => [
             'site_name','site_tagline','site_email','site_phone',
-            'site_phone_whatsapp','site_working_hours','site_address',
+            'site_working_hours','site_address',
             'site_map_lat','site_map_lng',
         ],
         'seo' => [

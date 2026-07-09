@@ -6,12 +6,16 @@
     $sitePhone  = \App\Models\Setting::get('site_phone');
     $siteEmail  = \App\Models\Setting::get('site_email');
     $siteAddress= \App\Models\Setting::get('site_address');
+    $whatsappNumber = \App\Models\Setting::get('social_whatsapp');
     $social = [
         'facebook'  => \App\Models\Setting::get('social_facebook'),
         'twitter'   => \App\Models\Setting::get('social_twitter'),
         'instagram' => \App\Models\Setting::get('social_instagram'),
+        'telegram'  => \App\Models\Setting::get('social_telegram'),
         'linkedin'  => \App\Models\Setting::get('social_linkedin'),
         'youtube'   => \App\Models\Setting::get('social_youtube'),
+        // Stored as a phone number, not a link — everything else above is used as-is.
+        'whatsapp'  => $whatsappNumber ? 'https://wa.me/' . preg_replace('/\D/', '', $whatsappNumber) : null,
     ];
     $socialIcons = [
         'facebook'  => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/></svg>',
@@ -19,6 +23,8 @@
         'instagram' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>',
         'linkedin'  => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3.5 8.98h6.88V21H3.5zM14.5 8.98h6.6v1.68h.1c.92-1.68 3.16-1.68 4.06 0 1 1.83.8 4.16.8 6.06V21h-6.88v-5.5c0-1.3-.02-3-1.84-3s-2.12 1.4-2.12 2.9V21h-6.7z"/></svg>',
         'youtube'   => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 12s0-3.6-.46-5.32a3 3 0 0 0-2.12-2.12C18.7 4.1 12 4.1 12 4.1s-6.7 0-8.42.46A3 3 0 0 0 1.46 6.68C1 8.4 1 12 1 12s0 3.6.46 5.32a3 3 0 0 0 2.12 2.12C5.3 19.9 12 19.9 12 19.9s6.7 0 8.42-.46a3 3 0 0 0 2.12-2.12C23 15.6 23 12 23 12z"/><path d="m9.75 15.02 5.75-3.02-5.75-3.02z" fill="currentColor" stroke="none"/></svg>',
+        'telegram'  => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.64 6.8-1.6 7.54c-.12.54-.44.67-.9.42l-2.49-1.83-1.2 1.16c-.13.13-.25.25-.5.25l.18-2.54 4.62-4.17c.2-.18-.04-.28-.31-.1l-5.71 3.6-2.46-.77c-.54-.17-.55-.54.11-.8l9.62-3.71c.45-.16.84.1.7.85z"/></svg>',
+        'whatsapp'  => '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm4.95 14.38c-.2.57-1.18 1.07-1.63 1.12-.41.04-.93.06-1.5-.09-.35-.09-.79-.22-1.36-.47-2.4-1.03-3.96-3.45-4.08-3.61-.12-.16-.97-1.29-.97-2.46 0-1.17.61-1.74.83-1.98.22-.24.48-.3.64-.3l.46.01c.15 0 .35-.06.55.42l.7 1.82c.07.17.03.37-.08.53l-.36.48c-.12.17-.25.34-.11.67.14.33.63 1.05 1.35 1.7.93.83 1.71 1.09 2.04 1.21.33.12.52.1.71-.06.19-.16.83-.97 1.05-1.3.22-.33.44-.28.74-.17l2.08.98c.3.14.5.21.57.34.07.12.07.69-.13 1.26z"/></svg>',
     ];
 @endphp
 

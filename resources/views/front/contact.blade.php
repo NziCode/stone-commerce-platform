@@ -9,7 +9,8 @@
     $hours     = \App\Models\Setting::get('site_working_hours');
     $mapLat    = (float) (\App\Models\Setting::get('site_map_lat') ?: 36.6736); // Zanjan, Iran
     $mapLng    = (float) (\App\Models\Setting::get('site_map_lng') ?: 48.4787);
-    $whatsapp  = \App\Models\Setting::get('social_whatsapp') ?: ($phone ? 'https://wa.me/' . preg_replace('/\D/', '', $phone) : null);
+    $whatsappNumber = \App\Models\Setting::get('social_whatsapp') ?: $phone;
+    $whatsapp  = $whatsappNumber ? 'https://wa.me/' . preg_replace('/\D/', '', $whatsappNumber) : null;
 @endphp
 
 @section('content')
