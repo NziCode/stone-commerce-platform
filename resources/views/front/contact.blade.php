@@ -7,7 +7,8 @@
     $email     = \App\Models\Setting::get('site_email');
     $address   = \App\Models\Setting::get('site_address');
     $hours     = \App\Models\Setting::get('site_working_hours');
-    $mapEmbed  = \App\Models\Setting::get('site_google_map_embed');
+    $mapLat    = (float) (\App\Models\Setting::get('site_map_lat') ?: 36.6736); // Zanjan, Iran
+    $mapLng    = (float) (\App\Models\Setting::get('site_map_lng') ?: 48.4787);
     $whatsapp  = \App\Models\Setting::get('social_whatsapp') ?: ($phone ? 'https://wa.me/' . preg_replace('/\D/', '', $phone) : null);
 @endphp
 
@@ -131,17 +132,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div style="border-radius:var(--radius-lg);overflow:hidden;height:100%;min-height:420px;background:var(--stone-50);position:relative">
-                        @if($mapEmbed)
-                            {!! $mapEmbed !!}
-                        @else
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d100000!2d51.338!3d35.6892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfa!2sir!4v1607512676761"
-                                width="100%" height="100%" style="border:0;position:absolute;inset:0"
-                                allowfullscreen="" loading="lazy">
-                            </iframe>
-                        @endif
-                    </div>
+                    <div id="contact-map" style="border-radius:var(--radius-lg);overflow:hidden;height:100%;min-height:420px;background:var(--stone-50)"></div>
                 </div>
             </div>
 
@@ -149,3 +140,33 @@
     </div>
 
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+@endpush
+
+@push('scripts')
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        (function () {
+            var el = document.getElementById('contact-map');
+            if (!el || typeof L === 'undefined') {
+                return;
+            }
+
+            var lat = {{ $mapLat }};
+            var lng = {{ $mapLng }};
+
+            var map = L.map(el, { scrollWheelZoom: false }).setView([lat, lng], 15);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                maxZoom: 19,
+            }).addTo(map);
+
+            L.marker([lat, lng]).addTo(map);
+        })();
+    </script>
+@endpush

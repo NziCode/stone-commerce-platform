@@ -78,21 +78,14 @@ class SettingSeeder extends Seeder
             [
                 'group'     => 'general',
                 'key'       => 'site_map_lat',
-                'value'     => '',
+                'value'     => '36.6736', // Zanjan, Iran (default until a location is picked)
                 'type'      => 'string',
                 'is_public' => true,
             ],
             [
                 'group'     => 'general',
                 'key'       => 'site_map_lng',
-                'value'     => '',
-                'type'      => 'string',
-                'is_public' => true,
-            ],
-            [
-                'group'     => 'general',
-                'key'       => 'site_google_map_embed',
-                'value'     => '',
+                'value'     => '48.4787',
                 'type'      => 'string',
                 'is_public' => true,
             ],

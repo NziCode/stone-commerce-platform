@@ -114,6 +114,7 @@ return [
     'locale' => '语言',
     'management' => '管理',
     'map' => '地图',
+    'map_picker_help' => '在地图上点击任意位置,或拖动标记,即可设置位置。您也可以直接输入精确坐标。',
     'max_value' => '最大值',
     'menus' => '菜单',
     'meta_description' => 'SEO 描述',

@@ -114,6 +114,7 @@ return [
     'locale' => 'Dil',
     'management' => 'Yönetim',
     'map' => 'Harita',
+    'map_picker_help' => 'Konumu ayarlamak için haritada herhangi bir yere tıklayın veya işaretçiyi sürükleyin. Ayrıca tam koordinatları da yazabilirsiniz.',
     'max_value' => 'Maks',
     'menus' => 'Menüler',
     'meta_description' => 'Meta Açıklama',

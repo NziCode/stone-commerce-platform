@@ -114,6 +114,7 @@ return [
     'locale' => 'Locale',
     'management' => 'Management',
     'map' => 'Map',
+    'map_picker_help' => 'Click anywhere on the map, or drag the marker, to set the location. You can also type exact coordinates.',
     'max_value' => 'Max',
     'menus' => 'Menus',
     'meta_description' => 'Meta Description',

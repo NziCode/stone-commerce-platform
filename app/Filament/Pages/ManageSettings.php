@@ -43,7 +43,6 @@ class ManageSettings extends Page
     public string $site_phone_whatsapp  = '';
     public string $site_map_lat         = '';
     public string $site_map_lng         = '';
-    public string $site_google_map_embed = '';
 
     public array $meta_title            = [];
     public array $meta_description      = [];
@@ -102,7 +101,7 @@ class ManageSettings extends Page
         'general' => [
             'site_name','site_tagline','site_email','site_phone',
             'site_phone_whatsapp','site_working_hours','site_address',
-            'site_map_lat','site_map_lng','site_google_map_embed',
+            'site_map_lat','site_map_lng',
         ],
         'seo' => [
             'meta_title','meta_description',
