@@ -56,13 +56,6 @@ class SettingSeeder extends Seeder
             ],
             [
                 'group'     => 'general',
-                'key'       => 'site_phone_whatsapp',
-                'value'     => '',
-                'type'      => 'string',
-                'is_public' => true,
-            ],
-            [
-                'group'     => 'general',
                 'key'       => 'site_address',
                 'value'     => json_encode([]),
                 'type'      => 'translatable',

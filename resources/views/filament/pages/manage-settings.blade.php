@@ -65,7 +65,6 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
         <div style="{{ $gridStyle }}; margin-bottom:1rem">
             <div><label style="{{ $labelStyle }}">{{ __('admin.email') }}</label><input type="email" wire:model.defer="site_email" class="{{ $inputClass }}"></div>
             <div><label style="{{ $labelStyle }}">{{ __('admin.phone') }}</label><input type="text" wire:model.defer="site_phone" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">WhatsApp</label><input type="text" wire:model.defer="site_phone_whatsapp" class="{{ $inputClass }}"></div>
         </div>
         @include('filament.pages.partials.settings-translations', [
             'inputClass' => $inputClass,
@@ -127,10 +126,26 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 <form wire:submit.prevent="save('social')">
     <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
     <div style="{{ $sectionStyle }}">
-        <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.social_networks') }}</h3>
-        <div style="{{ $gridStyle }}">
-            @foreach([['Instagram','social_instagram'],['Telegram','social_telegram'],['WhatsApp','social_whatsapp'],['LinkedIn','social_linkedin'],['YouTube','social_youtube'],['X (Twitter)','social_twitter'],['Facebook','social_facebook']] as [$name, $prop])
-                <div><label style="{{ $labelStyle }}">{{ $name }}</label><input type="url" wire:model.defer="{{ $prop }}" placeholder="https://" class="{{ $inputClass }}"></div>
+        <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 .4rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.social_networks') }}</h3>
+        <p style="font-size:.78rem;color:#6b7280;margin:0 0 1.2rem">{{ __('admin.social_networks_intro') }}</p>
+        <div style="display:grid;gap:1.1rem">
+            @php
+                $socialFields = [
+                    ['name' => 'Instagram', 'key' => 'social_instagram', 'type' => 'url', 'placeholder' => 'https://instagram.com/yourpage', 'help' => __('admin.social_instagram_help')],
+                    ['name' => 'Telegram', 'key' => 'social_telegram', 'type' => 'url', 'placeholder' => 'https://t.me/yourchannel', 'help' => __('admin.social_telegram_help')],
+                    ['name' => 'WhatsApp', 'key' => 'social_whatsapp', 'type' => 'tel', 'placeholder' => '989123456789', 'help' => __('admin.social_whatsapp_help')],
+                    ['name' => 'LinkedIn', 'key' => 'social_linkedin', 'type' => 'url', 'placeholder' => 'https://linkedin.com/company/yourcompany', 'help' => __('admin.social_linkedin_help')],
+                    ['name' => 'YouTube', 'key' => 'social_youtube', 'type' => 'url', 'placeholder' => 'https://youtube.com/@yourchannel', 'help' => __('admin.social_youtube_help')],
+                    ['name' => 'X (Twitter)', 'key' => 'social_twitter', 'type' => 'url', 'placeholder' => 'https://x.com/yourhandle', 'help' => __('admin.social_twitter_help')],
+                    ['name' => 'Facebook', 'key' => 'social_facebook', 'type' => 'url', 'placeholder' => 'https://facebook.com/yourpage', 'help' => __('admin.social_facebook_help')],
+                ];
+            @endphp
+            @foreach($socialFields as $field)
+                <div>
+                    <label style="{{ $labelStyle }}">{{ $field['name'] }}</label>
+                    <input type="{{ $field['type'] }}" wire:model.defer="{{ $field['key'] }}" placeholder="{{ $field['placeholder'] }}" class="{{ $inputClass }}">
+                    <p style="font-size:.72rem;color:#9ca3af;margin:.3rem 0 0">{{ $field['help'] }}</p>
+                </div>
             @endforeach
         </div>
     </div>
