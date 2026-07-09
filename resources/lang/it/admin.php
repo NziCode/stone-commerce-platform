@@ -114,6 +114,7 @@ return [
     'locale' => 'Lingua',
     'management' => 'Gestione',
     'map' => 'Mappa',
+    'map_picker_help' => 'Clicca in qualsiasi punto della mappa, oppure trascina il segnaposto, per impostare la posizione. Puoi anche digitare le coordinate esatte.',
     'max_value' => 'Massimo',
     'menus' => 'Menu',
     'meta_description' => 'Meta Descrizione',

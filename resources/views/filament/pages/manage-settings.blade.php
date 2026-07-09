@@ -79,11 +79,13 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.map') }}</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Latitude</label><input type="text" wire:model.defer="site_map_lat" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Longitude</label><input type="text" wire:model.defer="site_map_lng" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">Google Maps Embed Code</label><textarea wire:model.defer="site_google_map_embed" rows="3" class="{{ $inputClass }} font-mono text-xs"></textarea></div>
+            <div><label style="{{ $labelStyle }}">Latitude</label><input type="text" id="site_map_lat_input" wire:model.defer="site_map_lat" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">Longitude</label><input type="text" id="site_map_lng_input" wire:model.defer="site_map_lng" class="{{ $inputClass }}"></div>
         </div>
+        <p style="font-size:.72rem;color:#9ca3af;margin:.7rem 0 .4rem">{{ __('admin.map_picker_help') }}</p>
+        <div id="settings-map-picker" wire:ignore style="height:340px;border-radius:10px;overflow:hidden"></div>
     </div>
+    @include('filament.pages.partials.map-picker-scripts')
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
 </div>
