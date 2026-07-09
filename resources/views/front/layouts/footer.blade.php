@@ -51,7 +51,11 @@
                         <span class="mt-logo-text">{{ $siteName }}</span>
                     @endif
                 </a>
-                <p>{{ $siteTagline ?: __('messages.footer_about_fallback') ?? '' }}</p>
+                @if($siteTagline)
+                    <div class="mt-footer-tagline">{!! $siteTagline !!}</div>
+                @else
+                    <p>{{ __('messages.footer_about_fallback') ?? '' }}</p>
+                @endif
                 <div class="mt-social">
                     @foreach($socialIcons as $platform => $icon)
                         @if($social[$platform])

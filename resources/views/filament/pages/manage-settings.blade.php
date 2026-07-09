@@ -36,7 +36,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 {{-- GENERAL --}}
 <div x-show="tab === 'general'" x-cloak>
 <form wire:submit.prevent="save('general')">
-    @include('filament.pages.partials.settings-action-bar', ['group' => 'general'])
+    @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.site_info') }}</h3>
         @include('filament.pages.partials.settings-translations', [
@@ -44,7 +44,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
             'labelStyle' => $labelStyle,
             'fields' => [
                 ['key' => 'site_name', 'label' => __('admin.site_name')],
-                ['key' => 'site_tagline', 'label' => __('admin.tagline')],
+                ['key' => 'site_tagline', 'label' => __('admin.tagline'), 'type' => 'richtext'],
             ],
         ])
     </div>
@@ -79,7 +79,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 {{-- SEO --}}
 <div x-show="tab === 'seo'" x-cloak>
 <form wire:submit.prevent="save('seo')">
-    @include('filament.pages.partials.settings-action-bar', ['group' => 'seo'])
+    @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">Meta Tags</h3>
         @include('filament.pages.partials.settings-translations', [
@@ -127,7 +127,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 {{-- PAYMENT --}}
 <div x-show="tab === 'payment'" x-cloak>
 <form wire:submit.prevent="save('payment')">
-    @include('filament.pages.partials.settings-action-bar', ['group' => 'payment'])
+    @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">ZarinPal</h3>
         <div style="{{ $gridStyle }}">
@@ -180,7 +180,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 {{-- SMS --}}
 <div x-show="tab === 'sms'" x-cloak>
 <form wire:submit.prevent="save('sms')">
-    @include('filament.pages.partials.settings-action-bar', ['group' => 'sms'])
+    @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">SMS Gateway</h3>
         <div style="{{ $gridStyle }}">
@@ -241,7 +241,7 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
 {{-- ABOUT --}}
 <div x-show="tab === 'about'" x-cloak>
 <form wire:submit.prevent="save('about')">
-    @include('filament.pages.partials.settings-action-bar', ['group' => 'about'])
+    @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.about_section') }}</h3>
         <div style="max-width:220px;margin-bottom:1rem"><label style="{{ $labelStyle }}">{{ __('admin.years_experience') }}</label><input type="number" wire:model.defer="about_years" class="{{ $inputClass }}"></div>

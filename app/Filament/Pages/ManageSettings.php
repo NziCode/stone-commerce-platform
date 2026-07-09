@@ -181,34 +181,40 @@ class ManageSettings extends Page
     }
 
     /**
-     * "Translate Automatically" for a tab's translatable fields — fills (or, with the
+     * "Translate Automatically" for a single translatable field — fills (or, with the
      * overwrite footer button, replaces) every active locale from the site's default
-     * locale using the same TranslationService the Product resource uses.
+     * locale using the same TranslationService the Product resource uses. Triggered
+     * per-field (not per-tab) so e.g. the site title and tagline each get their own button.
      */
-    public function translateGroupAction(): Action
+    public function translateFieldAction(): Action
     {
-        return Action::make('translateGroup')
+        return Action::make('translateField')
             ->label(__('admin.translate_automatically'))
             ->icon('heroicon-o-language')
             ->color('gray')
             ->requiresConfirmation()
             ->modalDescription(__('admin.translate_confirm_body'))
             ->extraModalFooterActions(fn (Action $action): array => [
-                $action->makeModalSubmitAction('translateOverwrite', arguments: ['overwrite' => true])
+                $action->makeModalSubmitAction('translateFieldOverwrite', arguments: ['overwrite' => true])
                     ->label(__('admin.translate_confirm_overwrite'))
                     ->color('danger'),
             ])
             ->action(function (array $arguments) {
-                $group = $arguments['group'] ?? null;
+                $field = $arguments['field'] ?? null;
+                $isHtml = (bool) ($arguments['isHtml'] ?? false);
                 $overwrite = (bool) ($arguments['overwrite'] ?? false);
 
-                $keys = array_values(array_intersect($this->groupKeys[$group] ?? [], Setting::TRANSLATABLE_KEYS));
-
-                if (empty($keys)) {
+                if (! $field || ! in_array($field, Setting::TRANSLATABLE_KEYS, true)) {
                     return;
                 }
 
                 $sourceCode = LanguageService::getDefault()?->code ?? 'fa';
+                $sourceValue = $this->$field[$sourceCode] ?? '';
+
+                if (blank($sourceValue)) {
+                    return;
+                }
+
                 $targets = LanguageService::getActive()
                     ->pluck('code')
                     ->reject(fn ($code) => $code === $sourceCode)
@@ -218,32 +224,20 @@ class ManageSettings extends Page
                 $failedLocales = [];
 
                 foreach ($targets as $targetCode) {
-                    $toTranslate = [];
-
-                    foreach ($keys as $key) {
-                        $sourceValue = $this->$key[$sourceCode] ?? '';
-
-                        if (blank($sourceValue) || (! $overwrite && filled($this->$key[$targetCode] ?? null))) {
-                            continue;
-                        }
-
-                        $toTranslate[$key] = $sourceValue;
-                    }
-
-                    if (empty($toTranslate)) {
+                    if (! $overwrite && filled($this->$field[$targetCode] ?? null)) {
                         continue;
                     }
 
-                    $results = $translator->translateFields($toTranslate, $targetCode, $sourceCode);
+                    $translated = $isHtml
+                        ? $translator->translateHtml($sourceValue, $targetCode, $sourceCode)
+                        : $translator->translate($sourceValue, $targetCode, $sourceCode);
 
-                    foreach ($results as $key => $value) {
-                        if ($value === null) {
-                            $failedLocales[$targetCode] = true;
-                            continue;
-                        }
-
-                        $this->{$key}[$targetCode] = $value;
+                    if ($translated === null) {
+                        $failedLocales[$targetCode] = true;
+                        continue;
                     }
+
+                    $this->{$field}[$targetCode] = $translated;
                 }
 
                 Notification::make()
