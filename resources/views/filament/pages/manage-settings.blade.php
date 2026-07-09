@@ -43,10 +43,22 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'site_name', 'label' => __('admin.site_name')],
-                ['key' => 'site_tagline', 'label' => __('admin.tagline'), 'type' => 'richtext'],
+                ['key' => 'site_name', 'label' => __('admin.site_name'), 'help' => __('admin.site_name_help')],
             ],
         ])
+        <div style="margin-top:1.1rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.2rem">
+                <label style="{{ $labelStyle }}margin-bottom:0">{{ __('admin.tagline') }}</label>
+                <button type="button"
+                    wire:click="mountAction('translateField', { field: 'site_tagline', isHtml: true })"
+                    style="display:inline-flex;align-items:center;gap:.3rem;padding:.25rem .55rem;border-radius:6px;border:none;cursor:pointer;background:transparent;color:#ff5a1f;font-size:.72rem;font-weight:600;font-family:inherit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m10 20-4-9-4 9m1.5-3.5h5"/></svg>
+                    {{ __('admin.translate_automatically') }}
+                </button>
+            </div>
+            <p style="font-size:.72rem;color:#9ca3af;margin:0 0 .4rem">{{ __('admin.site_tagline_help') }}</p>
+            {{ $this->taglineForm }}
+        </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.contact_info') }}</h3>
