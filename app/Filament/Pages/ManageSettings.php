@@ -6,6 +6,8 @@ use App\Models\Setting;
 use App\Services\LanguageService;
 use App\Services\TranslationService;
 use Filament\Actions\Action;
+use Filament\Forms;
+use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Cache;
@@ -154,6 +156,46 @@ class ManageSettings extends Page
                 ? (bool) $value
                 : (string) ($value ?? '');
         }
+
+        // Every translatable field must have an explicit (possibly empty) entry for
+        // every active locale — a missing key resolves to `undefined` on the client
+        // side (shows up literally as "undefined" in bound editors) instead of blank.
+        $activeLocales = LanguageService::getActive()->pluck('code');
+
+        foreach (Setting::TRANSLATABLE_KEYS as $key) {
+            if (! property_exists($this, $key)) {
+                continue;
+            }
+
+            foreach ($activeLocales as $code) {
+                $this->{$key}[$code] ??= '';
+            }
+        }
+
+        $this->taglineForm->fill($this->site_tagline);
+    }
+
+    protected function getForms(): array
+    {
+        return ['taglineForm'];
+    }
+
+    public function taglineForm(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Tabs::make('TaglineTranslations')
+                    ->tabs(
+                        collect(LanguageService::getActive())->map(function ($lang) {
+                            return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                ->schema([
+                                    Forms\Components\RichEditor::make($lang->code)
+                                        ->label(''),
+                                ]);
+                        })->toArray()
+                    ),
+            ])
+            ->statePath('site_tagline');
     }
 
     public function save(string $group): void
