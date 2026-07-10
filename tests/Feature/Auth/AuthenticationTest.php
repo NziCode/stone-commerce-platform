@@ -3,13 +3,13 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
+use Tests\Concerns\CreatesTestUsers;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
 {
-    use RefreshDatabase;
+    use CreatesTestUsers;
 
     public function test_login_screen_can_be_rendered(): void
     {
@@ -22,7 +22,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
-        $user = User::factory()->create();
+        $user = $this->trackTestUser(User::factory()->create());
 
         $component = Volt::test('pages.auth.login')
             ->set('form.email', $user->email)
@@ -39,7 +39,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = $this->trackTestUser(User::factory()->create());
 
         $component = Volt::test('pages.auth.login')
             ->set('form.email', $user->email)
@@ -56,7 +56,7 @@ class AuthenticationTest extends TestCase
 
     public function test_navigation_menu_can_be_rendered(): void
     {
-        $user = User::factory()->create();
+        $user = $this->trackTestUser(User::factory()->create());
 
         $this->actingAs($user);
 
@@ -69,7 +69,7 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_logout(): void
     {
-        $user = User::factory()->create();
+        $user = $this->trackTestUser(User::factory()->create());
 
         $this->actingAs($user);
 
