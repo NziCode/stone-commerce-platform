@@ -32,3 +32,6 @@ yarn-error.log
 *.tar.gz
 *.sql
 *.log
+
+# Real site/client content — see SettingSeeder.php for the (safe, committed) field definitions.
+/database/seeders/SettingValuesSeeder.php
