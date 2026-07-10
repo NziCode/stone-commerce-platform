@@ -6,7 +6,7 @@
 @php
     $locale   = app()->getLocale();
     $isWished = auth()->check() && auth()->user()->hasWishlisted($product->id);
-    $phone    = \App\Models\Setting::get('site_phone');
+    $phone    = display_phone(\App\Models\Setting::get('site_phone'));
 
     $pick = function($json) use ($locale) {
         $arr = is_array($json) ? $json : json_decode((string) $json, true);

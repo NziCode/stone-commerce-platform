@@ -151,6 +151,7 @@ class UserResource extends Resource
 
                 Tables\Columns\TextColumn::make('phone')
                     ->label('موبایل')
+                    ->formatStateUsing(fn (?string $state) => display_phone($state))
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('roles.name')
