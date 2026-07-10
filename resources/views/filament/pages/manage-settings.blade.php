@@ -31,6 +31,11 @@ $inputClass = "fi-input block w-full border-gray-300 rounded-lg shadow-sm focus:
 $labelStyle = "display:block;font-size:.8rem;font-weight:600;color:#374151;margin-bottom:.3rem";
 $sectionStyle = "background:#fff;border-radius:12px;border:1px solid rgba(11,33,71,.07);padding:1.4rem 1.6rem;margin-bottom:1.2rem;box-shadow:0 1px 3px rgba(0,0,0,.04)";
 $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
+
+// A closure, not a named function — this file can render more than once per
+// PHP process (repeated Livewire renders, Octane, etc.), and a plain
+// `function fieldHelp() {}` here would fatal error on the second render.
+$fieldHelp = fn ($key) => '<p style="font-size:.7rem;color:#9ca3af;margin:.35rem 0 0;line-height:1.4">' . e(__('admin.' . $key)) . '</p>';
 @endphp
 
 {{-- GENERAL --}}
@@ -63,23 +68,23 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.contact_info') }}</h3>
         <div style="{{ $gridStyle }}; margin-bottom:1rem">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.email') }}</label><input type="email" wire:model.defer="site_email" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.phone') }}</label><input type="text" wire:model.defer="site_phone" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.email') }}</label><input type="email" wire:model.defer="site_email" class="{{ $inputClass }}">{!! $fieldHelp('site_email_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.phone') }}</label><input type="text" wire:model.defer="site_phone" class="{{ $inputClass }}">{!! $fieldHelp('site_phone_help') !!}</div>
         </div>
         @include('filament.pages.partials.settings-translations', [
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'site_working_hours', 'label' => __('admin.working_hours')],
-                ['key' => 'site_address', 'label' => __('admin.address'), 'type' => 'textarea', 'rows' => 2],
+                ['key' => 'site_working_hours', 'label' => __('admin.working_hours'), 'help' => __('admin.site_working_hours_help')],
+                ['key' => 'site_address', 'label' => __('admin.address'), 'type' => 'textarea', 'rows' => 2, 'help' => __('admin.site_address_help')],
             ],
         ])
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.map') }}</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Latitude</label><input type="text" id="site_map_lat_input" wire:model.defer="site_map_lat" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Longitude</label><input type="text" id="site_map_lng_input" wire:model.defer="site_map_lng" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">Latitude</label><input type="text" id="site_map_lat_input" wire:model.defer="site_map_lat" class="{{ $inputClass }}">{!! $fieldHelp('site_map_lat_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Longitude</label><input type="text" id="site_map_lng_input" wire:model.defer="site_map_lng" class="{{ $inputClass }}">{!! $fieldHelp('site_map_lng_help') !!}</div>
         </div>
         <p style="font-size:.72rem;color:#9ca3af;margin:.7rem 0 .4rem">{{ __('admin.map_picker_help') }}</p>
         <div id="settings-map-picker" wire:ignore style="height:340px;border-radius:10px;overflow:hidden"></div>
@@ -99,23 +104,24 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'meta_title', 'label' => __('admin.meta_title')],
-                ['key' => 'meta_description', 'label' => __('admin.meta_description'), 'type' => 'textarea', 'rows' => 2],
+                ['key' => 'meta_title', 'label' => __('admin.meta_title'), 'help' => __('admin.meta_title_help')],
+                ['key' => 'meta_description', 'label' => __('admin.meta_description'), 'type' => 'textarea', 'rows' => 2, 'help' => __('admin.meta_description_help')],
             ],
         ])
-        <div style="margin-top:1rem"><label style="{{ $labelStyle }}">OG Image URL</label><input type="text" wire:model.defer="og_image" class="{{ $inputClass }}"></div>
+        <div style="margin-top:1rem"><label style="{{ $labelStyle }}">OG Image URL</label><input type="text" wire:model.defer="og_image" class="{{ $inputClass }}">{!! $fieldHelp('og_image_help') !!}</div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">Google</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Google Analytics ID</label><input type="text" wire:model.defer="google_analytics_id" placeholder="G-XXXXXXXXXX" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Google Tag Manager ID</label><input type="text" wire:model.defer="google_tag_manager_id" placeholder="GTM-XXXXXXX" class="{{ $inputClass }}"></div>
-            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">Search Console Verification</label><input type="text" wire:model.defer="google_search_console" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">Google Analytics ID</label><input type="text" wire:model.defer="google_analytics_id" placeholder="G-XXXXXXXXXX" class="{{ $inputClass }}">{!! $fieldHelp('google_analytics_id_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Google Tag Manager ID</label><input type="text" wire:model.defer="google_tag_manager_id" placeholder="GTM-XXXXXXX" class="{{ $inputClass }}">{!! $fieldHelp('google_tag_manager_id_help') !!}</div>
+            <div style="grid-column:span 2"><label style="{{ $labelStyle }}">Search Console Verification</label><input type="text" wire:model.defer="google_search_console" class="{{ $inputClass }}">{!! $fieldHelp('google_search_console_help') !!}</div>
         </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">Robots.txt</h3>
         <textarea wire:model.defer="robots_txt" rows="10" class="{{ $inputClass }} font-mono text-xs"></textarea>
+        {!! $fieldHelp('robots_txt_help') !!}
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
@@ -160,26 +166,29 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">ZarinPal</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Merchant ID</label><input type="text" wire:model.defer="payment_zarinpal_merchant" class="{{ $inputClass }}"></div>
-            <div style="display:flex;align-items:center;gap:.6rem;padding-top:1.4rem">
-                <input type="checkbox" wire:model.defer="payment_zarinpal_sandbox" id="sandbox" style="width:16px;height:16px;accent-color:#ff5a1f">
-                <label for="sandbox" style="font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">Sandbox Mode</label>
+            <div><label style="{{ $labelStyle }}">Merchant ID</label><input type="text" wire:model.defer="payment_zarinpal_merchant" class="{{ $inputClass }}">{!! $fieldHelp('payment_zarinpal_merchant_help') !!}</div>
+            <div>
+                <div style="display:flex;align-items:center;gap:.6rem">
+                    <input type="checkbox" wire:model.defer="payment_zarinpal_sandbox" id="sandbox" style="width:16px;height:16px;accent-color:#ff5a1f">
+                    <label for="sandbox" style="font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">Sandbox Mode</label>
+                </div>
+                {!! $fieldHelp('payment_zarinpal_sandbox_help') !!}
             </div>
         </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.bank_receipt') }}</h3>
         <div style="{{ $gridStyle }}; margin-bottom:1rem">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.account_number') }}</label><input type="text" wire:model.defer="payment_receipt_account_number" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">IBAN</label><input type="text" wire:model.defer="payment_receipt_iban" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">SWIFT</label><input type="text" wire:model.defer="payment_receipt_swift" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.account_number') }}</label><input type="text" wire:model.defer="payment_receipt_account_number" class="{{ $inputClass }}">{!! $fieldHelp('payment_receipt_account_number_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">IBAN</label><input type="text" wire:model.defer="payment_receipt_iban" class="{{ $inputClass }}">{!! $fieldHelp('payment_receipt_iban_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">SWIFT</label><input type="text" wire:model.defer="payment_receipt_swift" class="{{ $inputClass }}">{!! $fieldHelp('payment_receipt_swift_help') !!}</div>
         </div>
         @include('filament.pages.partials.settings-translations', [
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'payment_receipt_bank_name', 'label' => __('admin.bank_name')],
-                ['key' => 'payment_receipt_instructions', 'label' => __('admin.payment_instructions'), 'type' => 'textarea', 'rows' => 3],
+                ['key' => 'payment_receipt_bank_name', 'label' => __('admin.bank_name'), 'help' => __('admin.payment_receipt_bank_name_help')],
+                ['key' => 'payment_receipt_instructions', 'label' => __('admin.payment_instructions'), 'type' => 'textarea', 'rows' => 3, 'help' => __('admin.payment_receipt_instructions_help')],
             ],
         ])
     </div>
@@ -194,12 +203,12 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">SMTP</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Host</label><input type="text" wire:model.defer="smtp_host" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Port</label><input type="number" wire:model.defer="smtp_port" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Username</label><input type="text" wire:model.defer="smtp_username" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Password</label><input type="password" wire:model.defer="smtp_password" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">From Address</label><input type="email" wire:model.defer="smtp_from_address" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">From Name</label><input type="text" wire:model.defer="smtp_from_name" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">Host</label><input type="text" wire:model.defer="smtp_host" class="{{ $inputClass }}">{!! $fieldHelp('smtp_host_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Port</label><input type="number" wire:model.defer="smtp_port" class="{{ $inputClass }}">{!! $fieldHelp('smtp_port_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Username</label><input type="text" wire:model.defer="smtp_username" class="{{ $inputClass }}">{!! $fieldHelp('smtp_username_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Password</label><input type="password" wire:model.defer="smtp_password" class="{{ $inputClass }}">{!! $fieldHelp('smtp_password_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">From Address</label><input type="email" wire:model.defer="smtp_from_address" class="{{ $inputClass }}">{!! $fieldHelp('smtp_from_address_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">From Name</label><input type="text" wire:model.defer="smtp_from_name" class="{{ $inputClass }}">{!! $fieldHelp('smtp_from_name_help') !!}</div>
         </div>
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
@@ -220,9 +229,10 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
                     <option value="kavenegar">Kavenegar</option>
                     <option value="melipayamak">Melipayamak</option>
                 </select>
+                {!! $fieldHelp('sms_provider_help') !!}
             </div>
-            <div><label style="{{ $labelStyle }}">API Key</label><input type="password" wire:model.defer="sms_api_key" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Sender Number</label><input type="text" wire:model.defer="sms_sender" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">API Key</label><input type="password" wire:model.defer="sms_api_key" class="{{ $inputClass }}">{!! $fieldHelp('sms_api_key_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Sender Number</label><input type="text" wire:model.defer="sms_sender" class="{{ $inputClass }}">{!! $fieldHelp('sms_sender_help') !!}</div>
         </div>
     </div>
     <div style="{{ $sectionStyle }}">
@@ -231,9 +241,9 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'sms_otp_template', 'label' => 'OTP Template'],
-                ['key' => 'sms_order_confirmed_template', 'label' => 'Order Confirmed Template'],
-                ['key' => 'sms_order_shipped_template', 'label' => 'Order Shipped Template'],
+                ['key' => 'sms_otp_template', 'label' => 'OTP Template', 'help' => __('admin.sms_otp_template_help')],
+                ['key' => 'sms_order_confirmed_template', 'label' => 'Order Confirmed Template', 'help' => __('admin.sms_order_confirmed_template_help')],
+                ['key' => 'sms_order_shipped_template', 'label' => 'Order Shipped Template', 'help' => __('admin.sms_order_shipped_template_help')],
             ],
         ])
     </div>
@@ -248,19 +258,22 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.notifications') }}</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_email') }}</label><input type="email" wire:model.defer="contact_notify_email" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_sms') }}</label><input type="text" wire:model.defer="contact_notify_sms" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_email') }}</label><input type="email" wire:model.defer="contact_notify_email" class="{{ $inputClass }}">{!! $fieldHelp('contact_notify_email_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_sms') }}</label><input type="text" wire:model.defer="contact_notify_sms" class="{{ $inputClass }}">{!! $fieldHelp('contact_notify_sms_help') !!}</div>
         </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">reCAPTCHA</h3>
         <div style="{{ $gridStyle }}">
-            <div><label style="{{ $labelStyle }}">Site Key</label><input type="text" wire:model.defer="contact_recaptcha_site_key" class="{{ $inputClass }}"></div>
-            <div><label style="{{ $labelStyle }}">Secret Key</label><input type="password" wire:model.defer="contact_recaptcha_secret_key" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">Site Key</label><input type="text" wire:model.defer="contact_recaptcha_site_key" class="{{ $inputClass }}">{!! $fieldHelp('contact_recaptcha_site_key_help') !!}</div>
+            <div><label style="{{ $labelStyle }}">Secret Key</label><input type="password" wire:model.defer="contact_recaptcha_secret_key" class="{{ $inputClass }}">{!! $fieldHelp('contact_recaptcha_secret_key_help') !!}</div>
         </div>
-        <div style="display:flex;align-items:center;gap:.6rem;margin-top:1rem">
-            <input type="checkbox" wire:model.defer="contact_recaptcha_enabled" id="recaptcha_on" style="width:16px;height:16px;accent-color:#ff5a1f">
-            <label for="recaptcha_on" style="font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">{{ __('admin.recaptcha_enabled') }}</label>
+        <div style="margin-top:1rem">
+            <div style="display:flex;align-items:center;gap:.6rem">
+                <input type="checkbox" wire:model.defer="contact_recaptcha_enabled" id="recaptcha_on" style="width:16px;height:16px;accent-color:#ff5a1f">
+                <label for="recaptcha_on" style="font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">{{ __('admin.recaptcha_enabled') }}</label>
+            </div>
+            {!! $fieldHelp('contact_recaptcha_enabled_help') !!}
         </div>
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
@@ -273,16 +286,16 @@ $gridStyle = "display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;";
     @include('filament.pages.partials.settings-action-bar')
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.about_section') }}</h3>
-        <div style="max-width:220px;margin-bottom:1rem"><label style="{{ $labelStyle }}">{{ __('admin.years_experience') }}</label><input type="number" wire:model.defer="about_years" class="{{ $inputClass }}"></div>
+        <div style="max-width:220px;margin-bottom:1rem"><label style="{{ $labelStyle }}">{{ __('admin.years_experience') }}</label><input type="number" wire:model.defer="about_years" class="{{ $inputClass }}">{!! $fieldHelp('about_years_help') !!}</div>
         @include('filament.pages.partials.settings-translations', [
             'inputClass' => $inputClass,
             'labelStyle' => $labelStyle,
             'fields' => [
-                ['key' => 'about_title', 'label' => __('admin.about_title')],
-                ['key' => 'about_desc', 'label' => __('admin.about_desc'), 'type' => 'textarea', 'rows' => 3],
-                ['key' => 'about_feature_1', 'label' => 'Feature 1'],
-                ['key' => 'about_feature_2', 'label' => 'Feature 2'],
-                ['key' => 'about_feature_3', 'label' => 'Feature 3'],
+                ['key' => 'about_title', 'label' => __('admin.about_title'), 'help' => __('admin.about_title_help')],
+                ['key' => 'about_desc', 'label' => __('admin.about_desc'), 'type' => 'textarea', 'rows' => 3, 'help' => __('admin.about_desc_help')],
+                ['key' => 'about_feature_1', 'label' => 'Feature 1', 'help' => __('admin.about_feature_1_help')],
+                ['key' => 'about_feature_2', 'label' => 'Feature 2', 'help' => __('admin.about_feature_2_help')],
+                ['key' => 'about_feature_3', 'label' => 'Feature 3', 'help' => __('admin.about_feature_3_help')],
             ],
         ])
     </div>
