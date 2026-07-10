@@ -212,7 +212,6 @@ return [
     'settings_google' => 'Google Tools',
     'settings_logo' => 'Logo',
     'settings_map' => 'Map',
-    'settings_map_embed' => 'Google Maps Embed Code',
     'settings_map_lat' => 'Latitude',
     'settings_map_lng' => 'Longitude',
     'settings_meta' => 'Meta Tags',
