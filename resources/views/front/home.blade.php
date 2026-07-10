@@ -4,7 +4,7 @@
 
 @php
     $locale = app()->getLocale();
-    $sitePhone = \App\Models\Setting::get('site_phone');
+    $sitePhone = display_phone(\App\Models\Setting::get('site_phone'));
     $aboutYears   = \App\Models\Setting::get('about_years', '25');
     $aboutTitle   = \App\Models\Setting::get('about_title');
     $aboutDesc    = \App\Models\Setting::get('about_desc');

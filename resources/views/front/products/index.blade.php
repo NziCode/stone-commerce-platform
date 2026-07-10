@@ -256,8 +256,8 @@
                             <i class="fa fa-phone"></i>
                             <h4>{{ __('messages.any_questions') }}</h4>
                             @if(\App\Models\Setting::get('site_phone'))
-                                <a class="phone-link" href="tel:{{ \App\Models\Setting::get('site_phone') }}">
-                                    {{ \App\Models\Setting::get('site_phone') }}
+                                <a class="phone-link" href="tel:{{ display_phone(\App\Models\Setting::get('site_phone')) }}">
+                                    {{ display_phone(\App\Models\Setting::get('site_phone')) }}
                                 </a>
                             @endif
                             <a href="{{ route('contact') }}"

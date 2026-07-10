@@ -73,7 +73,7 @@ class OrderResource extends Resource
                 Forms\Components\Grid::make(2)->schema([
                     Forms\Components\TextInput::make('customer_name')->label('نام')->disabled(),
                     Forms\Components\TextInput::make('customer_email')->label('ایمیل')->disabled(),
-                    Forms\Components\TextInput::make('customer_phone')->label('تلفن')->disabled(),
+                    Forms\Components\TextInput::make('customer_phone')->label('تلفن')->disabled()->formatStateUsing(fn (?string $state) => display_phone($state)),
                     Forms\Components\TextInput::make('customer_company')->label('شرکت')->disabled(),
                     Forms\Components\TextInput::make('customer_country')->label('کشور')->disabled(),
                     Forms\Components\Textarea::make('customer_address')->label('آدرس')->disabled()->columnSpanFull(),

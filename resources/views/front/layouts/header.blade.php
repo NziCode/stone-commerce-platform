@@ -8,7 +8,7 @@
         : 0;
     $siteName = \App\Models\Setting::get('site_name', config('app.name'));
     $siteLogo = \App\Models\Setting::get('site_logo');
-    $sitePhone = \App\Models\Setting::get('site_phone');
+    $sitePhone = display_phone(\App\Models\Setting::get('site_phone'));
     $siteEmail = \App\Models\Setting::get('site_email');
     $siteWorkingHours = \App\Models\Setting::get('site_working_hours');
     $languages = \App\Models\Language::allActive();

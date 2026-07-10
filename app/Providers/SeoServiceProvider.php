@@ -47,7 +47,7 @@ class SeoServiceProvider extends ServiceProvider
         JsonLd::addValue('url', config('app.url'));
 
         if ($phone = Setting::get('site_phone')) {
-            JsonLd::addValue('telephone', $phone);
+            JsonLd::addValue('telephone', display_phone($phone));
         }
         if ($email = Setting::get('site_email')) {
             JsonLd::addValue('email', $email);

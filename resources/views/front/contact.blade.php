@@ -3,7 +3,7 @@
 
 @php
     $locale    = app()->getLocale();
-    $phone     = \App\Models\Setting::get('site_phone');
+    $phone     = display_phone(\App\Models\Setting::get('site_phone'));
     $email     = \App\Models\Setting::get('site_email');
     $address   = \App\Models\Setting::get('site_address');
     $hours     = \App\Models\Setting::get('site_working_hours');

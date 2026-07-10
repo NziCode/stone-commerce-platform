@@ -3,7 +3,7 @@
     $siteName   = \App\Models\Setting::get('site_name', config('app.name'));
     $siteLogo   = \App\Models\Setting::get('site_logo');
     $siteTagline= \App\Models\Setting::get('site_tagline');
-    $sitePhone  = \App\Models\Setting::get('site_phone');
+    $sitePhone  = display_phone(\App\Models\Setting::get('site_phone'));
     $siteEmail  = \App\Models\Setting::get('site_email');
     $siteAddress= \App\Models\Setting::get('site_address');
     $whatsappNumber = \App\Models\Setting::get('social_whatsapp');

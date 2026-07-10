@@ -57,7 +57,7 @@ class ContactMessageResource extends Resource
                 Forms\Components\Grid::make(2)->schema([
                     Forms\Components\TextInput::make('name')->label('نام')->disabled(),
                     Forms\Components\TextInput::make('email')->label('ایمیل')->disabled(),
-                    Forms\Components\TextInput::make('phone')->label('تلفن')->disabled(),
+                    Forms\Components\TextInput::make('phone')->label('تلفن')->disabled()->formatStateUsing(fn (?string $state) => display_phone($state)),
                     Forms\Components\TextInput::make('company')->label('شرکت')->disabled(),
                     Forms\Components\TextInput::make('country')->label('کشور')->disabled(),
                     Forms\Components\TextInput::make('subject')->label('موضوع')->disabled(),
