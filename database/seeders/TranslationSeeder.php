@@ -288,7 +288,6 @@ class TranslationSeeder extends Seeder
             'settings_map' => ['fa' => 'نقشه', 'en' => 'Map', 'ar' => 'Map', 'hi' => 'Map', 'it' => 'Map', 'zh' => '地图', 'tr' => 'Harita'],
             'settings_map_lat' => ['fa' => 'عرض جغرافیایی', 'en' => 'Latitude', 'ar' => 'Latitude', 'hi' => 'Latitude', 'it' => 'Latitude', 'zh' => '纬度', 'tr' => 'Enlem'],
             'settings_map_lng' => ['fa' => 'طول جغرافیایی', 'en' => 'Longitude', 'ar' => 'Longitude', 'hi' => 'Longitude', 'it' => 'Longitude', 'zh' => '经度', 'tr' => 'Boylam'],
-            'settings_map_embed' => ['fa' => 'کد embed نقشه گوگل', 'en' => 'Google Maps Embed Code', 'ar' => 'Google Maps Embed Code', 'hi' => 'Google Maps Embed Code', 'it' => 'Google Maps Embed Code', 'zh' => '谷歌地图嵌入代码', 'tr' => 'Google Haritalar Yerleştirme Kodu'],
             'settings_meta' => ['fa' => 'متا تگ‌ها', 'en' => 'Meta Tags', 'ar' => 'Meta Tags', 'hi' => 'Meta Tags', 'it' => 'Meta Tags', 'zh' => '元标签', 'tr' => 'Meta Etiketleri'],
             'settings_meta_title_fa' => ['fa' => 'عنوان متا (فارسی)', 'en' => 'Meta Title (Farsi)', 'ar' => 'Meta Title (Farsi)', 'hi' => 'Meta Title (Farsi)', 'it' => 'Meta Title (Farsi)', 'zh' => '元标题（波斯语）', 'tr' => 'Meta Başlık (Farsça)'],
             'settings_meta_title_en' => ['fa' => 'عنوان متا (انگلیسی)', 'en' => 'Meta Title (English)', 'ar' => 'Meta Title (English)', 'hi' => 'Meta Title (English)', 'it' => 'Meta Title (English)', 'zh' => '元标题（英语）', 'tr' => 'Meta Başlık (İngilizce)'],

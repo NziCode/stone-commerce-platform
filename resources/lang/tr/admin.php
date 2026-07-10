@@ -212,7 +212,6 @@ return [
     'settings_google' => 'Google Araçları',
     'settings_logo' => 'Logo',
     'settings_map' => 'Harita',
-    'settings_map_embed' => 'Google Haritalar Yerleştirme Kodu',
     'settings_map_lat' => 'Enlem',
     'settings_map_lng' => 'Boylam',
     'settings_meta' => 'Meta Etiketleri',

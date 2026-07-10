@@ -212,7 +212,6 @@ return [
     'settings_google' => 'ابزارهای گوگل',
     'settings_logo' => 'لوگو',
     'settings_map' => 'نقشه',
-    'settings_map_embed' => 'کد embed نقشه گوگل',
     'settings_map_lat' => 'عرض جغرافیایی',
     'settings_map_lng' => 'طول جغرافیایی',
     'settings_meta' => 'متا تگ‌ها',

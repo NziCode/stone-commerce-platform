@@ -212,7 +212,6 @@ return [
     'settings_google' => '谷歌工具',
     'settings_logo' => '标志',
     'settings_map' => '地图',
-    'settings_map_embed' => '谷歌地图嵌入代码',
     'settings_map_lat' => '纬度',
     'settings_map_lng' => '经度',
     'settings_meta' => '元标签',
