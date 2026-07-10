@@ -2,13 +2,14 @@
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
 use Livewire\Volt\Volt;
+use Tests\Concerns\CreatesTestUsers;
 use Tests\TestCase;
 
 class RegistrationTest extends TestCase
 {
-    use RefreshDatabase;
+    use CreatesTestUsers;
 
     public function test_registration_screen_can_be_rendered(): void
     {
@@ -21,16 +22,26 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-        $component = Volt::test('pages.auth.register')
-            ->set('name', 'Test User')
-            ->set('email', 'test@example.com')
-            ->set('password', 'password')
-            ->set('password_confirmation', 'password');
+        $email = 'registration-test-'.uniqid().'@example.com';
 
-        $component->call('register');
+        try {
+            $component = Volt::test('pages.auth.register')
+                ->set('name', 'Test User')
+                ->set('email', $email)
+                ->set('password', 'password')
+                ->set('password_confirmation', 'password');
 
-        $component->assertRedirect(route('dashboard', absolute: false));
+            $component->call('register');
 
-        $this->assertAuthenticated();
+            $component->assertRedirect(route('dashboard', absolute: false));
+
+            $this->assertAuthenticated();
+        } finally {
+            // Registration may have succeeded even if an assertion above threw
+            // (e.g. redirect target mismatch) — always try to track it for cleanup.
+            if ($user = User::where('email', $email)->first()) {
+                $this->trackTestUser($user);
+            }
+        }
     }
 }
