@@ -9,6 +9,7 @@ $tabs = [
     ['key'=>'smtp',    'label'=>__('admin.email'),   'icon'=>'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'],
     ['key'=>'sms',     'label'=>__('admin.sms'),     'icon'=>'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z'],
     ['key'=>'contact', 'label'=>__('admin.contact'), 'icon'=>'M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V6a2 2 0 012-2z'],
+    ['key'=>'reservation', 'label'=>__('admin.reservations'), 'icon'=>'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'],
     ['key'=>'about',   'label'=>__('admin.about'),   'icon'=>'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
 ];
 @endphp
@@ -274,6 +275,28 @@ $fieldHelp = fn ($key) => '<p style="font-size:.7rem;color:#9ca3af;margin:.35rem
                 <label for="recaptcha_on" style="font-size:.85rem;font-weight:500;color:#374151;cursor:pointer">{{ __('admin.recaptcha_enabled') }}</label>
             </div>
             {!! $fieldHelp('contact_recaptcha_enabled_help') !!}
+        </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
+</form>
+</div>
+
+{{-- RESERVATION --}}
+<div x-show="tab === 'reservation'" x-cloak>
+<form wire:submit.prevent="save('reservation')">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
+    <div style="{{ $sectionStyle }}">
+        <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 .4rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.reservation_hold_duration') }}</h3>
+        <p style="font-size:.78rem;color:#9ca3af;margin:0 0 1rem">{{ __('admin.reservation_hold_duration_help') }}</p>
+        <div style="{{ $gridStyle }}">
+            <div>
+                <label style="{{ $labelStyle }}">{{ __('admin.reservation_days') }}</label>
+                <input type="number" min="0" wire:model.defer="reservation_duration_days" class="{{ $inputClass }}">
+            </div>
+            <div>
+                <label style="{{ $labelStyle }}">{{ __('admin.reservation_hours') }}</label>
+                <input type="number" min="0" max="23" wire:model.defer="reservation_duration_hours" class="{{ $inputClass }}">
+            </div>
         </div>
     </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
