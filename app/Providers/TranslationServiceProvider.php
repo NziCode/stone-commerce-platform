@@ -10,6 +10,18 @@ class TranslationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        //
+    }
+
+    /**
+     * Bound here instead of register() on purpose: some other provider
+     * (Laravel's own translation bootstrapping) re-binds 'translator' with
+     * the default FileLoader during its register() phase. boot() always
+     * runs after every provider's register() phase has finished, so binding
+     * here guarantees this is the last write and DatabaseLoader wins.
+     */
+    public function boot(): void
+    {
         $this->app->singleton('translation.loader', function ($app) {
             return new DatabaseLoader(
                 $app['files'],
