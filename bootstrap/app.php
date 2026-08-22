@@ -37,6 +37,10 @@ return Application::configure(basePath: dirname(__DIR__))
             return response()->view($view, ['exception' => $e], $code);
         });
         $exceptions->render(function (\Throwable $e, $request) {
+            if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+                return null; // let Laravel's default redirect-to-login handling run
+            }
+
             if (!$request->expectsJson() && app()->environment('production')) {
                 return response()->view('errors.500', ['exception' => $e], 500);
             }
