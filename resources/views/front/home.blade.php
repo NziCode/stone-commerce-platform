@@ -18,6 +18,32 @@
 @endphp
 
 @push('styles')
+<style>
+    /* Some element (most likely an un-initialized slider/carousel nav button
+       from the base theme) is escaping past the right/left edge of the page,
+       which only becomes visible as a horizontal scrollbar at zoom levels
+       below 100%. Containing overflow here is the safe, page-scoped fix. */
+    html, body { overflow-x: hidden; max-width: 100vw; }
+    .swiper-container, .swiper-wrapper { max-width: 100%; }
+
+    /* Categories grid: fixed 4 columns on desktop, tapering down on smaller screens.
+       !important is required here because assets/css/style.css is linked AFTER
+       @stack('styles') in the layout, so it would otherwise win on source order. */
+    .mt-cats {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1.1rem !important;
+    }
+    @media (max-width: 991px) {
+        .mt-cats { grid-template-columns: repeat(3, 1fr) !important; }
+    }
+    @media (max-width: 767px) {
+        .mt-cats { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 479px) {
+        .mt-cats { grid-template-columns: 1fr !important; }
+    }
+</style>
 @endpush
 
 @section('content')
@@ -187,7 +213,7 @@
                     @if($sitePhone)
                         <a href="tel:{{ $sitePhone }}" class="mt-btn mt-btn-ink" style="margin-top:1.8rem">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            {{ $sitePhone }}
+                            <bdi>{{ $sitePhone }}</bdi>
                         </a>
                     @endif
                 </div>
@@ -294,6 +320,24 @@
                                 $cardAttributes = $product->attributes
                                     ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
                                     ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
+
+                                $dimKeys = ['length', 'thickness', 'width'];
+                                $dimAttrs = $cardAttributes->filter(fn($pa) => in_array($pa->attribute?->key, $dimKeys));
+                                $weightAttr = $cardAttributes->first(fn($pa) => $pa->attribute?->key === 'weight');
+                                $otherAttributes = $cardAttributes->reject(
+                                    fn($pa) => in_array($pa->attribute?->key, [...$dimKeys, 'weight'])
+                                );
+
+                                $dimensionLine = $dimAttrs->isNotEmpty()
+                                    ? collect($dimKeys)
+                                        ->map(fn($key) => $dimAttrs->first(fn($pa) => $pa->attribute?->key === $key))
+                                        ->filter()
+                                        ->map(fn($pa) => $pa->value['value'] ?? null)
+                                        ->filter(fn($v) => $v !== null && $v !== '')
+                                        ->implode(' × ')
+                                    : null;
+
+                                $dimensionUnit = optional($dimAttrs->first())->attribute?->unit;
                             @endphp
                             <div class="swiper-slide" style="width:280px">
                                 <div class="mt-pcard">
@@ -306,9 +350,25 @@
                                         <h3 class="mt-pcard-title">
                                             <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                         </h3>
-                                        @if($cardAttributes->isNotEmpty())
+                                        @if($dimensionLine || $weightAttr || $otherAttributes->isNotEmpty())
                                             <ul class="mt-pcard-attrs">
-                                                @foreach($cardAttributes as $pa)
+                                                @if($dimensionLine)
+                                                    <li>
+                                                        <span class="mt-pcard-attr-label">{{ __('messages.dimensions') }}:</span>
+                                                        <span class="mt-pcard-attr-value">
+                                                            <bdi dir="ltr">{{ $dimensionLine }}{{ $dimensionUnit ? ' ' . $dimensionUnit : '' }}</bdi>
+                                                        </span>
+                                                    </li>
+                                                @endif
+                                                @if($weightAttr)
+                                                    <li>
+                                                        <span class="mt-pcard-attr-label">
+                                                            {{ $weightAttr->attribute->getTranslation('label', $locale, false) ?: $weightAttr->attribute->getTranslation('label', 'en', false) }}:
+                                                        </span>
+                                                        <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $weightAttr->display_value }}</bdi></span>
+                                                    </li>
+                                                @endif
+                                                @foreach($otherAttributes as $pa)
                                                     <li>
                                                         <span class="mt-pcard-attr-label">
                                                             {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:

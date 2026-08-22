@@ -24,6 +24,8 @@
 
     $galleryMedia = $product->getMedia('gallery');
     $hasGallery   = $galleryMedia->count() > 0;
+
+    $productVideo = $product->getFirstMedia('videos');
 @endphp
 
 @section('content')
@@ -55,7 +57,7 @@
                         <div class="col-lg-8">
                             {{-- Main slider --}}
                             <div style="border-radius:var(--radius-lg);overflow:hidden;background:var(--stone-100);position:relative">
-                                @if($hasGallery)
+                                @if($hasGallery || $productVideo)
                                     <div class="swiper-container product-detail-slider" style="aspect-ratio:4/3">
                                         <div class="swiper-wrapper">
                                             @foreach($galleryMedia as $media)
@@ -65,8 +67,15 @@
                                                          style="width:100%;height:100%;object-fit:cover;display:block">
                                                 </div>
                                             @endforeach
+                                            @if($productVideo)
+                                                <div class="swiper-slide">
+                                                    <video controls preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;background:#000" poster="{{ $hasGallery ? $galleryMedia->first()->getUrl() : '' }}">
+                                                        <source src="{{ $productVideo->getUrl() }}" type="{{ $productVideo->mime_type }}">
+                                                    </video>
+                                                </div>
+                                            @endif
                                         </div>
-                                        @if($galleryMedia->count() > 1)
+                                        @if(($galleryMedia->count() + ($productVideo ? 1 : 0)) > 1)
                                             <div class="swiper-button-next" style="color:var(--ink)"></div>
                                             <div class="swiper-button-prev" style="color:var(--ink)"></div>
                                         @endif
@@ -80,9 +89,9 @@
                         </div>
 
                         {{-- Thumbnail strip --}}
-                        @if($galleryMedia->count() > 1)
+                        @if(($galleryMedia->count() + ($productVideo ? 1 : 0)) > 1)
                             <div class="col-lg-4">
-                                <div style="display:grid;gap:.5rem;height:100%;max-height:400px;overflow-y:auto">
+                                <div style="display:grid;grid-auto-rows:min-content;align-items:start;gap:.5rem;height:100%;max-height:400px;overflow-y:auto">
                                     @foreach($galleryMedia as $i => $media)
                                         <div class="product-thumb-item{{ $i === 0 ? ' active-thumb' : '' }}"
                                              data-index="{{ $i }}"
@@ -91,31 +100,42 @@
                                                  style="width:100%;height:100%;object-fit:cover;display:block">
                                         </div>
                                     @endforeach
+                                    @if($productVideo)
+                                        <div class="product-thumb-item"
+                                             data-index="{{ $galleryMedia->count() }}"
+                                             style="border-radius:10px;overflow:hidden;cursor:pointer;border:2px solid transparent;transition:.2s;aspect-ratio:4/3;position:relative">
+                                            <img src="{{ $hasGallery ? $galleryMedia->first()->getUrl('thumb') : '' }}"
+                                                 style="width:100%;height:100%;object-fit:cover;display:block;background:#000">
+                                            <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35)">
+                                                <svg viewBox="0 0 24 24" fill="#fff" width="26" height="26"><path d="M8 5v14l11-7z"/></svg>
+                                            </span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endif
                     </div>
 
-                    {{-- ── Tabs: Description + Attributes ── --}}
+                    {{-- ── Tabs: Attributes + Description ── --}}
                     <div class="sidebar-widget" style="padding:0;overflow:hidden">
                         {{-- Tab nav --}}
                         <div style="display:flex;border-bottom:2px solid var(--stone-100)">
-                            <button class="product-tab-btn active"
-                                    data-tab="tab-desc"
-                                    style="padding:1rem 1.5rem;border:0;background:none;font-weight:700;font-size:.92rem;color:var(--brand);border-bottom:2px solid var(--brand);margin-bottom:-2px;cursor:pointer">
-                                {{ __('messages.about') }}
-                            </button>
                             @if($product->attributes->count())
-                                <button class="product-tab-btn"
+                                <button class="product-tab-btn active"
                                         data-tab="tab-attrs"
-                                        style="padding:1rem 1.5rem;border:0;background:none;font-weight:600;font-size:.92rem;color:var(--stone-500);border-bottom:2px solid transparent;margin-bottom:-2px;cursor:pointer">
-                                    {{ __('admin.attributes') }}
+                                        style="padding:1rem 1.5rem;border:0;background:none;font-weight:700;font-size:.92rem;color:var(--brand);border-bottom:2px solid var(--brand);margin-bottom:-2px;cursor:pointer">
+                                    {{ __('messages.product_specs') }}
                                 </button>
                             @endif
+                            <button class="product-tab-btn{{ $product->attributes->count() ? '' : ' active' }}"
+                                    data-tab="tab-desc"
+                                    style="padding:1rem 1.5rem;border:0;background:none;font-weight:{{ $product->attributes->count() ? '600' : '700' }};font-size:.92rem;color:{{ $product->attributes->count() ? 'var(--stone-500)' : 'var(--brand)' }};border-bottom:2px solid {{ $product->attributes->count() ? 'transparent' : 'var(--brand)' }};margin-bottom:-2px;cursor:pointer">
+                                {{ __('messages.about_product') }}
+                            </button>
                         </div>
 
                         {{-- Description --}}
-                        <div id="tab-desc" class="product-tab-panel" style="padding:1.6rem">
+                        <div id="tab-desc" class="product-tab-panel" style="padding:1.6rem{{ $product->attributes->count() ? ';display:none' : '' }}">
                             @if($product->getTranslation('description', $locale))
                                 <div class="mt-prose">
                                     {!! $product->getTranslation('description', $locale) !!}
@@ -155,7 +175,7 @@
                                     ->filter(fn($r) => $r && $r['value'] !== '' && $r['value'] !== null);
                                 $grouped = $rows->groupBy('group');
                             @endphp
-                            <div id="tab-attrs" class="product-tab-panel" style="display:none;padding:1.6rem">
+                            <div id="tab-attrs" class="product-tab-panel" style="padding:1.6rem">
                                 @foreach($grouped as $group => $items)
                                     @if($group)
                                         <h5 style="font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--stone-500);margin:1.4rem 0 .7rem">{{ $group }}</h5>
@@ -413,6 +433,18 @@
                                             {{ __('messages.add_to_cart') }}
                                         </button>
                                     </form>
+
+                                    @if($product->hasActiveReservationRequest())
+                                        <div style="font-size:.78rem;color:var(--stone-500);background:var(--stone-50);border:1px solid var(--stone-200);border-radius:var(--radius);padding:.6rem .8rem;text-align:center">
+                                            {{ __('messages.reservation_already_pending') }}
+                                        </div>
+                                    @else
+                                        <button type="button" class="mt-btn mt-btn-outline" style="width:100%;justify-content:center"
+                                                data-bs-toggle="modal" data-bs-target="#reserveModal">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                            {{ __('messages.reserve_product') }}
+                                        </button>
+                                    @endif
                                 @endif
 
                                 @auth
@@ -445,7 +477,7 @@
                             </div>
                             <p style="color:rgba(255,255,255,.75);font-size:.84rem;margin:0 0 .8rem">{{ __('messages.any_questions') }}</p>
                             @if($phone)
-                                <a href="tel:{{ $phone }}" style="display:block;color:var(--brand-2);font-size:1rem;font-weight:800;text-decoration:none;margin-bottom:1rem">{{ $phone }}</a>
+                                <a href="tel:{{ $phone }}" style="display:block;color:var(--brand-2);font-size:1rem;font-weight:800;text-decoration:none;margin-bottom:1rem"><bdi>{{ $phone }}</bdi></a>
                             @endif
                         </div>
 
@@ -473,24 +505,108 @@
         </div>
     </div>
 
+    {{-- ═══════════════════════════ RESERVE MODAL ═══════════════════════════ --}}
+    @if($product->isAvailable() && !$product->hasActiveReservationRequest())
+        <div class="modal fade" id="reserveModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius:var(--radius);border:none">
+                    <form action="{{ route('reservation.store', $product) }}" method="POST">
+                        @csrf
+                        <div class="modal-header" style="border-bottom:1px solid var(--stone-100)">
+                            <h5 class="modal-title" style="font-weight:800;color:var(--ink);font-size:1.05rem">{{ __('messages.reserve_product') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="display:grid;gap:.9rem;padding:1.3rem 1.4rem">
+                            <p style="font-size:.82rem;color:var(--stone-500);margin:0">{{ __('messages.reservation_intro') }}</p>
+
+                            <div>
+                                <label style="display:block;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.35rem">{{ __('messages.full_name') }}</label>
+                                <input type="text" name="name" value="{{ auth()->user()->name ?? old('name') }}"
+                                       class="input-field" style="width:100%;border:1px solid var(--stone-200);border-radius:8px;padding:.6rem .8rem;font-family:inherit">
+                            </div>
+
+                            <div>
+                                <label style="display:block;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.35rem">{{ __('messages.phone_number') }} <span style="color:#e0473a">*</span></label>
+                                <div style="display:flex;gap:.5rem">
+                                    <select name="phone_country" required
+                                            style="flex:0 0 110px;border:1px solid var(--stone-200);border-radius:8px;padding:.6rem .5rem;font-family:inherit;font-size:.85rem">
+                                        <option value="+98" selected>🇮🇷 +98</option>
+                                        <option value="+971">🇦🇪 +971</option>
+                                        <option value="+90">🇹🇷 +90</option>
+                                        <option value="+966">🇸🇦 +966</option>
+                                        <option value="+974">🇶🇦 +974</option>
+                                        <option value="+968">🇴🇲 +968</option>
+                                        <option value="+965">🇰🇼 +965</option>
+                                        <option value="+973">🇧🇭 +973</option>
+                                        <option value="+964">🇮🇶 +964</option>
+                                        <option value="+92">🇵🇰 +92</option>
+                                        <option value="+91">🇮🇳 +91</option>
+                                        <option value="+86">🇨🇳 +86</option>
+                                        <option value="+39">🇮🇹 +39</option>
+                                        <option value="+49">🇩🇪 +49</option>
+                                        <option value="+44">🇬🇧 +44</option>
+                                        <option value="+1">🇺🇸 +1</option>
+                                        <option value="other">{{ __('messages.other_country') }}</option>
+                                    </select>
+                                    <input type="text" name="phone" required inputmode="tel" placeholder="912 345 6789"
+                                           style="flex:1;border:1px solid var(--stone-200);border-radius:8px;padding:.6rem .8rem;font-family:inherit">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="display:block;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.45rem">{{ __('messages.preferred_contact_method') }}</label>
+                                <div style="display:flex;gap:1.3rem">
+                                    <label style="display:flex;align-items:center;gap:.4rem;font-size:.85rem;cursor:pointer">
+                                        <input type="radio" name="contact_method" value="call" checked> {{ __('messages.phone_call') }}
+                                    </label>
+                                    <label style="display:flex;align-items:center;gap:.4rem;font-size:.85rem;cursor:pointer">
+                                        <input type="radio" name="contact_method" value="whatsapp"> {{ __('messages.whatsapp') }}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="display:block;font-size:.8rem;font-weight:600;color:var(--ink);margin-bottom:.35rem">{{ __('messages.note_optional') }}</label>
+                                <textarea name="note" rows="2" style="width:100%;border:1px solid var(--stone-200);border-radius:8px;padding:.6rem .8rem;font-family:inherit"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="border-top:1px solid var(--stone-100)">
+                            <button type="button" class="mt-btn mt-btn-outline" data-bs-dismiss="modal">{{ __('messages.cancel') }}</button>
+                            <button type="submit" class="mt-btn mt-btn-primary">{{ __('messages.submit_reservation_request') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
 @endsection
 
 @push('scripts')
     <script>
     (function () {
         // ── Main gallery slider ──────────────────────
+        // ── Pause any playing gallery video on slide change ──
+        function pauseGalleryVideos() {
+            document.querySelectorAll('.product-detail-slider video, .product-thumb-item video').forEach(function (v) {
+                v.pause();
+            });
+        }
+
         const mainEl = document.querySelector('.product-detail-slider');
         let mainSwiper;
         if (mainEl) {
             mainSwiper = new Swiper('.product-detail-slider', {
                 loop: true,
                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+                on: { slideChangeTransitionStart: pauseGalleryVideos },
             });
         }
 
         // ── Thumbnail click ──────────────────────────
         document.querySelectorAll('.product-thumb-item').forEach(function (thumb) {
             thumb.addEventListener('click', function () {
+                pauseGalleryVideos();
                 const idx = parseInt(this.dataset.index);
                 if (mainSwiper) mainSwiper.slideToLoop(idx);
                 document.querySelectorAll('.product-thumb-item').forEach(function (t) {
