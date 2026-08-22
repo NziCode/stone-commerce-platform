@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             SliderSeeder::class,
             AttributeSeeder::class,
             TranslationSeeder::class,
+            ReservationTranslationSeeder::class,
+            SettingsHelpTranslationSeeder::class,
             TranslationCacheSeeder::class,
             ProductSeeder::class,
             ProductCategorySeeder::class,
