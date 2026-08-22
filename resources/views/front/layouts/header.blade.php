@@ -8,6 +8,11 @@
         : 0;
     $siteName = \App\Models\Setting::get('site_name', config('app.name'));
     $siteLogo = \App\Models\Setting::get('site_logo');
+
+    // The "Products" menu item's children are generated live from active root
+    // categories instead of being stored as separate menu_items rows — so
+    // adding/renaming/reordering a category updates this menu automatically.
+    $headerProductCategories = \App\Models\Category::active()->roots()->ordered()->get();
     $sitePhone = display_phone(\App\Models\Setting::get('site_phone'));
     $siteEmail = \App\Models\Setting::get('site_email');
     $siteWorkingHours = \App\Models\Setting::get('site_working_hours');
@@ -24,7 +29,7 @@
                 @if($sitePhone)
                     <a href="tel:{{ $sitePhone }}" class="mt-topbar-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                        {{ $sitePhone }}
+                        <bdi>{{ $sitePhone }}</bdi>
                     </a>
                 @endif
                 @if($siteEmail)
@@ -69,11 +74,30 @@
                 <ul>
                     @if($menu)
                         @foreach($menu->items as $item)
-                            <li class="{{ $item->children->count() ? 'drop-holder' : '' }}">
+                            @php
+                                $isProductsRoot = is_null($item->parent_id) && $item->route_name === 'products.index';
+                                $childCount = $isProductsRoot ? $headerProductCategories->count() : $item->children->count();
+                            @endphp
+                            <li class="{{ $childCount ? 'drop-holder' : '' }}">
                                 <a href="{{ $item->href }}" target="{{ $item->target }}">
                                     <span>{{ $item->getTranslation('label', app()->getLocale()) }}</span>
                                 </a>
-                                @if($item->children->count())
+                                @if($isProductsRoot)
+                                    @if($childCount)
+                                        <ul class="drop-menu">
+                                            @foreach($headerProductCategories as $cat)
+                                                <li>
+                                                    <a href="{{ route('categories.show', $cat->getSlugForLocale(app()->getLocale())) }}">
+                                                        {{ $cat->getTranslation('name', app()->getLocale()) }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                            <li>
+                                                <a href="{{ route('products.index') }}">{{ __('messages.all_products') ?? __('messages.products') }}</a>
+                                            </li>
+                                        </ul>
+                                    @endif
+                                @elseif($item->children->count())
                                     <ul class="drop-menu">
                                         @foreach($item->children as $child)
                                             <li>
@@ -158,16 +182,35 @@
                         <ul class="mobile-menu">
                             @if($menu)
                                 @foreach($menu->items as $item)
-                                    <li class="{{ $item->children->count() ? 'menu-item-has-children' : '' }}">
+                                    @php
+                                        $isProductsRootM = is_null($item->parent_id) && $item->route_name === 'products.index';
+                                        $childCountM = $isProductsRootM ? $headerProductCategories->count() : $item->children->count();
+                                    @endphp
+                                    <li class="{{ $childCountM ? 'menu-item-has-children' : '' }}">
                                         <a href="{{ $item->href }}">
                                             <span class="mm-text">
                                                 {{ $item->getTranslation('label', app()->getLocale()) }}
-                                                @if($item->children->count())
+                                                @if($childCountM)
                                                     <i class="ion-ios-arrow-down"></i>
                                                 @endif
                                             </span>
                                         </a>
-                                        @if($item->children->count())
+                                        @if($isProductsRootM)
+                                            @if($childCountM)
+                                                <ul class="sub-menu">
+                                                    @foreach($headerProductCategories as $cat)
+                                                        <li>
+                                                            <a href="{{ route('categories.show', $cat->getSlugForLocale(app()->getLocale())) }}">
+                                                                <span class="mm-text">{{ $cat->getTranslation('name', app()->getLocale()) }}</span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                    <li>
+                                                        <a href="{{ route('products.index') }}"><span class="mm-text">{{ __('messages.all_products') ?? __('messages.products') }}</span></a>
+                                                    </li>
+                                                </ul>
+                                            @endif
+                                        @elseif($item->children->count())
                                             <ul class="sub-menu">
                                                 @foreach($item->children as $child)
                                                     <li>
