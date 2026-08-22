@@ -16,6 +16,7 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\SearchController;
+use App\Http\Controllers\Front\ReservationController;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -154,6 +155,9 @@ Route::group([
     Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
     Route::get('/newsletter/subscribed', [NewsletterController::class, 'subscribed'])->name('newsletter.subscribed');
     Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+
+    // Reservation requests — open to guests too, phone is required instead.
+    Route::post('/products/{product}/reserve', [ReservationController::class, 'store'])->name('reservation.store');
 
     // Cart
     Route::prefix('cart')->name('cart.')->group(function () {

@@ -88,6 +88,9 @@ class ManageSettings extends Page
     public string $contact_recaptcha_secret_key = '';
     public bool   $contact_recaptcha_enabled    = false;
 
+    public string $reservation_duration_days  = '3';
+    public string $reservation_duration_hours = '0';
+
     public string $about_years          = '';
     public array  $about_title          = [];
     public array  $about_desc           = [];
@@ -132,6 +135,9 @@ class ManageSettings extends Page
         'about' => [
             'about_years','about_title','about_desc',
             'about_feature_1','about_feature_2','about_feature_3',
+        ],
+        'reservation' => [
+            'reservation_duration_days','reservation_duration_hours',
         ],
     ];
 

@@ -52,16 +52,22 @@ class Product extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
+        // ->nonOptimized() is required on this host: proc_open/proc_get_status
+        // are disabled, so the default optimizer step (which shells out to
+        // jpegoptim/pngquant via Symfony Process) fatals on every upload.
         $this->addMediaConversion('thumb')
             ->width(400)->height(400)->sharpen(10)
+            ->nonOptimized()
             ->performOnCollections('main_image', 'gallery');
 
         $this->addMediaConversion('medium')
             ->width(800)->height(600)
+            ->nonOptimized()
             ->performOnCollections('main_image', 'gallery');
 
         $this->addMediaConversion('large')
             ->width(1400)->height(1000)
+            ->nonOptimized()
             ->performOnCollections('main_image', 'gallery');
     }
 
@@ -81,6 +87,21 @@ class Product extends Model implements HasMedia
     {
         return $this->hasMany(ProductAttribute::class)
             ->whereHas('attribute', fn ($q) => $q->where('is_active', true))
+            ->with('attribute')
+            ->orderBy('sort_order');
+    }
+
+    /**
+     * Unfiltered version of attributes() for the admin form's Repeater.
+     * attributes() is scoped to active attributes only (correct for
+     * front-end display), but Filament's Repeater::relationship() uses the
+     * same relation for both loading AND diffing on save — the active-only
+     * filter could make freshly-saved rows disappear again on the next
+     * edit. The admin should always see/manage everything it saved.
+     */
+    public function allAttributes(): HasMany
+    {
+        return $this->hasMany(ProductAttribute::class)
             ->with('attribute')
             ->orderBy('sort_order');
     }
@@ -111,6 +132,11 @@ class Product extends Model implements HasMedia
     public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function reservationRequests(): HasMany
+    {
+        return $this->hasMany(ReservationRequest::class);
     }
 
     // ── Scopes ─────────────────────────────────────────
@@ -262,6 +288,32 @@ class Product extends Model implements HasMedia
     public function markAsAvailable(): void
     {
         $this->update(['status' => 'available']);
+    }
+
+    /**
+     * The reservation request currently blocking this product from being
+     * requested again — either awaiting admin decision, or already approved
+     * and still within its expiry window.
+     */
+    public function activeReservationRequest(): ?ReservationRequest
+    {
+        return $this->reservationRequests()
+            ->where(function ($q) {
+                $q->where('status', 'pending')
+                    ->orWhere(function ($q) {
+                        $q->where('status', 'approved')
+                            ->where(function ($q) {
+                                $q->whereNull('expires_at')->orWhere('expires_at', '>', now());
+                            });
+                    });
+            })
+            ->latest()
+            ->first();
+    }
+
+    public function hasActiveReservationRequest(): bool
+    {
+        return $this->activeReservationRequest() !== null;
     }
 
     public function incrementViews(): void
