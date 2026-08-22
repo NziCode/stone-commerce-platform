@@ -158,8 +158,16 @@ class ProductResource extends Resource
                         ->schema([
                             Forms\Components\Repeater::make('attributes')
                                 ->label('')
-                                ->relationship()
+                                ->relationship('allAttributes')
                                 ->schema([
+                                    // Tracks the attribute_id this row was loaded with, so the
+                                    // Select's afterStateUpdated below can tell "user actually
+                                    // picked a different attribute" apart from "Livewire just
+                                    // hydrated this existing row" — without this, every edit-page
+                                    // load was wiping the already-saved value.
+                                    Forms\Components\Hidden::make('_loaded_attribute_id')
+                                        ->default(fn (Get $get) => $get('attribute_id')),
+
                                     Forms\Components\Select::make('attribute_id')
                                         ->label(__('admin.attributes'))
                                         ->options(function () {
@@ -186,18 +194,27 @@ class ProductResource extends Resource
                                         ->afterStateUpdated(function (Set $set, Get $get, ?int $state) {
                                             if (!$state) return;
 
+                                            // Unchanged from what this row was loaded with — a stray
+                                            // hydration call, not a real user edit. Don't touch 'value'.
+                                            if ((int) $get('_loaded_attribute_id') === (int) $state) {
+                                                return;
+                                            }
+                                            $set('_loaded_attribute_id', $state);
+
                                             $attribute = Attribute::find($state);
                                             if (!$attribute) return;
 
                                             // Pre-fill with default value if available
                                             if ($attribute->isBool()) {
-                                                $set('value', ['value' => (bool) ((int) $attribute->default_value)]);
+                                                $set('value_bool', (bool) ((int) $attribute->default_value));
                                             } elseif ($attribute->isNumber()) {
-                                                $set('value', ['value' => $attribute->default_value]);
+                                                $set('value_number', $attribute->default_value);
                                             } elseif ($attribute->isSelect()) {
-                                                $set('value', ['value' => null]);
+                                                $set('value_select', null);
                                             } else {
-                                                $set('value', []);
+                                                foreach (LanguageService::getActive() as $lang) {
+                                                    $set("value.{$lang->code}", null);
+                                                }
                                             }
                                         })
                                         ->columnSpan(1),
@@ -218,9 +235,12 @@ class ProductResource extends Resource
                                         ->columnSpan(2),
 
                                     // ── Value: NUMBER ────────────────────────
-                                    Forms\Components\TextInput::make('value.value')
+                                    Forms\Components\TextInput::make('value_number')
                                         ->label(__('admin.value'))
                                         ->numeric()
+                                        ->afterStateHydrated(function ($component, $record) {
+                                            $component->state($record?->value['value'] ?? null);
+                                        })
                                         ->suffix(function (Get $get) {
                                             $attr = Attribute::find($get('attribute_id'));
                                             return $attr?->unit;
@@ -244,8 +264,11 @@ class ProductResource extends Resource
                                         ->columnSpan(2),
 
                                     // ── Value: SELECT ────────────────────────
-                                    Forms\Components\Select::make('value.value')
+                                    Forms\Components\Select::make('value_select')
                                         ->label(__('admin.value'))
+                                        ->afterStateHydrated(function ($component, $record) {
+                                            $component->state($record?->value['value'] ?? null);
+                                        })
                                         ->options(function (Get $get) {
                                             $attr = Attribute::find($get('attribute_id'));
                                             return $attr?->getOptionsForLocale() ?? [];
@@ -257,8 +280,11 @@ class ProductResource extends Resource
                                         ->columnSpan(2),
 
                                     // ── Value: BOOL ──────────────────────────
-                                    Forms\Components\Toggle::make('value.value')
+                                    Forms\Components\Toggle::make('value_bool')
                                         ->label(__('admin.value'))
+                                        ->afterStateHydrated(function ($component, $record) {
+                                            $component->state((bool) ($record?->value['value'] ?? false));
+                                        })
                                         ->visible(function (Get $get) {
                                             $attr = Attribute::find($get('attribute_id'));
                                             return $attr?->isBool() ?? false;
@@ -267,6 +293,8 @@ class ProductResource extends Resource
                                 ])
                                 ->columns(3)
                                 ->addActionLabel(__('admin.add_attribute'))
+                                ->mutateRelationshipDataBeforeCreateUsing(fn (array $data): array => static::consolidateAttributeValue($data))
+                                ->mutateRelationshipDataBeforeSaveUsing(fn (array $data): array => static::consolidateAttributeValue($data))
                                 ->reorderable()
                                 ->collapsible()
                                 ->orderColumn('sort_order')
@@ -343,6 +371,22 @@ class ProductResource extends Resource
                     Forms\Components\Tabs\Tab::make(__('admin.meta_title'))
                         ->schema([
                             Forms\Components\Actions::make([
+                                Forms\Components\Actions\Action::make('autofillSeoFa')
+                                    ->label(__('admin.seo_autofill_from_name'))
+                                    ->icon('heroicon-o-sparkles')
+                                    ->color('gray')
+                                    ->action(function (Get $get, Set $set) {
+                                        $sourceCode = LanguageService::getDefault()?->code ?? 'fa';
+
+                                        if (blank($get("meta_title.{$sourceCode}"))) {
+                                            $set("meta_title.{$sourceCode}", $get("name.{$sourceCode}"));
+                                        }
+
+                                        if (blank($get("meta_description.{$sourceCode}"))) {
+                                            $set("meta_description.{$sourceCode}", $get("short_description.{$sourceCode}"));
+                                        }
+                                    }),
+
                                 TranslateFieldsAction::make(fields: [
                                     'meta_title' => false,
                                     'meta_description' => false,
@@ -516,6 +560,34 @@ class ProductResource extends Resource
                         ->deselectRecordsAfterCompletion(),
                 ]),
             ]);
+    }
+
+    /**
+     * value_number/value_select/value_bool are separate Filament state paths
+     * (kept apart specifically so hidden fields can't clobber the visible
+     * one's loaded value — see the repeater schema above). Right before a
+     * row is actually persisted, fold whichever one applies back into the
+     * real 'value' JSON column the ProductAttribute model expects.
+     */
+    protected static function consolidateAttributeValue(array $data): array
+    {
+        $attribute = Attribute::find($data['attribute_id'] ?? null);
+
+        if ($attribute) {
+            if ($attribute->isNumber()) {
+                $data['value'] = ['value' => $data['value_number'] ?? null];
+            } elseif ($attribute->isSelect()) {
+                $data['value'] = ['value' => $data['value_select'] ?? null];
+            } elseif ($attribute->isBool()) {
+                $data['value'] = ['value' => (bool) ($data['value_bool'] ?? false)];
+            }
+            // text type already dehydrates correctly into $data['value'] via
+            // the value.{lang} Grid fields — nothing to do here for it.
+        }
+
+        unset($data['value_number'], $data['value_select'], $data['value_bool'], $data['_loaded_attribute_id']);
+
+        return $data;
     }
 
     public static function getPages(): array
