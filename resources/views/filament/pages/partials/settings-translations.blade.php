@@ -33,9 +33,9 @@
                 @foreach($activeLangs as $lang)
                     <div x-show="loc === '{{ $lang->code }}'" x-cloak>
                         @if(($field['type'] ?? 'text') === 'textarea')
-                            <textarea wire:model.defer="{{ $field['key'] }}.{{ $lang->code }}" rows="{{ $field['rows'] ?? 3 }}" class="{{ $inputClass }}"></textarea>
+                            <textarea wire:model.defer="{{ $field['key'] }}.{{ $lang->code }}" rows="{{ $field['rows'] ?? 3 }}" dir="{{ $lang->direction }}" class="{{ $inputClass }}"></textarea>
                         @else
-                            <input type="text" wire:model.defer="{{ $field['key'] }}.{{ $lang->code }}" class="{{ $inputClass }}">
+                            <input type="text" wire:model.defer="{{ $field['key'] }}.{{ $lang->code }}" dir="{{ $lang->direction }}" class="{{ $inputClass }}">
                         @endif
                     </div>
                 @endforeach

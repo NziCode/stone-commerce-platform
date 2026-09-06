@@ -33,7 +33,7 @@ class AttributeResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.attributes');
+        return __('admin.attribute');
     }
 
     public static function getPluralModelLabel(): string
@@ -215,8 +215,10 @@ class AttributeResource extends Resource
                                 ->tabs(
                                     collect(LanguageService::getActive())->map(function ($lang) {
                                         return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                             ->schema([
                                                 Forms\Components\TextInput::make("group.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.attribute_group'))
                                                     ->required($lang->code === 'fa'),
                                             ]);
@@ -272,8 +274,10 @@ class AttributeResource extends Resource
                         ->tabs(
                             collect(LanguageService::getActive())->map(function ($lang) {
                                 return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                     ->schema([
                                         Forms\Components\TextInput::make("label.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.label'))
                                             ->required($lang->code === 'fa')
                                             ->live(onBlur: true),
@@ -315,6 +319,7 @@ class AttributeResource extends Resource
                         ->schema(
                             collect(LanguageService::getActive())->map(function ($lang) {
                                 return Forms\Components\TextInput::make("label.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                     ->label($lang->native_name)
                                     ->required($lang->code === 'fa');
                             })->toArray()
@@ -455,6 +460,19 @@ class AttributeResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('admin.edit')),
+
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['key', 'created_at', 'updated_at'])
+                    ->beforeReplicaSaved(function (Attribute $replica, Attribute $record) {
+                        $replica->key = $record->key . '_copy_' . strtolower(\Illuminate\Support\Str::random(4));
+                    })
+                    ->successRedirectUrl(fn (Attribute $replica) => static::getUrl('edit', ['record' => $replica])),
 
                 Tables\Actions\DeleteAction::make()
                     ->label(__('admin.delete'))

@@ -25,7 +25,7 @@ class OrderResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.orders');
+        return __('admin.order');
     }
 
     public static function getPluralModelLabel(): string

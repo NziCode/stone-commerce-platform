@@ -28,6 +28,121 @@ class ReservationTranslationSeeder extends Seeder
                     'fa' => 'برای دسترسی به پنل مدیریت وارد شوید', 'en' => 'Sign in to access the admin panel', 'ar' => 'سجّل الدخول للوصول إلى لوحة الإدارة',
                     'hi' => 'व्यवस्थापक पैनल तक पहुँचने के लिए साइन इन करें', 'it' => 'Accedi per entrare nel pannello di amministrazione', 'zh' => '登录以访问管理面板', 'tr' => 'Yönetim paneline erişmek için giriş yapın',
                 ],
+                'create_new_item' => [
+                    'fa' => 'ایجاد :model جدید', 'en' => 'Create New :model', 'ar' => 'إنشاء :model جديد',
+                    'hi' => 'नया :model बनाएँ', 'it' => 'Crea nuovo :model', 'zh' => '新建:model', 'tr' => 'Yeni :model Oluştur',
+                ],
+                'edit_item' => [
+                    'fa' => 'ویرایش :model', 'en' => 'Edit :model', 'ar' => 'تعديل :model',
+                    'hi' => ':model संपादित करें', 'it' => 'Modifica :model', 'zh' => '编辑:model', 'tr' => ':model Düzenle',
+                ],
+                'duplicate' => [
+                    'fa' => 'کپی', 'en' => 'Duplicate', 'ar' => 'نسخ',
+                    'hi' => 'डुप्लिकेट', 'it' => 'Duplica', 'zh' => '复制', 'tr' => 'Kopyala',
+                ],
+                'category_icon_color' => [
+                    'fa' => 'رنگ آیکون دسته‌بندی', 'en' => 'Category Icon Color', 'ar' => 'لون أيقونة الفئة',
+                    'hi' => 'श्रेणी आइकन रंग', 'it' => 'Colore icona categoria', 'zh' => '分类图标颜色', 'tr' => 'Kategori Simge Rengi',
+                ],
+                'category_icon_image' => [
+                    'fa' => 'تصویر/آیکون دسته‌بندی', 'en' => 'Category Image/Icon', 'ar' => 'صورة/أيقونة الفئة',
+                    'hi' => 'श्रेणी छवि/आइकन', 'it' => 'Immagine/icona categoria', 'zh' => '分类图片/图标', 'tr' => 'Kategori Görseli/Simgesi',
+                ],
+                'category_icon_image_help' => [
+                    'fa' => 'این تصویر در کارت دسته‌بندی صفحه اصلی و سایر جاهای سایت نمایش داده می‌شود. اگر آپلود نشود، عکس یک محصول این دسته یا رنگ انتخابی جایگزین می‌شود.',
+                    'en' => 'This image is shown on the homepage category card and elsewhere on the site. If not uploaded, a product image from this category or the chosen color is used instead.',
+                    'ar' => 'تظهر هذه الصورة في بطاقة الفئة بالصفحة الرئيسية وأماكن أخرى في الموقع. إذا لم يتم رفعها، تُستخدم صورة منتج من هذه الفئة أو اللون المختار بدلاً منها.',
+                    'hi' => 'यह छवि होमपेज श्रेणी कार्ड और साइट के अन्य स्थानों पर दिखाई जाती है। यदि अपलोड नहीं की गई, तो इस श्रेणी के किसी उत्पाद की छवि या चुना गया रंग उपयोग होगा।',
+                    'it' => 'Questa immagine viene mostrata nella scheda categoria della homepage e altrove nel sito. Se non caricata, verrà usata un\'immagine prodotto di questa categoria o il colore scelto.',
+                    'zh' => '此图片会显示在首页分类卡片及网站其他位置。若未上传，将使用该分类下某产品的图片或所选颜色代替。',
+                    'tr' => 'Bu görsel ana sayfadaki kategori kartında ve sitenin diğer yerlerinde gösterilir. Yüklenmezse, bu kategoriye ait bir ürün görseli veya seçilen renk kullanılır.',
+                ],
+                'category_icon_color_help' => [
+                    'fa' => 'رنگ دایره‌ی آیکون این دسته‌بندی در صفحه اصلی، فقط وقتی که خود دسته‌بندی یا محصولی داخلش عکس نداشته باشد.',
+                    'en' => 'Color of this category\'s icon circle on the homepage, only used when neither the category nor a product inside it has an image.',
+                    'ar' => 'لون دائرة أيقونة هذه الفئة في الصفحة الرئيسية، يُستخدم فقط عندما لا تحتوي الفئة أو أي منتج بداخلها على صورة.',
+                    'hi' => 'होमपेज पर इस श्रेणी के आइकन सर्कल का रंग, केवल तब उपयोग होता है जब न तो श्रेणी और न ही उसके अंदर किसी उत्पाद की छवि हो।',
+                    'it' => 'Colore del cerchio dell\'icona di questa categoria in homepage, usato solo se né la categoria né un prodotto al suo interno hanno un\'immagine.',
+                    'zh' => '此分类在首页图标圆圈的颜色，仅在分类本身及其内部产品都没有图片时使用。',
+                    'tr' => 'Bu kategorinin ana sayfadaki simge dairesinin rengi; yalnızca kategori veya içindeki bir ürünün görseli olmadığında kullanılır.',
+                ],
+                'duplicate_confirm_heading' => [
+                    'fa' => 'کپی کردن این مورد؟', 'en' => 'Duplicate this item?', 'ar' => 'نسخ هذا العنصر؟',
+                    'hi' => 'इस आइटम की डुप्लिकेट बनाएँ?', 'it' => 'Duplicare questo elemento?', 'zh' => '复制此项？', 'tr' => 'Bu öğe kopyalansın mı?',
+                ],
+                'duplicate_confirm_body' => [
+                    'fa' => 'یک رونوشت کامل و بدون تغییر از این مورد ساخته می‌شود و مستقیم به صفحه ویرایش همان رونوشت منتقل می‌شوید.',
+                    'en' => 'A full, unchanged copy of this item will be created, and you\'ll be taken straight to its edit page.',
+                    'ar' => 'سيتم إنشاء نسخة كاملة دون تغيير من هذا العنصر، وسيتم نقلك مباشرة إلى صفحة تعديلها.',
+                    'hi' => 'इस आइटम की पूरी, अपरिवर्तित प्रति बनाई जाएगी और आपको सीधे उसके संपादन पेज पर ले जाया जाएगा।',
+                    'it' => 'Verrà creata una copia completa e invariata di questo elemento e sarai portato direttamente alla sua pagina di modifica.',
+                    'zh' => '将创建此项的完整未更改副本，并直接跳转到其编辑页面。',
+                    'tr' => 'Bu öğenin tam ve değiştirilmemiş bir kopyası oluşturulacak ve doğrudan düzenleme sayfasına yönlendirileceksiniz.',
+                ],
+                'attribute' => [
+                    'fa' => 'ویژگی', 'en' => 'Attribute', 'ar' => 'خاصية',
+                    'hi' => 'विशेषता', 'it' => 'Attributo', 'zh' => '属性', 'tr' => 'Özellik',
+                ],
+                'category' => [
+                    'fa' => 'دسته‌بندی', 'en' => 'Category', 'ar' => 'فئة',
+                    'hi' => 'श्रेणी', 'it' => 'Categoria', 'zh' => '分类', 'tr' => 'Kategori',
+                ],
+                'contact_message' => [
+                    'fa' => 'پیام تماس', 'en' => 'Contact Message', 'ar' => 'رسالة تواصل',
+                    'hi' => 'संपर्क संदेश', 'it' => 'Messaggio di contatto', 'zh' => '联系留言', 'tr' => 'İletişim Mesajı',
+                ],
+                'coupon' => [
+                    'fa' => 'کوپن', 'en' => 'Coupon', 'ar' => 'كوبون',
+                    'hi' => 'कूपन', 'it' => 'Coupon', 'zh' => '优惠券', 'tr' => 'Kupon',
+                ],
+                'event' => [
+                    'fa' => 'رویداد', 'en' => 'Event', 'ar' => 'فعالية',
+                    'hi' => 'इवेंट', 'it' => 'Evento', 'zh' => '活动', 'tr' => 'Etkinlik',
+                ],
+                'menu' => [
+                    'fa' => 'منو', 'en' => 'Menu', 'ar' => 'القائمة',
+                    'hi' => 'मेनू', 'it' => 'Menu', 'zh' => '菜单', 'tr' => 'Menü',
+                ],
+                'menu_item' => [
+                    'fa' => 'آیتم منو', 'en' => 'Menu Item', 'ar' => 'عنصر القائمة',
+                    'hi' => 'मेनू आइटम', 'it' => 'Voce di menu', 'zh' => '菜单项', 'tr' => 'Menü Öğesi',
+                ],
+                'newsletter' => [
+                    'fa' => 'خبرنامه', 'en' => 'Newsletter', 'ar' => 'نشرة إخبارية',
+                    'hi' => 'न्यूज़लेटर', 'it' => 'Newsletter', 'zh' => '订阅', 'tr' => 'Bülten',
+                ],
+                'page' => [
+                    'fa' => 'صفحه', 'en' => 'Page', 'ar' => 'صفحة',
+                    'hi' => 'पेज', 'it' => 'Pagina', 'zh' => '页面', 'tr' => 'Sayfa',
+                ],
+                'post' => [
+                    'fa' => 'خبر', 'en' => 'Post', 'ar' => 'مقالة',
+                    'hi' => 'पोस्ट', 'it' => 'Articolo', 'zh' => '文章', 'tr' => 'Yazı',
+                ],
+                'redirect' => [
+                    'fa' => 'ریدایرکت', 'en' => 'Redirect', 'ar' => 'إعادة توجيه',
+                    'hi' => 'रीडायरेक्ट', 'it' => 'Reindirizzamento', 'zh' => '重定向', 'tr' => 'Yönlendirme',
+                ],
+                'review' => [
+                    'fa' => 'نظر', 'en' => 'Review', 'ar' => 'مراجعة',
+                    'hi' => 'समीक्षा', 'it' => 'Recensione', 'zh' => '评论', 'tr' => 'Değerlendirme',
+                ],
+                'setting' => [
+                    'fa' => 'تنظیم', 'en' => 'Setting', 'ar' => 'إعداد',
+                    'hi' => 'सेटिंग', 'it' => 'Impostazione', 'zh' => '设置', 'tr' => 'Ayar',
+                ],
+                'slider' => [
+                    'fa' => 'اسلایدر', 'en' => 'Slider', 'ar' => 'شريط متحرك',
+                    'hi' => 'स्लाइडर', 'it' => 'Slider', 'zh' => '轮播图', 'tr' => 'Kaydırıcı',
+                ],
+                'user' => [
+                    'fa' => 'کاربر', 'en' => 'User', 'ar' => 'مستخدم',
+                    'hi' => 'उपयोगकर्ता', 'it' => 'Utente', 'zh' => '用户', 'tr' => 'Kullanıcı',
+                ],
+                'seo' => [
+                    'fa' => 'سئو', 'en' => 'SEO', 'ar' => 'تحسين محركات البحث',
+                    'hi' => 'एसईओ', 'it' => 'SEO', 'zh' => 'SEO', 'tr' => 'SEO',
+                ],
                 'seo_autofill_from_name' => [
                     'fa' => 'پر کردن از نام محصول', 'en' => 'Fill from product name', 'ar' => 'تعبئة من اسم المنتج',
                     'hi' => 'उत्पाद नाम से भरें', 'it' => 'Compila dal nome prodotto', 'zh' => '从产品名称填充', 'tr' => 'Ürün adından doldur',

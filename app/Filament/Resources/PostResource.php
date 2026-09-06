@@ -26,7 +26,7 @@ class PostResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.posts');
+        return __('admin.post');
     }
 
     public static function getPluralModelLabel(): string
@@ -214,6 +214,15 @@ class PostResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['created_at', 'updated_at'])
+                    ->successRedirectUrl(fn (Post $replica) => static::getUrl('edit', ['record' => $replica])),
                 Tables\Actions\Action::make('publish')
                     ->label('انتشار')
                     ->icon('heroicon-o-paper-airplane')

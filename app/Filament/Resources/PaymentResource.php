@@ -25,7 +25,7 @@ class PaymentResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.payments');
+        return __('admin.payment');
     }
 
     public static function getPluralModelLabel(): string

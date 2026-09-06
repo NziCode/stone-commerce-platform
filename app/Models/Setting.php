@@ -24,6 +24,7 @@ class Setting extends Model
         'payment_receipt_bank_name', 'payment_receipt_instructions',
         'sms_otp_template', 'sms_order_confirmed_template', 'sms_order_shipped_template',
         'about_title', 'about_desc', 'about_feature_1', 'about_feature_2', 'about_feature_3',
+        'hero_eyebrow', 'hero_title', 'hero_desc', 'hero_search_keywords',
     ];
 
     // ── Static Helpers ─────────────────────────────────

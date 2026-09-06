@@ -3,6 +3,7 @@
 @php
 $tabs = [
     ['key'=>'general', 'label'=>__('admin.general'), 'icon'=>'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'],
+    ['key'=>'hero',    'label'=>__('admin.hero_section'), 'icon'=>'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h.01M4 4h16a1 1 0 011 1v14a1 1 0 01-1 1H4a1 1 0 01-1-1V5a1 1 0 011-1z'],
     ['key'=>'seo',     'label'=>'SEO',               'icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'],
     ['key'=>'social',  'label'=>__('admin.social'),  'icon'=>'M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V6a2 2 0 012-2h8z'],
     ['key'=>'payment', 'label'=>__('admin.payment'), 'icon'=>'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z'],
@@ -91,6 +92,28 @@ $fieldHelp = fn ($key) => '<p style="font-size:.7rem;color:#9ca3af;margin:.35rem
         <div id="settings-map-picker" wire:ignore style="height:340px;border-radius:10px;overflow:hidden"></div>
     </div>
     @include('filament.pages.partials.map-picker-scripts')
+    <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
+</form>
+</div>
+
+{{-- HERO --}}
+<div x-show="tab === 'hero'" x-cloak>
+<form wire:submit.prevent="save('hero')">
+    @include('filament.pages.partials.settings-action-bar')
+    <div style="{{ $sectionStyle }}">
+        <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.hero_section') }}</h3>
+        <p style="font-size:.78rem;color:#9ca3af;margin:0 0 1.2rem">{{ __('admin.hero_section_intro') }}</p>
+        @include('filament.pages.partials.settings-translations', [
+            'inputClass' => $inputClass,
+            'labelStyle' => $labelStyle,
+            'fields' => [
+                ['key' => 'hero_eyebrow', 'label' => __('admin.hero_eyebrow'), 'help' => __('admin.hero_eyebrow_help')],
+                ['key' => 'hero_title', 'label' => __('admin.hero_title'), 'help' => __('admin.hero_title_help')],
+                ['key' => 'hero_desc', 'label' => __('admin.hero_desc'), 'help' => __('admin.hero_desc_help'), 'type' => 'textarea', 'rows' => 2],
+                ['key' => 'hero_search_keywords', 'label' => __('admin.hero_search_keywords'), 'help' => __('admin.hero_search_keywords_help')],
+            ],
+        ])
+    </div>
     <div style="display:flex;justify-content:flex-end"><x-filament::button type="submit" icon="heroicon-o-check-circle">{{ __('admin.save_settings') }}</x-filament::button></div>
 </form>
 </div>

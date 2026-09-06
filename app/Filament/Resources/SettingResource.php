@@ -26,7 +26,7 @@ class SettingResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.settings');
+        return __('admin.setting');
     }
 
     public static function getPluralModelLabel(): string

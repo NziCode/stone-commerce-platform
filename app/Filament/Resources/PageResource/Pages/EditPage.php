@@ -10,6 +10,11 @@ class EditPage extends EditRecord
 {
     protected static string $resource = PageResource::class;
 
+    public function getTitle(): string
+    {
+        return __('admin.edit_item', ['model' => static::getResource()::getModelLabel()]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

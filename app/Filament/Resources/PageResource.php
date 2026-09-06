@@ -26,7 +26,7 @@ class PageResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.pages');
+        return __('admin.page');
     }
 
     public static function getPluralModelLabel(): string
@@ -180,6 +180,15 @@ class PageResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['created_at', 'updated_at'])
+                    ->successRedirectUrl(fn (Page $replica) => static::getUrl('edit', ['record' => $replica])),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

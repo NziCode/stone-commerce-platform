@@ -194,9 +194,45 @@ class Product extends Model implements HasMedia
 
     public function scopeSearch($q, string $term)
     {
-        return $q->where(function ($query) use ($term) {
+        $term = trim($term);
+        if ($term === '') {
+            return $q->whereRaw('1 = 0');
+        }
+
+        // 1) Whole-phrase match first — this is the precise, expected result
+        //    when the term genuinely appears in a product (e.g. an exact product name).
+        $phraseCondition = function ($query) use ($term) {
             $query->whereRaw("JSON_SEARCH(LOWER(name), 'one', ?) IS NOT NULL", ["%{$term}%"])
+                ->orWhereRaw("JSON_SEARCH(LOWER(short_description), 'one', ?) IS NOT NULL", ["%{$term}%"])
+                ->orWhereRaw("JSON_SEARCH(LOWER(meta_keywords), 'one', ?) IS NOT NULL", ["%{$term}%"])
                 ->orWhere('sku', 'like', "%{$term}%");
+        };
+
+        $hasPhraseMatch = (clone $q)->where($phraseCondition)->exists();
+
+        if ($hasPhraseMatch) {
+            return $q->where($phraseCondition);
+        }
+
+        // 2) Fallback — only reached when the exact phrase matched nothing.
+        //    Split into significant words (2+ chars) and match ANY of them,
+        //    so generic multi-word tags still surface relevant products.
+        $words = collect(preg_split('/\s+/u', $term))
+            ->filter(fn ($w) => mb_strlen($w) >= 2)
+            ->unique()
+            ->values();
+
+        if ($words->isEmpty()) {
+            return $q->whereRaw('1 = 0');
+        }
+
+        return $q->where(function ($query) use ($words) {
+            foreach ($words as $word) {
+                $query->orWhereRaw("JSON_SEARCH(LOWER(name), 'one', ?) IS NOT NULL", ["%{$word}%"])
+                    ->orWhereRaw("JSON_SEARCH(LOWER(short_description), 'one', ?) IS NOT NULL", ["%{$word}%"])
+                    ->orWhereRaw("JSON_SEARCH(LOWER(meta_keywords), 'one', ?) IS NOT NULL", ["%{$word}%"])
+                    ->orWhere('sku', 'like', "%{$word}%");
+            }
         });
     }
 

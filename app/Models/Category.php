@@ -28,6 +28,7 @@ class Category extends Model implements HasMedia
         'og_image',
         'is_active',
         'sort_order',
+        'icon_color',
     ];
 
     public array $translatable = [
@@ -50,10 +51,12 @@ class Category extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->width(400)->height(300)->sharpen(10)
+            ->nonOptimized()
             ->performOnCollections('image', 'gallery');
 
         $this->addMediaConversion('medium')
             ->width(800)->height(600)
+            ->nonOptimized()
             ->performOnCollections('image', 'gallery');
     }
 

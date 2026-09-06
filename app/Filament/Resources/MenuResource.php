@@ -28,7 +28,7 @@ class MenuResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.menus');
+        return __('admin.menu');
     }
 
     public static function getPluralModelLabel(): string

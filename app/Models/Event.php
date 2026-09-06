@@ -52,15 +52,18 @@ class Event extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->width(600)->height(400)
+            ->nonOptimized()
             ->performOnCollections('cover', 'gallery');
 
         $this->addMediaConversion('medium')
             ->width(1200)->height(800)
+            ->nonOptimized()
             ->performOnCollections('cover', 'gallery');
 
         // Poster/thumbnail frame for video previews
         $this->addMediaConversion('poster')
             ->width(800)->height(450)
+            ->nonOptimized()
             ->performOnCollections('videos');
     }
 

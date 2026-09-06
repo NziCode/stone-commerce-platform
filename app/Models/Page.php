@@ -41,6 +41,7 @@ class Page extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')
             ->width(800)->height(450)
+            ->nonOptimized()
             ->performOnCollections('cover', 'gallery');
     }
 

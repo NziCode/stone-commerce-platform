@@ -297,6 +297,101 @@ class AdminPanelProvider extends PanelProvider
                 }
             )
 
+            // ── Global UX safety net: loading overlay, double-submit
+            //    guard, unsaved-changes warning. Plain JS only (no
+            //    untested Filament API calls) so it can't break panel boot.
+            ->renderHook(
+                'panels::body.end',
+                fn () => new \Illuminate\Support\HtmlString(<<<'HTML'
+                    <style>
+                        #fi-global-loading-overlay {
+                            position: fixed; inset: 0; z-index: 99999;
+                            background: rgba(11,33,71,.45);
+                            display: none; align-items: center; justify-content: center;
+                        }
+                        #fi-global-loading-overlay .fi-spinner {
+                            width: 54px; height: 54px; border-radius: 50%;
+                            border: 4px solid rgba(255,255,255,.35);
+                            border-top-color: #ff5a1f;
+                            animation: fi-spin .8s linear infinite;
+                        }
+                        @keyframes fi-spin { to { transform: rotate(360deg); } }
+                    </style>
+                    <div id="fi-global-loading-overlay"><div class="fi-spinner"></div></div>
+                    <script>
+                        document.addEventListener('livewire:init', function () {
+                            var overlay = document.getElementById('fi-global-loading-overlay');
+
+                            Livewire.hook('request', function ({ succeed, fail }) {
+                                if (overlay) overlay.style.display = 'flex';
+                                succeed(function () { if (overlay) overlay.style.display = 'none'; });
+                                fail(function () { if (overlay) overlay.style.display = 'none'; });
+                            });
+                        });
+
+                        // Double-submit guard: briefly disable a submit/save
+                        // button right after it's clicked so a second click
+                        // (or double-click) can't fire the action twice.
+                        document.addEventListener('click', function (e) {
+                            var btn = e.target.closest('.fi-form button[type="submit"], .fi-ac-btn-action[wire\\:click*="save"], .fi-ac-btn-action[wire\\:click*="create"]');
+                            if (!btn || btn.disabled) return;
+                            btn.setAttribute('data-fi-guard', '1');
+                            setTimeout(function () { btn.disabled = true; }, 0);
+                            setTimeout(function () {
+                                if (btn.getAttribute('data-fi-guard')) btn.disabled = false;
+                            }, 8000);
+                        }, true);
+
+                        // Disable native browser form validation on Filament
+                        // forms. A hidden-but-technically-invalid input
+                        // (e.g. a repeater row field that's not currently
+                        // visible) makes the browser silently refuse to
+                        // submit the form at all, since it can't focus an
+                        // invisible control to show the error. Filament's
+                        // own (server-side) validation still runs normally.
+                        function disableNativeValidation() {
+                            document.querySelectorAll('.fi-form:not([novalidate])').forEach(function (form) {
+                                form.setAttribute('novalidate', 'novalidate');
+                            });
+                        }
+                        disableNativeValidation();
+                        document.addEventListener('livewire:navigated', disableNativeValidation);
+                        document.addEventListener('livewire:init', function () {
+                            Livewire.hook('morph.updated', disableNativeValidation);
+                        });
+
+                        // Unsaved-changes warning: if the user has typed
+                        // into a Filament form field and then tries to
+                        // navigate away (close tab, reload, follow a link),
+                        // the browser asks them to confirm first.
+                        (function () {
+                            var dirty = false;
+
+                            document.addEventListener('input', function (e) {
+                                if (e.target.closest('.fi-form')) dirty = true;
+                            }, true);
+                            document.addEventListener('change', function (e) {
+                                if (e.target.closest('.fi-form')) dirty = true;
+                            }, true);
+
+                            document.addEventListener('submit', function () { dirty = false; }, true);
+                            document.addEventListener('click', function (e) {
+                                if (e.target.closest('.fi-form button[type="submit"], .fi-ac-btn-action[wire\\:click*="save"], .fi-ac-btn-action[wire\\:click*="create"]')) {
+                                    dirty = false;
+                                }
+                            }, true);
+
+                            window.addEventListener('beforeunload', function (e) {
+                                if (!dirty) return;
+                                e.preventDefault();
+                                e.returnValue = '';
+                            });
+                        })();
+                    </script>
+                    HTML
+                )
+            )
+
             // ── Navigation Groups ────────────────────────────────
             ->navigationGroups([
                 NavigationGroup::make()
