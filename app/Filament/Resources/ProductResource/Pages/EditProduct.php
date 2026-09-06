@@ -11,6 +11,11 @@ class EditProduct extends EditRecord
 {
     protected static string $resource = ProductResource::class;
 
+    public function getTitle(): string
+    {
+        return __('admin.edit_item', ['model' => static::getResource()::getModelLabel()]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [Actions\DeleteAction::make()->label(__('admin.delete'))];

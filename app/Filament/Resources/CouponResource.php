@@ -25,7 +25,7 @@ class CouponResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.coupons');
+        return __('admin.coupon');
     }
 
     public static function getPluralModelLabel(): string
@@ -144,6 +144,19 @@ class CouponResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['code', 'used_count', 'created_at', 'updated_at'])
+                    ->beforeReplicaSaved(function (Coupon $replica, Coupon $record) {
+                        $replica->code = $record->code . '-' . strtoupper(\Illuminate\Support\Str::random(4));
+                        $replica->used_count = 0;
+                    })
+                    ->successRedirectUrl(fn (Coupon $replica) => static::getUrl('edit', ['record' => $replica])),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

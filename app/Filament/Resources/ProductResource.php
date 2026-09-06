@@ -19,6 +19,24 @@ use Illuminate\Support\Str;
 
 class ProductResource extends Resource
 {
+    /**
+     * Every closure on the attribute-value repeater row (visible, suffix,
+     * minValue, maxValue, step) independently does Attribute::find() on the
+     * same attribute_id — up to 5 duplicate queries per row, all of them
+     * for select/bool types where most of these are irrelevant. Cache the
+     * lookup per request instead.
+     */
+    protected static array $attributeCache = [];
+
+    protected static function findAttributeCached(?int $id): ?Attribute
+    {
+        if (!$id) {
+            return null;
+        }
+
+        return static::$attributeCache[$id] ??= Attribute::find($id);
+    }
+
     protected static ?string $model = Product::class;
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?int $navigationSort = 1;
@@ -35,7 +53,7 @@ class ProductResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.products');
+        return __('admin.product');
     }
 
     public static function getPluralModelLabel(): string
@@ -99,8 +117,10 @@ class ProductResource extends Resource
                                 ->tabs(
                                     collect(LanguageService::getActive())->map(function ($lang) {
                                         return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                             ->schema([
                                                 Forms\Components\TextInput::make("name.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.name'))
                                                     ->required($lang->code === 'fa')
                                                     ->live(onBlur: true)
@@ -109,16 +129,19 @@ class ProductResource extends Resource
                                                     }),
 
                                                 Forms\Components\TextInput::make("slug.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.slug'))
                                                     ->required($lang->code === 'fa')
                                                     ->helperText(__('admin.slug_helper')),
 
                                                 Forms\Components\Textarea::make("short_description.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.description') . ' (' . __('admin.title') . ')')
                                                     ->rows(2)
                                                     ->columnSpanFull(),
 
                                                 Forms\Components\RichEditor::make("description.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.description'))
                                                     ->columnSpanFull(),
                                             ])->columns(2);
@@ -224,12 +247,13 @@ class ProductResource extends Resource
                                         ->schema(
                                             collect(LanguageService::getActive())->map(function ($lang) {
                                                 return Forms\Components\TextInput::make("value.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label($lang->native_name)
                                                     ->required($lang->code === 'fa');
                                             })->toArray()
                                         )
                                         ->visible(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->isText() ?? false;
                                         })
                                         ->columnSpan(2),
@@ -242,23 +266,23 @@ class ProductResource extends Resource
                                             $component->state($record?->value['value'] ?? null);
                                         })
                                         ->suffix(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->unit;
                                         })
                                         ->minValue(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->min_value;
                                         })
                                         ->maxValue(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->max_value;
                                         })
                                         ->step(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->step_value ?: 'any';
                                         })
                                         ->visible(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->isNumber() ?? false;
                                         })
                                         ->columnSpan(2),
@@ -270,11 +294,11 @@ class ProductResource extends Resource
                                             $component->state($record?->value['value'] ?? null);
                                         })
                                         ->options(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->getOptionsForLocale() ?? [];
                                         })
                                         ->visible(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->isSelect() ?? false;
                                         })
                                         ->columnSpan(2),
@@ -286,7 +310,7 @@ class ProductResource extends Resource
                                             $component->state((bool) ($record?->value['value'] ?? false));
                                         })
                                         ->visible(function (Get $get) {
-                                            $attr = Attribute::find($get('attribute_id'));
+                                            $attr = static::findAttributeCached($get('attribute_id'));
                                             return $attr?->isBool() ?? false;
                                         })
                                         ->columnSpan(2),
@@ -368,7 +392,7 @@ class ProductResource extends Resource
                         ]),
 
                     // ── SEO ────────────────────────────────────────
-                    Forms\Components\Tabs\Tab::make(__('admin.meta_title'))
+                    Forms\Components\Tabs\Tab::make(__('admin.seo'))
                         ->schema([
                             Forms\Components\Actions::make([
                                 Forms\Components\Actions\Action::make('autofillSeoFa')
@@ -398,15 +422,19 @@ class ProductResource extends Resource
                                 ->tabs(
                                     collect(LanguageService::getActive())->map(function ($lang) {
                                         return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                             ->schema([
                                                 Forms\Components\TextInput::make("meta_title.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.meta_title')),
 
                                                 Forms\Components\Textarea::make("meta_description.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.meta_description'))
                                                     ->rows(2),
 
                                                 Forms\Components\TextInput::make("meta_keywords.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                                     ->label(__('admin.meta_keywords')),
                                             ]);
                                     })->toArray()
@@ -536,6 +564,37 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('admin.edit')),
+
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['sku', 'created_at', 'updated_at'])
+                    ->beforeReplicaSaved(function (Product $replica, Product $record) {
+                        // sku is DB-unique — this is the only field that
+                        // must differ, or the save fails outright.
+                        $replica->sku = $record->sku ? $record->sku . '-copy-' . strtolower(\Illuminate\Support\Str::random(4)) : $record->sku;
+                    })
+                    ->afterReplicaSaved(function (Product $replica, Product $record) {
+                        // Category assignments (not copied by Eloquent's
+                        // replicate — it only clones the model's own columns).
+                        $categoryData = $record->categories()->get()
+                            ->mapWithKeys(fn ($cat) => [$cat->id => ['is_primary' => $cat->pivot->is_primary]]);
+                        $replica->categories()->sync($categoryData);
+
+                        // Attribute values.
+                        foreach ($record->allAttributes as $attr) {
+                            $replica->allAttributes()->create([
+                                'attribute_id' => $attr->attribute_id,
+                                'value' => $attr->getRawOriginal('value'),
+                                'sort_order' => $attr->sort_order,
+                            ]);
+                        }
+                    })
+                    ->successRedirectUrl(fn (Product $replica) => static::getUrl('edit', ['record' => $replica])),
 
                 Tables\Actions\DeleteAction::make()
                     ->label(__('admin.delete')),

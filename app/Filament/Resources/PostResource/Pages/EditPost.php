@@ -10,6 +10,11 @@ class EditPost extends EditRecord
 {
     protected static string $resource = PostResource::class;
 
+    public function getTitle(): string
+    {
+        return __('admin.edit_item', ['model' => static::getResource()::getModelLabel()]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

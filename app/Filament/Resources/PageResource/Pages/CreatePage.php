@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePage extends CreateRecord
 {
     protected static string $resource = PageResource::class;
+
+    public function getTitle(): string
+    {
+        return __('admin.create_new_item', ['model' => static::getResource()::getModelLabel()]);
+    }
 }

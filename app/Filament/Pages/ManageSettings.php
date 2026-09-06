@@ -34,6 +34,10 @@ class ManageSettings extends Page
     // ── Public properties for each group ────────────────
     // Translatable fields (locale code => value) — see Setting::TRANSLATABLE_KEYS.
     public array $site_name             = [];
+    public array $hero_eyebrow          = [];
+    public array $hero_title            = [];
+    public array $hero_desc             = [];
+    public array $hero_search_keywords  = [];
     public array $site_tagline          = [];
     public array $site_working_hours    = [];
     public array $site_address          = [];
@@ -139,6 +143,9 @@ class ManageSettings extends Page
         'reservation' => [
             'reservation_duration_days','reservation_duration_hours',
         ],
+        'hero' => [
+            'hero_eyebrow','hero_title','hero_desc','hero_search_keywords',
+        ],
     ];
 
     public function mount(): void
@@ -192,8 +199,10 @@ class ManageSettings extends Page
                     ->tabs(
                         collect(LanguageService::getActive())->map(function ($lang) {
                             return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                 ->schema([
                                     Forms\Components\RichEditor::make($lang->code)
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                         ->label(''),
                                 ]);
                         })->toArray()

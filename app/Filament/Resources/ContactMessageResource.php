@@ -25,7 +25,7 @@ class ContactMessageResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.contact_messages');
+        return __('admin.contact_message');
     }
 
     public static function getPluralModelLabel(): string

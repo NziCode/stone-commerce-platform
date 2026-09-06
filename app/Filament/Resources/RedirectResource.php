@@ -25,7 +25,7 @@ class RedirectResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.redirects');
+        return __('admin.redirect');
     }
 
     public static function getPluralModelLabel(): string

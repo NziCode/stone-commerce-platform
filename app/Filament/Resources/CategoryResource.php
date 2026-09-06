@@ -34,7 +34,7 @@ class CategoryResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.categories');
+        return __('admin.category');
     }
 
     public static function getPluralModelLabel(): string
@@ -116,6 +116,17 @@ class CategoryResource extends Resource
                         ->default(true),
                 ])->columns(3),
 
+            Forms\Components\Section::make(__('admin.image'))
+                ->schema([
+                    Forms\Components\SpatieMediaLibraryFileUpload::make('image')
+                        ->label(__('admin.category_icon_image'))
+                        ->helperText(__('admin.category_icon_image_help'))
+                        ->collection('image')
+                        ->image()
+                        ->imageEditor()
+                        ->columnSpanFull(),
+                ]),
+
             // ── Translations (Tabs) ───────────────────────────
             Forms\Components\Section::make(__('admin.content'))
                 ->schema([
@@ -135,9 +146,11 @@ class CategoryResource extends Resource
                         ->tabs(
                             collect(LanguageService::getActive())->map(function ($lang) {
                                 return Forms\Components\Tabs\Tab::make($lang->native_name)
+                                            ->extraAttributes(['dir' => $lang->direction])
                                     ->schema([
 
                                         Forms\Components\TextInput::make("name.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.name'))
                                             ->required($lang->code === 'fa')
                                             ->live(onBlur: true)
@@ -146,19 +159,23 @@ class CategoryResource extends Resource
                                             }),
 
                                         Forms\Components\TextInput::make("slug.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.slug'))
                                             ->required($lang->code === 'fa')
                                             ->helperText(__('admin.slug_helper')),
 
                                         Forms\Components\Textarea::make("description.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.description'))
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         Forms\Components\TextInput::make("meta_title.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.meta_title')),
 
                                         Forms\Components\Textarea::make("meta_description.{$lang->code}")
+                                                    ->extraInputAttributes(['dir' => $lang->direction])
                                             ->label(__('admin.meta_description'))
                                             ->rows(2),
                                     ])->columns(2);
@@ -174,6 +191,13 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+                    ->label(__('admin.image'))
+                    ->collection('image')
+                    ->conversion('thumb')
+                    ->circular()
+                    ->size(40),
+
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('admin.name'))
                     ->getStateUsing(fn ($record) =>
@@ -235,6 +259,16 @@ class CategoryResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->label(__('admin.edit')),
+
+                Tables\Actions\ReplicateAction::make()
+                    ->label(__('admin.duplicate'))
+                    ->icon('heroicon-o-document-duplicate')
+                    ->requiresConfirmation()
+                    ->modalHeading(__('admin.duplicate_confirm_heading'))
+                    ->modalDescription(__('admin.duplicate_confirm_body'))
+                    ->modalSubmitActionLabel(__('admin.duplicate'))
+                    ->excludeAttributes(['_lft', '_rgt', 'created_at', 'updated_at'])
+                    ->successRedirectUrl(fn (Category $replica) => static::getUrl('edit', ['record' => $replica])),
 
                 Tables\Actions\DeleteAction::make()
                     ->label(__('admin.delete')),

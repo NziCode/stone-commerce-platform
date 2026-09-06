@@ -4,10 +4,13 @@
 
 @php
     $locale = app()->getLocale();
+    $isRtlLocale = in_array($locale, ['fa', 'ar']);
     $sitePhone = display_phone(\App\Models\Setting::get('site_phone'));
     $aboutYears   = \App\Models\Setting::get('about_years', '25');
     $aboutTitle   = \App\Models\Setting::get('about_title');
     $aboutDesc    = \App\Models\Setting::get('about_desc');
+    $heroTitle    = \App\Models\Setting::get('hero_title') ?: $aboutTitle;
+    $heroDesc     = \App\Models\Setting::get('hero_desc') ?: $aboutDesc;
     $aboutFeat1   = \App\Models\Setting::get('about_feature_1');
     $aboutFeat2   = \App\Models\Setting::get('about_feature_2');
     $aboutFeat3   = \App\Models\Setting::get('about_feature_3');
@@ -34,6 +37,20 @@
         grid-template-columns: repeat(4, 1fr) !important;
         gap: 1.1rem !important;
     }
+    .mt-cat {
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease !important;
+    }
+    .mt-cat:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px -14px rgba(11,33,71,.25) !important;
+        border-color: rgba(255,90,31,.35) !important;
+    }
+    .mt-cat-ico {
+        transition: transform .18s ease !important;
+    }
+    .mt-cat:hover .mt-cat-ico {
+        transform: scale(1.08);
+    }
     @media (max-width: 991px) {
         .mt-cats { grid-template-columns: repeat(3, 1fr) !important; }
     }
@@ -41,7 +58,7 @@
         .mt-cats { grid-template-columns: repeat(2, 1fr) !important; }
     }
     @media (max-width: 479px) {
-        .mt-cats { grid-template-columns: 1fr !important; }
+        .mt-cats { grid-template-columns: repeat(2, 1fr) !important; gap: .7rem !important; }
     }
 </style>
 @endpush
@@ -52,44 +69,19 @@
     <section class="mt-hero">
         <div class="mt-container">
             <div class="mt-hero-grid">
-                <div>
-                    <span class="mt-hero-eyebrow">{{ __('messages.hero_eyebrow') }}</span>
-                    <h1 class="mt-display">
-                        {{ $aboutTitle ?: \App\Models\Setting::get('site_name') }}
-                    </h1>
-                    <p>{{ Str::limit(strip_tags($aboutDesc ?: __('messages.welcome')), 170) }}</p>
+                <span class="mt-hero-eyebrow">{{ \App\Models\Setting::get('hero_eyebrow') ?: __('messages.hero_eyebrow') }}</span>
 
-                    <div class="mt-finder">
-                        <form action="{{ route('search') }}" method="GET" style="display:flex;flex:1;gap:.4rem">
-                            <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('messages.search_placeholder') }}">
-                            <button type="submit">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                {{ __('messages.search') }}
-                            </button>
-                        </form>
-                    </div>
-                    <div class="mt-finder-chips">
-                        @foreach(\App\Models\Category::active()->roots()->ordered()->limit(5)->get() as $chipCat)
-                            <a href="{{ route('categories.show', $chipCat->getSlugForLocale($locale)) }}">
-                                {{ $chipCat->getTranslation('name', $locale) }}
-                            </a>
-                        @endforeach
-                    </div>
+                <h1 class="mt-display">
+                    {{ $heroTitle ?: \App\Models\Setting::get('site_name') }}
+                </h1>
 
-                    <div class="mt-hero-actions" style="margin-top:1.8rem">
-                        <a href="{{ route('products.index') }}" class="mt-btn mt-btn-primary">
-                            {{ __('messages.all_products') }}
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                        </a>
-                        <a href="{{ route('contact') }}" class="mt-btn mt-btn-ghost-white">{{ __('messages.contact') }}</a>
-                    </div>
-                </div>
+                <p>{{ Str::limit(strip_tags($heroDesc ?: __('messages.welcome')), 170) }}</p>
 
                 <div class="mt-hero-visual">
-                    @if($featuredProducts->isNotEmpty())
+                    @if(true)
                         <div class="mt-hero-card">
-                            <img src="{{ $featuredProducts->first()->medium_image_url }}"
-                                 alt="{{ $featuredProducts->first()->getTranslation('name', $locale) }}">
+                            <img src="{{ \App\Models\Setting::get('hero_image') ?: asset('assets/images/hero-default.jpg') }}"
+                                 alt="{{ $heroTitle ?: \App\Models\Setting::get('site_name') }}">
                         </div>
                         <div class="mt-hero-float">
                             <span class="ico">
@@ -101,6 +93,42 @@
                             </div>
                         </div>
                     @endif
+                </div>
+
+                <div class="mt-finder">
+                    <form action="{{ route('search') }}" method="GET" style="display:flex;flex:1;gap:.4rem">
+                        <input type="search" name="q" value="{{ request('q') }}" placeholder="{{ __('messages.search_placeholder') }}">
+                        <button type="submit">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="17" height="17"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            {{ __('messages.search') }}
+                        </button>
+                    </form>
+                </div>
+                @php
+                    $heroKeywords = collect(explode(',', \App\Models\Setting::get('hero_search_keywords', '')))
+                        ->map(fn ($k) => trim($k))
+                        ->filter()
+                        ->take(6);
+                @endphp
+                <div class="mt-finder-chips">
+                    @forelse($heroKeywords as $keyword)
+                        <a href="{{ route('search', ['q' => $keyword]) }}">{{ $keyword }}</a>
+                    @empty
+                        {{-- Fallback until an admin fills in Settings → Hero → Hot Search Keywords --}}
+                        @foreach(\App\Models\Category::active()->roots()->ordered()->limit(5)->get() as $chipCat)
+                            <a href="{{ route('categories.show', $chipCat->getSlugForLocale($locale)) }}">
+                                {{ $chipCat->getTranslation('name', $locale) }}
+                            </a>
+                        @endforeach
+                    @endforelse
+                </div>
+
+                <div class="mt-hero-actions" style="margin-top:1.8rem">
+                    <a href="{{ route('products.index') }}" class="mt-btn mt-btn-primary">
+                        {{ __('messages.all_products') }}
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                    <a href="{{ route('contact') }}" class="mt-btn mt-btn-ghost-white">{{ __('messages.contact') }}</a>
                 </div>
             </div>
         </div>
@@ -165,13 +193,25 @@
                     <a href="{{ route('categories.index') }}" class="mt-btn mt-btn-outline mt-btn-sm">{{ __('messages.view_all') }}</a>
                 </div>
                 <div class="mt-cats">
+                    @php
+                        $catPalette = ['#ff5a1f', '#0b2147', '#c2410c', '#1e3a8a', '#b45309', '#164e63', '#7c2d12', '#334155'];
+                    @endphp
                     @foreach($rootCategories as $cat)
+                        @php
+                            $catImage = $cat->hasMedia('image')
+                                ? $cat->thumb_url
+                                : $cat->products()->where('is_active', true)->first()?->main_image_url;
+                        @endphp
                         <a href="{{ route('categories.show', $cat->getSlugForLocale($locale)) }}" class="mt-cat">
-                            <span class="mt-cat-ico">
-                                @if($cat->hasMedia('image'))
-                                    <img src="{{ $cat->thumb_url }}" alt="{{ $cat->getTranslation('name', $locale) }}">
+                            <span class="mt-cat-ico" @if(!$catImage) style="background:{{ $catPalette[$cat->id % count($catPalette)] }}1a;color:{{ $catPalette[$cat->id % count($catPalette)] }}" @endif>
+                                @if($catImage)
+                                    <img src="{{ $catImage }}" alt="{{ $cat->getTranslation('name', $locale) }}">
                                 @else
-                                    {{ mb_substr($cat->getTranslation('name', $locale), 0, 1) }}
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
+                                        <path d="M3 16.5V9.8a2 2 0 01.6-1.43l4.9-4.83a2 2 0 012.8 0l4.9 4.83a2 2 0 01.6 1.43v6.7"/>
+                                        <path d="M3 16.5 8 20l4-2.3 4 2.3 5-3.5"/>
+                                        <path d="M8 9.5l4 2.3 4-2.3"/>
+                                    </svg>
                                 @endif
                             </span>
                             <strong>{{ $cat->getTranslation('name', $locale) }}</strong>
@@ -188,7 +228,7 @@
         <div class="mt-container">
             <div class="mt-about">
                 <div class="mt-about-media">
-                    <img src="{{ \App\Models\Setting::get('about_image') ?: ($featuredProducts->first()->medium_image_url ?? '') }}"
+                    <img src="{{ \App\Models\Setting::get('about_image') ?: asset('assets/images/about-default.jpg') }}"
                          alt="{{ $aboutTitle }}">
                     <div class="mt-about-badge">
                         <strong>{{ $aboutYears }}</strong>
@@ -232,8 +272,8 @@
                             <h2 class="mt-heading" style="color:#fff;margin-top:.3rem">{{ __('messages.featured_products') }}</h2>
                         </div>
                         <div class="mt-arrows">
-                            <div class="mt-arrow project-button-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></div>
-                            <div class="mt-arrow project-button-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+                            <div class="mt-arrow project-button-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ $isRtlLocale ? 'M9 18l6-6-6-6' : 'M15 18l-6-6 6-6' }}"/></svg></div>
+                            <div class="mt-arrow project-button-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ $isRtlLocale ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6' }}"/></svg></div>
                         </div>
                     </div>
                     <div class="swiper-container project-slider" style="position:relative;z-index:1">
@@ -309,8 +349,8 @@
                         <h2 class="mt-heading">{!! __('messages.latest_stones') !!}</h2>
                     </div>
                     <div class="mt-arrows">
-                        <div class="mt-arrow custom-button-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></div>
-                        <div class="mt-arrow custom-button-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+                        <div class="mt-arrow custom-button-prev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ $isRtlLocale ? 'M9 18l6-6-6-6' : 'M15 18l-6-6 6-6' }}"/></svg></div>
+                        <div class="mt-arrow custom-button-next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="{{ $isRtlLocale ? 'M15 18l-6-6 6-6' : 'M9 18l6-6-6-6' }}"/></svg></div>
                     </div>
                 </div>
                 <div class="swiper-container service-slider">

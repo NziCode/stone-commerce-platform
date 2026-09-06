@@ -38,10 +38,12 @@ class Slider extends Model implements HasMedia
     {
         $this->addMediaConversion('optimized')
             ->width(1920)->height(800)
+            ->nonOptimized()
             ->performOnCollections('image');
 
         $this->addMediaConversion('mobile')
             ->width(768)->height(500)
+            ->nonOptimized()
             ->performOnCollections('mobile_image', 'image');
     }
 

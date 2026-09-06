@@ -25,7 +25,7 @@ class NewsletterResource extends Resource
 
     public static function getModelLabel(): string
     {
-        return __('admin.newsletters');
+        return __('admin.newsletter');
     }
 
     public static function getPluralModelLabel(): string

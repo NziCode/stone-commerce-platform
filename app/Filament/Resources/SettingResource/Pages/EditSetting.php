@@ -10,6 +10,11 @@ class EditSetting extends EditRecord
 {
     protected static string $resource = SettingResource::class;
 
+    public function getTitle(): string
+    {
+        return __('admin.edit_item', ['model' => static::getResource()::getModelLabel()]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

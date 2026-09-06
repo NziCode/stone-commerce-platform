@@ -4,6 +4,13 @@
 
 @section('content')
 
+<style>
+    @media (max-width: 479px) {
+        .mt-cat { padding: 1.2rem .7rem !important; }
+        .mt-cat .mt-cat-ico { width: 52px !important; height: 52px !important; font-size: 1.1rem !important; }
+    }
+</style>
+
     @include('front.components.breadcrumb', [
         'subtitle' => \App\Models\Setting::get('site_name'),
         'title'    => __('messages.categories'),
@@ -13,7 +20,7 @@
         <div class="mt-container">
             <div class="row g-4">
                 @forelse($categories as $cat)
-                    <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="col-6 col-sm-6 col-md-4 col-lg-3">
                         <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}" class="mt-cat" style="padding:1.8rem 1.2rem;height:100%">
                             <span class="mt-cat-ico" style="width:72px;height:72px;font-size:1.5rem">
                                 @if($cat->hasMedia('image'))

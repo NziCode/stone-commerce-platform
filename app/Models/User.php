@@ -42,6 +42,7 @@ class User extends Authenticatable implements HasMedia, FilamentUser
     {
         $this->addMediaConversion('thumb')
             ->width(150)->height(150)
+            ->nonOptimized()
             ->performOnCollections('avatar');
     }
 
