@@ -12,6 +12,37 @@ use Filament\Tables\Table;
 
 class PaymentResource extends Resource
 {
+    /**
+     * Payments are created by the checkout/gateway flow, never manually.
+     */
+    public static function canCreate(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Full edit (including freely changing status) is admin/superuser only.
+     * Sales staff confirm bank-receipt payments via the dedicated "verify"
+     * action below, which goes through Payment::verify()'s business logic
+     * instead of letting status be set to anything from a raw form.
+     */
+    public static function canEdit($record): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canDelete($record): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
 
     public static function getNavigationLabel(): string
     {

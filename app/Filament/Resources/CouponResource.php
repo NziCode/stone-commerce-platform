@@ -12,6 +12,20 @@ use Filament\Tables\Table;
 
 class CouponResource extends Resource
 {
+    /**
+     * Coupons directly affect order revenue — restrict management to
+     * admin/superuser only (sales/editor can view via table, not mutate).
+     */
+    protected static function userCanManage(): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canCreate(): bool { return static::userCanManage(); }
+    public static function canEdit($record): bool { return static::userCanManage(); }
+    public static function canDelete($record): bool { return static::userCanManage(); }
+    public static function canDeleteAny(): bool { return static::userCanManage(); }
 
     public static function getNavigationLabel(): string
     {

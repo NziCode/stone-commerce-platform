@@ -316,6 +316,25 @@ class Product extends Model implements HasMedia
         $this->update(['status' => 'reserved']);
     }
 
+    /**
+     * Atomically reserve this product only if it is still 'available'.
+     * Guards against two concurrent add-to-cart requests both passing an
+     * earlier isAvailable() check (TOCTOU) — the WHERE clause is enforced
+     * by the DB row lock on the UPDATE, not by application-level timing.
+     */
+    public function tryReserve(): bool
+    {
+        $updated = static::where('id', $this->id)
+            ->where('status', 'available')
+            ->update(['status' => 'reserved']);
+
+        if ($updated) {
+            $this->status = 'reserved';
+        }
+
+        return (bool) $updated;
+    }
+
     public function markAsSold(): void
     {
         $this->update(['status' => 'sold']);

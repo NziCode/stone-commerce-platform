@@ -29,6 +29,16 @@ class UserResource extends Resource
     }
 
     /**
+     * Bulk-delete must be gated the same as single-record delete —
+     * Filament's DeleteBulkAction authorizes via canDeleteAny(), not
+     * canDelete(), so both must be restricted or bulk delete bypasses this.
+     */
+    public static function canDeleteAny(): bool
+    {
+        return auth()->check() && auth()->user()->isSuperUser();
+    }
+
+    /**
      * Only SuperUser can assign elevated roles.
      */
     public static function isSuperUserContext(): bool
@@ -108,7 +118,9 @@ class UserResource extends Resource
                         ->label('نقش‌ها')
                         ->multiple()
                         ->relationship('roles', 'name')
-                        ->preload(),
+                        ->preload()
+                        ->disabled(fn() => !static::isSuperUserContext())
+                        ->dehydrated(fn() => static::isSuperUserContext()),
                 ]),
             ]),
 

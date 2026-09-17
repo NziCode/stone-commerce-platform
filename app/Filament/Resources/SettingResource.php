@@ -14,6 +14,26 @@ class SettingResource extends Resource
 {
     protected static bool $shouldRegisterNavigation = false;
 
+    /**
+     * Settings include SMTP/payment-gateway/SMS credentials — admin/superuser only.
+     */
+    protected static function userCanManage(): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canViewAny(): bool { return static::userCanManage(); }
+
+    public static function isSecretKey(?string $key): bool
+    {
+        return (bool) preg_match('/(key|secret|password|token|merchant)/i', (string) $key);
+    }
+    public static function canCreate(): bool { return static::userCanManage(); }
+    public static function canEdit($record): bool { return static::userCanManage(); }
+    public static function canDelete($record): bool { return static::userCanManage(); }
+    public static function canDeleteAny(): bool { return static::userCanManage(); }
+
     public static function getNavigationLabel(): string
     {
         return __('admin.settings');
@@ -86,6 +106,7 @@ class SettingResource extends Resource
                 ->label('مقدار')
                 ->rows(4)
                 ->columnSpanFull()
+                ->extraInputAttributes(fn($get) => static::isSecretKey($get('key')) ? ['style' => '-webkit-text-security: disc;'] : [])
                 ->visible(fn($get) => in_array($get('type'), ['string', 'json', 'array'])),
 
             Forms\Components\TextInput::make('value')
@@ -119,7 +140,8 @@ class SettingResource extends Resource
                 Tables\Columns\TextColumn::make('value')
                     ->label('مقدار')
                     ->limit(50)
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(fn($state, $record) => static::isSecretKey($record->key) ? '••••••••' : $state),
 
                 Tables\Columns\TextColumn::make('type')
                     ->label('نوع')

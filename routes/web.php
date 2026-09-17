@@ -149,15 +149,17 @@ Route::group([
 
     // Contact
     Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
 
     // Newsletter
-    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+    Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->middleware('throttle:5,1')->name('newsletter.subscribe');
     Route::get('/newsletter/subscribed', [NewsletterController::class, 'subscribed'])->name('newsletter.subscribed');
     Route::get('/newsletter/unsubscribe/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
     // Reservation requests — open to guests too, phone is required instead.
-    Route::post('/products/{product}/reserve', [ReservationController::class, 'store'])->name('reservation.store');
+    // Throttled: each new pending request triggers an SMS notification (real
+    // per-send cost), so this is also a cost-abuse surface, not just spam.
+    Route::post('/products/{product}/reserve', [ReservationController::class, 'store'])->middleware('throttle:5,1')->name('reservation.store');
 
     // Cart
     Route::prefix('cart')->name('cart.')->group(function () {
@@ -167,6 +169,16 @@ Route::group([
         Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
         Route::post('/coupon', [CartController::class, 'applyCoupon'])->name('coupon');
     });
+
+    // Payment gateway callback — must stay outside the `auth` group. Bank
+    // redirects here are plain browser GETs after the customer leaves the
+    // site to pay; if their session expired during that trip, requiring
+    // `auth` bounces them to /login and the verify()/markAsPaid() call that
+    // confirms the order never runs, even though the bank captured payment.
+    // Verification itself only trusts the server-stored Payment row (looked
+    // up by transaction_id) plus the gateway's own verify() call — never
+    // request data — so this route doesn't need session auth to be safe.
+    Route::get('/payment/callback/{gateway}', [PaymentController::class, 'callback'])->name('payment.callback');
 
     // Authenticated routes
     Route::middleware(['auth'])->group(function () {
@@ -186,7 +198,6 @@ Route::group([
 
         // Payments
         Route::prefix('payment')->name('payment.')->group(function () {
-            Route::get('/callback/{gateway}', [PaymentController::class, 'callback'])->name('callback');
             Route::get('/{order}', [PaymentController::class, 'index'])->name('index');
             Route::post('/{order}/online', [PaymentController::class, 'payOnline'])->name('online');
             Route::post('/{order}/receipt', [PaymentController::class, 'uploadReceipt'])->name('receipt');
@@ -199,7 +210,7 @@ Route::group([
         });
 
         // Reviews
-        Route::post('/reviews/{product}', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::post('/reviews/{product}', [ReviewController::class, 'store'])->middleware('throttle:5,1')->name('reviews.store');
 
         // Profile
         Route::prefix('profile')->name('profile.')->group(function () {

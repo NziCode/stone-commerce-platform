@@ -6,11 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
-use Shetabit\Multipay\Facade\Payment as PaymentGateway;
 use Shetabit\Multipay\Invoice;
+use Shetabit\Multipay\Payment as PaymentGateway;
 
 class PaymentController extends Controller
 {
+    /**
+     * shetabit/multipay v2 is a plain library — it ships no Laravel Facade
+     * and no service-container binding, so `Shetabit\Multipay\Facade\Payment`
+     * (used here previously) doesn't exist and every call to it was a fatal
+     * "class not found" error. Build a fresh instance from config/payment.php
+     * instead, exactly as the package's own docs show.
+     */
+    private function gateway(): PaymentGateway
+    {
+        return new PaymentGateway(config('payment'));
+    }
+
     public function index(Order $order)
     {
         $this->authorize('view', $order);
@@ -34,7 +46,7 @@ class PaymentController extends Controller
         try {
             $invoice = (new Invoice)->amount($order->total);
 
-            return PaymentGateway::purchase($invoice, function ($driver, $transactionId) use ($payment) {
+            return $this->gateway()->purchase($invoice, function ($driver, $transactionId) use ($payment) {
                 $payment->update(['transaction_id' => $transactionId]);
             })->pay()->render();
 
@@ -89,10 +101,35 @@ class PaymentController extends Controller
             return redirect()->route('home')->with('error', 'پرداخت یافت نشد.');
         }
 
+        // Idempotency: a refreshed callback page or a gateway retry must not
+        // re-run verify() on an already-settled payment — many gateway
+        // drivers reject a second verify() and throw, which previously fell
+        // into the catch block and flipped an already-paid payment to
+        // "failed" even though the order was already confirmed.
+        if ($payment->isPaid()) {
+            return redirect()->route('orders.show', $payment->order)
+                ->with('success', 'پرداخت با موفقیت انجام شد.');
+        }
+
+        if ($payment->status === 'failed') {
+            return redirect()->route('orders.show', $payment->order)
+                ->with('error', 'پرداخت ناموفق بود.');
+        }
+
         try {
-            $receipt = PaymentGateway::amount($payment->amount)
+            $receipt = $this->gateway()
+                ->amount($payment->amount)
                 ->transactionId($payment->transaction_id)
                 ->verify();
+
+            // Defense in depth: refuse to confirm if the order total has
+            // since diverged from what this payment was created against.
+            if (bccomp((string) $payment->amount, (string) $payment->order->fresh()->total, 2) !== 0) {
+                $payment->fail(['error' => 'Amount mismatch between payment and order total at verification time.']);
+
+                return redirect()->route('orders.show', $payment->order)
+                    ->with('error', 'مبلغ پرداخت با مبلغ سفارش مطابقت ندارد.');
+            }
 
             $payment->update([
                 'reference_id'     => $receipt->getReferenceId(),

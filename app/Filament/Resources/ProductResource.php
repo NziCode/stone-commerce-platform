@@ -37,6 +37,22 @@ class ProductResource extends Resource
         return static::$attributeCache[$id] ??= Attribute::find($id);
     }
 
+    /**
+     * Deleting a product listing (vs. marking it sold/unavailable) is
+     * admin/superuser only — editors manage catalog content, not removal.
+     */
+    public static function canDelete($record): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
     protected static ?string $model = Product::class;
     protected static ?string $navigationIcon = 'heroicon-o-cube';
     protected static ?int $navigationSort = 1;

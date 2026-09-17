@@ -37,18 +37,24 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product)
     {
-        if (!$product->isAvailable()) {
-            return back()->with('error', 'این محصول در حال حاضر موجود نیست.');
-        }
-
         $cart = $this->getOrCreateCart();
 
         if ($cart->hasProduct($product->id)) {
             return back()->with('error', 'این محصول قبلاً به سبد خرید اضافه شده است.');
         }
 
+        if (!$product->isAvailable()) {
+            return back()->with('error', 'این محصول در حال حاضر موجود نیست.');
+        }
+
+        // Atomic reserve — closes the race where two users both pass the
+        // isAvailable() check above before either one commits the update.
+        if (!$product->tryReserve()) {
+            return back()->with('error', 'این محصول همین الان توسط کاربر دیگری رزرو شد.');
+        }
+
         $cart->addProduct($product);
-        $product->markAsReserved();
+        $cart->update(['expires_at' => now()->addMinutes(30)]);
 
         return back()->with('success', 'محصول به سبد خرید اضافه شد.');
     }
@@ -58,6 +64,7 @@ class CartController extends Controller
         $cart = $this->getOrCreateCart();
         $cart->removeProduct($product->id);
         $product->markAsAvailable();
+        $this->revalidateCoupon($cart);
 
         return back()->with('success', 'محصول از سبد خرید حذف شد.');
     }
@@ -82,7 +89,7 @@ class CartController extends Controller
 
         $coupon = Coupon::where('code', strtoupper($request->code))->first();
 
-        if (!$coupon || !$coupon->isValid()) {
+        if (!$coupon || !$coupon->isValidForUser(auth()->id())) {
             return back()->with('error', 'کد تخفیف نامعتبر است.');
         }
 
@@ -99,5 +106,31 @@ class CartController extends Controller
         ]);
 
         return back()->with('success', 'کد تخفیف با موفقیت اعمال شد.');
+    }
+
+    /**
+     * Re-derive the coupon discount from the current subtotal whenever cart
+     * contents change, instead of leaving a stale absolute discount_amount
+     * around (which could over-discount, or persist past min_order_amount).
+     */
+    private function revalidateCoupon(Cart $cart): void
+    {
+        if (!$cart->coupon_code) {
+            return;
+        }
+
+        $coupon = Coupon::where('code', $cart->coupon_code)->first();
+
+        if (!$coupon || !$coupon->isValidForUser(auth()->id())) {
+            $cart->update(['coupon_code' => null, 'discount_amount' => 0]);
+            return;
+        }
+
+        $discount = $coupon->calculateDiscount($cart->fresh('items')->subtotal);
+
+        $cart->update([
+            'coupon_code'     => $discount > 0 ? $coupon->code : null,
+            'discount_amount' => $discount,
+        ]);
     }
 }

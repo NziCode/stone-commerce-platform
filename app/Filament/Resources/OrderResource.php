@@ -12,6 +12,22 @@ use Filament\Tables\Table;
 
 class OrderResource extends Resource
 {
+    /**
+     * Orders carry real payment/legal weight — deletion is admin/superuser only.
+     * Editing status (confirm/cancel) stays available to sales via the model's
+     * own confirm()/cancel() methods rather than a raw form field.
+     */
+    public static function canDelete($record): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
+
+    public static function canDeleteAny(): bool
+    {
+        $user = auth()->user();
+        return $user && ($user->isAdmin() || $user->isSuperUser());
+    }
 
     public static function getNavigationLabel(): string
     {
@@ -60,7 +76,9 @@ class OrderResource extends Resource
                             'cancelled'  => 'لغو شده',
                             'refunded'   => 'مسترد شده',
                         ])
-                        ->required(),
+                        ->required()
+                        ->disabled(fn() => !(auth()->user()?->isAdmin() || auth()->user()?->isSuperUser()))
+                        ->dehydrated(fn() => auth()->user()?->isAdmin() || auth()->user()?->isSuperUser()),
 
                     Forms\Components\Select::make('payment_type')
                         ->label('نوع پرداخت')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Support\SuperUser;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,19 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
+
+        // The SuperUser account must only ever authenticate through the
+        // admin panel's SuperUserAuthenticator (.env-only password check).
+        // Never allow it to authenticate via the front-end login form,
+        // regardless of whatever password the `users` row currently holds.
+        $envEmail = config('auth.super_user.email');
+        if ($envEmail && strtolower($this->string('email')) === strtolower($envEmail)) {
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => trans('auth.failed'),
+            ]);
+        }
 
         if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());

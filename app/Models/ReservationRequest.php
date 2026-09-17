@@ -102,9 +102,17 @@ class ReservationRequest extends Model
     /**
      * Approve the request: locks the product as 'reserved' for the duration
      * configured in Settings (reservation_duration_days / reservation_duration_hours).
+     *
+     * Returns false without changing anything if the product is no longer
+     * available — closes the race where two admins approve two pending
+     * requests for the same product in quick succession.
      */
-    public function approve(?int $approvedByUserId = null): void
+    public function approve(?int $approvedByUserId = null): bool
     {
+        if (!$this->product || !$this->product->tryReserve()) {
+            return false;
+        }
+
         $days  = (int) (\App\Models\Setting::get('reservation_duration_days', 3));
         $hours = (int) (\App\Models\Setting::get('reservation_duration_hours', 0));
 
@@ -117,7 +125,7 @@ class ReservationRequest extends Model
             'expires_at'  => $expiresAt,
         ]);
 
-        $this->product?->markAsReserved();
+        return true;
     }
 
     public function reject(?string $adminNote = null): void

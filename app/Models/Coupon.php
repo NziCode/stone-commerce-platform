@@ -70,4 +70,23 @@ class Coupon extends Model
     {
         $this->increment('used_count');
     }
+
+    public function timesUsedByUser(int $userId): int
+    {
+        return Order::where('coupon_code', $this->code)
+            ->where('user_id', $userId)
+            ->whereNotIn('status', ['cancelled'])
+            ->count();
+    }
+
+    public function isValidForUser(?int $userId): bool
+    {
+        if (!$this->isValid()) return false;
+
+        if ($userId && $this->usage_per_user && $this->timesUsedByUser($userId) >= $this->usage_per_user) {
+            return false;
+        }
+
+        return true;
+    }
 }

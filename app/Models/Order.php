@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Facades\DB;
 
 class Order extends Model
 {
@@ -121,24 +122,34 @@ class Order extends Model
 
     public function confirm(): void
     {
-        $this->update(['status' => 'confirmed', 'confirmed_at' => now()]);
+        DB::transaction(function () {
+            $this->update(['status' => 'confirmed', 'confirmed_at' => now()]);
 
-        // محصول رو sold کن
-        foreach ($this->items as $item) {
-            $item->product?->markAsSold();
-        }
+            // محصول رو sold کن
+            foreach ($this->items as $item) {
+                $item->product?->markAsSold();
+            }
+        });
     }
 
     public function cancel(): void
     {
-        $this->update(['status' => 'cancelled', 'cancelled_at' => now()]);
+        DB::transaction(function () {
+            $this->update(['status' => 'cancelled', 'cancelled_at' => now()]);
 
-        // محصول رو دوباره available کن
-        foreach ($this->items as $item) {
-            $item->product?->markAsAvailable();
-        }
+            // محصول رو دوباره available کن
+            foreach ($this->items as $item) {
+                $item->product?->markAsAvailable();
+            }
+        });
     }
 
+    /**
+     * Count-then-format is check-then-act — two concurrent checkouts on the
+     * same day could read the same count before either inserts. order_number
+     * has a DB unique constraint, so a collision throws instead of silently
+     * duplicating; callers should retry generation on a unique violation.
+     */
     public static function generateOrderNumber(): string
     {
         $count = static::whereDate('created_at', today())->count() + 1;

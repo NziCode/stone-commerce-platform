@@ -154,16 +154,16 @@ class ReservationRequestResource extends Resource
                     ->visible(fn (ReservationRequest $record) => $record->isPending())
                     ->requiresConfirmation()
                     ->action(function (ReservationRequest $record) {
-                        // Guard against approving two requests for the same product.
-                        if (! $record->product || ! $record->product->isAvailable()) {
+                        // approve() atomically re-checks + reserves the product
+                        // itself (tryReserve), so this can't race with another
+                        // admin approving a different request for the same product.
+                        if (! $record->approve(auth()->id())) {
                             Notification::make()
                                 ->title(__('admin.reservation_product_unavailable'))
                                 ->danger()
                                 ->send();
                             return;
                         }
-
-                        $record->approve(auth()->id());
 
                         Notification::make()
                             ->title(__('admin.reservation_approved'))
