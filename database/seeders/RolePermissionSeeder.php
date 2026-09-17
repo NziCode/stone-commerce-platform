@@ -692,23 +692,9 @@ class RolePermissionSeeder extends Seeder
             ]
         ]);
 
-        DB::table('model_has_roles')->insert([
-            [
-                'role_id' => 1,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 22
-            ],
-            [
-                'role_id' => 1,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 23
-            ],
-            [
-                'role_id' => 5,
-                'model_type' => 'App\\Models\\User',
-                'model_id' => 23
-            ]
-        ]);
-
+        // model_has_roles intentionally not seeded here — it previously tied
+        // roles to specific real user IDs from the client's database.
+        // SuperUserSeeder/AdminUserSeeder assign roles to whichever users
+        // actually exist on a fresh install instead.
     }
 }
