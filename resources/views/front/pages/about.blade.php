@@ -234,7 +234,7 @@
                     <article class="ab-office ab-office-info" data-ab-reveal style="--ab-delay:{{ count($offices) * 90 }}ms">
                         <ul>
                             @if($contact['hours'])
-                                <li><span>{{ __('messages.ab_hours') }}</span><strong>{{ $contact['hours'] }}</strong></li>
+                                <li><span>{{ __('messages.ab_hours') }}</span><strong><bdi dir="ltr">{{ $contact['hours'] }}</bdi></strong></li>
                             @endif
                             @if($contact['phone'])
                                 <li><span>{{ __('messages.ab_call') }}</span><a href="tel:{{ preg_replace('/[^\d+]/', '', $contact['phone']) }}" dir="ltr">{{ $contact['phone'] }}</a></li>
