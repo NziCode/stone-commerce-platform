@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 use Artesaos\SEOTools\Facades\SEOMeta;
 use Artesaos\SEOTools\Facades\OpenGraph;
@@ -12,7 +13,12 @@ class SeoServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        static::applyDefaults();
+        try {
+            static::applyDefaults();
+        } catch (QueryException $e) {
+            // The settings table doesn't exist yet (fresh install, `migrate:fresh`, test database):
+            // there is nothing to apply, and booting must not stop `php artisan migrate` from creating it.
+        }
     }
 
     /**
