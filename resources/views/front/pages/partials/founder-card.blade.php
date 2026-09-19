@@ -3,7 +3,7 @@
     $fName    = $founder->getTranslation('title', $locale);
     $fRole    = $founder->getTranslation('excerpt', $locale);
     $fBio     = $founder->getTranslation('content', $locale);
-    $portrait = $founder->getFirstMediaUrl('cover');
+    $portrait = $founder->coverUrlFor('portrait');
     $phone    = display_phone(\App\Models\Setting::get('site_phone'));
     // Monogram from the Latin spelling of the name, whatever the visitor's language is
     $initials = collect(preg_split('/\s+/u', trim($founder->getTranslation('title', 'en', true) ?: $fName)))

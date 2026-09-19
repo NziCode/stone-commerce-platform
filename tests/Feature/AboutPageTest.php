@@ -176,4 +176,25 @@ class AboutPageTest extends TestCase
         $this->visit('en', '/jane-founder')->assertOk()->assertSee('Bio text', false)->assertSee('ab-founder-card', false);
         $this->visit('en', '/shipping')->assertOk()->assertSee('Shipping details', false)->assertDontSee('ab-hero', false);
     }
+    public function test_cover_variants_fall_back_to_the_original_until_generated(): void
+    {
+        Storage::fake('public');
+        Queue::fake();   // conversions stay ungenerated, like media uploaded before they existed
+
+        $page = $this->makeAboutPage();
+        $this->assertNull($page->coverUrlFor('portrait'), 'no cover yet');
+
+        $path = sys_get_temp_dir() . '/about-cover-' . uniqid() . '.png';
+        imagepng(imagecreatetruecolor(60, 40), $path);
+        $media = $page->addMedia($path)->toMediaCollection('cover');
+
+        $this->assertSame($media->getUrl(), $page->fresh()->coverUrlFor('portrait'));
+
+        $media->markAsConversionGenerated('portrait');
+
+        $url = $page->fresh()->coverUrlFor('portrait');
+        $this->assertStringContainsString('conversions/', $url);
+        $this->assertStringContainsString('portrait', $url);
+        $this->assertSame($media->getUrl(), $page->fresh()->coverUrlFor('hero'), 'other variants still fall back');
+    }
 }

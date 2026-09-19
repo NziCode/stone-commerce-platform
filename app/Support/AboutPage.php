@@ -122,7 +122,7 @@ class AboutPage
 
     private static function heroUrl(Page $page, ?Event $event, ?Product $product): ?string
     {
-        return $page->getFirstMediaUrl('cover')
+        return $page->coverUrlFor('hero')
             ?: ($event?->getFirstMediaUrl('cover') ?: null)
             ?: ($product?->getFirstMediaUrl('main_image', 'large') ?: null);
     }
@@ -130,7 +130,7 @@ class AboutPage
     /** Photos for the story collage: the page's own gallery, else the stone photos. */
     private static function storyImages(Page $page, $products): array
     {
-        $images = $page->getMedia('gallery')->take(3)->map(fn ($m) => $m->getUrl())->all();
+        $images = $page->getMedia('gallery')->take(3)->map(fn ($m) => Page::mediaUrl($m, 'card'))->all();
 
         if (count($images) < 2) {
             $images = $products->take(3)->map(fn (Product $p) => $p->medium_image_url)->all();
