@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Payment;
+use App\Services\AdminNotifier;
 use Illuminate\Http\Request;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Multipay\Payment as PaymentGateway;
@@ -88,6 +89,12 @@ class PaymentController extends Controller
         }
 
         $order->update(['status' => 'processing']);
+
+        AdminNotifier::dispatch('فیش بانکی جدید', [
+            'شماره سفارش: ' . $order->order_number,
+            'بانک: ' . $request->bank_name,
+            'شماره پیگیری: ' . $request->transfer_reference,
+        ], AdminNotifier::adminUrl('orders'));
 
         return redirect()->route('orders.show', $order)
             ->with('success', 'فیش بانکی با موفقیت ارسال شد. پس از تأیید، سفارش شما تأیید می‌شود.');

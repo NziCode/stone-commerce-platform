@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ReservationRequest;
+use App\Services\AdminNotifier;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -27,7 +28,7 @@ class ReservationController extends Controller
             return back()->with('error', __('messages.reservation_already_pending'));
         }
 
-        ReservationRequest::create([
+        $reservation = ReservationRequest::create([
             'product_id'     => $product->id,
             'user_id'        => auth()->id(),
             'name'           => $data['name'] ?? auth()->user()?->name,
@@ -37,6 +38,15 @@ class ReservationController extends Controller
             'note'           => $data['note'] ?? null,
             'status'         => 'pending',
         ]);
+
+        $stone = $product->getTranslation('name', 'fa', false) ?: $product->getTranslation('name', 'en', false);
+
+        AdminNotifier::dispatch('درخواست رزرو جدید', [
+            'سنگ: ' . $stone . ($product->sku ? ' (' . $product->sku . ')' : ''),
+            'نام: ' . ($reservation->name ?: '—'),
+            'تلفن: ' . $reservation->full_phone . ' — ' . ($reservation->contact_method === 'whatsapp' ? 'واتساپ' : 'تماس تلفنی'),
+            $reservation->note ? 'توضیح: ' . $reservation->note : null,
+        ], AdminNotifier::adminUrl('reservation-requests'));
 
         return back()->with('success', __('messages.reservation_request_sent'));
     }

@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\Setting;
+use App\Services\AdminNotifier;
 use App\Services\LanguageService;
 use App\Services\TranslationService;
 use Filament\Actions\Action;
@@ -88,6 +89,9 @@ class ManageSettings extends Page
 
     public string $contact_notify_email         = '';
     public string $contact_notify_sms           = '';
+    public string $contact_notify_bot_token     = '';
+    public string $contact_notify_bot_chat_id   = '';
+    public string $contact_notify_bot_api       = '';
     public string $contact_recaptcha_site_key   = '';
     public string $contact_recaptcha_secret_key = '';
     public bool   $contact_recaptcha_enabled    = false;
@@ -133,6 +137,7 @@ class ManageSettings extends Page
         ],
         'contact' => [
             'contact_notify_email','contact_notify_sms',
+            'contact_notify_bot_token','contact_notify_bot_chat_id','contact_notify_bot_api',
             'contact_recaptcha_site_key','contact_recaptcha_secret_key',
             'contact_recaptcha_enabled',
         ],
@@ -209,6 +214,25 @@ class ManageSettings extends Page
                     ),
             ])
             ->statePath('site_tagline');
+    }
+
+    /**
+     * "Send a test" on the Contact tab: pushes one message through every configured
+     * notification channel (from the saved settings) and reports what each one did.
+     */
+    public function sendTestNotification(): void
+    {
+        $results = AdminNotifier::send('تست اعلان سایت', ['این پیام آزمایشی از بخش تنظیمات پنل مدیریت ارسال شد.']);
+
+        $labels = ['email' => 'ایمیل', 'sms' => 'پیامک', 'bot' => 'ربات'];
+        $lines  = collect($results)->map(fn ($result, $channel) => ($labels[$channel] ?? $channel) . ': ' . $result)->implode("\n");
+
+        Notification::make()
+            ->title(__('admin.notify_test_sent'))
+            ->body($lines)
+            ->color(collect($results)->contains('ok') ? 'success' : 'warning')
+            ->persistent()
+            ->send();
     }
 
     public function save(string $group): void

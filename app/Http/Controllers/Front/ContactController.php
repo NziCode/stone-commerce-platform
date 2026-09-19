@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
 use App\Models\Setting;
+use App\Services\AdminNotifier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
@@ -37,6 +39,14 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        AdminNotifier::dispatch('پیام جدید از فرم تماس', [
+            'نام: ' . $request->name,
+            'ایمیل: ' . $request->email,
+            $request->phone ? 'تلفن: ' . $request->phone : null,
+            $request->subject ? 'موضوع: ' . $request->subject : null,
+            'پیام: ' . Str::limit($request->message, 300),
+        ], AdminNotifier::adminUrl('contact-messages'));
 
         return back()->with('success', 'پیام شما با موفقیت ارسال شد. به زودی با شما تماس خواهیم گرفت.');
     }

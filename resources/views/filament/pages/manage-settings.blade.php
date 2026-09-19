@@ -285,6 +285,19 @@ $fieldHelp = fn ($key) => '<p style="font-size:.7rem;color:#9ca3af;margin:.35rem
             <div><label style="{{ $labelStyle }}">{{ __('admin.notify_email') }}</label><input type="email" wire:model.defer="contact_notify_email" class="{{ $inputClass }}">{!! $fieldHelp('contact_notify_email_help') !!}</div>
             <div><label style="{{ $labelStyle }}">{{ __('admin.notify_sms') }}</label><input type="text" wire:model.defer="contact_notify_sms" class="{{ $inputClass }}">{!! $fieldHelp('contact_notify_sms_help') !!}</div>
         </div>
+        <div style="{{ $gridStyle }};margin-top:1rem">
+            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_bot_token') }}</label><input type="password" wire:model.defer="contact_notify_bot_token" autocomplete="off" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_bot_chat_id') }}</label><input type="text" wire:model.defer="contact_notify_bot_chat_id" dir="ltr" class="{{ $inputClass }}"></div>
+            <div><label style="{{ $labelStyle }}">{{ __('admin.notify_bot_api') }}</label><input type="url" wire:model.defer="contact_notify_bot_api" dir="ltr" placeholder="https://api.telegram.org" class="{{ $inputClass }}"></div>
+        </div>
+        <p style="font-size:.72rem;color:#9ca3af;margin:.5rem 0 0;line-height:1.7">{{ __('admin.notify_bot_help') }}</p>
+        <div style="margin-top:1rem">
+            <button type="button" wire:click="sendTestNotification"
+                    style="display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:8px;border:1px solid #d1d5db;background:#fff;cursor:pointer;font-size:.8rem;font-weight:600;font-family:inherit;color:#374151">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                {{ __('admin.notify_test_button') }}
+            </button>
+        </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">reCAPTCHA</h3>

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -13,9 +14,37 @@ class SmsService
 
     public function __construct()
     {
-        $this->apiKey  = (string) config('services.kavenegar.api_key');
-        $this->sender  = config('services.kavenegar.sender');
+        // .env wins; otherwise the admin panel's SMS tab (Kavenegar is the only gateway supported here)
+        $provider = (string) $this->setting('sms_provider');
+        $fromPanel = in_array($provider, ['', 'kavenegar'], true);
+
+        $this->apiKey  = (string) (config('services.kavenegar.api_key') ?: ($fromPanel ? $this->setting('sms_api_key') : ''));
+        $this->sender  = config('services.kavenegar.sender') ?: ($fromPanel ? $this->setting('sms_sender') : null);
         $this->baseUrl = "https://api.kavenegar.com/v1/{$this->apiKey}/sms/send.json";
+    }
+
+    public function isConfigured(): bool
+    {
+        return filled($this->apiKey);
+    }
+
+    /** Text message to every configured admin number. False when nothing was sent. */
+    public function notifyAdmins(string $message): bool
+    {
+        $numbers = $this->getAdminNumbers();
+
+        return $numbers !== [] && $this->send($numbers, $message);
+    }
+
+    private function setting(string $key): ?string
+    {
+        try {
+            $value = Setting::get($key);
+
+            return $value === null ? null : (string) $value;
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     /**
@@ -81,16 +110,13 @@ class SmsService
     }
 
     /**
-     * Get admin notification numbers from config (comma separated in .env).
+     * Admin notification numbers: .env (comma separated) plus the admin panel's
+     * Contact tab ("SMS notification numbers", comma / space / line separated).
      */
     protected function getAdminNumbers(): array
     {
-        $raw = (string) config('services.kavenegar.review_notify_numbers');
+        $raw = config('services.kavenegar.review_notify_numbers') . ',' . $this->setting('contact_notify_sms');
 
-        if (blank($raw)) {
-            return [];
-        }
-
-        return array_values(array_filter(array_map('trim', explode(',', $raw))));
+        return array_values(array_unique(array_filter(array_map('trim', preg_split('/[\s,;]+/', $raw)))));
     }
 }

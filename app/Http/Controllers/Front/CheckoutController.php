@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Services\AdminNotifier;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -113,6 +114,12 @@ class CheckoutController extends Controller
         } catch (\Symfony\Component\HttpKernel\Exception\HttpException $e) {
             return redirect()->route('cart.index')->with('error', $e->getMessage());
         }
+
+        AdminNotifier::dispatch('سفارش جدید', [
+            'شماره سفارش: ' . $order->order_number,
+            'مشتری: ' . $order->customer_name . ($order->customer_phone ? ' — ' . $order->customer_phone : ''),
+            'مبلغ: ' . $order->formatted_total,
+        ], AdminNotifier::adminUrl('orders'));
 
         return redirect()->route('payment.index', $order);
     }

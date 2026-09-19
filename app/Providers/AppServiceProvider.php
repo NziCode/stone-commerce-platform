@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Translation;
 use App\Observers\TranslationObserver;
+use App\Support\MailSettings;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         Translation::observe(TranslationObserver::class);
+        MailSettings::apply();
     }
 }
