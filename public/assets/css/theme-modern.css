@@ -666,23 +666,6 @@ body{ background:var(--stone-50); }
 .mt-contact-card a{ color:var(--brand); text-decoration:none; font-weight:600; font-size:.9rem; word-break:break-all; }
 .mt-contact-card a:hover{ color:var(--ink); }
 .mt-contact-card span{ font-size:.78rem; color:var(--stone-500); line-height:1.5; }
-.mt-cert-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin:1.5rem 0 2rem; }
-.mt-cert-card{ background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); padding:1.5rem 1.1rem; text-align:center; box-shadow:var(--shadow-sm); }
-.mt-cert-card .ico{ width:52px; height:52px; border-radius:50%; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; margin:0 auto .9rem; }
-.mt-cert-card .ico svg{ width:24px; height:24px; }
-.mt-cert-card strong{ display:block; color:var(--ink); font-size:.92rem; margin-bottom:.25rem; }
-.mt-cert-card span{ font-size:.76rem; color:var(--stone-500); display:block; line-height:1.5; }
-@media (max-width:767px){ .mt-cert-grid{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:480px){ .mt-cert-grid{ grid-template-columns:1fr; } }
-
-/* Mine / quarry list (used inside CMS page content, e.g. Our Mines page) */
-.mt-mine-list{ display:grid; gap:1rem; margin:1.5rem 0 2rem; }
-.mt-mine-card{ display:flex; gap:1.1rem; align-items:flex-start; background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); padding:1.3rem 1.5rem; box-shadow:var(--shadow-sm); }
-.mt-mine-card .ico{ width:48px; height:48px; border-radius:12px; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.mt-mine-card .ico svg{ width:22px; height:22px; }
-.mt-mine-card strong{ display:block; color:var(--ink); font-size:1rem; margin-bottom:.2rem; }
-.mt-mine-card p{ margin:0; font-size:.85rem; color:var(--stone-500); line-height:1.7; }
-.mt-mine-card .tag{ display:inline-block; margin-top:.5rem; font-size:.7rem; font-weight:700; color:var(--brand); background:var(--brand-soft); border-radius:var(--radius-pill); padding:.2rem .6rem; }
 .mt-page-cover{ border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16/7; margin-bottom:2rem; background:var(--stone-50); }
 .mt-page-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
 .mt-page-cover .mt-post-img-fallback{ height:100%; }
@@ -905,11 +888,6 @@ body{ background:var(--stone-50); }
   .mt-page-cover{ aspect-ratio:16/9; margin-bottom:1.3rem; }
   .mt-post-meta{ gap:.6rem; font-size:.72rem; }
 
-  /* Mine & cert grids */
-  .mt-cert-grid{ grid-template-columns:repeat(2,1fr); gap:.8rem; }
-  .mt-cert-card{ padding:1.2rem .9rem; }
-  .mt-mine-card{ flex-direction:column; gap:.8rem; padding:1.2rem; }
-
   /* Contact cards */
   .mt-contact-card{ flex-direction:row; text-align:start; padding:1.2rem; }
   .mt-contact-card-ico{ flex-shrink:0; width:44px; height:44px; margin:0; }
@@ -927,7 +905,6 @@ body{ background:var(--stone-50); }
 @media (max-width: 480px){
   .mt-hero h1{ font-size:1.5rem; }
   .mt-cats{ grid-template-columns:repeat(2,1fr); gap:.5rem; }
-  .mt-cert-grid{ grid-template-columns:1fr; }
   .mt-stats-card{ grid-template-columns:1fr 1fr; }
   .mt-contact-card{ flex-direction:column; text-align:center; }
   .mt-contact-card-ico{ margin:0 auto; }

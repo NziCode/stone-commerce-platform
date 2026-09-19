@@ -4,7 +4,6 @@
 @section('content')
     @php
         $locale = app()->getLocale();
-        $isAbout = $page->getTranslation('slug', $locale) === 'about';
     @endphp
 
     @include('front.components.breadcrumb', [
@@ -34,27 +33,8 @@
                             <div class="mt-page-cover"><span class="mt-post-img-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/></svg></span></div>
                         @endif
 
-                        @if($isAbout)
-                            @php
-                                $aboutYears = \App\Models\Setting::get('about_years', '25');
-                            @endphp
-                            <div class="mt-stats-card" style="margin-bottom:2.2rem;box-shadow:var(--shadow-sm);border:1px solid var(--stone-100)">
-                                <div class="mt-stat"><strong>{{ $aboutYears }}+</strong><span>{{ __('messages.experience_years') }}</span></div>
-                                <div class="mt-stat"><strong>{{ \App\Models\Category::count() }}+</strong><span>{{ __('messages.stone_categories') }}</span></div>
-                                <div class="mt-stat"><strong>{{ \App\Models\Product::count() }}+</strong><span>{{ __('messages.products') }}</span></div>
-                                <div class="mt-stat"><strong>50+</strong><span>{{ __('messages.countries') ?? 'Countries' }}</span></div>
-                            </div>
-                        @endif
-
                         <div class="mt-prose">{!! $page->getTranslation('content', $locale) !!}</div>
 
-                        @if($isAbout)
-                            <div class="mt-band mt-on-dark" style="margin-top:2.4rem;text-align:center">
-                                <h3 class="mt-heading" style="color:#fff;margin-bottom:.6rem">{{ __('messages.any_questions') }}</h3>
-                                <p style="color:rgba(255,255,255,.78);margin-bottom:1.4rem">{{ __('messages.find_your_stone') }}</p>
-                                <a href="{{ route('contact') }}" class="mt-btn mt-btn-primary">{{ __('messages.contact') }}</a>
-                            </div>
-                        @endif
                     </div>
 
                     <div class="col-lg-4 order-lg-2 order-1 pt-10 pt-lg-0">
