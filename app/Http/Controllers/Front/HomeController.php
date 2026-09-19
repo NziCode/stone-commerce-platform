@@ -23,7 +23,7 @@ class HomeController extends Controller
         $this->setSeo(
             title:          $siteName,
             description:    $desc ? \Str::limit(strip_tags($desc), 155) : '',
-            image:          Setting::get('og_image') ?: Setting::get('site_logo'),
+            image:          (string) (Setting::get('og_image') ?: Setting::get('site_logo')),
             appendSiteName: false,
         );
         $sliders = Slider::active()->get();
@@ -54,22 +54,26 @@ class HomeController extends Controller
             ->limit(3)
             ->get();
 
-        // This site shows our own exhibition participation history rather than
-        // a forward-looking events calendar, so prefer an ongoing exhibition
-        // if one is currently running, otherwise fall back to the most
-        // recently finished one.
-        $upcomingEvents = Event::ongoing()
+        // Homepage exhibition banner: prefer what is running now / coming next,
+        // otherwise the latest held exhibition. The banner is photo-led, so only
+        // exhibitions that already have an image are eligible — an upcoming one
+        // takes over automatically as soon as its cover is uploaded.
+        $upcomingEvents = Event::published()
+            ->current()
             ->with('media')
-            ->orderBy('starts_at', 'desc')
-            ->limit(3)
-            ->get();
+            ->limit(6)
+            ->get()
+            ->filter(fn (Event $e) => $e->has_image)
+            ->values();
 
         if ($upcomingEvents->isEmpty()) {
-            $upcomingEvents = Event::finished()
+            $upcomingEvents = Event::published()
+                ->finished()
                 ->with('media')
-                ->orderBy('ends_at', 'desc')
-                ->limit(3)
-                ->get();
+                ->limit(6)
+                ->get()
+                ->filter(fn (Event $e) => $e->has_image)
+                ->values();
         }
 
         return view('front.home', compact(

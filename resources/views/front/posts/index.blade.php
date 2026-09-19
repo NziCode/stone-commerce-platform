@@ -91,13 +91,13 @@
                         <div class="sidebar-widget">
                             <h3 class="sidebar-title">{{ __('messages.exhibitions') }}</h3>
                             <div style="display:grid;gap:.9rem">
-                                @forelse(\App\Models\Event::upcoming()->limit(3)->get() as $event)
+                                @forelse(\App\Models\Event::published()->current()->limit(3)->get() as $event)
                                     <a href="{{ route('events.show', $event->getTranslation('slug', $locale)) }}" style="text-decoration:none;display:block">
                                         <strong style="display:block;font-size:.85rem;color:var(--ink);line-height:1.4">
                                             {{ Str::limit($event->getTranslation('title', $locale), 50) }}
                                         </strong>
                                         <span style="font-size:.72rem;color:var(--brand)">
-                                            {{ $event->starts_at?->format('d M Y') }}
+                                            {{ $event->date_text }}
                                         </span>
                                     </a>
                                 @empty

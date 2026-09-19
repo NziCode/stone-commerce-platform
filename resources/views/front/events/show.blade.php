@@ -1,197 +1,184 @@
 @extends('front.layouts.app')
 
-@section('title', $event->getTranslation('title', app()->getLocale()) . ' — ' . \App\Models\Setting::get('site_name'))
+@section('title', $event->getTranslation('title', $locale) . ' — ' . \App\Models\Setting::get('site_name'))
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
-    <style>
-        .event-status-badge {
-            display: inline-block; padding: 5px 16px;
-            font-size: 13px; font-weight: 700; margin-bottom: 16px;
-        }
-        .status-upcoming { background: #e8f0fe; color: #1a56db; }
-        .status-ongoing  { background: #e8f7ee; color: #2d8a4e; }
-        .status-finished { background: #f0f0f0; color: #888; }
+    <link rel="stylesheet" href="{{ asset('assets/css/exhibitions.css') }}?v={{ @filemtime(public_path('assets/css/exhibitions.css')) ?: 1 }}">
+@endpush
 
-        .event-cover { width: 100%; height: 420px; object-fit: cover; display: block; }
-
-        .event-description { font-size: 15px; color: #444; line-height: 1.9; margin-top: 24px; }
-        .event-description img { max-width: 100%; height: auto; margin: 16px 0; }
-
-        /* ── Gallery ─────────────────────────────────── */
-        .event-gallery { margin-top: 30px; }
-        .event-gallery img {
-            width: 100%; height: 160px; object-fit: cover; cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .event-gallery img:hover { opacity: 0.85; }
-
-        /* ── Sidebar info widget ─────────────────────── */
-        .event-info-widget { background: #00225a; padding: 28px 24px; }
-        .event-info-widget h3.title {
-            color: #fff; font-size: 18px; margin-bottom: 18px;
-            padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.15);
-        }
-        .event-info-widget ul { list-style: none; padding: 0; margin: 0; }
-        .event-info-widget ul li {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 0; font-size: 13px; color: rgba(255,255,255,0.65);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .event-info-widget ul li:last-child { border-bottom: none; }
-        .event-info-widget ul li span { color: #fff; font-weight: 600; text-align: end; }
-
-        .event-info-widget .website-btn {
-            display: block; text-align: center; margin-top: 20px;
-            padding: 10px; background: #ff5e13; color: #fff;
-            font-size: 14px; font-weight: 600; text-decoration: none;
-        }
-        .event-info-widget .website-btn:hover { background: #e04d00; color: #fff; }
-
-        .sidebar-cta { background: #ff5e13; padding: 24px 20px; text-align: center; margin-top: 24px; }
-        .sidebar-cta h4 { color: #fff; font-size: 15px; margin-bottom: 14px; }
-
-        [dir="rtl"] .event-info-widget ul li span { text-align: start; }
-    </style>
+@push('scripts')
+    <script src="{{ asset('assets/js/exhibitions.js') }}?v={{ @filemtime(public_path('assets/js/exhibitions.js')) ?: 1 }}" defer></script>
 @endpush
 
 @section('content')
+    @php
+        $title   = $event->getTranslation('title', $locale);
+        $gallery = $event->getMedia('gallery');
+        $videos  = $event->getMedia('videos');
+        $venue   = $event->venueText($locale);
+        $organizer = $event->getTranslation('organizer_name', $locale);
+        $rtl     = in_array($locale, ['fa', 'ar']);
+        $icon    = fn (string $paths) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">' . $paths . '</svg>';
+    @endphp
 
     @include('front.components.breadcrumb', [
         'subtitle' => __('messages.events'),
-        'title'    => $event->getTranslation('title', app()->getLocale()),
+        'title'    => $title,
         'crumbs'   => [
             ['label' => __('messages.events'), 'url' => route('events.index')],
-            ['label' => Str::limit($event->getTranslation('title', app()->getLocale()), 40)],
+            ['label' => Str::limit($title, 40)],
         ],
     ])
 
-    <div class="event-detail-area py-140">
-        <div class="container">
+    <div class="mt-section">
+        <div class="mt-container">
             <div class="row">
 
                 {{-- ── Main content ── --}}
-                <div class="col-lg-8">
+                <div class="col-lg-8 order-lg-1 order-2">
 
-                    <span class="event-status-badge status-{{ $event->status }}">
-                        {{ $event->status_label }}
-                    </span>
-
-                    <div class="event-cover-wrap mb-6">
-                        <img class="event-cover" src="{{ $event->cover_url }}"
-                             alt="{{ $event->getTranslation('title', app()->getLocale()) }}">
+                    <div class="exh-hero">
+                        <img src="{{ $event->cover_url }}" alt="{{ $title }}">
+                        <span class="exh-badge {{ $event->badgeClass() }}">{{ $event->status_label }}</span>
                     </div>
 
-                    @if($event->getTranslation('description', app()->getLocale()))
-                        <div class="event-description">
-                            {!! $event->getTranslation('description', app()->getLocale()) !!}
-                        </div>
+                    <div class="exh-meta" style="font-size:.86rem;margin-bottom:1rem">
+                        <span>{!! $icon('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>') !!} {{ $event->date_text }}</span>
+                        @if($venue)
+                            <span>{!! $icon('<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>') !!} {{ $venue }}</span>
+                        @endif
+                    </div>
+
+                    <h2 class="exh-title">{{ $title }}</h2>
+
+                    @if(trim(strip_tags((string) $event->getTranslation('description', $locale))) !== '')
+                        <div class="exh-prose">{!! $event->renderedDescription($locale) !!}</div>
                     @endif
 
-                    {{-- Gallery --}}
-                    @if($event->getMedia('gallery')->count())
-                        <h3 style="color:#00225a;font-size:20px;margin:30px 0 16px">
-                            {{ app()->getLocale() === 'fa' ? 'گالری تصاویر' : 'Photo Gallery' }}
-                        </h3>
-                        <div class="event-gallery row">
-                            @foreach($event->getMedia('gallery') as $media)
-                                <div class="col-md-4 col-sm-6 mb-4">
-                                    <a href="{{ $media->getUrl() }}" data-fancybox="event-gallery">
-                                        <img src="{{ $media->getUrl('thumb') ?? $media->getUrl() }}" alt="gallery">
-                                    </a>
-                                </div>
+                    {{-- Photo gallery --}}
+                    @if($gallery->count())
+                        <div class="exh-gallery-head">
+                            <h2>{{ __('messages.exh_gallery') }}</h2>
+                            <span>{{ $event->photo_count_label }}</span>
+                        </div>
+                        <div class="exh-gallery"
+                             data-exh-labels
+                             data-exh-close="{{ __('messages.exh_close') }}"
+                             data-exh-prev="{{ __('messages.exh_prev') }}"
+                             data-exh-next="{{ __('messages.exh_next') }}">
+                            @foreach($gallery as $media)
+                                @php $caption = $event->galleryCaption($media, $locale); @endphp
+                                <a href="{{ $media->getUrl() }}"
+                                   data-exh-lightbox
+                                   data-caption="{{ $caption }}"
+                                   aria-label="{{ $caption !== '' ? $caption : $title . ' — ' . $loop->iteration }}">
+                                    <img src="{{ $media->hasGeneratedConversion('thumb') ? $media->getUrl('thumb') : $media->getUrl() }}"
+                                         alt="{{ $caption !== '' ? $caption : $title }}"
+                                         loading="lazy" decoding="async">
+                                </a>
                             @endforeach
+                        </div>
+                    @elseif($event->status === 'finished')
+                        <div class="exh-soon">
+                            {!! $icon('<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>') !!}
+                            <span>{{ __('messages.exh_gallery_soon') }}</span>
                         </div>
                     @endif
 
                     {{-- Videos --}}
-                    @if($event->getMedia('videos')->count())
-                        <h3 style="color:#00225a;font-size:20px;margin:30px 0 16px">
-                            {{ app()->getLocale() === 'fa' ? 'ویدیوها' : 'Videos' }}
-                        </h3>
-                        <div class="event-videos row">
-                            @foreach($event->getMedia('videos') as $media)
-                                <div class="col-md-6 mb-4">
-                                    <video controls
-                                           style="width:100%;background:#000"
-                                           @if($media->getUrl('poster')) poster="{{ $media->getUrl('poster') }}" @endif>
-                                        <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
-                                    </video>
-                                </div>
+                    @if($videos->count())
+                        <div class="exh-gallery-head">
+                            <h2>{{ __('messages.exh_videos') }}</h2>
+                        </div>
+                        <div class="exh-videos">
+                            @foreach($videos as $media)
+                                <video controls preload="metadata"
+                                       @if($media->hasGeneratedConversion('poster')) poster="{{ $media->getUrl('poster') }}" @endif>
+                                    <source src="{{ $media->getUrl() }}" type="{{ $media->mime_type }}">
+                                </video>
                             @endforeach
                         </div>
                     @endif
 
+                    <div style="margin-top:2.4rem">
+                        <a class="mt-btn mt-btn-outline" href="{{ route('events.index') }}">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="{{ $rtl ? '' : 'transform:scaleX(-1)' }}"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            {{ __('messages.exh_back') }}
+                        </a>
+                    </div>
                 </div>
 
                 {{-- ── Sidebar ── --}}
-                <div class="col-lg-4 pt-9 pt-lg-0
-                    @if(in_array(app()->getLocale(), ['fa','ar'])) pe-lg-9 @else ps-lg-9 @endif">
+                <div class="col-lg-4 order-lg-2 order-1 pt-10 pt-lg-0">
+                    <div style="display:grid;gap:1.6rem">
 
-                    <div class="event-info-widget mb-6">
-                        <h3 class="title">{{ __('messages.events') }}</h3>
-                        <ul>
-                            @if($event->starts_at)
-                                <li>
-                                    {{ __('messages.event_start_date') }}
-                                    <span>{{ $event->starts_at->format('d M Y') }}</span>
-                                </li>
+                        <div class="exh-facts">
+                            <h3>{{ __('messages.exh_details') }}</h3>
+                            <dl>
+                                <div class="row-item">
+                                    <dt>{{ __('messages.exh_dates') }}</dt>
+                                    <dd>{{ $event->date_text }}</dd>
+                                </div>
+                                @if($venue)
+                                    <div class="row-item">
+                                        <dt>{{ __('messages.exh_venue') }}</dt>
+                                        <dd>{{ $venue }}</dd>
+                                    </div>
+                                @endif
+                                @if($organizer)
+                                    <div class="row-item">
+                                        <dt>{{ __('messages.exh_organizer') }}</dt>
+                                        <dd>{{ $organizer }}</dd>
+                                    </div>
+                                @endif
+                                @if($event->hall_number)
+                                    <div class="row-item">
+                                        <dt>{{ __('admin.hall_number') }}</dt>
+                                        <dd>{{ $event->hall_number }}</dd>
+                                    </div>
+                                @endif
+                                @if($event->booth_number)
+                                    <div class="row-item">
+                                        <dt>{{ __('admin.booth_number') }}</dt>
+                                        <dd>{{ $event->booth_number }}</dd>
+                                    </div>
+                                @endif
+                            </dl>
+                            @if($event->website_url)
+                                <a href="{{ $event->website_url }}" target="_blank" rel="noopener noreferrer" class="mt-btn mt-btn-primary exh-site">
+                                    {{ __('messages.event_website') }}
+                                </a>
                             @endif
-                            @if($event->ends_at)
-                                <li>
-                                    {{ __('messages.event_end_date') }}
-                                    <span>{{ $event->ends_at->format('d M Y') }}</span>
-                                </li>
-                            @endif
-                            @if($event->getTranslation('location', app()->getLocale()))
-                                <li>
-                                    {{ __('admin.address') }}
-                                    <span>{{ $event->getTranslation('location', app()->getLocale()) }}</span>
-                                </li>
-                            @endif
-                            @if($event->city)
-                                <li>
-                                    {{ __('admin.city') }}
-                                    <span>{{ $event->city }}</span>
-                                </li>
-                            @endif
-                            @if($event->country)
-                                <li>
-                                    {{ __('admin.country') }}
-                                    <span>{{ $event->country }}</span>
-                                </li>
-                            @endif
-                            @if($event->hall_number)
-                                <li>
-                                    {{ __('admin.hall_number') }}
-                                    <span>{{ $event->hall_number }}</span>
-                                </li>
-                            @endif
-                            @if($event->booth_number)
-                                <li>
-                                    {{ __('admin.booth_number') }}
-                                    <span>{{ $event->booth_number }}</span>
-                                </li>
-                            @endif
-                        </ul>
-                        @if($event->website_url)
-                            <a href="{{ $event->website_url }}" target="_blank" rel="noopener noreferrer" class="website-btn">
-                                {{ __('messages.event_website') }}
+                        </div>
+
+                        <div class="sidebar-widget">
+                            <h3 class="sidebar-title">{{ __('messages.any_questions') }}</h3>
+                            <a href="{{ route('contact') }}" class="mt-btn mt-btn-ink" style="width:100%;justify-content:center">
+                                {{ __('messages.contact') }}
                             </a>
+                        </div>
+
+                        @if($otherEvents->count())
+                            <div class="sidebar-widget">
+                                <h3 class="sidebar-title">{{ __('messages.exh_other') }}</h3>
+                                <div style="display:grid;gap:1rem">
+                                    @foreach($otherEvents as $other)
+                                        <a class="exh-other" href="{{ route('events.show', $other->getTranslation('slug', $locale)) }}">
+                                            <span class="thumb"><img src="{{ $other->thumb_url }}" alt="" loading="lazy"></span>
+                                            <span>
+                                                <strong>{{ Str::limit($other->getTranslation('title', $locale), 60) }}</strong>
+                                                <small>{{ $other->date_text }}</small>
+                                            </span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         @endif
-                    </div>
 
-                    <div class="sidebar-cta">
-                        <h4>{{ __('messages.any_questions') }}</h4>
-                        <a href="{{ route('contact') }}" class="btn btn-custom btn-primary btn-white-hover" style="width:100%">
-                            {{ __('messages.contact') }}
-                        </a>
                     </div>
-
                 </div>
 
             </div>
         </div>
     </div>
-
 @endsection

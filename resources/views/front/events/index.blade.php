@@ -3,260 +3,125 @@
 @section('title', __('messages.events') . ' — ' . \App\Models\Setting::get('site_name'))
 
 @push('styles')
-    <style>
-        /* ── Status badges ──────────────────────────── */
-        .event-status-badge {
-            display: inline-block; padding: 4px 14px;
-            font-size: 12px; font-weight: 700; letter-spacing: 0.3px;
-        }
-        .status-upcoming { background: #e8f0fe; color: #1a56db; }
-        .status-ongoing  { background: #e8f7ee; color: #2d8a4e; }
-        .status-finished { background: #f0f0f0; color: #888; }
+    <link rel="stylesheet" href="{{ asset('assets/css/exhibitions.css') }}?v={{ @filemtime(public_path('assets/css/exhibitions.css')) ?: 1 }}">
+@endpush
 
-        /* ── Section heading ────────────────────────── */
-        .events-section-title {
-            font-size: 28px; color: #00225a; font-weight: 700;
-            margin-bottom: 30px; padding-bottom: 12px;
-            border-bottom: 2px solid #f0f0f0; position: relative;
-        }
-        .events-section-title::after {
-            content: ''; position: absolute; bottom: -2px; left: 0;
-            width: 60px; height: 2px; background: #ff5e13;
-        }
-        [dir="rtl"] .events-section-title::after { left: auto; right: 0; }
-
-        /* ── Event card ─────────────────────────────── */
-        .event-card {
-            border: 1px solid #eee; height: 100%;
-            transition: box-shadow 0.3s ease;
-            display: flex; flex-direction: column;
-        }
-        .event-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-        .event-card .event-img { position: relative; overflow: hidden; }
-        .event-card .event-img img {
-            width: 100%; height: 220px; object-fit: cover;
-            transition: transform 0.4s ease; display: block;
-        }
-        .event-card:hover .event-img img { transform: scale(1.05); }
-        .event-card .event-img .event-status-badge {
-            position: absolute; top: 12px; inset-inline-start: 12px; z-index: 2;
-        }
-        .event-card .event-body { padding: 18px; flex: 1; display: flex; flex-direction: column; }
-        .event-card .event-date {
-            font-size: 13px; color: #ff5e13; font-weight: 600; margin-bottom: 8px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .event-card .event-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
-        .event-card .event-title a { color: #00225a; }
-        .event-card .event-title a:hover { color: #ff5e13; }
-        .event-card .event-location {
-            font-size: 13px; color: #888; margin-top: auto; padding-top: 10px;
-            display: flex; align-items: center; gap: 6px;
-        }
-
-        /* ── Featured (first upcoming) card ─────────── */
-        .event-featured {
-            display: flex; border: 1px solid #eee; margin-bottom: 40px;
-            overflow: hidden;
-        }
-        .event-featured .featured-img { width: 45%; flex-shrink: 0; }
-        .event-featured .featured-img img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 320px; }
-        .event-featured .featured-body { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
-        .event-featured .featured-body .event-title { font-size: 28px; margin-bottom: 14px; }
-        .event-featured .featured-body .event-desc { font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 20px; }
-        @media (max-width: 768px) {
-            .event-featured { flex-direction: column; }
-            .event-featured .featured-img { width: 100%; }
-        }
-
-        /* ── Empty state ─────────────────────────────── */
-        .events-empty { text-align: center; padding: 40px 20px; color: #999; font-size: 14px; }
-    </style>
+@push('scripts')
+    <script src="{{ asset('assets/js/exhibitions.js') }}?v={{ @filemtime(public_path('assets/js/exhibitions.js')) ?: 1 }}" defer></script>
 @endpush
 
 @section('content')
+    @php
+        $num = fn (int $n) => $locale === 'fa' ? \App\Support\Jalali::toPersianDigits($n) : $n;
+        $filters = [
+            'all'     => ['label' => __('messages.exh_filter_all'),     'count' => $num($currentEvents->count() + $heldEvents->count())],
+            'ongoing' => ['label' => __('messages.exh_filter_ongoing'), 'count' => $num($currentEvents->count())],
+            'held'    => ['label' => __('messages.exh_filter_held'),    'count' => $num($heldEvents->count())],
+        ];
+        $featured = $currentEvents->first();
+    @endphp
 
     @include('front.components.breadcrumb', [
         'subtitle' => \App\Models\Setting::get('site_name'),
         'title'    => __('messages.events'),
+        'desc'     => __('messages.exh_intro'),
     ])
 
-    <div class="events-area py-140">
-        <div class="container">
+    <div class="mt-section">
+        <div class="mt-container" data-exh-filter="{{ $filter }}">
 
-            {{-- ═══ Upcoming Events ═══ --}}
-            @if($upcomingEvents->count())
-                <div class="upcoming-events mb-9">
-                    <h2 class="events-section-title">{{ __('admin.upcoming') }}</h2>
+            {{-- ── Filter ── --}}
+            <ul class="exh-filters" role="group" aria-label="{{ __('messages.events') }}">
+                @foreach($filters as $key => $item)
+                    <li>
+                        <a href="{{ $key === 'all' ? route('events.index') : route('events.index', ['filter' => $key]) }}"
+                           class="exh-filter {{ $filter === $key ? 'is-active' : '' }}"
+                           data-exh-pill="{{ $key }}"
+                           aria-pressed="{{ $filter === $key ? 'true' : 'false' }}">
+                            {{ $item['label'] }}
+                            <span class="count">{{ $item['count'] }}</span>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
 
-                    {{-- Featured: first upcoming event --}}
-                    @php $featured = $upcomingEvents->first(); @endphp
-                    <div class="event-featured">
-                        <div class="featured-img">
-                            <img src="{{ $featured->cover_url }}"
-                                 alt="{{ $featured->getTranslation('title', app()->getLocale()) }}">
-                        </div>
-                        <div class="featured-body">
-                            <span class="event-status-badge status-upcoming mb-3" style="width:fit-content">
-                                {{ $featured->status_label }}
-                            </span>
-                            <h3 class="event-title">
-                                <a href="{{ route('events.show', $featured->getTranslation('slug', app()->getLocale())) }}">
-                                    {{ $featured->getTranslation('title', app()->getLocale()) }}
-                                </a>
-                            </h3>
-                            @if($featured->getTranslation('description', app()->getLocale()))
-                                <p class="event-desc">
-                                    {{ Str::limit($featured->getTranslation('description', app()->getLocale()), 180) }}
-                                </p>
-                            @endif
-                            <div class="event-date mb-2">
-                                <i class="fa fa-calendar"></i>
-                                {{ $featured->starts_at?->format('d M Y') }}
-                                @if($featured->ends_at) — {{ $featured->ends_at->format('d M Y') }} @endif
+            {{-- ═══ Ongoing & upcoming ═══ --}}
+            <section class="exh-section" data-exh-section="ongoing">
+                <div class="exh-section-head">
+                    <span class="dot"></span>
+                    <h2>{{ __('messages.exh_filter_ongoing') }}</h2>
+                </div>
+
+                @if($featured)
+                    @php
+                        $fUrl   = route('events.show', $featured->getTranslation('slug', $locale));
+                        $fVenue = $featured->venueText($locale);
+                    @endphp
+                    <article class="exh-featured">
+                        <a class="exh-featured-media" href="{{ $fUrl }}" tabindex="-1" aria-hidden="true">
+                            <img src="{{ $featured->cover_url }}" alt="" loading="lazy">
+                        </a>
+                        <div class="exh-featured-body">
+                            <span class="exh-badge {{ $featured->badgeClass() }}" style="width:fit-content">{{ $featured->status_label }}</span>
+                            <h3><a href="{{ $fUrl }}">{{ $featured->getTranslation('title', $locale) }}</a></h3>
+                            <div class="exh-meta" style="font-size:.86rem">
+                                <span>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                                    {{ $featured->date_text }}
+                                </span>
+                                @if($fVenue)
+                                    <span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                        {{ $fVenue }}
+                                    </span>
+                                @endif
                             </div>
-                            @if($featured->city || $featured->getTranslation('location', app()->getLocale()))
-                                <div class="event-location mb-4" style="padding-top:0">
-                                    <i class="fa fa-map-marker"></i>
-                                    {{ $featured->getTranslation('location', app()->getLocale()) }}
-                                    @if($featured->city), {{ $featured->city }}@endif
-                                </div>
+                            @if($excerpt = $featured->excerpt(260, $locale))
+                                <p>{{ $excerpt }}</p>
                             @endif
-                            <a href="{{ route('events.show', $featured->getTranslation('slug', app()->getLocale())) }}"
-                               class="btn btn-custom btn-primary btn-secondary-hover" style="width:fit-content">
-                                {{ __('messages.view_details') }}
-                            </a>
+                            <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+                                <a href="{{ $fUrl }}" class="mt-btn mt-btn-primary">{{ __('messages.view_details') }}</a>
+                                @if($featured->website_url)
+                                    <a href="{{ $featured->website_url }}" target="_blank" rel="noopener noreferrer" class="mt-btn mt-btn-outline">{{ __('messages.event_website') }}</a>
+                                @endif
+                            </div>
                         </div>
-                    </div>
+                    </article>
 
-                    {{-- Remaining upcoming events --}}
-                    @if($upcomingEvents->count() > 1)
-                        <div class="row">
-                            @foreach($upcomingEvents->skip(1) as $event)
-                                <div class="col-md-4 col-sm-6 mb-6">
-                                    <div class="event-card">
-                                        <div class="event-img">
-                                            <span class="event-status-badge status-upcoming">{{ $event->status_label }}</span>
-                                            <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                                <img src="{{ $event->cover_url }}"
-                                                     alt="{{ $event->getTranslation('title', app()->getLocale()) }}">
-                                            </a>
-                                        </div>
-                                        <div class="event-body">
-                                            <span class="event-date">
-                                                <i class="fa fa-calendar"></i>
-                                                {{ $event->starts_at?->format('d M Y') }}
-                                            </span>
-                                            <h4 class="event-title">
-                                                <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                                    {{ $event->getTranslation('title', app()->getLocale()) }}
-                                                </a>
-                                            </h4>
-                                            @if($event->city)
-                                                <span class="event-location">
-                                                    <i class="fa fa-map-marker"></i> {{ $event->city }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
+                    @if($currentEvents->count() > 1)
+                        <div class="row g-4">
+                            @foreach($currentEvents->skip(1) as $event)
+                                <div class="col-md-6 col-lg-4">
+                                    @include('front.components.event-card', ['event' => $event, 'locale' => $locale])
                                 </div>
                             @endforeach
                         </div>
                     @endif
-                </div>
-            @endif
+                @else
+                    <p class="exh-empty">{{ __('messages.exh_empty_ongoing') }}</p>
+                @endif
+            </section>
 
-            {{-- ═══ Ongoing Events ═══ --}}
-            @if($ongoingEvents->count())
-                <div class="ongoing-events mb-9">
-                    <h2 class="events-section-title">{{ __('admin.ongoing') }}</h2>
-                    <div class="row">
-                        @foreach($ongoingEvents as $event)
-                            <div class="col-md-4 col-sm-6 mb-6">
-                                <div class="event-card">
-                                    <div class="event-img">
-                                        <span class="event-status-badge status-ongoing">{{ $event->status_label }}</span>
-                                        <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                            <img src="{{ $event->cover_url }}"
-                                                 alt="{{ $event->getTranslation('title', app()->getLocale()) }}">
-                                        </a>
-                                    </div>
-                                    <div class="event-body">
-                                        <span class="event-date">
-                                            <i class="fa fa-calendar"></i>
-                                            {{ $event->starts_at?->format('d M Y') }}
-                                            @if($event->ends_at) — {{ $event->ends_at->format('d M Y') }} @endif
-                                        </span>
-                                        <h4 class="event-title">
-                                            <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                                {{ $event->getTranslation('title', app()->getLocale()) }}
-                                            </a>
-                                        </h4>
-                                        @if($event->city)
-                                            <span class="event-location">
-                                                <i class="fa fa-map-marker"></i> {{ $event->city }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+            {{-- ═══ Held ═══ --}}
+            <section class="exh-section" data-exh-section="held">
+                <div class="exh-section-head">
+                    <span class="dot is-held"></span>
+                    <h2>{{ __('messages.exh_filter_held') }}</h2>
+                </div>
+
+                @if($heldEvents->count())
+                    <div class="row g-4">
+                        @foreach($heldEvents as $event)
+                            <div class="col-md-6 col-lg-4">
+                                @include('front.components.event-card', ['event' => $event, 'locale' => $locale])
                             </div>
                         @endforeach
-                    </div>
-                </div>
-            @endif
-
-            {{-- ═══ Finished Events ═══ --}}
-            <div class="finished-events">
-                <h2 class="events-section-title">{{ __('admin.finished') }}</h2>
-                @if($finishedEvents->count())
-                    <div class="row">
-                        @foreach($finishedEvents as $event)
-                            <div class="col-md-4 col-sm-6 mb-6">
-                                <div class="event-card" style="opacity:0.85">
-                                    <div class="event-img">
-                                        <span class="event-status-badge status-finished">{{ $event->status_label }}</span>
-                                        <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                            <img src="{{ $event->cover_url }}"
-                                                 alt="{{ $event->getTranslation('title', app()->getLocale()) }}"
-                                                 style="filter:grayscale(30%)">
-                                        </a>
-                                    </div>
-                                    <div class="event-body">
-                                        <span class="event-date">
-                                            <i class="fa fa-calendar"></i>
-                                            {{ $event->ends_at?->format('d M Y') }}
-                                        </span>
-                                        <h4 class="event-title">
-                                            <a href="{{ route('events.show', $event->getTranslation('slug', app()->getLocale())) }}">
-                                                {{ $event->getTranslation('title', app()->getLocale()) }}
-                                            </a>
-                                        </h4>
-                                        @if($event->city)
-                                            <span class="event-location">
-                                                <i class="fa fa-map-marker"></i> {{ $event->city }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="pt-8">
-                        {{ $finishedEvents->links() }}
                     </div>
                 @else
-                    <p class="events-empty">{{ __('messages.no_products') }}</p>
+                    <p class="exh-empty">{{ __('messages.exh_empty_held') }}</p>
                 @endif
-            </div>
-
-            @if(!$upcomingEvents->count() && !$ongoingEvents->count() && !$finishedEvents->count())
-                <div class="events-empty">
-                    <i class="ion-calendar" style="font-size:48px;color:#dee2e6;display:block;margin-bottom:16px"></i>
-                    {{ __('messages.no_products') }}
-                </div>
-            @endif
+            </section>
 
         </div>
     </div>
-
 @endsection

@@ -506,24 +506,24 @@
                         <span class="mt-eyebrow" style="color:var(--brand-2)">{{ __('messages.events') }}</span>
                         <h2 class="mt-heading" style="color:#fff;margin-top:.4rem">{{ $event->getTranslation('title', $locale) }}</h2>
                         <p style="color:rgba(255,255,255,.75);line-height:1.85;margin:1rem 0">
-                            {{ Str::limit($event->getTranslation('description', $locale), 180) }}
+                            {{ $event->excerpt(180, $locale) }}
                         </p>
-                        @if($event->city)
+                        @if($event->venueText($locale))
                             <p style="color:rgba(255,255,255,.85);display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                {{ $event->getTranslation('location', $locale) }}، {{ $event->city }}
+                                {{ $event->venueText($locale) }}
                             </p>
                         @endif
-                        @if($event->starts_at)
-                            <p style="color:rgba(255,255,255,.85);display:flex;align-items:center;gap:.5rem;margin-bottom:1.4rem">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                                {{ $event->starts_at->format('d M Y') }}
-                                @if($event->ends_at) — {{ $event->ends_at->format('d M Y') }} @endif
-                            </p>
-                        @endif
-                        <a class="mt-btn mt-btn-primary" href="{{ route('events.show', $event->getTranslation('slug', $locale)) }}">
-                            {{ __('messages.more_information') }}
-                        </a>
+                        <p style="color:rgba(255,255,255,.85);display:flex;align-items:center;gap:.5rem;margin-bottom:1.4rem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                            {{ $event->date_text }}
+                        </p>
+                        <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+                            <a class="mt-btn mt-btn-primary" href="{{ route('events.show', $event->getTranslation('slug', $locale)) }}">
+                                {{ $event->status === 'finished' && $event->photo_count ? __('messages.exh_view_gallery') : __('messages.more_information') }}
+                            </a>
+                            <a class="mt-btn mt-btn-ghost-white" href="{{ route('events.index') }}">{{ __('messages.exh_all_exhibitions') }}</a>
+                        </div>
                     </div>
                 </div>
             </div>

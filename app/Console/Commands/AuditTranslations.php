@@ -56,7 +56,7 @@ class AuditTranslations extends Command
             [Product::class, ['name', 'slug', 'description', 'short_description', 'meta_title', 'meta_description', 'meta_keywords']],
             [Category::class, ['name', 'slug', 'description', 'excerpt', 'meta_title', 'meta_description', 'meta_keywords']],
             [Attribute::class, ['label', 'group']],
-            [Event::class, ['title', 'slug', 'description', 'location', 'meta_title', 'meta_description']],
+            [Event::class, ['title', 'slug', 'description', 'location', 'organizer_name', 'date_label', 'meta_title', 'meta_description']],
             [MenuItem::class, ['label']],
             [Page::class, ['title', 'slug', 'content', 'excerpt', 'meta_title', 'meta_description', 'meta_keywords']],
             [Post::class, ['title', 'slug', 'excerpt', 'content', 'meta_title', 'meta_description', 'meta_keywords']],

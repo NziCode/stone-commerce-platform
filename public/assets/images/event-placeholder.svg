@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Exhibition">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe9e0"/>
+      <stop offset="1" stop-color="#f8f5f0"/>
+    </linearGradient>
+    <linearGradient id="vein" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e3dbcd" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#d8cdb8" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#e3dbcd" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <g fill="none" stroke="url(#vein)" stroke-width="2.2" stroke-linecap="round">
+    <path d="M-40 210 C 200 120, 380 320, 620 230 S 1000 120, 1240 250"/>
+    <path d="M-40 330 C 240 260, 420 430, 700 340 S 1020 260, 1240 380"/>
+    <path d="M-40 560 C 180 480, 420 640, 680 560 S 1010 470, 1240 590"/>
+    <path d="M-40 690 C 260 620, 480 760, 760 690 S 1040 630, 1240 710"/>
+  </g>
+  <g transform="translate(600 400)" fill="none" stroke="#b7a98f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".85">
+    <path d="M-150 90 V-10 L0 -90 L150 -10 V90 Z"/>
+    <path d="M-170 90 H170"/>
+    <path d="M-52 90 V20 a52 52 0 0 1 104 0 V90"/>
+    <path d="M-110 20 h30 M80 20 h30 M-110 -20 h30 M80 -20 h30"/>
+    <path d="M0 -90 V-130 M0 -130 h46 l-14 14 14 14 h-46"/>
+  </g>
+</svg>

@@ -83,7 +83,7 @@ class GenerateSitemap extends Command
         });
 
         // نمایشگاه‌ها
-        Event::chunk(50, function ($events) use ($sitemap, $locales) {
+        Event::published()->chunk(50, function ($events) use ($sitemap, $locales) {
             foreach ($events as $event) {
                 foreach ($locales as $locale) {
                     $slug = $event->getTranslation('slug', $locale, false);
