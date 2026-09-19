@@ -311,6 +311,21 @@ class Product extends Model implements HasMedia
     public function isSold(): bool       { return $this->status === 'sold'; }
     public function isReserved(): bool   { return $this->status === 'reserved'; }
 
+    /**
+     * Can go into the cart: available and sold at a fixed price. Stones with
+     * "price on request" (or no price yet) are negotiated instead — inquiry,
+     * then a reservation request with a prepayment.
+     */
+    public function isPurchasable(): bool
+    {
+        return $this->isAvailable() && ! $this->price_on_request && (float) $this->price > 0;
+    }
+
+    public function scopePurchasable($q)
+    {
+        return $q->where('status', 'available')->where('price_on_request', false)->where('price', '>', 0);
+    }
+
     public function markAsReserved(): void
     {
         $this->update(['status' => 'reserved']);
@@ -348,7 +363,8 @@ class Product extends Model implements HasMedia
     /**
      * The reservation request currently blocking this product from being
      * requested again — either awaiting admin decision, or already approved
-     * and still within its expiry window.
+     * and still holding it (within its expiry window, or prepaid and waiting
+     * for the final payment).
      */
     public function activeReservationRequest(): ?ReservationRequest
     {
@@ -358,7 +374,11 @@ class Product extends Model implements HasMedia
                     ->orWhere(function ($q) {
                         $q->where('status', 'approved')
                             ->where(function ($q) {
-                                $q->whereNull('expires_at')->orWhere('expires_at', '>', now());
+                                $q->whereNull('expires_at')
+                                    ->orWhere('expires_at', '>', now())
+                                    ->orWhere(function ($q) {
+                                        $q->whereNotNull('deposit_received_at')->whereNull('final_paid_at');
+                                    });
                             });
                     });
             })

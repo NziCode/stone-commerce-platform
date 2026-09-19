@@ -128,44 +128,9 @@ class GuidePage
         return (string) $doc->saveHTML($node);
     }
 
-    /**
-     * wa.me link with a prefilled message. Uses the "WhatsApp" social setting when
-     * it is filled in (a number or a wa.me link), otherwise the site phone number.
-     */
+    /** wa.me link to the business with a prefilled message (see App\Support\WhatsApp). */
     public static function whatsappUrl(string $message = ''): ?string
     {
-        $configured = trim((string) Setting::get('social_whatsapp', ''));
-
-        if (preg_match('#^https?://#i', $configured)) {
-            $base = $configured;
-        } else {
-            $digits = static::internationalDigits($configured !== '' ? $configured : (string) Setting::get('site_phone', ''));
-
-            if ($digits === '') {
-                return null;
-            }
-
-            $base = "https://wa.me/{$digits}";
-        }
-
-        // the text parameter only means something on chat links, not on group invites
-        if ($message === '' || ! preg_match('#(wa\.me|api\.whatsapp\.com/send|web\.whatsapp\.com/send)#i', $base)) {
-            return $base;
-        }
-
-        return $base . (str_contains($base, '?') ? '&' : '?') . 'text=' . rawurlencode($message);
-    }
-
-    /** "+98 914 …" / "0914 …" / "98914…" → "98914…" (wa.me wants country code + number, digits only). */
-    private static function internationalDigits(string $phone): string
-    {
-        $digits = preg_replace('/\D+/', '', $phone);
-
-        // an Iranian mobile number written the local way (09xx…) → 989xx…
-        if (strlen($digits) === 11 && str_starts_with($digits, '09')) {
-            $digits = '98' . substr($digits, 1);
-        }
-
-        return $digits;
+        return WhatsApp::siteUrl($message);
     }
 }

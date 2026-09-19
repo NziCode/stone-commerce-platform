@@ -15,6 +15,8 @@ class ExpireReservations extends Command
         $expired = ReservationRequest::query()
             ->where('status', 'approved')
             ->where('expires_at', '<=', now())
+            // a prepaid stone is only released by an admin (the deposit has to be settled first)
+            ->whereNull('deposit_received_at')
             ->get();
 
         foreach ($expired as $reservation) {
