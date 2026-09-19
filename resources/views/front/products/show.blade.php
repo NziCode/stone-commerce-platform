@@ -418,7 +418,24 @@
                             </div>
 
                             {{-- CTA Buttons --}}
+                            @php
+                                // chat link to the sales team with this stone (name, code, page) already in the message
+                                $waCode = $product->sku ? __('messages.pd_wa_code', ['sku' => $product->sku]) : '';
+                                $waUrl = \App\Support\WhatsApp::siteUrl(trim(preg_replace('/\s+/u', ' ', __('messages.pd_wa_message', [
+                                    'name' => $product->getTranslation('name', $locale),
+                                    'code' => $waCode,
+                                    'url'  => url()->current(),
+                                ]))));
+                            @endphp
                             <div style="display:grid;gap:.7rem">
+                                @if($waUrl)
+                                    <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="mt-btn"
+                                       style="width:100%;justify-content:center;background:#25d366;color:#04371c;border-color:#25d366;font-weight:800">
+                                        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M17.47 14.38c-.28-.14-1.64-.81-1.9-.9-.25-.1-.44-.14-.62.14-.18.27-.71.9-.87 1.08-.16.18-.32.2-.6.07-.27-.14-1.16-.43-2.2-1.36-.82-.73-1.36-1.62-1.53-1.9-.16-.27-.02-.42.12-.56.13-.13.27-.32.41-.49.14-.16.18-.27.27-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.86-2.05-.22-.54-.45-.46-.62-.47-.16 0-.34-.01-.53-.01-.18 0-.48.07-.73.34-.25.27-.96.94-.96 2.29 0 1.35.98 2.66 1.12 2.84.14.18 1.93 2.95 4.68 4.13.65.28 1.16.45 1.56.58.66.21 1.25.18 1.72.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.37 5.07L2 22l5.07-1.33A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.01.79.8-2.93-.2-.31A8.2 8.2 0 1 1 12 20.2z" fill-rule="evenodd"/></svg>
+                                        {{ __('messages.pd_wa_ask') }}
+                                    </a>
+                                @endif
+
                                 <a href="{{ route('contact') }}?product={{ $product->sku }}"
                                    class="mt-btn mt-btn-primary" style="width:100%;justify-content:center">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
@@ -426,13 +443,16 @@
                                 </a>
 
                                 @if($product->isAvailable())
-                                    <form action="{{ route('cart.add', $product) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="mt-btn mt-btn-ink" style="width:100%;justify-content:center">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                                            {{ __('messages.add_to_cart') }}
-                                        </button>
-                                    </form>
+                                    {{-- only stones with a fixed price go into the cart; the others are asked about and reserved --}}
+                                    @if($product->isPurchasable())
+                                        <form action="{{ route('cart.add', $product) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="mt-btn mt-btn-ink" style="width:100%;justify-content:center">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                                                {{ __('messages.add_to_cart') }}
+                                            </button>
+                                        </form>
+                                    @endif
 
                                     @if($product->hasActiveReservationRequest())
                                         <div style="font-size:.78rem;color:var(--stone-500);background:var(--stone-50);border:1px solid var(--stone-200);border-radius:var(--radius);padding:.6rem .8rem;text-align:center">

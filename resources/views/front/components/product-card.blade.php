@@ -76,7 +76,7 @@
                         @endif
                     @endif
                 </span>
-                @if($product->isAvailable())
+                @if($product->isPurchasable())
                     <form action="{{ route('cart.add', $product) }}" method="POST">
                         @csrf
                         <button type="submit" class="mt-pcard-add"

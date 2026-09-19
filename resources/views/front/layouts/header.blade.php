@@ -3,6 +3,8 @@
     $cartCount = auth()->check()
         ? (\App\Models\Cart::where('user_id', auth()->id())->first()?->items_count ?? 0)
         : 0;
+    // the cart only matters while some stone has a fixed price (or the visitor already has items in it)
+    $showCart = cart_enabled() || $cartCount > 0;
     $wishCount = auth()->check() && method_exists(auth()->user(), 'wishlists')
         ? auth()->user()->wishlists()->count()
         : 0;
@@ -156,10 +158,12 @@
                 @endauth
 
                 {{-- Cart --}}
+                @if($showCart)
                 <a href="#miniCart" class="mt-icon-btn minicart-btn toolbar-btn" title="{{ __('messages.cart') }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
                     <span class="mt-badge">{{ $cartCount }}</span>
                 </a>
+                @endif
 
                 {{-- Burger --}}
                 <a href="#mobileMenu" class="mt-icon-btn mt-burger mobile-menu_btn toolbar-btn">

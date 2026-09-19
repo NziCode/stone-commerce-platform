@@ -103,7 +103,9 @@
                             <li><a href="{{ route('profile.index') }}">{{ __('messages.profile') }}</a></li>
                             <li><a href="{{ route('orders.index') }}">{{ __('messages.orders') }}</a></li>
                             <li><a href="{{ route('wishlist.index') }}">{{ __('messages.wishlist') }}</a></li>
-                            <li><a href="{{ route('cart.index') }}">{{ __('messages.cart') }}</a></li>
+                            @if(cart_enabled())
+                                <li><a href="{{ route('cart.index') }}">{{ __('messages.cart') }}</a></li>
+                            @endif
                         @else
                             <li><a href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
                             <li><a href="{{ route('register') }}">{{ __('messages.register') }}</a></li>

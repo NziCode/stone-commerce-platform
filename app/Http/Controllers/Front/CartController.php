@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -47,14 +48,30 @@ class CartController extends Controller
             return back()->with('error', 'این محصول در حال حاضر موجود نیست.');
         }
 
-        // Atomic reserve — closes the race where two users both pass the
-        // isAvailable() check above before either one commits the update.
-        if (!$product->tryReserve()) {
-            return back()->with('error', 'این محصول همین الان توسط کاربر دیگری رزرو شد.');
+        // "Price on request" stones are not sold through the cart: a cart item needs a
+        // price, and the buyer should ask for a quote and reserve with a prepayment instead.
+        if (!$product->isPurchasable()) {
+            return back()->with('error', __('messages.cart_price_on_request'));
         }
 
-        $cart->addProduct($product);
-        $cart->update(['expires_at' => now()->addMinutes(30)]);
+        // Atomic reserve — closes the race where two users both pass the
+        // isAvailable() check above before either one commits the update.
+        // Everything runs in one transaction so that a failure while filling
+        // the cart can never leave the stone reserved with nobody holding it.
+        $added = DB::transaction(function () use ($cart, $product) {
+            if (!$product->tryReserve()) {
+                return false;
+            }
+
+            $cart->addProduct($product);
+            $cart->update(['expires_at' => now()->addMinutes(30)]);
+
+            return true;
+        });
+
+        if (!$added) {
+            return back()->with('error', 'این محصول همین الان توسط کاربر دیگری رزرو شد.');
+        }
 
         return back()->with('success', 'محصول به سبد خرید اضافه شد.');
     }
