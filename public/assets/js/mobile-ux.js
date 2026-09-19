@@ -2,6 +2,9 @@
    Stone Commerce — Mobile UX enhancements
    Loaded after main.js. Patches Swiper instances and adds
    mobile-specific interactions without touching the legacy file.
+   The bottom navigation itself is server-rendered
+   (resources/views/front/layouts/bottom-nav.blade.php); this file
+   only wires up its search tab and keyboard behaviour.
    ============================================================ */
 
 (function () {
@@ -75,7 +78,6 @@
         const header = document.querySelector('.mt-header');
         const logo   = document.querySelector('.mt-logo img');
         if (header && isMobile()) {
-            let lastScroll = 0;
             window.addEventListener('scroll', function () {
                 const current = window.scrollY;
                 if (current > 60) {
@@ -84,65 +86,86 @@
                 } else {
                     if (logo) logo.style.maxHeight = '';
                 }
-                lastScroll = current;
             }, { passive: true });
         }
 
-        /* ── 7. Floating bottom nav (mobile only) ── */
-        if (isMobile()) {
-            const nav = document.createElement('nav');
-            nav.id  = 'mt-bottom-nav';
-            nav.innerHTML = `
-                <a href="/" class="mt-bnav-item${window.location.pathname === '/' || window.location.pathname.endsWith('/fa') || window.location.pathname.endsWith('/en') ? ' active' : ''}">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
-                    <span data-i18n="home">خانه</span>
-                </a>
-                <a href="javascript:void(0)" class="mt-bnav-item" id="mobileSearchBtn">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <span data-i18n="search">جستجو</span>
-                </a>
-                <a href="/cart" class="mt-bnav-item" style="position:relative">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                    <span data-i18n="cart">سبد</span>
-                </a>
-                <a href="/profile" class="mt-bnav-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    <span data-i18n="profile">حساب</span>
-                </a>
-            `;
-            document.body.appendChild(nav);
-
-            /* Wire up bottom-nav search to open the header search */
-            document.getElementById('mobileSearchBtn').addEventListener('click', function () {
-                const box = document.getElementById('mtSearchBox');
-                const btn = document.getElementById('searchToggleBtn');
-                if (box) {
-                    box.classList.toggle('open');
-                    if (box.classList.contains('open')) {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        setTimeout(function () {
-                            box.querySelector('input')?.focus();
-                        }, 400);
-                    }
-                } else if (btn) {
-                    btn.click();
-                }
-            });
-
-            /* Add body bottom padding so last content isn't hidden behind nav */
-            document.body.style.paddingBottom = '68px';
-
-            /* Highlight active nav item */
-            const path = window.location.pathname;
-            nav.querySelectorAll('.mt-bnav-item[href]').forEach(function (a) {
-                if (a.getAttribute('href') !== 'javascript:void(0)' && path.includes(a.getAttribute('href').replace(/^.*\//, '/'))) {
-                    a.classList.add('active');
-                }
-            });
-        }
+        initSearchSheet();
+        initKeyboardAwareNav();
     });
 
-    /* ── 8. Smooth card press feedback (touch) ── */
+    /* ── 7. Bottom-nav search tab → full-width search sheet ────────────────
+       The old version toggled the header's desktop dropdown, which is hidden on
+       phones and was closed again by the header's own outside-click handler. */
+    function initSearchSheet() {
+        const sheet   = document.getElementById('mtSearchSheet');
+        const trigger = document.getElementById('mtBnavSearch');
+        if (!sheet || !trigger) return;
+
+        const root  = document.documentElement;
+        const input = sheet.querySelector('input[type="search"]');
+
+        function open() {
+            sheet.classList.add('open');
+            root.classList.add('mt-no-scroll');
+            trigger.setAttribute('aria-expanded', 'true');
+            /* focus after the panel is painted so mobile browsers raise the keyboard */
+            setTimeout(function () {
+                if (!input) return;
+                input.focus({ preventScroll: true });
+                input.select();
+            }, 60);
+        }
+
+        function close() {
+            sheet.classList.remove('open');
+            root.classList.remove('mt-no-scroll');
+            trigger.setAttribute('aria-expanded', 'false');
+            if (input) input.blur();
+        }
+
+        trigger.addEventListener('click', function (e) {
+            /* on phones the tab opens the sheet; the href stays as the no-JS fallback */
+            if (!isMobile()) return;
+            e.preventDefault();
+            sheet.classList.contains('open') ? close() : open();
+        });
+
+        sheet.querySelectorAll('[data-mt-search-close]').forEach(function (el) {
+            el.addEventListener('click', close);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && sheet.classList.contains('open')) close();
+        });
+
+        /* rotating the phone / resizing to a wide screen must not leave the page locked */
+        window.addEventListener('resize', function () {
+            if (!isMobile() && sheet.classList.contains('open')) close();
+        });
+
+        /* coming back with the browser's back button (bfcache) */
+        window.addEventListener('pageshow', close);
+    }
+
+    /* ── 8. Hide the bottom bar while the on-screen keyboard is up ───────── */
+    function initKeyboardAwareNav() {
+        const root = document.documentElement;
+        const isField = (el) => el && el.matches && el.matches(
+            'input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="range"]), textarea, select'
+        );
+
+        document.addEventListener('focusin', function (e) {
+            if (isMobile() && isField(e.target)) root.classList.add('mt-kbd-open');
+        });
+        document.addEventListener('focusout', function () {
+            /* wait one tick: focus may just be moving to another field */
+            setTimeout(function () {
+                if (!isField(document.activeElement)) root.classList.remove('mt-kbd-open');
+            }, 50);
+        });
+    }
+
+    /* ── 9. Smooth card press feedback (touch) ── */
     document.addEventListener('touchstart', function (e) {
         const target = e.target.closest('.mt-cat, .mt-btn, .mt-post, .mt-pcard');
         if (target) target.style.opacity = '.88';

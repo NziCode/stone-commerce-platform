@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {!! SEOMeta::generate() !!}
@@ -63,7 +63,7 @@
     @endif
 
     {{-- Modern theme layer — loaded last so it wins over the legacy template --}}
-    <link rel="stylesheet" href="{{ asset('assets/css/theme-modern.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/theme-modern.css') }}?v={{ @filemtime(public_path('assets/css/theme-modern.css')) ?: 1 }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper-bundle.min.css') }}">
 
     @stack('head_scripts')
@@ -107,6 +107,8 @@
 
 </div>
 
+@include('front.layouts.bottom-nav')
+
 <script src="{{ asset('assets/js/vendor/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') }}"></script>
@@ -117,8 +119,8 @@
 <script src="{{ asset('assets/js/plugins/tippy.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/plugins/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('assets/js/main.js') }}"></script>
-<script src="{{ asset('assets/js/mobile-ux.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}?v={{ @filemtime(public_path('assets/js/main.js')) ?: 1 }}"></script>
+<script src="{{ asset('assets/js/mobile-ux.js') }}?v={{ @filemtime(public_path('assets/js/mobile-ux.js')) ?: 1 }}"></script>
 @stack('scripts')
 </body>
 </html>

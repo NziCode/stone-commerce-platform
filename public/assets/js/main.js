@@ -694,7 +694,9 @@
     /*----------------------------------------*/
     /*  CounterUp
 /*----------------------------------------*/
-    if ($('.count').elExists()) {
+    // the counterup plugin is not loaded on this site — without this guard the TypeError
+    // aborts the rest of this file (scroll-to-top button, href="#" handling) on the home page
+    if ($('.count').elExists() && $.fn.counterUp) {
         $('.count').counterUp({
             delay: 10,
             time: 1000,

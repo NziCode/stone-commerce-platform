@@ -249,7 +249,7 @@
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button type="submit" style="background:none;border:none;padding:0;width:100%;text-align:start">
+                                        <button type="submit" class="mm-logout">
                                             <span class="mm-text">{{ __('messages.logout') }}</span>
                                         </button>
                                     </form>
