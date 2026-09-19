@@ -50,6 +50,9 @@ class SeoServiceProvider extends ServiceProvider
 
         JsonLd::setType('Organization');
         JsonLd::setTitle($siteName);
+        if ($defaultDescription) {
+            JsonLd::setDescription($defaultDescription);
+        }
         JsonLd::addValue('url', config('app.url'));
 
         if ($phone = Setting::get('site_phone')) {

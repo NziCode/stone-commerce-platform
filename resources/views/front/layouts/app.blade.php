@@ -6,7 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {!! SEOMeta::generate() !!}
+    {{-- SEOMeta prints its own <title> (the site-wide default unless a controller set a page title) and most views
+         also define @section('title'). Browsers only use the FIRST <title>, so the page's own title was ignored and
+         the default showed in the tab. Print exactly one: the controller's title when it set one, else the view's. --}}
+    @php
+        $seoHead   = SEOMeta::generate();
+        $pageTitle = null;
+
+        if (preg_match('#<title>(.*?)</title>#su', $seoHead, $seoMatch)) {
+            $seoTitle     = trim(html_entity_decode($seoMatch[1], ENT_QUOTES));
+            $defaultTitle = trim((string) \App\Models\Setting::get('meta_title', ''));
+            $viewTitle    = trim(strip_tags($__env->yieldContent('title')));
+
+            $pageTitle = ($viewTitle !== '' && ($seoTitle === '' || $seoTitle === $defaultTitle)) ? $viewTitle : $seoTitle;
+            $seoHead   = preg_replace('#<title>.*?</title>\s*#su', '', $seoHead, 1);
+        }
+    @endphp
+    <title>{{ $pageTitle ?: \App\Models\Setting::get('site_name', config('app.name')) }}</title>
+    {!! $seoHead !!}
     {!! OpenGraph::generate() !!}
     {!! JsonLd::generate() !!}
 
@@ -40,8 +57,6 @@
     @if($gsc)
         <meta name="google-site-verification" content="{{ $gsc }}">
     @endif
-
-    <title>@yield('title', \App\Models\Setting::get('site_name', config('app.name')))</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/ionicons.min.css') }}" />
