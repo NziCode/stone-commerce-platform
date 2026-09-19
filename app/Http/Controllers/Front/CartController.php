@@ -63,8 +63,16 @@ class CartController extends Controller
                 return false;
             }
 
-            $cart->addProduct($product);
-            $cart->update(['expires_at' => now()->addMinutes(30)]);
+            try {
+                $cart->addProduct($product);
+                $cart->update(['expires_at' => now()->addMinutes(30)]);
+            } catch (\Throwable $e) {
+                // MyISAM tables (the production host's default engine) ignore transactions,
+                // so put the stone back by hand before the error propagates
+                $product->markAsAvailable();
+
+                throw $e;
+            }
 
             return true;
         });
