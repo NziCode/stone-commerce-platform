@@ -92,7 +92,7 @@
 
                         <form action="{{ route('contact.store') }}" method="POST" style="display:grid;gap:1rem">
                             @csrf
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                            <div class="mt-form-pair" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
                                 <div>
                                     <input type="text" name="name" value="{{ old('name') }}"
                                            placeholder="{{ __('messages.name') }} *"
@@ -104,7 +104,7 @@
                                            class="form-control" required>
                                 </div>
                             </div>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                            <div class="mt-form-pair" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
                                 <input type="text" name="phone" value="{{ old('phone') }}"
                                        placeholder="{{ __('messages.phone') }}"
                                        class="form-control">
@@ -112,7 +112,7 @@
                                        placeholder="{{ __('messages.company') ?? 'Company' }}"
                                        class="form-control">
                             </div>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                            <div class="mt-form-pair" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
                                 <input type="text" name="country" value="{{ old('country') }}"
                                        placeholder="{{ __('admin.country') }}"
                                        class="form-control" maxlength="5">
@@ -158,7 +158,8 @@
             var lat = {{ $mapLat }};
             var lng = {{ $mapLng }};
 
-            var map = L.map(el, { scrollWheelZoom: false }).setView([lat, lng], 15);
+            // on touch screens one finger must keep scrolling the page (pinch still zooms the map)
+            var map = L.map(el, { scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false }).setView([lat, lng], 15);
 
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

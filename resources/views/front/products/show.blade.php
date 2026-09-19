@@ -47,13 +47,15 @@
 
     <div class="mt-section">
         <div class="mt-container">
-            <div class="row g-5">
+            {{-- Grid, not a Bootstrap row: on phones the columns must interleave (gallery → price & actions → details → related),
+                 see .pd-layout in theme-modern.css --}}
+            <div class="pd-layout">
 
                 {{-- ══════════ LEFT — Gallery + Tabs ══════════ --}}
-                <div class="col-lg-8">
+                <div class="pd-main">
 
                     {{-- ── Gallery ── --}}
-                    <div class="row g-3 mb-5">
+                    <div class="row g-3 mb-5 pd-gallery">
                         <div class="col-lg-8">
                             {{-- Main slider --}}
                             <div style="border-radius:var(--radius-lg);overflow:hidden;background:var(--stone-100);position:relative">
@@ -91,7 +93,7 @@
                         {{-- Thumbnail strip --}}
                         @if(($galleryMedia->count() + ($productVideo ? 1 : 0)) > 1)
                             <div class="col-lg-4">
-                                <div style="display:grid;grid-auto-rows:min-content;align-items:start;gap:.5rem;height:100%;max-height:400px;overflow-y:auto">
+                                <div class="pd-thumbs" style="display:grid;grid-auto-rows:min-content;align-items:start;gap:.5rem;height:100%;max-height:400px;overflow-y:auto">
                                     @foreach($galleryMedia as $i => $media)
                                         <div class="product-thumb-item{{ $i === 0 ? ' active-thumb' : '' }}"
                                              data-index="{{ $i }}"
@@ -117,7 +119,7 @@
                     </div>
 
                     {{-- ── Tabs: Attributes + Description ── --}}
-                    <div class="sidebar-widget" style="padding:0;overflow:hidden">
+                    <div class="sidebar-widget pd-tabs" style="padding:0;overflow:hidden">
                         {{-- Tab nav --}}
                         <div style="display:flex;border-bottom:2px solid var(--stone-100)">
                             @if($product->attributes->count())
@@ -186,10 +188,10 @@
                                             <tr style="border-bottom:1px solid var(--stone-100)">
                                                 <th style="padding:.7rem .8rem;font-size:.84rem;font-weight:600;color:var(--stone-500);width:42%;text-align:start;background:var(--stone-50)">{{ $row['label'] }}</th>
                                                 <td style="padding:.7rem .8rem;font-size:.9rem;font-weight:700;color:var(--ink)">
-                                                    {{ $row['value'] }}
+                                                    <bdi dir="ltr">{{ $row['value'] }}
                                                     @if($row['unit'])
                                                         <span style="font-size:.76rem;font-weight:400;color:var(--stone-500);margin-inline-start:4px">{{ $row['unit'] }}</span>
-                                                    @endif
+                                                    @endif</bdi>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -202,7 +204,7 @@
 
                     {{-- ── Related Products ── --}}
                     @if($relatedProducts->count())
-                        <div style="margin-top:2.4rem">
+                        <div class="pd-related" style="margin-top:2.4rem">
                             <div class="mt-section-head" style="margin-bottom:1.2rem">
                                 <div>
                                     <span class="mt-eyebrow">{{ __('messages.products') }}</span>
@@ -211,7 +213,7 @@
                             </div>
                             <div class="row g-3">
                                 @foreach($relatedProducts->take(4) as $related)
-                                    <div class="col-sm-6 col-md-3">
+                                    <div class="col-6 col-md-3">
                                         <a href="{{ route('products.show', $related->getTranslation('slug', $locale)) }}"
                                            class="mt-pcard" style="display:flex;flex-direction:column;text-decoration:none">
                                             <div class="mt-pcard-img" style="aspect-ratio:4/3">
@@ -239,7 +241,7 @@
                             : null;
                     @endphp
 
-                    <div style="margin-top:2.4rem">
+                    <div class="pd-reviews" style="margin-top:2.4rem">
                         <div class="mt-section-head" style="margin-bottom:1.4rem">
                             <div>
                                 <span class="mt-eyebrow">{{ __('messages.reviews') ?? 'Reviews' }}</span>
@@ -361,11 +363,11 @@
                 </div>
 
                 {{-- ══════════ RIGHT — Info + Actions + Sidebar ══════════ --}}
-                <div class="col-lg-4">
-                    <div style="position:sticky;top:90px;display:grid;gap:1.2rem">
+                <div class="pd-side">
+                    <div class="pd-side-inner">
 
                         {{-- Product info card --}}
-                        <div class="sidebar-widget">
+                        <div class="sidebar-widget pd-info">
 
                             {{-- Status --}}
                             <span style="display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;font-size:.75rem;font-weight:700;padding:.35rem .85rem;background:{{ $s['bg'] }};color:{{ $s['color'] }};margin-bottom:.9rem">
@@ -491,7 +493,7 @@
                         </div>
 
                         {{-- Contact CTA --}}
-                        <div style="background:linear-gradient(160deg,var(--ink),var(--ink-2));border-radius:var(--radius);padding:1.4rem 1.5rem;text-align:center">
+                        <div class="pd-contact" style="background:linear-gradient(160deg,var(--ink),var(--ink-2));border-radius:var(--radius);padding:1.4rem 1.5rem;text-align:center">
                             <div style="width:44px;height:44px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;margin:0 auto .8rem">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             </div>
@@ -502,7 +504,7 @@
                         </div>
 
                         {{-- Categories sidebar --}}
-                        <div class="sidebar-widget">
+                        <div class="sidebar-widget pd-cats">
                             <h4 class="sidebar-title">{{ __('messages.categories') }}</h4>
                             <ul style="list-style:none;margin:0;padding:0;display:grid;gap:0">
                                 @foreach(\App\Models\Category::active()->roots()->with('children')->ordered()->get() as $cat)

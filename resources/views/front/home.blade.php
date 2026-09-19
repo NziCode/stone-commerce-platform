@@ -302,7 +302,7 @@
                                                             <span class="mt-pcard-attr-label">
                                                                 {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
                                                             </span>
-                                                            <span class="mt-pcard-attr-value">{{ $pa->display_value }}</span>
+                                                            <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -413,7 +413,7 @@
                                                         <span class="mt-pcard-attr-label">
                                                             {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
                                                         </span>
-                                                        <span class="mt-pcard-attr-value">{{ $pa->display_value }}</span>
+                                                        <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
                                                     </li>
                                                 @endforeach
                                             </ul>

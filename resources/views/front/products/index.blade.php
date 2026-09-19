@@ -143,9 +143,17 @@
             <div class="row">
 
                 {{-- ── Sidebar ── --}}
-                <div class="col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0
+                <div id="plFilters" class="pl-filters-col col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0
                     @if(in_array(app()->getLocale(), ['fa','ar'])) ps-lg-6 @else pe-lg-9 @endif">
                     <div class="sidebar-area">
+
+                        {{-- Drawer header (phones / tablets only) --}}
+                        <div class="pl-filters-head">
+                            <strong>{{ __('messages.filters') }}</strong>
+                            <button type="button" data-mt-filters-close aria-label="{{ __('messages.close') }}">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                            </button>
+                        </div>
 
                         {{-- Active filter --}}
                         @if(request('search'))
@@ -266,6 +274,10 @@
                             </a>
                         </div>
 
+                        <div class="pl-filters-apply">
+                            <button type="button" class="mt-btn mt-btn-primary" data-mt-filters-close>{{ __('messages.show_results') }}</button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -285,6 +297,10 @@
                             @endif
                         </p>
                         <div class="shop-toolbar-right">
+                            <button type="button" class="pl-filter-btn" data-mt-filters-open aria-controls="plFilters">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                                {{ __('messages.filters') }}
+                            </button>
                             <form method="GET" id="sort-form"
                                   action="{{ isset($category)
                                       ? route('categories.show', $category->getTranslation('slug', app()->getLocale()))
@@ -349,7 +365,7 @@
                                                     @foreach($cardAttrs as $pa)
                                                         <span class="sc-dim">
                                                             <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
-                                                            <span class="sc-dim-v">{{ $pa->display_value }}</span>
+                                                            <span class="sc-dim-v"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
                                                         </span>
                                                     @endforeach
                                                 </div>
@@ -402,7 +418,7 @@
                                                         @foreach($cardAttrs as $pa)
                                                             <span class="sc-dim">
                                                                 <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
-                                                                <span class="sc-dim-v">{{ $pa->display_value }}</span>
+                                                                <span class="sc-dim-v"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
                                                             </span>
                                                         @endforeach
                                                     </div>
@@ -477,8 +493,25 @@
             });
         });
 
-        // Grid / List view toggle
-        const gridCols  = document.querySelectorAll('.product-col');
+        // Filters drawer (phones / tablets)
+        (function () {
+            const drawer = document.getElementById('plFilters');
+            if (!drawer) return;
+            const root = document.documentElement;
+            const close = () => { drawer.classList.remove('open'); root.classList.remove('mt-no-scroll'); };
+
+            document.querySelectorAll('[data-mt-filters-open]').forEach(btn => btn.addEventListener('click', () => {
+                drawer.classList.add('open');
+                root.classList.add('mt-no-scroll');
+            }));
+            drawer.addEventListener('click', e => {
+                if (e.target === drawer || e.target.closest('[data-mt-filters-close]')) close();
+            });
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+            window.addEventListener('pageshow', close);
+        })();
+
+        // Grid / List view toggle        const gridCols  = document.querySelectorAll('.product-col');
         const listCols  = document.querySelectorAll('.product-col-list');
         const btnGrid   = document.querySelector('.view-grid');
         const btnList   = document.querySelector('.view-list');
