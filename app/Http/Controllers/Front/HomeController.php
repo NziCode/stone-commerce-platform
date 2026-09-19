@@ -10,6 +10,7 @@ use App\Models\Slider;
 use App\Models\Post;
 use App\Models\Event;
 use App\Traits\HasSeo;
+use Artesaos\SEOTools\Facades\JsonLd;
 
 class HomeController extends Controller
 {
@@ -20,12 +21,15 @@ class HomeController extends Controller
         $siteName = Setting::get('site_name', config('app.name'));
         $desc     = Setting::get('about_desc', '');
 
+        // the home page is the one page that should carry the full brand + what-we-do title (Settings → SEO)
         $this->setSeo(
-            title:          $siteName,
+            title:          Setting::get('meta_title') ?: $siteName,
             description:    $desc ? \Str::limit(strip_tags($desc), 155) : '',
             image:          (string) (Setting::get('og_image') ?: Setting::get('site_logo')),
             appendSiteName: false,
         );
+        // structured data names the organisation, not the long page title
+        JsonLd::setTitle($siteName);
         $sliders = Slider::active()->get();
 
         $featuredProducts = Product::active()

@@ -1,6 +1,6 @@
 @extends('front.layouts.app')
 
-@section('title', \App\Models\Setting::get('site_name'))
+@section('title', \App\Models\Setting::get('meta_title') ?: \App\Models\Setting::get('site_name'))
 
 @php
     $locale = app()->getLocale();
