@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Support\AboutPage;
+use App\Support\GuidePage;
 use App\Traits\HasSeo;
 
 class PageController extends Controller
@@ -31,6 +32,7 @@ class PageController extends Controller
         return match ($page->template) {
             'about'   => view('front.pages.about', AboutPage::build($page, $locale)),
             'profile' => view('front.pages.profile', compact('page', 'locale')),
+            'guide'   => view('front.pages.guide', GuidePage::build($page, $locale)),
             default   => view('front.pages.show', compact('page')),
         };
     }

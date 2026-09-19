@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             ReservationTranslationSeeder::class,
             EventTranslationSeeder::class,
             AboutPageTranslationSeeder::class,
+            GuidePageTranslationSeeder::class,
             SettingsHelpTranslationSeeder::class,
             TranslationCacheSeeder::class,
             ProductSeeder::class,

@@ -1,0 +1,115 @@
+/* ==========================================================================
+   GUIDE pages (template "guide") — buying guide, payment process, ...
+   Numbered timeline of steps + a sticky "talk to our team" panel.
+   Built on the theme-modern.css tokens; logical properties keep RTL/LTR in sync.
+   ========================================================================== */
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+.gd-hero{
+  position:relative; isolation:isolate; overflow:hidden; color:#fff; background:var(--ink);
+  padding-block:clamp(2.6rem, 6vw, 4.8rem);
+}
+.gd-hero-bg{
+  position:absolute; inset:0; z-index:-2;
+  background:
+    linear-gradient(160deg, rgba(11,33,71,.94) 0%, rgba(18,58,122,.86) 62%, rgba(28,79,156,.78) 100%),
+    var(--gd-hero, none) center/cover no-repeat;
+}
+.gd-hero::before{
+  content:""; position:absolute; z-index:-1; width:460px; height:460px; border-radius:50%;
+  top:-200px; inset-inline-end:-120px; filter:blur(55px);
+  background:radial-gradient(circle, rgba(255,90,31,.34), transparent 70%);
+}
+.gd-hero::after{
+  content:""; position:absolute; inset-inline:0; bottom:0; height:10px; z-index:-1;
+  background:repeating-linear-gradient(90deg, var(--brand) 0 46px, var(--gold) 46px 64px, transparent 64px 96px);
+  opacity:.85;
+}
+.gd-crumbs{ justify-content:flex-start; margin:0 0 1.2rem; }
+[dir="rtl"] .gd-crumbs{ justify-content:flex-end; }
+.gd-title{ margin:0 0 .8rem; color:#fff; font-weight:800; line-height:1.2; font-size:clamp(1.9rem, 3vw + 1rem, 3.2rem); }
+.gd-lead{ margin:0; max-width:56ch; color:rgba(255,255,255,.85); font-size:clamp(1rem, .5vw + .9rem, 1.18rem); line-height:1.9; }
+
+/* ── Layout ───────────────────────────────────────────────────────────── */
+.gd-grid{ display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:clamp(1.6rem, 4vw, 3.4rem); align-items:start; }
+.gd-aside{ position:sticky; top:110px; }
+.gd-intro{ margin-bottom:2.2rem; }
+.gd-intro > p:first-child{ font-size:1.12rem; color:var(--ink); }
+.gd-outro{ margin-top:1.6rem; padding:1rem 1.3rem; border-radius:var(--radius); background:var(--gold-soft); border-inline-start:4px solid var(--gold); }
+.gd-outro p:last-child{ margin-bottom:0; }
+
+/* ── Steps timeline ───────────────────────────────────────────────────── */
+.gd-steps{ list-style:none; margin:0; padding:0; position:relative; }
+.gd-steps::before{
+  content:""; position:absolute; inset-block:26px; inset-inline-start:25px; width:2px; border-radius:2px;
+  background:linear-gradient(180deg, var(--brand), var(--gold) 65%, var(--stone-200));
+}
+.gd-step{
+  position:relative; display:grid; grid-template-columns:52px minmax(0,1fr); gap:1.1rem; margin-bottom:1.25rem;
+  animation:gd-in .65s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--i, 0) * 90ms + 120ms);
+}
+.gd-step:last-child{ margin-bottom:0; }
+@keyframes gd-in{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+.gd-step-no{
+  position:relative; z-index:1; width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:1.15rem; font-weight:800; color:#fff;
+  background:linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow:0 0 0 6px var(--stone-50), 0 14px 26px -12px rgba(255,90,31,.7);
+}
+.gd-step:last-child .gd-step-no{ background:linear-gradient(135deg, var(--ink), var(--ink-2)); box-shadow:0 0 0 6px var(--stone-50), 0 14px 26px -12px rgba(11,33,71,.6); }
+.gd-step-card{
+  background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius-lg); padding:1.25rem 1.5rem 1.35rem;
+  box-shadow:var(--shadow-sm); transition:transform .25s, box-shadow .25s;
+}
+.gd-step-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow); }
+.gd-step-card h2{ margin:.1rem 0 .4rem; font-size:1.1rem; font-weight:800; line-height:1.5; color:var(--ink); }
+.gd-step-body{ color:var(--stone-700); font-size:.96rem; line-height:1.95; }
+/* the dash after the bold title is removed, so a Latin sentence may start in lower case */
+.gd-step-body::first-letter{ text-transform:uppercase; }
+.gd-step-body p{ margin:0 0 .5rem; }
+.gd-step-body p:last-child{ margin-bottom:0; }
+.gd-step-body strong{ color:var(--ink); }
+
+/* ── "Talk to our team" panel ─────────────────────────────────────────── */
+.gd-talk{
+  display:grid; gap:.8rem; text-align:center; color:#fff; border-radius:var(--radius-lg);
+  padding:1.8rem 1.5rem 1.5rem; background:linear-gradient(160deg, var(--ink) 0%, var(--ink-2) 100%);
+  box-shadow:var(--shadow-lg); position:relative; overflow:hidden;
+}
+.gd-talk::before{
+  content:""; position:absolute; inset-block-start:-70px; inset-inline-end:-70px; width:190px; height:190px; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,90,31,.4), transparent 70%); pointer-events:none;
+}
+.gd-talk > *{ position:relative; }
+.gd-talk-ico{
+  width:56px; height:56px; margin:0 auto .2rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.12); color:var(--brand-2);
+}
+.gd-talk-ico svg{ width:26px; height:26px; }
+.gd-talk h3{ margin:0; color:#fff; font-size:1.15rem; font-weight:800; }
+.gd-talk p{ margin:0 0 .4rem; color:rgba(255,255,255,.78); font-size:.9rem; line-height:1.85; }
+.gd-btn{
+  display:flex; align-items:center; justify-content:center; gap:.6rem; padding:.95rem 1rem; border-radius:var(--radius-pill);
+  font-weight:800; font-size:.95rem; line-height:1.2; text-decoration:none; border:1px solid transparent; transition:.2s;
+}
+.gd-btn:hover{ transform:translateY(-2px); }
+.gd-btn:focus-visible{ outline:3px solid var(--gold-soft); outline-offset:2px; }
+.gd-btn-wa{ background:#25d366; color:#04371c; box-shadow:0 14px 26px -14px rgba(37,211,102,.9); }
+.gd-btn-wa:hover{ background:#3ee07c; color:#04371c; }
+.gd-btn-call{ background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.3); color:#fff; }
+.gd-btn-call:hover{ background:#fff; color:var(--ink); }
+.gd-btn-stones{ background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#fff; box-shadow:0 14px 26px -14px rgba(255,90,31,.9); }
+.gd-btn-stones:hover{ color:#fff; }
+.gd-hours{ color:rgba(255,255,255,.62); font-size:.78rem; }
+.gd-hint{ margin:.2rem 0 0 !important; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.14); font-size:.8rem !important; color:rgba(255,255,255,.7) !important; }
+
+@media (max-width:960px){
+  .gd-grid{ grid-template-columns:1fr; }
+  .gd-aside{ position:static; }
+}
+@media (max-width:520px){
+  .gd-step{ grid-template-columns:44px minmax(0,1fr); gap:.8rem; }
+  .gd-step-no{ width:44px; height:44px; font-size:1rem; }
+  .gd-steps::before{ inset-inline-start:21px; }
+  .gd-step-card{ padding:1.05rem 1.1rem 1.15rem; }
+}
