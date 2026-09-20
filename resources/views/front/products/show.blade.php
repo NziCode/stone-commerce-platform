@@ -375,6 +375,11 @@
                                 {{ $product->status_label }}
                             </span>
 
+                            {{-- Main category (export / saw-cut / top-cut) --}}
+                            @if($product->mainCategory)
+                                <a class="pd-group-badge" href="{{ $product->mainCategory->url() }}">{{ $product->mainCategory->getTranslation('name', $locale) }}</a>
+                            @endif
+
                             {{-- Name --}}
                             <h1 style="font-size:1.35rem;font-weight:800;color:var(--ink);line-height:1.3;margin:0 0 .9rem">
                                 {{ $product->getTranslation('name', $locale) }}

@@ -15,6 +15,8 @@
     // categories instead of being stored as separate menu_items rows — so
     // adding/renaming/reordering a category updates this menu automatically.
     $headerProductCategories = \App\Models\Category::active()->roots()->ordered()->get();
+    // export / saw-cut / top-cut lead the same dropdown (each opens the product list filtered by that group)
+    $headerMainCategories = \App\Models\MainCategory::active()->ordered()->get();
     $sitePhone = display_phone(\App\Models\Setting::get('site_phone'));
     $siteEmail = \App\Models\Setting::get('site_email');
     $siteWorkingHours = \App\Models\Setting::get('site_working_hours');
@@ -78,7 +80,7 @@
                         @foreach($menu->items as $item)
                             @php
                                 $isProductsRoot = is_null($item->parent_id) && $item->route_name === 'products.index';
-                                $childCount = $isProductsRoot ? $headerProductCategories->count() : $item->children->count();
+                                $childCount = $isProductsRoot ? $headerProductCategories->count() + $headerMainCategories->count() : $item->children->count();
                             @endphp
                             <li class="{{ $childCount ? 'drop-holder' : '' }}">
                                 <a href="{{ $item->href }}" target="{{ $item->target }}">
@@ -87,6 +89,14 @@
                                 @if($isProductsRoot)
                                     @if($childCount)
                                         <ul class="drop-menu">
+                                            @foreach($headerMainCategories as $group)
+                                                <li>
+                                                    <a href="{{ $group->url() }}">{{ $group->getTranslation('name', app()->getLocale()) }}</a>
+                                                </li>
+                                            @endforeach
+                                            @if($headerMainCategories->count() && $headerProductCategories->count())
+                                                <li class="mt-menu-sep" role="separator"></li>
+                                            @endif
                                             @foreach($headerProductCategories as $cat)
                                                 <li>
                                                     <a href="{{ route('categories.show', $cat->getSlugForLocale(app()->getLocale())) }}">
@@ -188,7 +198,7 @@
                                 @foreach($menu->items as $item)
                                     @php
                                         $isProductsRootM = is_null($item->parent_id) && $item->route_name === 'products.index';
-                                        $childCountM = $isProductsRootM ? $headerProductCategories->count() : $item->children->count();
+                                        $childCountM = $isProductsRootM ? $headerProductCategories->count() + $headerMainCategories->count() : $item->children->count();
                                     @endphp
                                     <li class="{{ $childCountM ? 'menu-item-has-children' : '' }}">
                                         <a href="{{ $item->href }}">
@@ -202,6 +212,11 @@
                                         @if($isProductsRootM)
                                             @if($childCountM)
                                                 <ul class="sub-menu">
+                                                    @foreach($headerMainCategories as $group)
+                                                        <li>
+                                                            <a href="{{ $group->url() }}"><span class="mm-text">{{ $group->getTranslation('name', app()->getLocale()) }}</span></a>
+                                                        </li>
+                                                    @endforeach
                                                     @foreach($headerProductCategories as $cat)
                                                         <li>
                                                             <a href="{{ route('categories.show', $cat->getSlugForLocale(app()->getLocale())) }}">

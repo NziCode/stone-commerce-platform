@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 460" role="img" preserveAspectRatio="xMidYMid slice"><defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0" stop-color="#0b2147"/><stop offset=".62" stop-color="#1c4f9c"/><stop offset="1" stop-color="#f08a4b"/></linearGradient>
+  <linearGradient id="sky2" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#0b2147"/><stop offset="1" stop-color="#1c4f9c"/></linearGradient>
+  <radialGradient id="sun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffb37a" stop-opacity=".95"/><stop offset=".55" stop-color="#ff5a1f" stop-opacity=".35"/><stop offset="1" stop-color="#ff5a1f" stop-opacity="0"/></radialGradient>
+  <linearGradient id="water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16346b"/><stop offset="1" stop-color="#0a1a3a"/></linearGradient>
+  <linearGradient id="steel" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f6fa"/><stop offset=".5" stop-color="#c9d1de"/><stop offset="1" stop-color="#8d99ad"/></linearGradient>
+</defs><rect width="700" height="460" fill="url(#sky)"/>
+<circle cx="150" cy="250" r="150" fill="url(#sun)"/>
+<!-- far range -->
+<path d="M0 330 L90 262 L170 316 L260 240 L350 320 L430 268 L520 326 L610 254 L700 318 V460 H0 Z" fill="#12306a" opacity=".85"/>
+<!-- the mountain -->
+<path d="M60 460 L250 190 L300 190 L330 168 L392 168 L420 190 L470 190 L650 460 Z" fill="#5a4a38"/>
+<path d="M60 460 L250 190 L300 190 L300 460 Z" fill="#6e5b45"/>
+<path d="M300 460 L300 190 L330 168 L392 168 L420 190 L470 190 L650 460 Z" fill="#4a3c2c"/>
+<!-- benches cut into the top -->
+<path d="M250 190 H470 L490 218 H232 Z" fill="#c9b48b"/>
+<path d="M232 218 H490 L512 250 H210 Z" fill="#b39d74"/>
+<path d="M210 250 H512 L536 286 H186 Z" fill="#9c8760"/>
+<path d="M330 168 H392 L420 190 H300 Z" fill="#e6d7b5"/>
+<!-- strata -->
+<path d="M120 380 L560 380 M154 336 L540 336 M190 296 L520 296" stroke="#2f2418" stroke-opacity=".35" stroke-width="2"/>
+<!-- blocks on the summit -->
+<g id="t1"><polygon points="284.0,196.0 318.0,213.0 318.0,239.0 284.0,222.0" fill="#d8c6a1"/><polygon points="352.0,196.0 318.0,213.0 318.0,239.0 352.0,222.0" fill="#b9a37b"/><path d="M284.0 202.5 L318.0 219.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M318.0 219.5 L352.0 202.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M284.0 209.0 L318.0 226.0" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M318.0 226.0 L352.0 209.0" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M284.0 215.5 L318.0 232.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M318.0 232.5 L352.0 215.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><polygon points="318.0,179.0 352.0,196.0 318.0,213.0 284.0,196.0" fill="#f4e8d0"/><polygon points="318.0,179.0 352.0,196.0 318.0,213.0 284.0,196.0" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5"/></g><g id="t2"><polygon points="336.0,198.0 370.0,215.0 370.0,241.0 336.0,224.0" fill="#d8c6a1"/><polygon points="404.0,198.0 370.0,215.0 370.0,241.0 404.0,224.0" fill="#b9a37b"/><path d="M336.0 204.5 L370.0 221.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M370.0 221.5 L404.0 204.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M336.0 211.0 L370.0 228.0" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M370.0 228.0 L404.0 211.0" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M336.0 217.5 L370.0 234.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M370.0 234.5 L404.0 217.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><polygon points="370.0,181.0 404.0,198.0 370.0,215.0 336.0,198.0" fill="#f4e8d0"/><polygon points="370.0,181.0 404.0,198.0 370.0,215.0 336.0,198.0" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5"/></g><g id="t3"><polygon points="310.0,178.0 344.0,195.0 344.0,221.0 310.0,204.0" fill="#d8c6a1"/><polygon points="378.0,178.0 344.0,195.0 344.0,221.0 378.0,204.0" fill="#b9a37b"/><path d="M310.0 184.5 L344.0 201.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M344.0 201.5 L378.0 184.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M310.0 191.0 L344.0 208.0" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M344.0 208.0 L378.0 191.0" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><path d="M310.0 197.5 L344.0 214.5" stroke="#8a744f" stroke-opacity=".28" stroke-width="1.6" fill="none"/><path d="M344.0 214.5 L378.0 197.5" stroke="#6f5b3c" stroke-opacity=".3" stroke-width="1.6" fill="none"/><polygon points="344.0,161.0 378.0,178.0 344.0,195.0 310.0,178.0" fill="#f4e8d0"/><polygon points="344.0,161.0 378.0,178.0 344.0,195.0 310.0,178.0" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="1.5"/></g>
+<!-- small crane on the bench -->
+<g fill="#0a1a3a"><rect x="452" y="186" width="6" height="30"/><path d="M455 186 L406 176" stroke="#0a1a3a" stroke-width="5"/><path d="M410 178 V200" stroke="#ff8a3d" stroke-width="2"/></g>
+<path d="M0 430 Q175 414 350 430 T700 426 V460 H0 Z" fill="#0a1a3a" opacity=".6"/>
+</svg>

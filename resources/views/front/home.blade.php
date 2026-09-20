@@ -133,41 +133,8 @@
             </div>
         </div>
 
-        {{-- legacy slider kept (hidden visually, JS-driven) for editorial slides if configured --}}
-        @if($sliders->isNotEmpty())
-            <div class="mt-container" style="margin-top:3rem">
-                <div class="swiper-container main-slider" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)">
-                    <div class="swiper-wrapper">
-                        @foreach($sliders as $slide)
-                            <div class="swiper-slide">
-                                <div class="slide-inner bg-height" data-bg-image="{{ $slide->image_url }}" style="position:relative;min-height:300px;display:flex;align-items:center;background-size:cover;background-position:center">
-                                    @if($slide->overlay_opacity > 0)
-                                        <div style="position:absolute;inset:0;background:{{ $slide->overlay_color ?? '#0b2147' }};opacity:{{ $slide->overlay_opacity / 100 }}"></div>
-                                    @endif
-                                    <div style="position:relative;z-index:2;padding:2.4rem clamp(1.2rem,4vw,3rem);color:#fff;max-width:640px">
-                                        @if($slide->getTranslation('subtitle', $locale))
-                                            <span class="mt-eyebrow" style="color:var(--brand-2)">{{ $slide->getTranslation('subtitle', $locale) }}</span>
-                                        @endif
-                                        @if($slide->getTranslation('title', $locale))
-                                            <h2 class="mt-display" style="color:#fff;font-size:clamp(1.5rem,2vw + 1rem,2.4rem);margin:.4rem 0">{!! $slide->getTranslation('title', $locale) !!}</h2>
-                                        @endif
-                                        @if($slide->getTranslation('description', $locale))
-                                            <p style="color:rgba(255,255,255,.85);margin-bottom:1.2rem">{{ $slide->getTranslation('description', $locale) }}</p>
-                                        @endif
-                                        @if($slide->button_link && $slide->getTranslation('button_text', $locale))
-                                            <a class="mt-btn mt-btn-primary" href="{{ $slide->button_link }}" target="{{ $slide->button_target ?? '_self' }}">
-                                                {{ $slide->getTranslation('button_text', $locale) }}
-                                            </a>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-        @endif
+        {{-- Filter: the main categories (export / saw-cut / top-cut) as a small slider --}}
+        @include('front.partials.main-category-slider')
     </section>
 
     {{-- ═══════════════════════════ STATS FLOAT ═══════════════════════════ --}}

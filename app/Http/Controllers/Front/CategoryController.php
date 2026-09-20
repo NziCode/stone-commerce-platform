@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Front\Concerns\FiltersByMainCategory;
 use App\Models\Category;
 use App\Models\Product;
 use App\Traits\HasSeo;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    use HasSeo;
+    use HasSeo, FiltersByMainCategory;
 
     public function index()
     {
@@ -42,6 +43,10 @@ class CategoryController extends Controller
             ->with(['media', 'categories'])
             ->whereHas('categories', fn($q) => $q->whereIn('categories.id', $categoryIds));
 
+        // Main category (export / saw-cut / top-cut)
+        [$activeGroup, $mainCategories] = $this->mainCategoryFilter($request);
+        $query->inMainCategory($activeGroup?->key);
+
         // Status filter
         if ($request->filled('status')) {
             $query->where('status', $request->status);
@@ -71,6 +76,6 @@ class CategoryController extends Controller
                 $cat->active_products_count = ($cat->active_products_count ?? 0) + $childSum;
             });
 
-        return view('front.products.index', compact('products', 'sidebarCategories', 'category'));
+        return view('front.products.index', compact('products', 'sidebarCategories', 'category', 'activeGroup', 'mainCategories'));
     }
 }

@@ -1112,3 +1112,75 @@ body{ background:var(--stone-50); }
   .pd-thumbs::-webkit-scrollbar{ display:none; }
   .pd-thumbs .product-thumb-item{ flex:0 0 96px; }
 }
+
+/* ==========================================================================
+   HOME MAIN-CATEGORY SLIDER — export / saw-cut / top-cut
+   It sits inside the navy hero (where the banner slider used to be).
+   Native scroll-snap: swipe on phones, arrows where the track overflows.
+   ========================================================================== */
+.mt-quick{ margin-top:clamp(2rem,4vw,3rem); }
+.mt-quick-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.9rem; }
+.mt-quick-title{ margin:0; font-size:clamp(1.05rem,1.1vw + .8rem,1.35rem); font-weight:800; color:#fff; }
+.mt-quick-nav{ display:flex; align-items:center; gap:.4rem; }
+.mt-quick-nav button{
+  width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.12); color:#fff;
+  font-size:1.2rem; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center;
+  transition:background .18s, color .18s, border-color .18s;
+}
+.mt-quick-nav button[hidden]{ display:none; }
+.mt-quick-nav button:hover{ background:var(--brand); border-color:var(--brand); color:#fff; }
+[dir="rtl"] .mt-quick-nav button span{ display:inline-block; transform:scaleX(-1); }
+
+.mt-slider-track{
+  display:flex; gap:.9rem; overflow-x:auto; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch;
+  scrollbar-width:none; padding-block:.35rem .6rem; margin-inline:-1rem; padding-inline:1rem; scroll-padding-inline:1rem;
+}
+.mt-slider-track::-webkit-scrollbar{ display:none; }
+
+/* main-category cards: a picture with the name underneath */
+.mt-gcard{
+  flex:0 0 clamp(230px, 31%, 400px); scroll-snap-align:start; text-decoration:none; color:inherit;
+  background:#fff; border:1px solid var(--stone-100); border-radius:var(--radius); overflow:hidden;
+  display:flex; flex-direction:column; transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.mt-gcard:hover{ transform:translateY(-4px); box-shadow:var(--shadow); border-color:rgba(255,90,31,.35); }
+.mt-gcard-img{ display:block; aspect-ratio:700/460; background:linear-gradient(150deg,var(--ink),var(--ink-2)); overflow:hidden; }
+.mt-gcard-img img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.mt-gcard:hover .mt-gcard-img img{ transform:scale(1.05); }
+.mt-gcard-body{ display:flex; flex-direction:column; gap:.15rem; padding:.8rem 1rem .95rem; }
+.mt-gcard-body strong{ font-size:1.02rem; font-weight:800; color:var(--ink); }
+.mt-gcard-body small{ font-size:.76rem; color:var(--stone-500); }
+.mt-gcard-body em{ font-style:normal; font-size:.8rem; font-weight:700; color:var(--brand); display:inline-flex; align-items:center; gap:.3rem; margin-top:.25rem; }
+[dir="rtl"] .mt-gcard-body em svg{ transform:scaleX(-1); }
+
+@media (max-width:767px){
+  .mt-quick-nav button{ display:none !important; }   /* phones swipe */
+  .mt-gcard{ flex-basis:min(74vw, 300px); }
+}
+
+/* product list: the export / saw-cut / top-cut pills above the grid */
+.pl-groups{ display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; }
+.pl-group{
+  display:inline-flex; align-items:center; gap:.45rem; padding:.5rem 1rem; border-radius:var(--radius-pill);
+  background:#fff; border:1px solid var(--stone-200); color:var(--ink); font-size:.85rem; font-weight:700; text-decoration:none;
+  transition:background .18s, color .18s, border-color .18s;
+}
+.pl-group small{ font-size:.7rem; font-weight:700; color:var(--stone-500); }
+.pl-group:hover{ border-color:var(--brand); color:var(--brand); }
+.pl-group.is-active{ background:linear-gradient(135deg,var(--brand),var(--brand-2)); border-color:transparent; color:#fff; }
+.pl-group.is-active small{ color:rgba(255,255,255,.85); }
+@media (max-width:575px){
+  .pl-groups{ flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; margin-inline:-.85rem; padding-inline:.85rem; }
+  .pl-groups::-webkit-scrollbar{ display:none; }
+  .pl-group{ flex:0 0 auto; }
+}
+
+/* a small label on the product page saying which main category the stone belongs to */
+.pd-group-badge{
+  display:inline-flex; align-items:center; gap:.4rem; padding:.28rem .8rem; border-radius:var(--radius-pill);
+  background:var(--brand-soft); color:#b9420f; font-size:.78rem; font-weight:800; text-decoration:none; margin-bottom:.6rem;
+}
+.pd-group-badge:hover{ background:var(--brand); color:#fff; }
+
+/* thin rule between the groups and the stone types inside the Products dropdown */
+.drop-menu li.mt-menu-sep{ height:1px; margin:.35rem 1rem; padding:0; background:rgba(11,33,71,.12); pointer-events:none; }

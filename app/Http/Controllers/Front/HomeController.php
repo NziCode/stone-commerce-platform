@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\MainCategory;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Slider;
@@ -53,6 +54,11 @@ class HomeController extends Controller
             ->ordered()
             ->get();
 
+        // the hero slider: export / saw-cut / top-cut
+        $mainCategories = MainCategory::active()->ordered()->with('media')
+            ->withCount(['products as active_products_count' => fn ($q) => $q->where('is_active', true)])
+            ->get();
+
         $latestPosts = Post::published()
             ->with('media')
             ->limit(3)
@@ -85,6 +91,7 @@ class HomeController extends Controller
             'featuredProducts',
             'latestProducts',
             'rootCategories',
+            'mainCategories',
             'latestPosts',
             'upcomingEvents',
         ));

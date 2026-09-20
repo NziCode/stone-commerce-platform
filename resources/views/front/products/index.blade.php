@@ -126,6 +126,8 @@
 
 @section('content')
 
+    @php $groupQuery = ($activeGroup ?? null) ? ['group' => $activeGroup->key] : []; @endphp
+
     @include('front.components.breadcrumb', [
         'subtitle' => __('messages.products'),
         'title'    => isset($category) ? $category->getTranslation('name', app()->getLocale()) : __('messages.all_products'),
@@ -172,6 +174,7 @@
                                   action="{{ isset($category)
                                       ? route('categories.show', $category->getTranslation('slug', app()->getLocale()))
                                       : route('products.index') }}">
+                                @if($groupQuery)<input type="hidden" name="group" value="{{ $activeGroup->key }}">@endif
                                 <input class="searchbox-input" type="text" name="search"
                                        value="{{ request('search') }}"
                                        placeholder="{{ __('messages.search_placeholder') }}">
@@ -189,7 +192,7 @@
                                 {{-- All products --}}
                                 <li>
                                     <div class="cat-row">
-                                        <a href="{{ route('products.index') }}"
+                                        <a href="{{ route('products.index', $groupQuery) }}"
                                            class="{{ !isset($category) ? 'active' : '' }}">
                                             {{ __('messages.all_products') }}
                                             <span>{{ \App\Models\Product::where('is_active', true)->count() }}</span>
@@ -206,7 +209,7 @@
                                     @endphp
                                     <li>
                                         <div class="cat-row">
-                                            <a href="{{ route('categories.show', $cat->getTranslation('slug', app()->getLocale())) }}"
+                                            <a href="{{ route('categories.show', ['slug' => $cat->getTranslation('slug', app()->getLocale())] + $groupQuery) }}"
                                                class="{{ $isActive ? 'active' : '' }}">
                                                 {{ $cat->getTranslation('name', app()->getLocale()) }}
                                                 <span>{{ $cat->active_products_count ?? 0 }}</span>
@@ -220,7 +223,7 @@
                                             <ul class="cat-children {{ $isExpanded ? 'show' : '' }}">
                                                 @foreach($cat->children as $child)
                                                     <li>
-                                                        <a href="{{ route('categories.show', $child->getTranslation('slug', app()->getLocale())) }}"
+                                                        <a href="{{ route('categories.show', ['slug' => $child->getTranslation('slug', app()->getLocale())] + $groupQuery) }}"
                                                            class="{{ isset($category) && $category->id === $child->id ? 'active' : '' }}">
                                                             {{ $child->getTranslation('name', app()->getLocale()) }}
                                                             <span>{{ $child->active_products_count ?? 0 }}</span>
@@ -284,6 +287,20 @@
                 {{-- ── Products ── --}}
                 <div class="col-lg-9 order-lg-2 order-1">
 
+                    {{-- Main categories: export / saw-cut / top-cut --}}
+                    @if(isset($mainCategories) && $mainCategories->count())
+                        <nav class="pl-groups" aria-label="{{ __('messages.main_category') }}">
+                            <a class="pl-group {{ $activeGroup ? '' : 'is-active' }}" href="{{ isset($category) ? route('categories.show', $category->getTranslation('slug', app()->getLocale())) : route('products.index') }}">{{ __('messages.all_products') }}</a>
+                            @foreach($mainCategories as $group)
+                                <a class="pl-group {{ $activeGroup?->is($group) ? 'is-active' : '' }}"
+                                   href="{{ isset($category) ? route('categories.show', ['slug' => $category->getTranslation('slug', app()->getLocale()), 'group' => $group->key]) : route('products.index', ['group' => $group->key]) }}">
+                                    {{ $group->getTranslation('name', app()->getLocale()) }}
+                                    <small>{{ $group->active_products_count }}</small>
+                                </a>
+                            @endforeach
+                        </nav>
+                    @endif
+
                     {{-- Toolbar --}}
                     <div class="shop-toolbar">
                         <p class="showing-count mb-0">
@@ -308,6 +325,7 @@
                                 @if(request('search'))
                                     <input type="hidden" name="search" value="{{ request('search') }}">
                                 @endif
+                                @if($groupQuery)<input type="hidden" name="group" value="{{ $activeGroup->key }}">@endif
                                 <select class="sort-select" name="sort"
                                         onchange="document.getElementById('sort-form').submit()">
                                     <option value="latest"     {{ request('sort','latest') === 'latest'     ? 'selected':'' }}>{{ __('messages.sort_latest') }}</option>

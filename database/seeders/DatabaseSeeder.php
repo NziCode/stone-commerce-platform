@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             SettingsHelpTranslationSeeder::class,
             ReservationFlowTranslationSeeder::class,   // after the help texts: it refreshes contact_notify_*_help
             MobileUxTranslationSeeder::class,
+            MainCategoryTranslationSeeder::class,
             TranslationCacheSeeder::class,
             ProductSeeder::class,
             ProductCategorySeeder::class,

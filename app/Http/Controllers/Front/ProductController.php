@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Front\Concerns\FiltersByMainCategory;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,13 +11,17 @@ use App\Traits\HasSeo;
 
 class ProductController extends Controller
 {
-    use HasSeo;
+    use HasSeo, FiltersByMainCategory;
 
     public function index(Request $request)
     {
         $query = Product::active()
             ->with(['media', 'categories', 'attributes', 'attributes.attribute'])
             ->ordered();
+
+        // Main category (export / saw-cut / top-cut)
+        [$activeGroup, $mainCategories] = $this->mainCategoryFilter($request);
+        $query->inMainCategory($activeGroup?->key);
 
         // Status filter
         if ($request->filled('status')) {
@@ -65,7 +70,7 @@ class ProductController extends Controller
                 $cat->active_products_count = ($cat->active_products_count ?? 0) + $childSum;
             });
 
-        return view('front.products.index', compact('products', 'sidebarCategories'));
+        return view('front.products.index', compact('products', 'sidebarCategories', 'activeGroup', 'mainCategories'));
     }
 
     public function category(Request $request, string $slug)
