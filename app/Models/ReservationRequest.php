@@ -237,12 +237,15 @@ class ReservationRequest extends Model
         ]);
     }
 
-    /** The rest is paid: the stone is sold and the reservation stops expiring. */
-    public function markFinalPaid(): void
+    /**
+     * The rest is paid: the stone is sold and the reservation stops expiring.
+     * $sale may carry the sale details (sold_price, sold_currency, sold_to, sold_at).
+     */
+    public function markFinalPaid(array $sale = []): void
     {
-        DB::transaction(function () {
+        DB::transaction(function () use ($sale) {
             $this->update(['final_paid_at' => now(), 'expires_at' => null]);
-            $this->product?->markAsSold();
+            $this->product?->markAsSold($sale);
         });
     }
 

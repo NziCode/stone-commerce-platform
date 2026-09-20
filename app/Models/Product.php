@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Translatable\HasTranslations;
@@ -23,6 +24,18 @@ class Product extends Model implements HasMedia
         'status',
         'is_featured', 'is_active', 'is_new', 'sort_order', 'views_count',
         'meta_title', 'meta_description', 'meta_keywords', 'og_image',
+        // inventory (back office)
+        'main_category_id', 'owner_id', 'mine_id', 'warehouse_id',
+        'sold_at', 'sold_price', 'sold_currency', 'sold_to', 'sold_warehouse_id',
+    ];
+
+    /**
+     * Who owns a stone, which mine it came from, where it is stored and what it was sold for are
+     * back-office data. They must never leak to visitors, not even through toArray() / JSON.
+     */
+    protected $hidden = [
+        'owner_id', 'mine_id', 'warehouse_id',
+        'sold_at', 'sold_price', 'sold_currency', 'sold_to', 'sold_warehouse_id',
     ];
 
     public array $translatable = [
@@ -39,7 +52,35 @@ class Product extends Model implements HasMedia
         'is_active'        => 'boolean',
         'is_new'           => 'boolean',
         'views_count'      => 'integer',
+        'sold_at'          => 'datetime',
+        'sold_price'       => 'decimal:2',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Product $product) {
+            // every stone belongs to a main category; export is the default
+            $product->main_category_id ??= MainCategory::defaultId();
+        });
+
+        static::saving(function (Product $product) {
+            if (! $product->isDirty('status')) {
+                return;
+            }
+
+            if ($product->status === 'sold') {
+                $product->sold_at ??= now();
+                $product->sold_warehouse_id ??= $product->warehouse_id;   // where it was when it left
+            } elseif ($product->getOriginal('status') === 'sold') {
+                // un-selling (cancelled order, mistake …): forget the sale
+                $product->sold_at = null;
+                $product->sold_price = null;
+                $product->sold_currency = null;
+                $product->sold_to = null;
+                $product->sold_warehouse_id = null;
+            }
+        });
+    }
 
     // ── Media ──────────────────────────────────────────
     public function registerMediaCollections(): void
@@ -76,6 +117,32 @@ class Product extends Model implements HasMedia
     {
         return $this->belongsToMany(Category::class, 'product_category')
             ->withPivot('is_primary');
+    }
+
+    public function mainCategory(): BelongsTo
+    {
+        return $this->belongsTo(MainCategory::class);
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(Owner::class)->withTrashed();
+    }
+
+    public function mine(): BelongsTo
+    {
+        return $this->belongsTo(Mine::class)->withTrashed();
+    }
+
+    public function warehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class)->withTrashed();
+    }
+
+    /** The warehouse the stone was in when it was sold (it may have been moved since). */
+    public function soldFromWarehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class, 'sold_warehouse_id')->withTrashed();
     }
 
     public function primaryCategory()
@@ -163,6 +230,17 @@ class Product extends Model implements HasMedia
     public function scopeSold($q)
     {
         return $q->where('status', 'sold');
+    }
+
+    /** Stones of one main category (export / saw-cut / top-cut) by its key; no key = no filter. */
+    public function scopeInMainCategory($q, ?string $key)
+    {
+        return $key ? $q->whereHas('mainCategory', fn ($m) => $m->where('key', $key)) : $q;
+    }
+
+    public function scopeUnsold($q)
+    {
+        return $q->where('status', '!=', 'sold');
     }
 
     public function scopeReserved($q)
@@ -350,11 +428,38 @@ class Product extends Model implements HasMedia
         return (bool) $updated;
     }
 
-    public function markAsSold(): void
+    /**
+     * Mark the stone as sold, optionally with the sale details
+     * (sold_price, sold_currency, sold_to, sold_at).
+     */
+    public function markAsSold(array $sale = []): void
     {
-        $this->update(['status' => 'sold']);
+        $this->update(array_merge(
+            ['status' => 'sold'],
+            array_intersect_key($sale, array_flip(['sold_price', 'sold_currency', 'sold_to', 'sold_at']))
+        ));
     }
 
+    /** Weight of the stone in tons, read from its "weight" attribute (a value in kg is converted). */
+    public function weightTons(): float
+    {
+        $weight = $this->allAttributes->first(fn ($pa) => $pa->attribute?->key === 'weight');
+
+        return static::attributeToTons($weight);
+    }
+
+    public static function attributeToTons(?ProductAttribute $weight): float
+    {
+        if (! $weight) {
+            return 0.0;
+        }
+
+        $raw   = $weight->value;
+        $value = is_array($raw) ? ($raw['value'] ?? 0) : $raw;
+        $unit  = strtolower(trim((string) $weight->attribute?->unit));
+
+        return (float) $value / (in_array($unit, ['kg', 'kgs', 'kilogram', 'کیلوگرم', 'کیلو'], true) ? 1000 : 1);
+    }
     public function markAsAvailable(): void
     {
         $this->update(['status' => 'available']);
