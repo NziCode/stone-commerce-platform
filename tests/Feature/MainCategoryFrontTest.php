@@ -110,11 +110,12 @@ class MainCategoryFrontTest extends TestCase
         $this->assertStringContainsString('Top-Cut', $html);
         $this->assertStringContainsString('2 stones', $html, 'export count');
         $this->assertStringContainsString('1 stones', $html, 'saw-cut count');
-        $this->assertStringContainsString('Shop by main category', $html);
+        $this->assertStringContainsString('aria-label="Shop by main category"', $html, 'labelled for screen readers');
+        $this->assertStringNotContainsString('<h2 class="mt-quick-title"', $html, 'no visible title above the cards');
 
         // the stone types stay in the categories grid below — the hero has no second slider for them
         $this->assertStringNotContainsString('Shop by stone type', $html);
-        $hero = substr($html, strpos($html, 'mt-quick-block'), strpos($html, 'mt-stats-float') - strpos($html, 'mt-quick-block'));
+        $hero = substr($html, strpos($html, 'class="mt-container mt-quick"'), strpos($html, 'mt-stats-float') - strpos($html, 'class="mt-container mt-quick"'));
         $this->assertStringNotContainsString('Test Travertine', $hero);
         $this->assertStringContainsString(route('categories.show', 'test-travertine'), $html, 'the category is still in the grid');
     }
@@ -127,7 +128,7 @@ class MainCategoryFrontTest extends TestCase
         $html = $this->visit('en', '/')->assertOk()->getContent();
 
         $hero = strpos($html, 'class="mt-hero"');
-        $sliders = strpos($html, 'mt-quick-block');
+        $sliders = strpos($html, 'class="mt-container mt-quick"');
         $stats = strpos($html, 'mt-stats-float');
         $grid = strpos($html, 'class="mt-cats"');
 
