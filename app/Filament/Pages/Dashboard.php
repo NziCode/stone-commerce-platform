@@ -22,6 +22,10 @@ class Dashboard extends BaseDashboard
     public function getHeaderWidgets(): array
     {
         return [
+            // the stone business first: what is available / sold, what every warehouse holds, which stones sold
+            \App\Filament\Widgets\StoneSalesOverview::class,
+            \App\Filament\Widgets\WarehouseInventoryWidget::class,
+            \App\Filament\Widgets\StoneSalesTableWidget::class,
             \App\Filament\Widgets\StatsOverview::class,
         ];
     }

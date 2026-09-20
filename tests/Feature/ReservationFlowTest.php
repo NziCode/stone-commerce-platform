@@ -282,4 +282,26 @@ class ReservationFlowTest extends TestCase
         $this->assertSame('completed', $r->fresh()->stage);
         $this->assertSame('sold', $stone->fresh()->status);
     }
+
+    public function test_final_payment_records_the_sale_for_the_inventory_reports(): void
+    {
+        $this->seed([RolePermissionSeeder::class, AdminUserSeeder::class]);
+        $this->actingAs(User::where('email', 'admin@example.com')->firstOrFail());
+
+        $stone = $this->stone();
+        $r = $this->reservation($stone);
+        $r->approve();
+        $r->fresh()->markDepositReceived(1000, 'USD', null);
+
+        Livewire::test(ListReservationRequests::class)
+            ->callTableAction('finalPaid', $r->fresh(), data: ['sold_price' => 12000, 'sold_currency' => 'EUR', 'sold_to' => 'Test Buyer'])
+            ->assertHasNoTableActionErrors();
+
+        $sold = $stone->fresh();
+        $this->assertSame('sold', $sold->status);
+        $this->assertNotNull($sold->sold_at, 'the sale date is stamped');
+        $this->assertSame('12000.00', (string) $sold->sold_price);
+        $this->assertSame('EUR', $sold->sold_currency);
+        $this->assertSame('Test Buyer', $sold->sold_to);
+    }
 }

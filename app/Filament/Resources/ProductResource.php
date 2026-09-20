@@ -3,9 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Support\StoneSaleActions;
 use App\Filament\Support\TranslateFieldsAction;
 use App\Models\Attribute;
+use App\Models\MainCategory;
+use App\Models\Mine;
+use App\Models\Owner;
 use App\Models\Product;
+use App\Models\Warehouse;
 use App\Services\LanguageService;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -167,6 +172,65 @@ class ProductResource extends Resource
                         ]),
 
                     // ── Pricing ─────────────────────────────────
+                    // ── Main category, owner, mine, warehouse, sale ──
+                    Forms\Components\Tabs\Tab::make('دسته اصلی و انبار')
+                        ->icon('heroicon-o-building-storefront')
+                        ->schema([
+                            Forms\Components\Select::make('main_category_id')
+                                ->label('دسته اصلی')
+                                ->helperText('صادراتی / اره‌بری / قله‌بری — بازدیدکننده‌ها با همین فیلتر می‌کنند.')
+                                ->options(fn () => MainCategory::ordered()->get()->mapWithKeys(fn ($m) => [
+                                    $m->id => $m->getTranslation('name', 'fa', false) ?: $m->getTranslation('name', 'en', false),
+                                ]))
+                                ->required()
+                                ->default(fn () => MainCategory::defaultId())
+                                ->native(false),
+
+                            Forms\Components\Section::make('فقط برای مدیریت — به بازدیدکننده‌ها نمایش داده نمی‌شود')
+                                ->icon('heroicon-o-lock-closed')
+                                ->visible(fn () => StoneSaleActions::allowed())
+                                ->columns(3)
+                                ->schema([
+                                    Forms\Components\Select::make('owner_id')
+                                        ->label('مالک')
+                                        ->relationship('owner', 'name')
+                                        ->searchable()->preload()
+                                        ->createOptionForm([
+                                            Forms\Components\TextInput::make('name')->label('نام')->required()->maxLength(150),
+                                            Forms\Components\TextInput::make('phone')->label('تلفن')->tel()->maxLength(40),
+                                        ]),
+                                    Forms\Components\Select::make('mine_id')
+                                        ->label('معدن')
+                                        ->relationship('mine', 'name')
+                                        ->searchable()->preload()
+                                        ->createOptionForm([
+                                            Forms\Components\TextInput::make('name')->label('نام')->required()->maxLength(150),
+                                            Forms\Components\TextInput::make('location')->label('محل')->maxLength(191),
+                                        ]),
+                                    Forms\Components\Select::make('warehouse_id')
+                                        ->label('انبار')
+                                        ->relationship('warehouse', 'name')
+                                        ->searchable()->preload()
+                                        ->createOptionForm([
+                                            Forms\Components\TextInput::make('name')->label('نام')->required()->maxLength(150),
+                                            Forms\Components\TextInput::make('location')->label('محل')->maxLength(191),
+                                        ]),
+                                ]),
+
+                            Forms\Components\Section::make('فروش')
+                                ->description('با تغییر وضعیت به «فروخته‌شده» تاریخ فروش خودکار ثبت می‌شود؛ مبلغ و خریدار را اینجا (یا با دکمهٔ «ثبت فروش» در فهرست) وارد کنید.')
+                                ->icon('heroicon-o-banknotes')
+                                ->visible(fn () => StoneSaleActions::allowed())
+                                ->columns(4)
+                                ->collapsed(fn (?Product $record) => ! $record?->isSold())
+                                ->schema([
+                                    Forms\Components\DateTimePicker::make('sold_at')->label('تاریخ فروش')->seconds(false),
+                                    Forms\Components\TextInput::make('sold_price')->label('مبلغ فروش')->numeric()->minValue(0),
+                                    Forms\Components\Select::make('sold_currency')->label('واحد پول')->options(StoneSaleActions::CURRENCIES),
+                                    Forms\Components\TextInput::make('sold_to')->label('خریدار')->maxLength(191),
+                                ]),
+                        ]),
+
                     Forms\Components\Tabs\Tab::make(__('admin.price'))
                         ->schema([
                             Forms\Components\Grid::make(3)
@@ -523,6 +587,39 @@ class ProductResource extends Resource
                         default       => $state,
                     }),
 
+                Tables\Columns\TextColumn::make('mainCategory.name')
+                    ->label('دسته اصلی')
+                    ->badge()
+                    ->color('info')
+                    ->getStateUsing(fn (Product $record) => $record->mainCategory
+                        ? ($record->mainCategory->getTranslation('name', 'fa', false) ?: $record->mainCategory->getTranslation('name', 'en', false))
+                        : null)
+                    ->placeholder('—'),
+
+                Tables\Columns\TextColumn::make('warehouse.name')
+                    ->label('انبار')
+                    ->placeholder('—')
+                    ->visible(fn () => StoneSaleActions::allowed()),
+
+                Tables\Columns\TextColumn::make('owner.name')
+                    ->label('مالک')
+                    ->placeholder('—')
+                    ->visible(fn () => StoneSaleActions::allowed())
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('mine.name')
+                    ->label('معدن')
+                    ->placeholder('—')
+                    ->visible(fn () => StoneSaleActions::allowed())
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('sold_at')
+                    ->label('تاریخ فروش')
+                    ->dateTime('Y-m-d')
+                    ->placeholder('—')
+                    ->visible(fn () => StoneSaleActions::allowed())
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('admin.price') . ' (﷼)')
                     ->money('IRR')
@@ -561,6 +658,38 @@ class ProductResource extends Resource
                         'sold'        => __('admin.sold'),
                     ]),
 
+                Tables\Filters\SelectFilter::make('main_category_id')
+                    ->label('دسته اصلی')
+                    ->options(fn () => MainCategory::ordered()->get()->mapWithKeys(fn ($m) => [
+                        $m->id => $m->getTranslation('name', 'fa', false) ?: $m->getTranslation('name', 'en', false),
+                    ])),
+
+                Tables\Filters\TernaryFilter::make('sold')
+                    ->label('فروش')
+                    ->placeholder('همه')
+                    ->trueLabel('فروخته‌شده')
+                    ->falseLabel('فروخته‌نشده')
+                    ->queries(
+                        true: fn (Builder $q) => $q->where('status', 'sold'),
+                        false: fn (Builder $q) => $q->where('status', '!=', 'sold'),
+                        blank: fn (Builder $q) => $q,
+                    ),
+
+                Tables\Filters\SelectFilter::make('warehouse_id')
+                    ->label('انبار')
+                    ->options(fn () => Warehouse::orderBy('name')->pluck('name', 'id'))
+                    ->visible(fn () => StoneSaleActions::allowed()),
+
+                Tables\Filters\SelectFilter::make('owner_id')
+                    ->label('مالک')
+                    ->options(fn () => Owner::orderBy('name')->pluck('name', 'id'))
+                    ->visible(fn () => StoneSaleActions::allowed()),
+
+                Tables\Filters\SelectFilter::make('mine_id')
+                    ->label('معدن')
+                    ->options(fn () => Mine::orderBy('name')->pluck('name', 'id'))
+                    ->visible(fn () => StoneSaleActions::allowed()),
+
                 Tables\Filters\TernaryFilter::make('is_featured')
                     ->label(__('admin.is_featured')),
 
@@ -578,6 +707,9 @@ class ProductResource extends Resource
                     ->preload(),
             ])
             ->actions([
+                StoneSaleActions::recordSale(),
+                StoneSaleActions::cancelSale(),
+
                 Tables\Actions\EditAction::make()
                     ->label(__('admin.edit')),
 
@@ -619,6 +751,27 @@ class ProductResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
                         ->label(__('admin.delete')),
+
+                    Tables\Actions\BulkAction::make('assignInventory')
+                        ->label('تنظیم گروهی دسته/مالک/معدن/انبار')
+                        ->icon('heroicon-o-building-storefront')
+                        ->visible(fn () => StoneSaleActions::allowed())
+                        ->modalDescription('فقط فیلدهایی که پر کنید روی سنگ‌های انتخاب‌شده اعمال می‌شود؛ بقیه دست‌نخورده می‌مانند.')
+                        ->form([
+                            Forms\Components\Select::make('main_category_id')->label('دسته اصلی')
+                                ->options(fn () => MainCategory::ordered()->get()->mapWithKeys(fn ($m) => [$m->id => $m->getTranslation('name', 'fa', false) ?: $m->getTranslation('name', 'en', false)])),
+                            Forms\Components\Select::make('owner_id')->label('مالک')->options(fn () => Owner::orderBy('name')->pluck('name', 'id'))->searchable(),
+                            Forms\Components\Select::make('mine_id')->label('معدن')->options(fn () => Mine::orderBy('name')->pluck('name', 'id'))->searchable(),
+                            Forms\Components\Select::make('warehouse_id')->label('انبار')->options(fn () => Warehouse::orderBy('name')->pluck('name', 'id'))->searchable(),
+                        ])
+                        ->action(function ($records, array $data) {
+                            $changes = array_filter($data, fn ($v) => filled($v));
+
+                            if ($changes) {
+                                $records->each->update($changes);
+                            }
+                        })
+                        ->deselectRecordsAfterCompletion(),
 
                     Tables\Actions\BulkAction::make('activate')
                         ->label(__('admin.activate'))

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ReservationRequestResource\Pages;
+use App\Filament\Support\StoneSaleActions;
 use App\Models\ReservationRequest;
 use Carbon\Carbon;
 use Filament\Forms;
@@ -283,8 +284,9 @@ class ReservationRequestResource extends Resource
                     ->visible(fn (ReservationRequest $record) => $record->stage === 'deposit_paid')
                     ->requiresConfirmation()
                     ->modalDescription(__('admin.final_paid_confirm'))
-                    ->action(function (ReservationRequest $record) {
-                        $record->markFinalPaid();
+                    ->form(fn (ReservationRequest $record) => StoneSaleActions::saleForm($record->deposit_currency ?: 'USD', $record->name))
+                    ->action(function (ReservationRequest $record, array $data) {
+                        $record->markFinalPaid(StoneSaleActions::saleData($data));
 
                         Notification::make()
                             ->title(__('admin.final_paid_recorded'))

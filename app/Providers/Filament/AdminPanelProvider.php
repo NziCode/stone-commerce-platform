@@ -397,6 +397,10 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()
                     ->label(fn () => __('admin.products')),
 
+                // owners, mines, warehouses, sales and the stock reports (administrators only)
+                NavigationGroup::make()
+                    ->label('انبار و فروش'),
+
                 NavigationGroup::make()
                     ->label(fn () => __('admin.orders')),
 
