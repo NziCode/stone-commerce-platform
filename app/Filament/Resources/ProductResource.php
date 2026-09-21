@@ -708,6 +708,7 @@ class ProductResource extends Resource
             ])
             ->actions([
                 StoneSaleActions::recordSale(),
+                StoneSaleActions::editSale(),
                 StoneSaleActions::cancelSale(),
 
                 Tables\Actions\EditAction::make()

@@ -66,6 +66,7 @@ class StoneSalesTableWidget extends BaseWidget
             ])
             ->actions([
                 StoneSaleActions::recordSale(),
+                StoneSaleActions::editSale(),
                 StoneSaleActions::cancelSale(),
             ])
             ->defaultPaginationPageOption(10)

@@ -143,6 +143,71 @@ class InventoryAdminTest extends TestCase
         $this->assertNull($back->sold_price);
     }
 
+    public function test_the_details_of_a_recorded_sale_can_be_edited_from_the_list_the_dashboard_and_the_product_form(): void
+    {
+        $yard = Warehouse::create(['name' => 'Yard A']);
+        $stone = $this->stone(['warehouse_id' => $yard->id, 'slug' => ['fa' => 'sang-edit', 'en' => 'stone-edit']]);
+        $stone->markAsSold();   // sold without a price or a buyer, like a stone recorded in a hurry
+
+        $this->assertNull($stone->fresh()->sold_price);
+        $soldAt = $stone->fresh()->sold_at;
+
+        // from the product list
+        Livewire::test(ListProducts::class)
+            ->assertTableActionVisible('editSale', $stone->getKey())
+            ->assertTableActionHidden('recordSale', $stone->getKey())
+            ->callTableAction('editSale', $stone->getKey(), data: [
+                'sold_at' => '2026-08-01 10:30', 'sold_price' => 12500, 'sold_currency' => 'EUR', 'sold_to' => 'First Buyer',
+            ])
+            ->assertHasNoTableActionErrors();
+
+        $edited = $stone->fresh();
+        $this->assertSame('sold', $edited->status, 'it stays sold');
+        $this->assertSame('12500.00', (string) $edited->sold_price);
+        $this->assertSame('EUR', $edited->sold_currency);
+        $this->assertSame('First Buyer', $edited->sold_to);
+        $this->assertSame('2026-08-01 10:30', $edited->sold_at->format('Y-m-d H:i'));
+        $this->assertNotSame($soldAt->format('Y-m-d H:i'), $edited->sold_at->format('Y-m-d H:i'));
+        $this->assertSame($yard->id, $edited->sold_warehouse_id, 'the warehouse it left is kept');
+
+        // the form is filled with what is stored, and clearing the price also clears its currency
+        Livewire::test(ListProducts::class)
+            ->mountTableAction('editSale', $stone->getKey())
+            ->assertTableActionDataSet(['sold_price' => '12500.00', 'sold_currency' => 'EUR', 'sold_to' => 'First Buyer'])
+            ->setTableActionData(['sold_at' => '2026-08-01 10:30', 'sold_price' => null, 'sold_currency' => 'EUR', 'sold_to' => null])
+            ->callMountedTableAction()
+            ->assertHasNoTableActionErrors();
+
+        $cleared = $stone->fresh();
+        $this->assertSame('sold', $cleared->status);
+        $this->assertNull($cleared->sold_price);
+        $this->assertNull($cleared->sold_currency);
+        $this->assertNull($cleared->sold_to);
+
+        // from the dashboard table
+        Livewire::test(StoneSalesTableWidget::class)
+            ->assertTableActionVisible('editSale', $stone->getKey())
+            ->callTableAction('editSale', $stone->getKey(), data: ['sold_at' => '2026-08-02 09:00', 'sold_price' => 900, 'sold_currency' => 'USD', 'sold_to' => 'Second Buyer'])
+            ->assertHasNoTableActionErrors();
+        $this->assertSame('Second Buyer', $stone->fresh()->sold_to);
+
+        // an unsold stone has nothing to edit
+        $free = $this->stone();
+        Livewire::test(ListProducts::class)->assertTableActionHidden('editSale', $free->getKey());
+
+        // the product edit form carries the same fields, and saving it keeps the stone sold
+        Livewire::test(EditProduct::class, ['record' => $stone->getKey()])
+            ->assertFormFieldExists('sold_price')
+            ->fillForm(['sold_price' => 777, 'sold_currency' => 'USD', 'sold_to' => 'Form Buyer'])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $viaForm = $stone->fresh();
+        $this->assertSame('sold', $viaForm->status);
+        $this->assertSame('777.00', (string) $viaForm->sold_price);
+        $this->assertSame('Form Buyer', $viaForm->sold_to);
+    }
+
     public function test_the_product_list_filters_sold_and_unsold_stones(): void
     {
         $open = $this->stone();
@@ -231,7 +296,12 @@ class InventoryAdminTest extends TestCase
         $this->assertFalse(StoneSalesOverview::canView());
         $this->assertFalse(WarehouseInventoryWidget::canView());
         $this->assertFalse(StoneSalesTableWidget::canView());
+
+        $sold = $this->stone();
+        $sold->markAsSold();
+        Livewire::test(ListProducts::class)->assertTableActionHidden('editSale', $sold->getKey());
     }
+
     public function test_the_product_form_carries_main_category_owner_mine_warehouse_and_hides_the_private_ones_from_editors(): void
     {
         $stone = $this->stone(['slug' => ['fa' => 'sang-form', 'en' => 'stone-form']]);   // the form requires the Persian slug

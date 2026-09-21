@@ -62,6 +62,33 @@ class StoneSaleActions
             });
     }
 
+    /** Change the details of a sale that was already recorded (date, price, currency, buyer); the stone stays sold. */
+    public static function editSale(): Tables\Actions\Action
+    {
+        return Tables\Actions\Action::make('editSale')
+            ->label('ویرایش فروش')
+            ->icon('heroicon-o-pencil-square')
+            ->color('warning')
+            ->visible(fn (Product $record) => static::allowed() && $record->status === 'sold')
+            ->modalHeading('ویرایش اطلاعات فروش')
+            ->modalDescription('سنگ همچنان «فروخته‌شده» می‌ماند و فقط اطلاعات فروش عوض می‌شود. مبلغ و خریدار را می‌توانید خالی بگذارید.')
+            ->fillForm(fn (Product $record) => [
+                'sold_at'       => $record->sold_at,
+                'sold_price'    => $record->sold_price,
+                'sold_currency' => $record->sold_currency ?: 'USD',
+                'sold_to'       => $record->sold_to,
+            ])
+            ->form([
+                Forms\Components\DateTimePicker::make('sold_at')->label('تاریخ فروش')->seconds(false)->required(),
+                ...static::saleForm(),
+            ])
+            ->action(function (Product $record, array $data) {
+                $record->update(static::saleData($data));
+
+                Notification::make()->title('اطلاعات فروش ذخیره شد')->success()->send();
+            });
+    }
+
     public static function cancelSale(): Tables\Actions\Action
     {
         return Tables\Actions\Action::make('cancelSale')
