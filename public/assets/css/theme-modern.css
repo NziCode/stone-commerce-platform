@@ -1171,3 +1171,31 @@ body{ background:var(--stone-50); }
 
 /* thin rule between the groups and the stone types inside the Products dropdown */
 .drop-menu li.mt-menu-sep{ height:1px; margin:.35rem 1rem; padding:0; background:rgba(11,33,71,.12); pointer-events:none; }
+
+/* ==========================================================================
+   PRICE INQUIRY — the "Request a quote" button on cards and its pop-up
+   ========================================================================== */
+.mt-pcard-inquiry{
+  display:inline-flex; align-items:center; justify-content:center; gap:.4rem; padding:.55rem 1.15rem; border-radius:var(--radius-pill);
+  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; font-weight:800; font-size:.85rem; line-height:1.2;
+  text-decoration:none; box-shadow:0 8px 18px -10px rgba(255,90,31,.7); transition:transform .18s ease, box-shadow .18s ease;
+}
+.mt-pcard-inquiry:hover{ color:#fff; transform:translateY(-2px); box-shadow:0 12px 22px -10px rgba(255,90,31,.8); }
+
+.mt-inq-stone{ font-size:.8rem; color:var(--stone-500); margin-top:.2rem; }
+.mt-inq-intro{ font-size:.85rem; color:var(--stone-700); line-height:1.85; margin:0 0 .95rem; }
+.mt-inq-quick{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+.mt-inq-quick .mt-btn{ justify-content:center; padding-inline:.6rem; font-size:.85rem; }
+.mt-inq-quick .mt-inq-wa{ background:#25d366; border-color:#25d366; color:#04371c; font-weight:800; }
+.mt-inq-quick .mt-inq-wa[hidden]{ display:none; }
+.mt-inq-quick .mt-inq-wa[hidden] ~ .mt-btn{ grid-column:1 / -1; }
+.mt-inq-or{ display:flex; align-items:center; gap:.7rem; margin:1.1rem 0 .9rem; font-size:.76rem; color:var(--stone-500); }
+.mt-inq-or::before, .mt-inq-or::after{ content:""; flex:1; height:1px; background:var(--stone-200); }
+.mt-inq-label{ display:block; font-size:.8rem; font-weight:600; color:var(--ink); margin:0 0 .35rem; }
+.mt-inq-input{ display:block; width:100%; border:1px solid var(--stone-200); border-radius:8px; padding:.6rem .8rem; font-family:inherit; margin-bottom:.8rem; background:#fff; }
+.mt-inq-input:focus{ outline:0; border-color:var(--brand); box-shadow:0 0 0 3px var(--brand-soft); }
+.mt-inq-error{ background:#fdecea; color:#b3261e; border-radius:8px; padding:.55rem .8rem; font-size:.82rem; margin-top:.9rem; }
+.mt-inq-error[hidden]{ display:none; }
+.mt-inq-done{ text-align:center; padding:1.6rem 1.4rem 1.4rem; }
+.mt-inq-done[hidden]{ display:none; }
+.mt-inq-done p{ font-size:.92rem; color:var(--stone-700); line-height:1.9; margin:.7rem 0 1.1rem; }

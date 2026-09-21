@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use App\Support\StoneCardSpecs;
+use Database\Seeders\InquiryTranslationSeeder;
 use Database\Seeders\LanguageSeeder;
 use Database\Seeders\MainCategoryTranslationSeeder;
 use Database\Seeders\MenuItemSeeder;
@@ -51,7 +52,7 @@ class StorefrontCardSpecsTest extends TestCase
         $this->seed([
             LanguageSeeder::class, SettingSeeder::class, MenuSeeder::class, MenuItemSeeder::class,
             TranslationSeeder::class, ReservationTranslationSeeder::class, ReservationFlowTranslationSeeder::class,
-            MobileUxTranslationSeeder::class, MainCategoryTranslationSeeder::class, RolePermissionSeeder::class,
+            MobileUxTranslationSeeder::class, MainCategoryTranslationSeeder::class, InquiryTranslationSeeder::class, RolePermissionSeeder::class,
         ]);
 
         Cache::forget('cart.enabled');
@@ -175,5 +176,33 @@ class StorefrontCardSpecsTest extends TestCase
         $unavailable = $this->visit('/categories/filter-cat?status=unavailable')->assertOk()->getContent();
         $this->assertStringContainsString('Echo Sold', $unavailable);
         $this->assertStringNotContainsString('Foxtrot Available', $unavailable);
+    }
+
+    public function test_a_price_on_request_card_offers_the_quote_button_and_a_set_price_shows_the_amount(): void
+    {
+        $category = Category::create(['name' => ['fa' => 'تراورتن', 'en' => 'Price Cat'], 'slug' => ['fa' => 'price-fa', 'en' => 'price-cat'], 'is_active' => true]);
+        $onRequest = $this->stone('On Request Stone', 'available', ['is_featured' => true]);
+        $priced = $this->stone('Priced Stone', 'available', ['is_featured' => true, 'price_on_request' => false, 'price' => 5000000, 'price_usd' => 120]);
+        $category->products()->attach([$onRequest->id, $priced->id]);
+
+        $request = trans('messages.price_on_request', [], 'en');
+        $label = trans('messages.price', [], 'en');
+
+        // home: the featured and latest cards
+        $home = $this->visit('/')->assertOk()->getContent();
+        $this->assertStringNotContainsString($request, $home, "no \"{$request}\" text: the button is the price line");
+        $this->assertStringContainsString('class="mt-pcard-inquiry"', $home);
+        $this->assertStringNotContainsString("<small>{$label}</small>", $home, "no separate \"{$label}\" label");
+        $this->assertStringContainsString('5,000,000', $home);
+        $this->assertStringContainsString('<small>$120</small>', $home, 'the dollar price sits under the amount');
+
+        // product list and category page: the same
+        foreach (['/products', '/categories/price-cat'] as $uri) {
+            $html = $this->visit($uri)->assertOk()->getContent();
+
+            $this->assertStringNotContainsString($request, $html, "no \"{$request}\" text on {$uri}");
+            $this->assertStringContainsString('data-inquiry-url="' . route('products.inquiry', $onRequest) . '"', $html, "the quote button on {$uri}");
+            $this->assertStringContainsString('5,000,000', $html, "the set price on {$uri}");
+        }
     }
 }

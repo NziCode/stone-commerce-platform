@@ -385,10 +385,8 @@
                                 {{ $product->getTranslation('name', $locale) }}
                             </h1>
 
-                            {{-- Price --}}
-                            @if($product->price_on_request)
-                                <p style="font-size:.9rem;color:var(--stone-500);font-style:italic;margin:0 0 1rem">{{ __('messages.price_on_request') }}</p>
-                            @elseif($product->price_usd || $product->price)
+                            {{-- Price (a stone whose price is on request shows none: the "Request a quote" button below is the way to get it) --}}
+                            @if(! $product->price_on_request && ($product->price_usd || $product->price))
                                 <div style="margin-bottom:1rem">
                                     @if($product->price_usd)
                                         <span style="font-size:1.6rem;font-weight:800;color:var(--ink)">${{ number_format($product->price_usd) }}</span>
@@ -443,11 +441,7 @@
                                     </a>
                                 @endif
 
-                                <a href="{{ route('contact') }}?product={{ $product->sku }}"
-                                   class="mt-btn mt-btn-primary" style="width:100%;justify-content:center">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                                    {{ __('messages.inquiry') }}
-                                </a>
+                                @include('front.components.inquiry-button', ['product' => $product, 'class' => 'mt-btn mt-btn-primary', 'block' => true])
 
                                 @if($product->isAvailable())
                                     {{-- only stones with a fixed price go into the cart; the others are asked about and reserved --}}

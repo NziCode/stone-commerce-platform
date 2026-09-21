@@ -51,16 +51,7 @@
             @include('front.components.card-specs', ['product' => $product])
 
             <div class="mt-pcard-foot">
-                <span class="mt-price">
-                    @if($product->price_on_request)
-                        <small>{{ __('messages.price') }}</small>{{ __('messages.price_on_request') }}
-                    @elseif($product->price)
-                        {{ number_format($product->price) }} {{ __('messages.currency_rial') }}
-                        @if($product->price_usd)
-                            <small>${{ number_format($product->price_usd, 0) }}</small>
-                        @endif
-                    @endif
-                </span>
+                @include('front.components.card-price', ['product' => $product])
                 @if($product->isPurchasable())
                     <form action="{{ route('cart.add', $product) }}" method="POST">
                         @csrf

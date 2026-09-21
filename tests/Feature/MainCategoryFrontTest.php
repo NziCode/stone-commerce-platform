@@ -11,6 +11,7 @@ use App\Models\Owner;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\Warehouse;
+use Database\Seeders\InquiryTranslationSeeder;
 use Database\Seeders\LanguageSeeder;
 use Database\Seeders\MainCategoryTranslationSeeder;
 use Database\Seeders\MenuItemSeeder;
@@ -56,7 +57,7 @@ class MainCategoryFrontTest extends TestCase
         $this->seed([
             LanguageSeeder::class, SettingSeeder::class, MenuSeeder::class, MenuItemSeeder::class,
             TranslationSeeder::class, ReservationTranslationSeeder::class, ReservationFlowTranslationSeeder::class,
-            MobileUxTranslationSeeder::class, MainCategoryTranslationSeeder::class, RolePermissionSeeder::class,
+            MobileUxTranslationSeeder::class, MainCategoryTranslationSeeder::class, InquiryTranslationSeeder::class, RolePermissionSeeder::class,
         ]);
 
         Cache::forget('cart.enabled');

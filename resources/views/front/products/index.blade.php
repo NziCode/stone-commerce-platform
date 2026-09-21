@@ -371,22 +371,21 @@
                                             </h2>
                                             @include('front.components.card-specs', ['product' => $product])
                                             <div class="sc-divider"></div>
-                                            <div class="sc-prices">
-                                                @if($product->price_on_request)
-                                                    <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
-                                                @else
+                                            {{-- a stone whose price is on request shows no price here: its "Request a quote" button below is the way to get it --}}
+                                            @unless($product->price_on_request)
+                                                <div class="sc-prices">
                                                     @if($product->price)<span class="sc-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</span>@endif
                                                     <div class="sc-price-sub">
                                                         @if($product->price_usd)<span class="sc-price-usd">${{ number_format($product->price_usd) }}</span>@endif
                                                         @if($product->price_eur)<span class="sc-price-eur">€{{ number_format($product->price_eur) }}</span>@endif
                                                     </div>
-                                                @endif
-                                            </div>
+                                                </div>
+                                            @endunless
                                             <div class="sc-foot">
                                                 <span class="sc-status sc-status-{{ $product->status === 'available' ? 'av' : ($product->status === 'sold' ? 'so' : ($product->status === 'reserved' ? 're' : 'un')) }}">{{ $product->status_label }}</span>
                                                 <div class="sc-actions">
                                                     <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}" class="sc-btn sc-btn-ink">{{ __('messages.view_details') }}</a>
-                                                    <a href="{{ route('contact') }}?product={{ $product->sku }}" class="sc-btn sc-btn-primary">{{ __('messages.inquiry') }}</a>
+                                                    @include('front.components.inquiry-button', ['product' => $product, 'class' => 'sc-btn sc-btn-primary'])
                                                 </div>
                                             </div>
                                         </div>
@@ -417,19 +416,17 @@
                                             </div>
                                             <div class="pl-right">
                                                 <div>
-                                                    @if($product->price_on_request)
-                                                        <span class="sc-price-req">{{ __('messages.price_on_request') }}</span>
-                                                    @else
+                                                    @unless($product->price_on_request)
                                                         @if($product->price)<div class="pl-price-rial">{{ number_format($product->price) }} {{ __('messages.currency_rial') }}</div>@endif
                                                         <div class="pl-price-sub">
                                                             @if($product->price_usd)${{ number_format($product->price_usd) }}@endif
                                                             @if($product->price_eur) · €{{ number_format($product->price_eur) }}@endif
                                                         </div>
-                                                    @endif
+                                                    @endunless
                                                     <span class="sc-status sc-status-{{ $product->status === 'available' ? 'av' : ($product->status === 'sold' ? 'so' : ($product->status === 'reserved' ? 're' : 'un')) }}" style="margin-top:6px;display:inline-flex;">{{ $product->status_label }}</span>
                                                 </div>
                                                 <div class="pl-btns">
-                                                    <a href="{{ route('contact') }}?product={{ $product->sku }}" class="pl-btn pl-btn-primary">{{ __('messages.inquiry') }}</a>
+                                                    @include('front.components.inquiry-button', ['product' => $product, 'class' => 'pl-btn pl-btn-primary'])
                                                     <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}" class="pl-btn pl-btn-ghost">{{ __('messages.view_details') }}</a>
                                                 </div>
                                             </div>
