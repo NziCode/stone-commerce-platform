@@ -66,10 +66,6 @@
         .sc-name{font-size:14px;font-weight:700;color:#00225a;line-height:1.4;margin:0;}
         .sc-name a{color:inherit;text-decoration:none;}
         .sc-name a:hover{color:#ff5e13;}
-        .sc-dims{display:flex;gap:5px;flex-wrap:wrap;}
-        .sc-dim{display:inline-flex;align-items:center;gap:3px;background:#f4f6fa;border:0.5px solid #e8eaf0;padding:3px 8px;border-radius:20px;font-size:11px;}
-        .sc-dim-k{color:#888;}
-        .sc-dim-v{color:#00225a;font-weight:700;}
         .sc-divider{height:0.5px;background:#eef0f4;margin:1px 0;}
         .sc-prices{display:flex;flex-direction:column;gap:2px;margin-top:auto;}
         .sc-price-rial{font-size:20px;font-weight:800;color:#00225a;line-height:1.1;}
@@ -241,7 +237,7 @@
                         <div class="sidebar-widget sidebar-common mb-8" data-bg-color="#f4f8ff">
                             <h3 class="sidebar-title mb-5">{{ __('messages.status') }}</h3>
                             <ul class="category-tree">
-                                @foreach(['available' => 'product_available', 'reserved' => 'product_reserved', 'unavailable' => 'product_unavailable'] as $val => $key)
+                                @foreach(['available' => 'product_available', 'reserved' => 'product_reserved', 'sold' => 'product_sold', 'unavailable' => 'product_unavailable'] as $val => $key)
                                     <li>
                                         <div class="cat-row">
                                             <a href="{{ request()->fullUrlWithQuery(['status' => $val]) }}"
@@ -349,12 +345,7 @@
                     @if($products->count())
                         <div class="product-wrap row" id="products-container">
                             @foreach($products as $product)
-                            @php
-                                $cardAttrs = $product->attributes
-                                    ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
-                                    ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
-                                $locale = app()->getLocale();
-                            @endphp
+                            @php $locale = app()->getLocale(); @endphp
 
                                 {{-- ══ GRID CARD ══ --}}
                                 <div class="col-md-4 col-sm-6 mb-8 product-col">
@@ -378,16 +369,7 @@
                                             <h2 class="sc-name">
                                                 <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                             </h2>
-                                            @if($cardAttrs->isNotEmpty())
-                                                <div class="sc-dims">
-                                                    @foreach($cardAttrs as $pa)
-                                                        <span class="sc-dim">
-                                                            <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
-                                                            <span class="sc-dim-v"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
-                                                        </span>
-                                                    @endforeach
-                                                </div>
-                                            @endif
+                                            @include('front.components.card-specs', ['product' => $product])
                                             <div class="sc-divider"></div>
                                             <div class="sc-prices">
                                                 @if($product->price_on_request)
@@ -431,16 +413,7 @@
                                                 @if($product->getTranslation('short_description', $locale))
                                                     <p class="pl-desc">{{ Str::limit($product->getTranslation('short_description', $locale), 160) }}</p>
                                                 @endif
-                                                @if($cardAttrs->isNotEmpty())
-                                                    <div class="sc-dims" style="margin-top:4px;">
-                                                        @foreach($cardAttrs as $pa)
-                                                            <span class="sc-dim">
-                                                                <span class="sc-dim-k">{{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}</span>
-                                                                <span class="sc-dim-v"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
-                                                            </span>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
+                                                @include('front.components.card-specs', ['product' => $product])
                                             </div>
                                             <div class="pl-right">
                                                 <div>

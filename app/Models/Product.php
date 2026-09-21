@@ -217,6 +217,17 @@ class Product extends Model implements HasMedia
         return $q->where('status', 'available');
     }
 
+    /**
+     * The storefront's status filter. "Unavailable" means anything that cannot be bought, so it lists the
+     * stones marked unavailable as well as the sold ones; every other value is matched as it is.
+     */
+    public function scopeWithStatus($q, ?string $status)
+    {
+        return $status === 'unavailable'
+            ? $q->whereIn('status', ['unavailable', 'sold'])
+            : $q->where('status', $status);
+    }
+
     public function scopeFeatured($q)
     {
         return $q->where('is_featured', true);

@@ -25,7 +25,7 @@ class ProductController extends Controller
 
         // Status filter
         if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            $query->withStatus($request->status);
         }
 
         // Category filter
@@ -89,7 +89,7 @@ class ProductController extends Controller
 
         // Status filter
         if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            $query->withStatus($request->status);
         }
 
         // Search

@@ -246,11 +246,6 @@
                     <div class="swiper-container project-slider" style="position:relative;z-index:1">
                         <div class="swiper-wrapper">
                             @foreach($featuredProducts as $product)
-                                @php
-                                    $cardAttributes = $product->attributes
-                                        ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
-                                        ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
-                                @endphp
                                 <div class="swiper-slide" style="width:280px">
                                     <div class="mt-pcard" style="background:#fff">
                                         <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
@@ -262,18 +257,7 @@
                                             <h3 class="mt-pcard-title">
                                                 <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                             </h3>
-                                            @if($cardAttributes->isNotEmpty())
-                                                <ul class="mt-pcard-attrs">
-                                                    @foreach($cardAttributes as $pa)
-                                                        <li>
-                                                            <span class="mt-pcard-attr-label">
-                                                                {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
-                                                            </span>
-                                                            <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @endif
+                                            @include('front.components.card-specs', ['product' => $product])
                                             <div class="mt-pcard-foot">
                                                 <span class="mt-price">
                                                     @if($product->price_on_request)
@@ -323,29 +307,6 @@
                 <div class="swiper-container service-slider">
                     <div class="swiper-wrapper">
                         @foreach($latestProducts as $product)
-                            @php
-                                $cardAttributes = $product->attributes
-                                    ->filter(fn($pa) => $pa->attribute?->show_in_card && $pa->attribute?->is_active)
-                                    ->sortBy(fn($pa) => $pa->attribute?->sort_order ?? 999);
-
-                                $dimKeys = ['length', 'thickness', 'width'];
-                                $dimAttrs = $cardAttributes->filter(fn($pa) => in_array($pa->attribute?->key, $dimKeys));
-                                $weightAttr = $cardAttributes->first(fn($pa) => $pa->attribute?->key === 'weight');
-                                $otherAttributes = $cardAttributes->reject(
-                                    fn($pa) => in_array($pa->attribute?->key, [...$dimKeys, 'weight'])
-                                );
-
-                                $dimensionLine = $dimAttrs->isNotEmpty()
-                                    ? collect($dimKeys)
-                                        ->map(fn($key) => $dimAttrs->first(fn($pa) => $pa->attribute?->key === $key))
-                                        ->filter()
-                                        ->map(fn($pa) => $pa->value['value'] ?? null)
-                                        ->filter(fn($v) => $v !== null && $v !== '')
-                                        ->implode(' × ')
-                                    : null;
-
-                                $dimensionUnit = optional($dimAttrs->first())->attribute?->unit;
-                            @endphp
                             <div class="swiper-slide" style="width:280px">
                                 <div class="mt-pcard">
                                     <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
@@ -357,34 +318,7 @@
                                         <h3 class="mt-pcard-title">
                                             <a href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">{{ $product->getTranslation('name', $locale) }}</a>
                                         </h3>
-                                        @if($dimensionLine || $weightAttr || $otherAttributes->isNotEmpty())
-                                            <ul class="mt-pcard-attrs">
-                                                @if($dimensionLine)
-                                                    <li>
-                                                        <span class="mt-pcard-attr-label">{{ __('messages.dimensions') }}:</span>
-                                                        <span class="mt-pcard-attr-value">
-                                                            <bdi dir="ltr">{{ $dimensionLine }}{{ $dimensionUnit ? ' ' . $dimensionUnit : '' }}</bdi>
-                                                        </span>
-                                                    </li>
-                                                @endif
-                                                @if($weightAttr)
-                                                    <li>
-                                                        <span class="mt-pcard-attr-label">
-                                                            {{ $weightAttr->attribute->getTranslation('label', $locale, false) ?: $weightAttr->attribute->getTranslation('label', 'en', false) }}:
-                                                        </span>
-                                                        <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $weightAttr->display_value }}</bdi></span>
-                                                    </li>
-                                                @endif
-                                                @foreach($otherAttributes as $pa)
-                                                    <li>
-                                                        <span class="mt-pcard-attr-label">
-                                                            {{ $pa->attribute->getTranslation('label', $locale, false) ?: $pa->attribute->getTranslation('label', 'en', false) }}:
-                                                        </span>
-                                                        <span class="mt-pcard-attr-value"><bdi dir="ltr">{{ $pa->display_value }}</bdi></span>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
+                                        @include('front.components.card-specs', ['product' => $product])
                                         <div class="mt-pcard-foot">
                                             <span class="mt-price">
                                                 @if($product->price_on_request)

@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
         // Status filter
         if ($request->filled('status')) {
-            $query->where('status', $request->status);
+            $query->withStatus($request->status);
         }
 
         // Search
