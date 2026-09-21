@@ -16,6 +16,7 @@ use App\Http\Controllers\Front\ReviewController;
 use App\Http\Controllers\Front\PaymentController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\SearchController;
+use App\Http\Controllers\Front\ProductInquiryController;
 use App\Http\Controllers\Front\ReservationController;
 use App\Services\LanguageService;
 use Illuminate\Http\Request;
@@ -160,6 +161,9 @@ Route::group([
     // Throttled: each new pending request triggers an SMS notification (real
     // per-send cost), so this is also a cost-abuse surface, not just spam.
     Route::post('/products/{product}/reserve', [ReservationController::class, 'store'])->middleware('throttle:5,1')->name('reservation.store');
+
+    // Price inquiries ("Request a quote" on a stone) — same reasoning: each new request may trigger a paid SMS.
+    Route::post('/products/{product}/inquiry', [ProductInquiryController::class, 'store'])->middleware('throttle:5,1')->name('products.inquiry');
 
     // Cart
     Route::prefix('cart')->name('cart.')->group(function () {
