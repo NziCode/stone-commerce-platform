@@ -58,7 +58,13 @@
         <meta name="google-site-verification" content="{{ $gsc }}">
     @endif
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    @php $siteFavicon = \App\Models\Setting::get('site_favicon'); @endphp
+    @if($siteFavicon)
+        <link rel="icon" type="image/png" href="{{ asset($siteFavicon) }}">
+        <link rel="apple-touch-icon" href="{{ asset($siteFavicon) }}">
+    @else
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    @endif
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/ionicons.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/vendor/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.css') }}">

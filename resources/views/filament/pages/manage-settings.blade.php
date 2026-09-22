@@ -66,6 +66,28 @@ $fieldHelp = fn ($key) => '<p style="font-size:.7rem;color:#9ca3af;margin:.35rem
             <p style="font-size:.72rem;color:#9ca3af;margin:0 0 .4rem">{{ __('admin.site_tagline_help') }}</p>
             {{ $this->taglineForm }}
         </div>
+        <div style="{{ $gridStyle }}; margin-top:1.1rem">
+            <div>
+                <label style="{{ $labelStyle }}">{{ __('admin.site_logo') }}</label>
+                <input type="text" wire:model.defer="site_logo" class="{{ $inputClass }}" placeholder="assets/images/brand-en/logo.png">
+                {!! $fieldHelp('site_logo_help') !!}
+                @if($site_logo)
+                    <div style="margin-top:.5rem;padding:.6rem;background:#0b2147;border-radius:8px;display:inline-block">
+                        <img src="{{ asset($site_logo) }}" alt="" style="max-height:34px;display:block">
+                    </div>
+                @endif
+            </div>
+            <div>
+                <label style="{{ $labelStyle }}">{{ __('admin.site_favicon') }}</label>
+                <input type="text" wire:model.defer="site_favicon" class="{{ $inputClass }}" placeholder="assets/images/brand-en/favicon.png">
+                {!! $fieldHelp('site_favicon_help') !!}
+                @if($site_favicon)
+                    <div style="margin-top:.5rem">
+                        <img src="{{ asset($site_favicon) }}" alt="" style="max-height:28px;width:28px;object-fit:contain;border-radius:4px;border:1px solid #e5e7eb">
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
     <div style="{{ $sectionStyle }}">
         <h3 style="font-size:.9rem;font-weight:700;color:#111827;margin:0 0 1rem;padding-bottom:.7rem;border-bottom:1px solid #f3f4f6">{{ __('admin.contact_info') }}</h3>

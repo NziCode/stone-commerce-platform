@@ -52,7 +52,7 @@
             <div>
                 <a href="{{ route('home') }}" class="mt-logo" style="margin-bottom:1.1rem;display:inline-flex">
                     @if($siteLogo)
-                        <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}">
+                        <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}" class="mt-logo-invert">
                     @else
                         <span class="mt-logo-text">{{ $siteName }}</span>
                     @endif

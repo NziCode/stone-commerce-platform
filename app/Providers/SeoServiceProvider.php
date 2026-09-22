@@ -61,5 +61,9 @@ class SeoServiceProvider extends ServiceProvider
         if ($email = Setting::get('site_email')) {
             JsonLd::addValue('email', $email);
         }
+        // schema.org's recommended field for an Organization's mark, separate from the OG share image
+        if ($logo = Setting::get('site_logo')) {
+            JsonLd::addValue('logo', asset($logo));
+        }
     }
 }

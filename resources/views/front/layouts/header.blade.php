@@ -68,7 +68,7 @@
 
             <a href="{{ route('home') }}" class="mt-logo">
                 @if($siteLogo)
-                    <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}">
+                    <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}" class="mt-logo-invert">
                 @else
                     <span class="mt-logo-text">{{ $siteName }}<small>{{ __('messages.welcome') }}</small></span>
                 @endif
@@ -188,7 +188,11 @@
         <div class="offcanvas-body" style="background:var(--ink)">
             <div class="inner-body">
                 <div class="offcanvas-top" style="display:flex;justify-content:space-between;align-items:center;padding:1.2rem">
-                    <span class="mt-logo-text" style="color:#fff">{{ $siteName }}</span>
+                    @if($siteLogo)
+                        <img src="{{ asset($siteLogo) }}" alt="{{ $siteName }}" class="mt-logo-invert" style="max-height:32px">
+                    @else
+                        <span class="mt-logo-text" style="color:#fff">{{ $siteName }}</span>
+                    @endif
                     <a href="#" class="button-close" style="color:#fff;font-size:1.6rem;line-height:1">&times;</a>
                 </div>
                 <div class="offcanvas-menu_area">

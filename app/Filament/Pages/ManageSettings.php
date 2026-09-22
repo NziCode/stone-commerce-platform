@@ -48,6 +48,12 @@ class ManageSettings extends Page
     public string $site_map_lat         = '';
     public string $site_map_lng         = '';
 
+    // Path (relative to the public web root) of the header/footer/admin-panel logo and the
+    // browser-tab icon — e.g. "assets/images/brand/logo.png". Empty falls back to the site
+    // name text and the theme's default favicon, exactly as before these fields existed.
+    public string $site_logo            = '';
+    public string $site_favicon         = '';
+
     public array $meta_title            = [];
     public array $meta_description      = [];
 
@@ -112,6 +118,7 @@ class ManageSettings extends Page
             'site_name','site_tagline','site_email','site_phone',
             'site_working_hours','site_address',
             'site_map_lat','site_map_lng',
+            'site_logo','site_favicon',
         ],
         'seo' => [
             'meta_title','meta_description',

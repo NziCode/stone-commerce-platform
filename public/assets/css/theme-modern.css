@@ -477,6 +477,8 @@ body{ background:var(--stone-50); }
 
 .mt-footer-top{ padding-block:3.6rem 2.6rem; }
 .mt-footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:2.4rem; }
+/* the brand column has room to spare next to the menu columns' short lines - let the logo fill more of it than the 42px header/mobile-menu size allows */
+.mt-footer .mt-logo img{ max-height:110px; max-width:100%; }
 .mt-footer h4{ color:#fff; font-size:.95rem; font-weight:700; margin:0 0 1.2rem; }
 .mt-footer p{ font-size:.86rem; line-height:1.85; color:rgba(255,255,255,.62); }
 .mt-footer ul{ list-style:none; margin:0; padding:0; display:grid; gap:.65rem; }
@@ -1199,3 +1201,11 @@ body{ background:var(--stone-50); }
 .mt-inq-done{ text-align:center; padding:1.6rem 1.4rem 1.4rem; }
 .mt-inq-done[hidden]{ display:none; }
 .mt-inq-done p{ font-size:.92rem; color:var(--stone-700); line-height:1.9; margin:.7rem 0 1.1rem; }
+
+/* ==========================================================================
+   BRAND LOGO ON DARK BACKGROUNDS — header, footer, mobile menu
+   The uploaded logo is drawn once, in its own colour, on a transparent background; this turns
+   any such mark pure white so it stays legible on the navy header/footer/off-canvas menu,
+   without needing a second, pre-coloured file.
+   ========================================================================== */
+.mt-logo-invert{ filter: brightness(0) invert(1); }
