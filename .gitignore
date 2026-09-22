@@ -32,6 +32,8 @@ yarn-error.log
 *.zip
 *.tar.gz
 *.sql
+!database/sql/
+!database/sql/pedrini_news_seed.sql
 *.log
 
 # Real site/client content — see SettingSeeder.php for the (safe, committed) field definitions.
