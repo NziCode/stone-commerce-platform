@@ -9,6 +9,7 @@ class ProductStatusChart extends ChartWidget
 {
     protected static ?int $sort = 3;
     protected static bool $isLazy = true;
+    protected static ?string $pollingInterval = null;
 
     public function getHeading(): string
     {

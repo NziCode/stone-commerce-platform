@@ -11,6 +11,7 @@ class RevenueChart extends ChartWidget
     protected static ?int $sort = 4;
     protected int|string|array $columnSpan = 'full';
     protected static bool $isLazy = true;
+    protected static ?string $pollingInterval = null;
 
     public ?string $filter = '30';
 
