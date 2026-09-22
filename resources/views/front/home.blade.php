@@ -17,7 +17,10 @@
     $totalProducts = \App\Models\Product::count();
     $soldProducts  = \App\Models\Product::where('status','sold')->count();
     $totalCategories = \App\Models\Category::count();
-    $totalCustomers  = \App\Models\User::role('customer')->count();
+    // "customers" (registered accounts with the customer role) sat at 0 - buyers reach us through
+    // WhatsApp/reservation forms, not accounts - so these stats show what actually grows instead.
+    $totalEvents = \App\Models\Event::published()->count();
+    $totalNews   = \App\Models\Post::published()->count();
 @endphp
 
 @push('styles')
@@ -143,7 +146,7 @@
             <div class="mt-stat"><strong>{{ $aboutYears }}+</strong><span>{{ __('messages.experience_years') }}</span></div>
             <div class="mt-stat"><strong>{{ $totalProducts }}+</strong><span>{{ __('messages.products') }}</span></div>
             <div class="mt-stat"><strong>{{ $totalCategories }}+</strong><span>{{ __('messages.stone_categories') }}</span></div>
-            <div class="mt-stat"><strong>{{ $totalCustomers }}+</strong><span>{{ __('messages.happy_customers') }}</span></div>
+            <div class="mt-stat"><strong>{{ $totalEvents }}+</strong><span>{{ __('messages.events') }}</span></div>
         </div>
     </div>
 
@@ -340,7 +343,7 @@
                         ['count' => $totalProducts,   'label' => __('messages.products')],
                         ['count' => $soldProducts,    'label' => __('messages.product_sold')],
                         ['count' => $totalCategories, 'label' => __('messages.categories')],
-                        ['count' => $totalCustomers,  'label' => __('messages.customers')],
+                        ['count' => $totalNews,       'label' => __('messages.news')],
                     ];
                 @endphp
                 @foreach($stats as $stat)
