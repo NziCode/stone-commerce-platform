@@ -59,6 +59,7 @@
                         <div class="col-lg-8">
                             {{-- Main slider --}}
                             <div style="border-radius:var(--radius-lg);overflow:hidden;background:var(--stone-100);position:relative">
+                                @include('front.components.sold-stamp', ['product' => $product, 'size' => 'lg'])
                                 @if($hasGallery || $productVideo)
                                     <div class="swiper-container product-detail-slider" style="aspect-ratio:4/3">
                                         <div class="swiper-wrapper">
@@ -220,6 +221,7 @@
                                                 <img src="{{ $related->medium_image_url }}"
                                                      alt="{{ $related->getTranslation('name', $locale) }}"
                                                      loading="lazy">
+                                                @include('front.components.sold-stamp', ['product' => $related])
                                             </div>
                                             <div class="mt-pcard-body" style="padding:.9rem 1rem">
                                                 <p style="font-size:.84rem;font-weight:700;color:var(--ink);margin:0 0 .25rem;line-height:1.4">{{ Str::limit($related->getTranslation('name', $locale), 50) }}</p>

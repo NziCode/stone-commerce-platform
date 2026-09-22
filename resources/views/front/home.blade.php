@@ -254,6 +254,7 @@
                                         <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
                                             <img src="{{ $product->medium_image_url }}" alt="{{ $product->getTranslation('name', $locale) }}" loading="lazy">
                                             <span class="mt-pcard-status">{{ $product->status_label }}</span>
+                                            @include('front.components.sold-stamp', ['product' => $product])
                                         </a>
                                         <div class="mt-pcard-body">
                                             <span class="mt-pcard-cat">{{ $product->primaryCategory()?->getTranslation('name', $locale) ?? '' }}</span>
@@ -306,6 +307,7 @@
                                     <a class="mt-pcard-img" href="{{ route('products.show', $product->getTranslation('slug', $locale)) }}">
                                         <img src="{{ $product->medium_image_url }}" alt="{{ $product->getTranslation('name', $locale) }}" loading="lazy">
                                         <span class="mt-pcard-status">{{ $product->status_label }}</span>
+                                        @include('front.components.sold-stamp', ['product' => $product])
                                     </a>
                                     <div class="mt-pcard-body">
                                         <span class="mt-pcard-cat">{{ $product->primaryCategory()?->getTranslation('name', $locale) ?? '' }}</span>

@@ -32,6 +32,7 @@
                   style="color:{{ $product->status === 'available' ? '#1f9d55' : ($product->status === 'sold' ? '#e0473a' : '#e0a400') }}">
                 {{ $product->status_label }}
             </span>
+            @include('front.components.sold-stamp', ['product' => $product])
         </a>
 
         {{-- Body --}}

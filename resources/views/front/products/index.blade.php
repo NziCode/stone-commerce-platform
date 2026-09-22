@@ -361,6 +361,7 @@
                                                 @if($product->status === 'sold')<span class="sc-b sc-b-sold">{{ __('messages.product_sold') }}</span>@endif
                                                 @if($product->status === 'reserved')<span class="sc-b sc-b-res">{{ __('messages.product_reserved') }}</span>@endif
                                             </div>
+                                            @include('front.components.sold-stamp', ['product' => $product])
                                         </div>
                                         <div class="sc-body">
                                             @if($product->primaryCategory())
@@ -400,6 +401,7 @@
                                                 <img src="{{ $product->medium_image_url ?? asset('assets/images/product/placeholder.jpg') }}"
                                                      alt="{{ $product->getTranslation('name', $locale) }}" loading="lazy">
                                             </a>
+                                            @include('front.components.sold-stamp', ['product' => $product])
                                         </div>
                                         <div class="pl-body">
                                             <div class="pl-info">
